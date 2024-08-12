@@ -2,7 +2,6 @@
 
 import { Button } from 'antd';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 import listApi from '~/api/listServices';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setList } from '~/redux/slices/listSlice';

@@ -20,9 +20,7 @@ export default async function RootLayout({ children }) {
         <AntdRegistry>
           <NextIntlClientProvider messages={messages}>
             <StoreProvider>
-              <AuthContextProvider>
-                <DynamicLayout>{children}</DynamicLayout>
-              </AuthContextProvider>
+              <DynamicLayout>{children}</DynamicLayout>
             </StoreProvider>
           </NextIntlClientProvider>
         </AntdRegistry>
