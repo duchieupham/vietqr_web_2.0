@@ -1,0 +1,92 @@
+{
+  "ignorePatterns": ["node_modules", "build"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "airbnb",
+    "next"
+  ],
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      },
+      "alias": {
+        "extensions": [".js", ".jsx"],
+        "map": [
+          ["~", "./src"],
+          ["~components", "./src/components"],
+          ["~utils", "./src/utils"],
+          ["~helpers", "./src/helpers"],
+          ["~hooks", "./src/hooks"],
+          ["~styles", "./src/styles"],
+          ["~api", "./src/api"],
+          ["~contexts", "./src/contexts"]
+        ]
+      }
+    }
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+   "operator-linebreak": [
+      "off"
+    ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "function-paren-newline": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "import/no-named-as-default": "off",
+    "import/no-cycle": "off",
+    "import/no-extraneous-dependencies": ["off"],
+    "import/prefer-default-export": "off",
+    "linebreak-style": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-constructed-context-values": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": ["arrow-function", "function-declaration"],
+        "unnamedComponents": ["arrow-function"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "no-param-reassign": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "implicit-arrow-linebreak": "off"
+  }
+}
