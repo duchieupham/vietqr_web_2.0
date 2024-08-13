@@ -1,4 +1,7 @@
 {
-    "title": "Tiêu đề",
-    "welcome": "Chào mừng"
+  "title": "Tiêu đề",
+  "welcome": "Chào mừng",
+  "phoneNumber": "Số điện thoại",
+  "loginForm": "Đăng nhập",
+  "password": "Mật khẩu"
 }

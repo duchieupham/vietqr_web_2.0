@@ -2,6 +2,8 @@
 
 import { Button } from 'antd';
 import { useTranslations } from 'next-intl';
+import { ButtonGradient } from '~/components/button';
+import { FormLogin } from '~/components/form';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 function Login() {
@@ -15,7 +17,7 @@ function Login() {
     <div>
       <h1>Login page</h1>
       <div>{t('welcome')}</div>
-      <Button onClick={submit}>Login</Button>
+      <FormLogin />
     </div>
   );
 }

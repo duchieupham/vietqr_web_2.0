@@ -14,7 +14,11 @@ function MainLayout({ children }) {
 
   return (
     <div>
-      <Flex style={{ justifyContent: 'space-between' }}>
+      <Flex
+        style={{
+          justifyContent: 'space-between',
+        }}
+      >
         <h1>Layout</h1>
         <div>
           {auth.session}

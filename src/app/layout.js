@@ -4,6 +4,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { AuthContextProvider } from '~/contexts/AuthContext';
 import StoreProvider from './StoreProvider';
 import DynamicLayout from './DynamicLayout';
+import './globals.css';
 
 export const metadata = {
   title: 'VietQR',
