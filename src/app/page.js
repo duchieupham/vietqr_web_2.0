@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import styles from '~styles/page.module.css';

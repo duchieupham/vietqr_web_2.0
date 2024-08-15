@@ -3,57 +3,94 @@
   align-items: center;
   height: 40vh;
   width: 100%;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+  position: relative;
 }
 
-.form__header__text {
-  font-size: 32px;
-  background-image: linear-gradient(#00C6FF,
-      #0072FF);
+.form_header {
+  margin-bottom: 20px;
+}
+
+.form_header_text {
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
   -webkit-background-clip: text;
   color: transparent;
   background-clip: text;
 }
 
-.form__group {
+.form_group {
   width: 100%;
-  max-width: 350px;
-}
-
-.input__container {
+  max-width: 360px;
+  max-height: 400px;
   position: relative;
-
-  /* adjust */
-  margin-bottom: 16px;
 }
 
-.form__control {
+.form_input {
+  position: absolute;
+  left: 15px;
+  color: red;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form_input_label {
+  position: absolute;
+  left: 15px;
+  color: #0a7aff;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form_control {
   width: 100%;
   font-size: 16px;
   border-radius: 10px;
   outline: none;
   cursor: pointer;
-  border: 1px solid #DADADA;
+  border: 1px solid #dadada;
   transition: all 0.3s ease;
   padding: 12px 0 12px 40px;
   margin-bottom: 15px;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.form__control:focus {
+.form_control:focus,
+.form_group input:valid {
   outline: none;
-  border-color: rgba(#9ca3af, 0.3);
+  border-color: rgba(10, 122, 255, 0.3);
+  background: red;
 }
 
-.form__control:focus {
-  resize: none;
-  transition: all 0.3s ease;
-  padding: 12px 30px 12px 10px;
+.form_control:focus~.form_group label,
+.form_group input:valid~.form_group label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #fff;
+  padding: 0 0.2em;
+  /* color: #2196f3; */
+}
+
+.error_message {
+  color: red;
+  font-size: 14px;
+  margin-top: -5px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out,
+    margin-bottom 10px;
+}
+
+.error_message.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media screen and (max-width: 768px) {
-  .form__control {
+  .form_control {
     width: 100%;
   }
 }

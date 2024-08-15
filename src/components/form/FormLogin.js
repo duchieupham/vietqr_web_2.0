@@ -1,72 +1,75 @@
-import React from 'react';
-
-import { useForm } from 'react-hook-form';
-import styles from '~styles/Form.module.css';
-import { message } from 'antd';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import * as yup from 'yup';
+import { Box, Container, FormControl, Grid, TextField, Typography } from '@mui/material';
 import { ButtonGradient } from '../button';
+import { LoginInput } from '../input';
+
+const schema = yup
+  .object({
+    phoneNumber: yup
+      .string()
+      .required('Phone number is required')
+      .matches(
+        /(?:\+84|0084|0)[235789][0-9]{1, 2}[0-9]{7}(?:[^\d]+|$)/g,
+        'Invalid phone number',
+      ),
+    password: yup
+      .string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters'),
+  })
+  .required();
 
 function FormLogin() {
   const t = useTranslations();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      phoneNumber: '',
-      password: '',
-    },
-  });
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   return (
-    <form
-      className={styles.form} // form style
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      {/* form header */}
-      <div className={styles.form__header}>
-        <h1 className={styles.form__header__text}>{t('loginForm')}</h1>
-      </div>
-      <div className={styles.form__group}>
-        <input
-          {...register('phoneNumber', {
-            required: 'Phone number is required',
-            pattern: {
-              value: /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g, // phone & mobile number
-              message: 'Invalid phone number',
-            },
-          })}
-          placeholder={t('phoneNumber')}
-          type="phone"
-          className={styles.form__control}
-          id="phoneNumber"
-          required
-        />
-      </div>
-      <div className={styles.form__group}>
-        <input
-          {...register('password', {
-            required: 'Password is required',
-            minLength: 6,
-          })}
-          type="password"
-          className={styles.form__control}
-          id="password"
-          placeholder={t('password')}
-          autoComplete={() => {
-            handleSubmit();
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <FormControl
+          defaultValue={{
+            phoneNumber: '',
+            password: '',
           }}
-        />
-      </div>
-      <ButtonGradient type="submit" className="btn btn-primary">
-        Login
-      </ButtonGradient>
-    </form>
+          required
+          sx={{}}
+        >
+          <Grid container>
+            <Grid item xs>
+              <Typography
+              component='h1' 
+              variant='h5'
+              >
+                {t('login')}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Typography component="h1" variant="h5">
+            {t('login')}
+          </Typography>
+          <LoginInput t={t} label={t('phoneNumber')} />
+          <LoginInput t={t} label={t('password')} />
+          <ButtonGradient
+            type="submit"
+            borderRadiusBtn="40px"
+            widthBtn="360px"
+            heightBtn="50px"
+            sx={{ marginTop: '1rem' }}
+          >
+            {t('login')}
+          </ButtonGradient>
+        </FormControl>
+      </Box>
+    </Container>
   );
 }
 

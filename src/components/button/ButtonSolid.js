@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button } from '@mui/material';
 import React from 'react';
 
 function ButtonSolid({ children }) {

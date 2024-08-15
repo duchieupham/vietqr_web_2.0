@@ -1,7 +1,8 @@
 {
   "title": "The Title",
   "welcome": "Welcome back!",
-  "phoneNumber": "Phone number",
+  "phoneNumber": "Phone number*",
   "loginForm": "Login",
-  "password": "Password"
+  "password": "",
+  "login": "Login"
 }

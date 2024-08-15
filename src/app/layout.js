@@ -1,4 +1,3 @@
-import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { AuthContextProvider } from '~/contexts/AuthContext';
@@ -16,17 +15,15 @@ export default async function RootLayout({ children }) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body>
-        <AntdRegistry>
-          <NextIntlClientProvider messages={messages}>
-            <StoreProvider>
-              <AuthContextProvider>
-                <DynamicLayout>{children}</DynamicLayout>
-              </AuthContextProvider>
-            </StoreProvider>
-          </NextIntlClientProvider>
-        </AntdRegistry>
+        <NextIntlClientProvider messages={messages}>
+          <StoreProvider>
+            <AuthContextProvider>
+              <DynamicLayout>{children}</DynamicLayout>
+            </AuthContextProvider>
+          </StoreProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
