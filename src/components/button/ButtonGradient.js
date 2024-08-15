@@ -5,22 +5,22 @@ import styles from '~styles/Button.module.css';
 function ButtonGradient({
   children,
   gradientColors = ['#00C6FF', '#0072FF'],
-  textColor = 'white',
-  widthBtn = '390px',
-  heightBtn = '40px',
-  borderRadiusBtn = '4px',
+  style,
   ...props
 }) {
+  const defaultStyles = {
+    backgroundImage: `linear-gradient(to right, ${gradientColors[0]}, ${gradientColors[1]})`,
+    color: 'white',
+    width: '360px',
+    height: '40px',
+    borderRadius: '40px',
+    ...style,
+  };
+
   return (
     <Button
       htmlType={props.type}
-      style={{
-        backgroundImage: `linear-gradient(to right, ${gradientColors[0]}, ${gradientColors[1]})`,
-        color: textColor,
-        width: widthBtn,
-        height: heightBtn,
-        borderRadius: borderRadiusBtn,
-      }}
+      style={defaultStyles}
       className={`${styles.linearGradient} ${props.className}`}
       {...props}
     >

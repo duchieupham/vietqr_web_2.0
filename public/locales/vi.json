@@ -4,5 +4,7 @@
   "phoneNumber": "Số điện thoại",
   "loginForm": "Đăng nhập",
   "password": "",
-  "login": "Đăng nhập"
+  "login": "Đăng nhập",
+  "forgotPassword": "Quên mật khẩu đăng nhập ?",
+  "noAccount": "Đăng kí tài khoản mới"
 }

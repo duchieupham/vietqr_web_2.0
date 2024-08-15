@@ -1,15 +1,15 @@
 import { Button } from '@mui/material';
 import React from 'react';
 
-function ButtonSolid({ children }) {
+function ButtonSolid({ children, props }) {
   return (
     <Button
-      className=""
       style={{
         width: '390px',
         height: '50px',
         borderRadius: '30px',
       }}
+      {...props}
     >
       {children}
     </Button>
