@@ -1,17 +1,37 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { TextField } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Box, InputAdornment, TextField } from '@mui/material';
+import React, { useState } from 'react';
 import styles from '~styles/Input.module.scss';
+import CloseIcon from '@mui/icons-material/Close';
+import loginAPI from '~/api/login/loginService';
 
 function LoginInput(props) {
-  const { label, t, type = 'text', otherStyles, ...otherProps } = props;
+  const { label, t, otherStyles, register, othersProp } = props;
 
-  useEffect(() => {
-    console.log(label);
-  }, []);
+  const [phoneNumberError, setPhoneNumberError] = useState({
+    status: false,
+    message: '',
+  });
+  const [inputValue, setInputValue] = useState('');
 
-  const defaultStyles = {
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    if (loginAPI.checkExist(e.target.value)) {
+      // setPhoneNumberError({
+      //   status: true,
+      //   message: 'Phone number is not exist',
+      // });
+      console.log(e.target.value);
+      console.log('Phone number is not exist');
+    }
+  };
+
+  const clearInput = () => {
+    setInputValue('');
+  };
+
+  const defaultStyle = {
     width: '360px',
     border: '1px solid #E0E0E0',
     borderRadius: '20px',
@@ -37,12 +57,12 @@ function LoginInput(props) {
       boxSizing: 'border-box', // Ensure padding doesn't affect overall height
     },
     '& .MuiInputLabel-root': {
-      top: '-5px', // Adjust the label's vertical position
+      top: '10px', // Adjust the label's vertical position
       left: '5px',
       alignItems: 'center', // Align the label text with the input
       justifyContent: 'center', // Align the label text with the input
       display: 'flex', // Align the label text with the input
-      fontSize: '0.9rem', // Adjust the label font size
+      fontSize: '1rem', // Adjust the label font size
       lineHeight: '30px', // Ensure the label aligns with the input height
     },
     '& .MuiInputLabel-shrink': {
@@ -50,21 +70,51 @@ function LoginInput(props) {
     },
     ...otherStyles,
   };
+
+  const handleMouseEnter = (e) => {
+    e.currentTarget.style.opacity = 1;
+  };
+
+  const handleMouseLeave = (e) => {
+    e.currentTarget.style.opacity = 0.8;
+  };
+
   return (
-    <TextField
-      label={t(label)}
-      variant="outlined"
-      name={label}
-      required
-      className={styles.text_field}
-      InputProps={{
-        className: styles.text_field,
-      }}
-      sx={defaultStyles}
-      type={type}
-      autoComplete={type === 'password' ? 'current-password' : undefined}
-      {...otherProps}
-    />
+    <Box>
+      <TextField
+        variant="outlined"
+        label={t(label)}
+        name={label}
+        id={label}
+        error={!!(phoneNumberError && phoneNumberError.length)}
+        {...register(label)}
+        className={styles.custom_input}
+        value={inputValue}
+        onChange={handleInputChange}
+        required
+        InputProps={{
+          className: styles.custom_input,
+          endAdornment: inputValue ? (
+            <InputAdornment position="end">
+              <CloseIcon
+                onClick={clearInput}
+                style={{
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease-in-out',
+                  position: 'absolute',
+                  right: '20px',
+                  opacity: 0.8,
+                }}
+                onMouseEnter={(e) => handleMouseEnter(e)}
+                onMouseLeave={(e) => handleMouseLeave(e)}
+              />
+            </InputAdornment>
+          ) : null,
+        }}
+        sx={defaultStyle}
+        {...othersProp}
+      />
+    </Box>
   );
 }
 export default LoginInput;

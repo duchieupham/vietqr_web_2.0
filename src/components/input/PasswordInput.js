@@ -5,56 +5,37 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from '~styles/Input.module.scss';
 import { Box } from '@mui/material';
 
-// const CirclePasswordInput = styled('div')`
-//   display: flex;
-//   align-items: center;
-//   position: relative;
-//   .MuiOutlinedInput-input {
-//     position: absolute;
-//     opacity: 0; /* Hide the actual input field */
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     cursor: text;
-//   }
-
-//   .circles {
-//     display: flex;
-//     gap: 8px;
-//     pointer-events: none; /* Prevent clicking on the circles */
-//     left: 50px;
-//   }
-
-//   .circle {
-//     width: 12px;
-//     height: 12px;
-//     border: 1px solid gray;
-//     border-radius: 50%;
-//     background-color: transparent;
-//   }
-
-//   .circle.filled {
-//     border: none;
-//     background-color: #0072ff;
-//     opacity: 1;
-//   }
-// `;
-
 function PasswordInput(props) {
   // eslint-disable-next-line object-curly-newline
-  const { othersStyle, othersProp, inputPasswordValue, t, register } = props;
-  const [password, setPassword] = useState('');
-  const [value, setValue] = useState('');
+  const { othersStyle, othersProp, t, register, label, watch } = props;
 
-  const hasError = useMemo(() => value === 'error', [value]);
+  const [inputPassword, setInputPassword] = useState(watch('password') || '');
+  const handlePasswordChange = (e) => setInputPassword(e.target.value);
 
-  const getHelperText = useMemo(
-    () => (value === 'error' ? 'Incorrect entry.' : ''),
-    [value],
-  );
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const defaultStyle = {
+    width: '360px',
+    display: 'flex',
+    '& .MuiOutlinedInput-root': {
+      height: '50px',
+      '& fieldset': {
+        border: '1px solid #E0E0E0',
+        borderRadius: '10px',
+      },
+      '&:hover fieldset': {
+        borderColor: '#0072ff',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#0072ff',
+      },
+      '& .MuiOutlinedInput-input': {
+        position: 'absolute',
+        opacity: 0,
+        width: '100%',
+        height: '100%',
+        cursor: 'text',
+      },
+    },
+    ...othersStyle,
   };
 
   return (
@@ -66,15 +47,14 @@ function PasswordInput(props) {
       }}
     >
       <TextField
-        label={t('password')}
+        label={t(label)}
         required
-        name="password"
-        id="password"
+        name={label}
+        id={label}
         type="password"
         variant="outlined"
-        error={hasError} // set error state
         {...register('password')}
-        value={inputPasswordValue}
+        value={inputPassword}
         onChange={handlePasswordChange}
         InputProps={{
           startAdornment: (
@@ -91,30 +71,8 @@ function PasswordInput(props) {
             </InputAdornment>
           ),
         }}
-        sx={{
-          width: '360px',
-          display: 'flex',
-          '& .MuiOutlinedInput-root': {
-            height: '50px',
-            '& fieldset': {
-              border: '1px solid #E0E0E0',
-              borderRadius: '10px',
-            },
-            '&:hover fieldset': {
-              borderColor: '#0072ff',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#0072ff',
-            },
-            '& .MuiOutlinedInput-input': {
-              position: 'absolute',
-              opacity: 0,
-              width: '100%',
-              height: '100%',
-              cursor: 'text',
-            },
-          },
-        }}
+        sx={defaultStyle}
+        {...othersProp}
       />
       <Box
         component="div"
@@ -128,7 +86,7 @@ function PasswordInput(props) {
             component="div"
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            className={`${styles.circle} ${inputPasswordValue.length > index ? `${styles.filled}` : ''}`}
+            className={`${styles.circle} ${inputPassword.length > index ? `${styles.filled}` : ''}`}
           />
         ))}
       </Box>
