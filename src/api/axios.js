@@ -81,9 +81,9 @@ const parseParams = (params) => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_DEV_URL,
   paramsSerializer: parseParams,
-  withCredentials: true,
+  withCredentials: false,
 });
 
 axiosInstance.interceptors.request.use(

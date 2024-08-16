@@ -16,6 +16,8 @@ import { useForm } from 'react-hook-form';
 import styles from '~styles/Input.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import listApi from '~/api/listServices';
+import loginAPI from '~/api/login/loginService';
 import { ButtonGradient } from '../button';
 
 const schema = yup
@@ -54,6 +56,14 @@ function FormLogin() {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    if (loginAPI.checkExist(e.target.value)) {
+      // setPhoneNumberError({
+      //   status: true,
+      //   message: 'Phone number is not exist',
+      // });
+      console.log(e.target.value);
+      console.log('Phone number is not exist');
+    }
   };
 
   const clearInput = () => {

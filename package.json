@@ -20,6 +20,7 @@
     "axios": "^1.7.3",
     "dayjs": "^1.11.12",
     "i18next": "^23.12.2",
+    "js-crypto-hmac": "^1.0.7",
     "jwt-decode": "^4.0.0",
     "lodash-es": "^4.17.21",
     "next": "14.2.5",
@@ -35,7 +36,6 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "daisyui": "^4.12.10",
     "eslint": "^8.40.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "^14.0.0",

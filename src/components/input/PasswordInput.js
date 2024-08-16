@@ -41,7 +41,7 @@ import { Box } from '@mui/material';
 // `;
 
 function PasswordInput(props) {
-  const { othersStyle, othersProp } = props;
+  const { othersStyle, othersProp, inputPasswordValue, t, register } = props;
   const [password, setPassword] = useState('');
   const [value, setValue] = useState('');
 
@@ -60,18 +60,21 @@ function PasswordInput(props) {
     <Box
       className={styles.circle_password_input}
       component="div"
-      style={{
-        ...othersStyle,
+      sx={{
+        marginBottom: '1rem',
       }}
     >
       <TextField
+        label={t('password')}
+        required
         name="password"
         id="password"
         type="password"
         variant="outlined"
-        value={password}
+        error={hasError} // set error state
+        {...register('password')}
+        value={inputPasswordValue}
         onChange={handlePasswordChange}
-        error={hasError}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -115,7 +118,7 @@ function PasswordInput(props) {
       <Box
         component="div"
         className={styles.circles}
-        style={{
+        sx={{
           display: 'flex',
         }}
       >
@@ -124,7 +127,7 @@ function PasswordInput(props) {
             component="div"
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            className={`${styles.circle} ${password.length > index ? `${styles.filled}` : ''}`}
+            className={`${styles.circle} ${inputPasswordValue.length > index ? `${styles.filled}` : ''}`}
           />
         ))}
       </Box>
