@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
   Box,
@@ -19,6 +18,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import listApi from '~/api/listServices';
 import loginAPI from '~/api/login/loginService';
 import { ButtonGradient } from '../button';
+import PasswordInput from '../input/PasswordInput';
 
 const schema = yup
   .object({
@@ -38,13 +38,7 @@ const schema = yup
   .required();
 
 function FormLogin() {
-  const { handleSubmit, register, watch } = useForm({
-    defaultValues: {
-      phoneNumber: '',
-      password: '',
-    },
-    resolvers: yupResolver(schema),
-  });
+  const { handleSubmit, register } = useForm();
   const t = useTranslations();
   const [phoneNumberError, setPhoneNumberError] = useState({
     status: false,
@@ -71,16 +65,12 @@ function FormLogin() {
   };
 
   // Password
-  const [inputPasswordValue, setInputPasswordValue] = useState(
-    watch('password') || '',
-  );
+  const [password, setPassword] = useState('');
+  const [value, setValue] = useState('');
 
-  const hasError = useMemo(
-    () => inputPasswordValue === 'error',
-    [inputPasswordValue],
-  );
+  const hasError = useMemo(() => value === 'error', [value]);
 
-  const handlePasswordChange = (e) => setInputPasswordValue(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   // Submit form
   const onSubmit = (formData) => {
@@ -132,97 +122,87 @@ function FormLogin() {
             </Button>
           </Grid>
         </Grid>
-        <Box>
-          <TextField
-            variant="outlined"
-            label={t('phoneNumber')}
-            name="phoneNumber"
-            id="phoneNumber"
-            error={!!(phoneNumberError && phoneNumberError.length)}
-            {...register('phoneNumber', {
-              required: 'Phone number is required',
-              pattern:
-                /(?:\+84|0084|0)[235789][0-9]{1, 2}[0-9]{7}(?:[^\d]+|$)/g,
-            })}
-            className={styles.custom_input}
-            value={inputValue}
-            onChange={handleInputChange}
-            required
-            InputProps={{
-              className: styles.custom_input,
-              endAdornment: inputValue ? (
-                <InputAdornment position="end">
-                  <CloseIcon
-                    onClick={clearInput}
-                    style={{
-                      cursor: 'pointer',
-                      transition: 'all 0.3 ease',
-                      position: 'absolute',
-                      right: '20px',
-                      background: 'inherit',
-                    }}
-                  />
-                </InputAdornment>
-              ) : null,
-            }}
-            sx={{
-              width: '360px',
-              border: '1px solid #E0E0E0',
-              borderRadius: '20px',
-              outline: 'none',
-              borderColor: 'transparent',
-              margin: '1rem 0',
-              '& .MuiOutlinedInput-root': {
-                height: '50px', // Set the height of the TextField
-                '& fieldset': {
-                  border: '1px solid #E0E0E0',
-                  borderRadius: '10px',
-                },
-                '&:hover fieldset': {
-                  borderColor: '#0072ff', // Border color on hover
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#0072ff', // Border color when focused
-                },
+        <TextField
+          variant="outlined"
+          label={t('phoneNumber')}
+          name="phoneNumber"
+          id="phoneNumber"
+          error={!!(phoneNumberError && phoneNumberError.length)}
+          {...register('phoneNumber')}
+          className={styles.custom_input}
+          value={inputValue}
+          onChange={handleInputChange}
+          required
+          InputProps={{
+            className: styles.custom_input,
+            endAdornment: inputValue ? (
+              <InputAdornment position="end">
+                <CloseIcon
+                  onClick={clearInput}
+                  style={{
+                    cursor: 'pointer',
+                    transition: 'all 0.3 ease',
+                    position: 'absolute',
+                    right: '20px',
+                  }}
+                />
+              </InputAdornment>
+            ) : null,
+          }}
+          sx={{
+            width: '360px',
+            border: '1px solid #E0E0E0',
+            borderRadius: '20px',
+            outline: 'none',
+            borderColor: 'transparent',
+            margin: '1rem 0',
+            '& .MuiOutlinedInput-root': {
+              height: '50px', // Set the height of the TextField
+              '& fieldset': {
+                border: '1px solid #E0E0E0',
+                borderRadius: '10px',
               },
-              '& .MuiOutlinedInput-input': {
-                height: '100%', // Ensure the input field takes up the full height
-                padding: '0 14px', // Adjust padding to center the text vertically
-                boxSizing: 'border-box', // Ensure padding doesn't affect overall height
+              '&:hover fieldset': {
+                borderColor: '#0072ff', // Border color on hover
               },
-              '& .MuiInputLabel-root': {
-                top: '10px', // Adjust the label's vertical position
-                left: '5px',
-                alignItems: 'center', // Align the label text with the input
-                justifyContent: 'center', // Align the label text with the input
-                display: 'flex', // Align the label text with the input
-                fontSize: '1rem', // Adjust the label font size
-                lineHeight: '30px', // Ensure the label aligns with the input height
+              '&.Mui-focused fieldset': {
+                borderColor: '#0072ff', // Border color when focused
               },
-              '& .MuiInputLabel-shrink': {
-                top: '1', // Adjust the label position when shrunk
-              },
-            }}
-          />
-        </Box>
+            },
+            '& .MuiOutlinedInput-input': {
+              height: '100%', // Ensure the input field takes up the full height
+              padding: '0 14px', // Adjust padding to center the text vertically
+              boxSizing: 'border-box', // Ensure padding doesn't affect overall height
+            },
+            '& .MuiInputLabel-root': {
+              top: '10px', // Adjust the label's vertical position
+              left: '5px',
+              alignItems: 'center', // Align the label text with the input
+              justifyContent: 'center', // Align the label text with the input
+              display: 'flex', // Align the label text with the input
+              fontSize: '1rem', // Adjust the label font size
+              lineHeight: '30px', // Ensure the label aligns with the input height
+            },
+            '& .MuiInputLabel-shrink': {
+              top: '1', // Adjust the label position when shrunk
+            },
+          }}
+        />
         <Box
           className={styles.circle_password_input}
           component="div"
-          sx={{
+          styles={{
             marginBottom: '1rem',
           }}
         >
           <TextField
-            label={t('password')}
-            required
             name="password"
             id="password"
             type="password"
             variant="outlined"
-            error={hasError} // set error state
-            {...register('password')}
-            value={inputPasswordValue}
+            value={password}
             onChange={handlePasswordChange}
+            error={hasError}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -266,7 +246,7 @@ function FormLogin() {
           <Box
             component="div"
             className={styles.circles}
-            sx={{
+            style={{
               display: 'flex',
             }}
           >
@@ -275,11 +255,20 @@ function FormLogin() {
                 component="div"
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={`${styles.circle} ${inputPasswordValue.length > index ? `${styles.filled}` : ''}`}
+                className={`${styles.circle} ${password.length > index ? `${styles.filled}` : ''}`}
               />
             ))}
           </Box>
         </Box>
+        {/* <PasswordInput
+          name="password"
+          id="password"
+          othersStyle={{
+            marginBottom: '1rem',
+          }}
+          o
+          {...register('password')}
+        /> */}
         <Typography
           variant="body2"
           color="textSecondary"
@@ -289,8 +278,8 @@ function FormLogin() {
         </Typography>
         <ButtonGradient
           type="submit"
-          width="360px"
-          height="50px"
+          widthBtn="360px"
+          heightBtn="50px"
           style={{ marginTop: '1rem', borderRadius: '100px' }}
         >
           {t('login')}

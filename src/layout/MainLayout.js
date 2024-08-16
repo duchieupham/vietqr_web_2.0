@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Container } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useAuthContext } from '~/contexts/AuthContext';
 
@@ -13,9 +13,8 @@ function MainLayout({ children }) {
   };
 
   return (
-    <Container component="div">
-      <Box
-        component="div"
+    <div>
+      <di
         style={{
           justifyContent: 'space-between',
         }}
@@ -29,10 +28,10 @@ function MainLayout({ children }) {
             </Button>
           )}
         </div>
-      </Box>
+      </di>
 
       {children}
-    </Container>
+    </div>
   );
 }
 
