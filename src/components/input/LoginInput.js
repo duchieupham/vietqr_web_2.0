@@ -1,12 +1,15 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { InputAdornment, TextField } from '@mui/material';
-import React from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import { TextField } from '@mui/material';
+import React, { useEffect } from 'react';
 import styles from '~styles/Input.module.scss';
 
 function LoginInput(props) {
-  const { label, t, type = 'text', otherStyles } = props;
+  const { label, t, type = 'text', otherStyles, ...otherProps } = props;
+
+  useEffect(() => {
+    console.log(label);
+  }, []);
 
   const defaultStyles = {
     width: '360px',
@@ -47,27 +50,20 @@ function LoginInput(props) {
     },
     ...otherStyles,
   };
-
-  const adornment =
-    label === 'phoneNumber' ? (
-      <InputAdornment>
-        <CloseIcon />
-      </InputAdornment>
-    ) : null;
-
   return (
     <TextField
       label={t(label)}
       variant="outlined"
+      name={label}
       required
       className={styles.text_field}
       InputProps={{
         className: styles.text_field,
-        endAdornment: adornment,
       }}
       sx={defaultStyles}
       type={type}
       autoComplete={type === 'password' ? 'current-password' : undefined}
+      {...otherProps}
     />
   );
 }

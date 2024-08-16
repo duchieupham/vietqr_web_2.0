@@ -6,5 +6,20 @@
   "password": "",
   "login": "Đăng nhập",
   "forgotPassword": "Quên mật khẩu đăng nhập ?",
-  "noAccount": "Đăng kí tài khoản mới"
+  "noAccount": "Đăng kí tài khoản mới",
+  "register": "Đăng kí",
+  "phoneNumberRequired": "Số điện thoại không được để trống",
+  "passwordRequired": "Mật khẩu không được để trống",
+  "phoneNumberInvalid": "Số điện thoại không hợp lệ",
+  "passwordInvalid": "Mật khẩu không hợp lệ",
+  "loginFailed": "Đăng nhập thất bại",
+  "loginSuccess": "Đăng nhập thành công",
+  "registerSuccess": "Đăng kí thành công",
+  "registerFailed": "Đăng kí thất bại",
+  "registerForm": "Đăng kí tài khoản",
+  "confirmPassword": "Xác nhận mật khẩu",
+  "confirmPasswordRequired": "Xác nhận mật khẩu không được để trống",
+  "confirmPasswordInvalid": "Xác nhận mật khẩu không hợp lệ",
+  "passwordNotMatch": "Mật khẩu không trùng khớp",
+  "phoneNumberHelperText": " // ?"
 }

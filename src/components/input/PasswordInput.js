@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from '~styles/Input.module.scss';
+import { Box } from '@mui/material';
 
 // const CirclePasswordInput = styled('div')`
 //   display: flex;
@@ -40,7 +41,7 @@ import styles from '~styles/Input.module.scss';
 // `;
 
 function PasswordInput(props) {
-  const { otherStyles } = props;
+  const { othersStyle, othersProp } = props;
   const [password, setPassword] = useState('');
   const [value, setValue] = useState('');
 
@@ -51,69 +52,25 @@ function PasswordInput(props) {
     [value],
   );
 
-  const handleChangeError = () => {
-    setValue('error');
-  };
-
-  const handleChange = (event) => {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
   return (
-    // <CirclePasswordInput>
-    //   <TextField
-    //     type="password"
-    //     variant="outlined"
-    //     value={password}
-    //     onChange={handleChange}
-    //     InputProps={{
-    //       startAdornment: (
-    //         <InputAdornment position="start">
-    //           <LockOutlinedIcon sx={{ color: 'grey.500' }} />
-    //         </InputAdornment>
-    //       ),
-    //     }}
-    //     sx={{
-    //       width: '360px',
-    //       '& .MuiOutlinedInput-root': {
-    //         height: '50px',
-    //         '& fieldset': {
-    //           border: '1px solid #E0E0E0',
-    //           borderRadius: '10px',
-    //         },
-    //         '&:hover fieldset': {
-    //           borderColor: '#0072ff',
-    //         },
-    //         '&.Mui-focused fieldset': {
-    //           borderColor: '#0072ff',
-    //         },
-    //         '& .MuiOutlinedInput-input': {
-    //           left: '50px',
-    //         },
-    //       },
-    //     }}
-    //   />
-    //   <div className="circles">
-    //     {[...Array(6)].map((_, index) => (
-    //       <div
-    //         // eslint-disable-next-line react/no-array-index-key
-    //         key={index}
-    //         className={`circle ${password.length > index ? 'filled' : ''}`}
-    //       />
-    //     ))}
-    //   </div>
-    // </CirclePasswordInput>
-    <div
+    <Box
       className={styles.circle_password_input}
+      component="div"
       style={{
-        ...otherStyles,
+        ...othersStyle,
       }}
     >
       <TextField
+        name="password"
+        id="password"
         type="password"
         variant="outlined"
         value={password}
-        onChange={handleChange}
+        onChange={handlePasswordChange}
         error={hasError}
         InputProps={{
           startAdornment: (
@@ -155,21 +112,23 @@ function PasswordInput(props) {
           },
         }}
       />
-      <div
+      <Box
+        component="div"
         className={styles.circles}
         style={{
           display: 'flex',
         }}
       >
         {[...Array(6)].map((_, index) => (
-          <div
+          <Box
+            component="div"
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             className={`${styles.circle} ${password.length > index ? `${styles.filled}` : ''}`}
           />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

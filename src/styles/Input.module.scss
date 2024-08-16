@@ -19,7 +19,7 @@
     pointer-events: none; /* Prevent clicking on the circles */
     position: absolute;
     left: 55px;
-    top: 20px
+    top: 20px;
   }
 
   .circle {
@@ -34,5 +34,51 @@
       background-color: #0072ff;
       opacity: 1;
     }
+  }
+}
+
+.custom_input {
+  width: 360px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  outline: none;
+  border-color: transparent;
+  margin: 1rem 0;
+
+  .MuiOutlinedInput-root {
+    height: 50px; // Set the height of the TextField
+
+    fieldset {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    &:hover fieldset {
+      border-color: #0072ff; // Border color on hover
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #0072ff; // Border color when focused
+    }
+  }
+
+  .MuiOutlinedInput-input {
+    height: 100%; // Ensure the input field takes up the full height
+    padding: 0 14px; // Adjust padding to center the text vertically
+    box-sizing: border-box; // Ensure padding doesn't affect overall height
+  }
+
+  .MuiInputLabel-root {
+    top: -5px; // Adjust the label's vertical position
+    left: 5px;
+    align-items: center; // Align the label text with the input
+    justify-content: center; // Align the label text with the input
+    display: flex; // Align the label text with the input
+    font-size: 0.9rem; // Adjust the label font size
+    line-height: 30px; // Ensure the label aligns with the input height
+  }
+
+  .MuiInputLabel-shrink {
+    top: 1px; // Adjust the label position when shrunk
   }
 }
