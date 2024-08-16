@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+// eslint-disable-next-line object-curly-newline
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ButtonGradient } from '../button';
@@ -12,21 +14,34 @@ const schema = yup
   .object({
     phoneNumber: yup
       .string()
+      .min(10, 'Số điện thoại phải có đủ 10 số')
+      .max(10, 'Số điện thoại phải có đủ 10 số digits')
       .required('Phone number is required')
       .matches(
-        /(?:\+84|0084|0)[235789][0-9]{1, 2}[0-9]{7}(?:[^\d]+|$)/g,
-        'Invalid phone number',
+        /^(?:\+84|0)(?:3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/,
+        'Vui lòng nhập đúng số điện thoại !',
       ),
     password: yup
       .string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(6, 'Password must be at most 6 characters'),
+      .trim()
+      .max(6, 'Mật khẩu phải có đúng 6 ký tự')
+      .min(6, 'Mật khẩu phải có đúng 6 ký tự')
+      .matches(/^\d{6}$/, 'Password must be exactly 6 digits')
+      .required('Vui lòng nhập mật khẩu !'),
   })
   .required();
 
 function FormLogin() {
-  const { handleSubmit, register, watch } = useForm();
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+    trigger,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
   const t = useTranslations();
 
   // Submit form
@@ -46,7 +61,13 @@ function FormLogin() {
           justifyContent: 'center',
         }}
       >
-        <Grid container justifyContent="space-between">
+        <Grid
+          container
+          justifyContent="space-between"
+          sx={{
+            marginLeft: '3rem',
+          }}
+        >
           <Grid item xs>
             <Typography
               component="h1"
@@ -83,13 +104,18 @@ function FormLogin() {
           label="phoneNumber"
           t={t}
           register={register}
-          otherStyles={{}}
+          watch={watch}
+          errors={errors}
+          trigger={trigger}
+          otherStyles={{ marginBottom: '1rem' }}
         />
         <PasswordInput
           register={register}
           t={t}
           label="password"
           watch={watch}
+          errors={errors}
+          othersStyle={{ marginBottom: '1rem' }}
         />
         <Typography
           variant="body2"
@@ -100,9 +126,12 @@ function FormLogin() {
         </Typography>
         <ButtonGradient
           type="submit"
-          widthBtn="360px"
-          heightBtn="50px"
-          style={{ marginTop: '1rem', borderRadius: '100px' }}
+          style={{
+            marginTop: '1rem',
+            borderRadius: '100px',
+            width: '360px',
+            height: '50px',
+          }}
         >
           {t('login')}
         </ButtonGradient>

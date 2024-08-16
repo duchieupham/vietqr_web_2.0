@@ -4,13 +4,45 @@ import InputAdornment from '@mui/material/InputAdornment';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from '~styles/Input.module.scss';
 import { Box } from '@mui/material';
+import * as yup from 'yup';
 
 function PasswordInput(props) {
   // eslint-disable-next-line object-curly-newline
   const { othersStyle, othersProp, t, register, label, watch } = props;
 
-  const [inputPassword, setInputPassword] = useState(watch('password') || '');
-  const handlePasswordChange = (e) => setInputPassword(e.target.value);
+  const passwordSchema = useMemo(
+    () =>
+      yup
+        .string()
+        .trim()
+        .max(6, 'Mật khẩu không được nhiều hơn 6 ký tự')
+        .min(6, 'Mật khẩu không được ít hơn 6 ký tự')
+        .matches(/^\d{6}$/, t('passwordRegex'))
+        .required(t('passwordRequired')),
+    [],
+  );
+  const [passwordInput, setPasswordInput] = useState(watch('password') || '');
+  const [passwordError, setPasswordError] = useState({
+    status: false,
+    message: '',
+  });
+  const handlePasswordChange = async (e) => {
+    const { value } = e.target;
+    setPasswordInput(value);
+
+    try {
+      // Validate the password format using Yup schema
+      await passwordSchema.validate(value);
+      setPasswordError({ status: false, message: '' });
+    } catch (error) {
+      setPasswordError({ status: true, message: error.message });
+    }
+
+    console.log(value);
+    if (passwordError.status) {
+      console.log(passwordError.message);
+    }
+  };
 
   const defaultStyle = {
     width: '360px',
@@ -47,14 +79,14 @@ function PasswordInput(props) {
       }}
     >
       <TextField
-        label={t(label)}
+        // label={t(label)}
         required
         name={label}
         id={label}
         type="password"
         variant="outlined"
         {...register('password')}
-        value={inputPassword}
+        value={passwordInput}
         onChange={handlePasswordChange}
         InputProps={{
           startAdornment: (
@@ -86,11 +118,23 @@ function PasswordInput(props) {
             component="div"
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            className={`${styles.circle} ${inputPassword.length > index ? `${styles.filled}` : ''}`}
+            className={`${styles.circle} ${passwordInput.length > index ? `${styles.filled}` : ''}`}
           />
         ))}
       </Box>
+      {passwordError.status && (
+        <Box
+          component="p"
+          className={styles.error_message}
+          sx={{
+            marginTop: '3.5rem',
+          }}
+        >
+          {passwordError.message}
+        </Box>
+      )}
     </Box>
+
   );
 }
 

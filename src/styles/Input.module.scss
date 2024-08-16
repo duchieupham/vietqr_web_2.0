@@ -82,3 +82,31 @@
     top: 1px; // Adjust the label position when shrunk
   }
 }
+
+.has_error {
+  border: 1px solid #e3342f; // Red border to indicate an error
+  background-color: #ffe5e5; // Light red background to highlight the error
+  color: #e3342f; // Red text color
+
+  &:focus {
+    outline: none; // Remove the default outline
+    border-color: #cc1f1a; // Darker red border on focus
+    box-shadow: 0 0 5px rgba(227, 52, 47, 0.5); // Red shadow on focus
+  }
+
+  &::placeholder {
+    color: #e3342f; // Red placeholder text
+    opacity: 0.7; // Slightly faded
+  }
+}
+
+.error_message {
+  position: absolute;
+  color: #e3342f; // Red text color for error message
+  font-size: 0.875rem; // Slightly smaller font size
+  margin-top: -1.85rem; // Small spacing above the message
+  padding-left: 0.5rem; // Indent the error message
+  transition: opacity 0.5s ease-in-out; // Smooth transition for visibility
+  transition: all 0.5s ease-in-out; // Smooth transition for visibility
+  opacity: 1;
+}

@@ -2,12 +2,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Box, InputAdornment, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import styles from '~styles/Input.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import loginAPI from '~/api/login/loginService';
+import * as yup from 'yup';
+import styles from '~styles/Input.module.scss';
 
 function LoginInput(props) {
-  const { label, t, otherStyles, register, othersProp } = props;
+  const { label, t, otherStyles, register, othersProp, errors } = props;
+
+  const phoneNumberSchema = yup
+    .string()
+    .matches(/^(\+84|0)[3|5|7|8|9][0-9]{8}$/, t('phoneNumberInvalid'));
 
   const [phoneNumberError, setPhoneNumberError] = useState({
     status: false,
@@ -15,15 +20,30 @@ function LoginInput(props) {
   });
   const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    if (loginAPI.checkExist(e.target.value)) {
-      // setPhoneNumberError({
-      //   status: true,
-      //   message: 'Phone number is not exist',
-      // });
-      console.log(e.target.value);
-      console.log('Phone number is not exist');
+  const handleInputChange = async (e) => {
+    const { value } = e.target;
+    setInputValue(value);
+
+    try {
+      // Validate the phone number format using Yup schema
+      await phoneNumberSchema.validate(value);
+      setPhoneNumberError({ status: false, message: '' });
+
+      // Check if the phone number exists via API
+      if (!loginAPI.checkExist(value)) {
+        setPhoneNumberError({
+          status: true,
+          message: 'Phone number does not exist',
+        });
+      } else {
+        setPhoneNumberError({ status: false, message: '' });
+      }
+    } catch (error) {
+      setPhoneNumberError({ status: true, message: error.message });
+    }
+    console.log(value);
+    if (phoneNumberError.status) {
+      console.log(phoneNumberError.message);
     }
   };
 
@@ -80,7 +100,7 @@ function LoginInput(props) {
   };
 
   return (
-    <Box>
+    <Box component="div">
       <TextField
         variant="outlined"
         label={t(label)}
@@ -88,7 +108,7 @@ function LoginInput(props) {
         id={label}
         error={!!(phoneNumberError && phoneNumberError.length)}
         {...register(label)}
-        className={styles.custom_input}
+        className={`${styles.custom_input} ${errors[label] ? `${styles.has_error}` : ''}`}
         value={inputValue}
         onChange={handleInputChange}
         required
@@ -114,6 +134,11 @@ function LoginInput(props) {
         sx={defaultStyle}
         {...othersProp}
       />
+      {phoneNumberError.status && (
+        <Box component="p" className={styles.error_message}>
+          {phoneNumberError.message}
+        </Box>
+      )}
     </Box>
   );
 }

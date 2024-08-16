@@ -19,7 +19,7 @@ function ButtonGradient({
 
   return (
     <Button
-      htmlType={props.type}
+      type={props.type}
       style={defaultStyles}
       className={`${styles.linearGradient} ${props.className}`}
       {...props}
