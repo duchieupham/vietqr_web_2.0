@@ -1,1 +1,2 @@
-export { default as LoginInput } from './LoginInput';
+export { default as InputLogin } from './InputLogin';
+export { default as InputPassword } from './InputPassword';

@@ -7,7 +7,7 @@ import loginAPI from '~/api/login/loginService';
 import * as yup from 'yup';
 import styles from '~styles/Input.module.scss';
 
-function LoginInput(props) {
+function InputLogin(props) {
   const { label, t, otherStyles, register, othersProp, errors } = props;
 
   const phoneNumberSchema = yup
@@ -73,8 +73,11 @@ function LoginInput(props) {
     },
     '& .MuiOutlinedInput-input': {
       height: '100%', // Ensure the input field takes up the full height
-      padding: '0 14px', // Adjust padding to center the text vertically
+      padding: 'auto 16px', // Adjust padding to center the text vertically
       boxSizing: 'border-box', // Ensure padding doesn't affect overall height
+      borderRadius: '10px',
+      width: '360px',
+      marginRight: '-30px',
     },
     '& .MuiInputLabel-root': {
       top: '10px', // Adjust the label's vertical position
@@ -124,6 +127,7 @@ function LoginInput(props) {
                   position: 'absolute',
                   right: '20px',
                   opacity: 0.8,
+                  backgroundColor: 'inherit',
                 }}
                 onMouseEnter={(e) => handleMouseEnter(e)}
                 onMouseLeave={(e) => handleMouseLeave(e)}
@@ -142,4 +146,4 @@ function LoginInput(props) {
     </Box>
   );
 }
-export default LoginInput;
+export default InputLogin;

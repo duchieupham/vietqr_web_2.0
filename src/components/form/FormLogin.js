@@ -7,8 +7,7 @@ import * as yup from 'yup';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ButtonGradient } from '../button';
-import { LoginInput } from '../input';
-import PasswordInput from '../input/PasswordInput';
+import { InputPassword, InputLogin } from '../input';
 
 const schema = yup
   .object({
@@ -100,7 +99,7 @@ function FormLogin() {
             </Button>
           </Grid>
         </Grid>
-        <LoginInput
+        <InputLogin
           label="phoneNumber"
           t={t}
           register={register}
@@ -109,7 +108,7 @@ function FormLogin() {
           trigger={trigger}
           otherStyles={{ marginBottom: '1rem' }}
         />
-        <PasswordInput
+        <InputPassword
           register={register}
           t={t}
           label="password"
