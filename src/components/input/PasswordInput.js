@@ -41,6 +41,7 @@ import { Box } from '@mui/material';
 // `;
 
 function PasswordInput(props) {
+  // eslint-disable-next-line object-curly-newline
   const { othersStyle, othersProp, inputPasswordValue, t, register } = props;
   const [password, setPassword] = useState('');
   const [value, setValue] = useState('');

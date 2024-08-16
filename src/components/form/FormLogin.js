@@ -15,10 +15,8 @@ import { useForm } from 'react-hook-form';
 import styles from '~styles/Input.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import listApi from '~/api/listServices';
 import loginAPI from '~/api/login/loginService';
 import { ButtonGradient } from '../button';
-import PasswordInput from '../input/PasswordInput';
 
 const schema = yup
   .object({
@@ -38,7 +36,7 @@ const schema = yup
   .required();
 
 function FormLogin() {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, watch } = useForm();
   const t = useTranslations();
   const [phoneNumberError, setPhoneNumberError] = useState({
     status: false,
@@ -65,12 +63,8 @@ function FormLogin() {
   };
 
   // Password
-  const [password, setPassword] = useState('');
-  const [value, setValue] = useState('');
-
-  const hasError = useMemo(() => value === 'error', [value]);
-
-  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const [inputPassword, setInputPassword] = useState(watch('password') || '');
+  const handlePasswordChange = (e) => setInputPassword(e.target.value);
 
   // Submit form
   const onSubmit = (formData) => {
@@ -200,9 +194,9 @@ function FormLogin() {
             id="password"
             type="password"
             variant="outlined"
-            value={password}
+            {...register('password')}
+            value={inputPassword}
             onChange={handlePasswordChange}
-            error={hasError}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -255,20 +249,11 @@ function FormLogin() {
                 component="div"
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={`${styles.circle} ${password.length > index ? `${styles.filled}` : ''}`}
+                className={`${styles.circle} ${inputPassword.length > index ? `${styles.filled}` : ''}`}
               />
             ))}
           </Box>
         </Box>
-        {/* <PasswordInput
-          name="password"
-          id="password"
-          othersStyle={{
-            marginBottom: '1rem',
-          }}
-          o
-          {...register('password')}
-        /> */}
         <Typography
           variant="body2"
           color="textSecondary"
