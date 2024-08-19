@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
+/**
+ * Custom hook for using localStorage
+ *
+ * @param {string} key the stored key to get value
+ * @param {any} initialValue the default value if null
+ * @return {any} the stored value from the key
+ */
 
-// Custom hook for using localStorage
 export function useLocalStorage(key, initialValue) {
   // State to store our value
   const [storedValue, setStoredValue] = useState(initialValue);
@@ -14,11 +20,8 @@ export function useLocalStorage(key, initialValue) {
     }
   }, [key, initialValue]);
 
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
   const setValue = (value) => {
     try {
-      // Allow value to be a function so we have same API as useState
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
       // Save state
@@ -28,7 +31,6 @@ export function useLocalStorage(key, initialValue) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      // A more advanced implementation would handle the error case
       console.log(error);
     }
   };

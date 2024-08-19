@@ -1,6 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
-import { AuthContextProvider } from '~/contexts/AuthContext';
+import theme from '~/theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import StoreProvider from './StoreProvider';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
@@ -17,13 +19,16 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <StoreProvider>
-            <AuthContextProvider>
-              <DynamicLayout>{children}</DynamicLayout>
-            </AuthContextProvider>
-          </StoreProvider>
-        </NextIntlClientProvider>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <NextIntlClientProvider messages={messages}>
+              <StoreProvider>
+                <DynamicLayout>{children}</DynamicLayout>
+              </StoreProvider>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
