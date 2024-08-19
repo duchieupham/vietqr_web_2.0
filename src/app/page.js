@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -10,7 +12,17 @@ function Home() {
     <div className={styles.main}>
       <h1>Home</h1>
       <Link href="/list">
-        <Button>Go to List</Button>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: {
+              xs: 'black',
+              md: 'blue',
+            },
+          }}
+        >
+          Go to List
+        </Button>
       </Link>
     </div>
   );

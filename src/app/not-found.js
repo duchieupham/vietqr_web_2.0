@@ -1,9 +1,9 @@
-import { Button, Flex } from 'antd';
+import { Button, Stack } from '@mui/material';
 import Link from 'next/link';
 
 function NotFound() {
   return (
-    <Flex
+    <Stack
       style={{
         height: '100%',
         flexDirection: 'column',
@@ -15,7 +15,7 @@ function NotFound() {
       <Link href="/">
         <Button type="primary">Back to home</Button>
       </Link>
-    </Flex>
+    </Stack>
   );
 }
 
