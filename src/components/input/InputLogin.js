@@ -28,7 +28,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
       setPhoneNumberError({ status: false, message: '' });
 
       const isExist = await loginAPI.checkExist(value);
-      console.log(isExist);
+      // console.log(isExist);
       // Check if the phone number exists via API
       if (!isExist) {
         setPhoneNumberError({
@@ -38,7 +38,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
       } else {
         setPhoneNumberError({ status: false, message: '' });
       }
-      console.log('Đây là số điện vừa nhập: ', value);
+      // console.log('Đây là số điện vừa nhập: ', value);
     } catch (error) {
       setPhoneNumberError({ status: true, message: error.message });
     }

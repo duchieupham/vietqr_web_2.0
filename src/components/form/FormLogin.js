@@ -13,7 +13,7 @@ import { ButtonGradient } from '../button';
 
 const schema = yup
   .object({
-    phoneNumber: yup
+    phoneNo: yup
       .string()
       .min(10, 'Số điện thoại phải có đủ 10 số')
       .max(10, 'Số điện thoại phải có đủ 10 số digits')
@@ -49,18 +49,19 @@ function FormLogin() {
   // Submit form
   const onSubmit = async (formData) => {
     console.log(formData);
-    const loginData = await loginAPI
-      .login(formData.phoneNumber, formData.password)
-      .then((res) => {
-        console.log(res);
-      });
+    const userAgent = window?.navigator.userAgent;
+    const loginData = await loginAPI.login(
+      formData.phoneNo,
+      formData.password,
+      userAgent,
+    );
     console.log(loginData);
     // Call API to login
-    login('admin');
+    // login('admin');
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container maxWidth="xs">
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -106,13 +107,12 @@ function FormLogin() {
                 paddingLeft: '10px',
               }}
             >
-              {/* <Image src={}/> */}
               VietQR ID Card
             </Button>
           </Grid>
         </Grid>
         <InputLogin
-          label="phoneNumber"
+          label="phoneNo"
           t={t}
           register={register}
           watch={watch}

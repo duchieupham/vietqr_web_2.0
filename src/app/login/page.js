@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { FormLogin } from '~/components/form';
 import { LoginHeader } from '~/components/header';
@@ -15,7 +15,33 @@ function Login() {
 
   return (
     <Container>
-      <LoginHeader />
+      <Grid container>
+        <Grid
+          item
+          xs
+          sx={{
+            justifyContent: 'start',
+            alignItems: 'center',
+            display: 'flex',
+          }}
+        >
+          <LoginHeader />
+        </Grid>
+        <Grid item xs>
+          <span>LOGO</span>
+        </Grid>
+        <Grid
+          item
+          xs
+          sx={{
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            display: 'flex',
+          }}
+        >
+          <Button>{t('contact')}</Button>
+        </Grid>
+      </Grid>
       <FormLogin />
     </Container>
   );

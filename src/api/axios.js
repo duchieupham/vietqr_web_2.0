@@ -84,6 +84,16 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_DEV_URL,
   paramsSerializer: parseParams,
   withCredentials: false,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: '*/*',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers':
+      'Origin, Content-Type, X-Requested-With, Accept',
+    'Access-Control-Allow-Credentials': 'true',
+    'Cache-Control': 'no-cache',
+  },
 });
 
 axiosInstance.interceptors.request.use(

@@ -1,3 +1,4 @@
+import useEncrypt from '~/hooks/useEncrypt';
 import axiosInstance from '../axios';
 
 const checkExist = async (phone) => {
@@ -6,8 +7,21 @@ const checkExist = async (phone) => {
   return res;
 };
 
-const login = (phone, password) =>
-  axiosInstance.post('accounts', { phone, password }).then((res) => res);
+const login = async (_phoneNo, pass) => {
+  const passwordEncrypt = await useEncrypt(_phoneNo, pass);
+  const userAgent = window?.navigator.userAgent;
+  const data = {
+    phoneNo: _phoneNo,
+    email: '',
+    password: passwordEncrypt,
+    fcmToken: '',
+    device: userAgent,
+    platform: 'Web',
+    sharingCode: '',
+  };
+
+  axiosInstance.post('accounts', data).then((res) => res);
+};
 
 const loginAPI = {
   checkExist,

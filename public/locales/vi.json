@@ -22,7 +22,7 @@
   "registerFailed": "Đăng kí thất bại",
   "registerForm": "Đăng kí tài khoản",
 
-  "phoneNumber": "Số điện thoại",
+  "phoneNo": "Số điện thoại",
   "phoneNumberRequired": "Số điện thoại không được để trống",
   "phoneNumberInvalid": "Số điện thoại không hợp lệ",
   "phoneNumberHelperText": " ",

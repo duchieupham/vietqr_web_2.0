@@ -15,7 +15,7 @@ function MainLayout({ children }) {
   return (
     <Container component="div">
       <Box component="header" sx={{ justifyContent: 'space-between' }}>
-        <h1>Layout</h1>
+        {/* <h1>Layout</h1> */}
         <Box component="div">
           {auth.session}
           {auth.session && (

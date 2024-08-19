@@ -69,7 +69,7 @@ function LoginHeader() {
                 activeLink === item.id ? 'transparent' : 'initial',
               '&:hover': {
                 background:
-                  'linear-gradient(90deg, rgba(0,198,255,0.5), rgba(0,114,255,0.5))',
+                  'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255, 1.0))',
                 textDecoration: 'none',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
