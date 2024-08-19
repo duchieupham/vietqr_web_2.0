@@ -59,8 +59,6 @@ function LoginHeader() {
             selected={activeLink === item.id}
             className={styles.nav__links}
             sx={{
-              width: selectedTab.current === item.id ? '80px' : '100px',
-              height: selectedTab.current === item.id ? '40px' : '50px',
               alignItems: 'center',
               borderRadius: '8px',
               transition:
@@ -73,16 +71,18 @@ function LoginHeader() {
                 background:
                   'linear-gradient(90deg, rgba(0,198,255,0.5), rgba(0,114,255,0.5))',
                 textDecoration: 'none',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               },
               '&.Mui-selected': {
                 backgroundColor: 'transparent',
                 boxShadow: 'none',
                 transform: 'scale(0.98)',
                 '&:hover': {
-                  background:
-                    'linear-gradient(90deg, rgba(0,198,255,0.5), rgba(0,114,255,0.5))',
+                  backgroundColor: 'transparent',
+                  // background:
+                  //   'linear-gradient(90deg, rgba(0,198,255,0.5), rgba(0,114,255,0.5))',
                   textDecoration: 'none',
-                  opacity: 0.9,
                 },
                 '& .MuiListItemButton-root': {
                   backgroundColor: 'transparent',
