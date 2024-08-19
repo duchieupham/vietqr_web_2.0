@@ -49,7 +49,7 @@ export function AuthContextProvider({ children }) {
         role: 'admin',
       });
       setSession(info);
-      console.log('session', session);
+      // console.log('session', session);
       router.push('/');
     }
   }, []);

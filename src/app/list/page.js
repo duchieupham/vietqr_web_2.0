@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from 'antd';
+import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import listApi from '~/api/listServices';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';

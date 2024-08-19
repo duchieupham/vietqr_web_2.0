@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Flex } from 'antd';
+import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useAuthContext } from '~/contexts/AuthContext';
 
@@ -14,7 +14,7 @@ function MainLayout({ children }) {
 
   return (
     <div>
-      <Flex style={{ justifyContent: 'space-between' }}>
+      <div style={{ justifyContent: 'space-between' }}>
         <h1>Admin Layout</h1>
         <div>
           {auth.session}
@@ -24,7 +24,7 @@ function MainLayout({ children }) {
             </Button>
           )}
         </div>
-      </Flex>
+      </div>
 
       {children}
     </div>

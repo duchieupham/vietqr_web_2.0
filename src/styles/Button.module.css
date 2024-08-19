@@ -1,0 +1,7 @@
+.linearGradient {
+  background-image: linear-gradient(to right, #00C6FF, #0072FF);
+  color: white;
+  border-radius: 5px;
+  width: 390px;
+  margin: 10px 0;
+}

@@ -1,0 +1,112 @@
+.circle_password_input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+
+  .MuiOutlinedInput_input {
+    position: absolute;
+    opacity: 0; /* Hide the actual input field */
+    left: 15rem;
+    width: 100%;
+    height: 100%;
+    cursor: text;
+  }
+
+  .circles {
+    display: flex;
+    gap: 8px;
+    pointer-events: none; /* Prevent clicking on the circles */
+    position: absolute;
+    left: 55px;
+    top: 20px;
+  }
+
+  .circle {
+    width: 12px;
+    height: 12px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    background-color: transparent;
+
+    &.filled {
+      border: none;
+      background-color: #0072ff;
+      opacity: 1;
+    }
+  }
+}
+
+.custom_input {
+  width: 360px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  outline: none;
+  border-color: transparent;
+  margin: 1rem 0;
+
+  .MuiOutlinedInput-root {
+    height: 50px; // Set the height of the TextField
+
+    fieldset {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+    }
+
+    &:hover fieldset {
+      border-color: #0072ff; // Border color on hover
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #0072ff; // Border color when focused
+    }
+  }
+
+  .MuiOutlinedInput-input {
+    height: 100%; // Ensure the input field takes up the full height
+    padding: 0 14px; // Adjust padding to center the text vertically
+    box-sizing: border-box; // Ensure padding doesn't affect overall height
+  }
+
+  .MuiInputLabel-root {
+    top: -5px; // Adjust the label's vertical position
+    left: 5px;
+    align-items: center; // Align the label text with the input
+    justify-content: center; // Align the label text with the input
+    display: flex; // Align the label text with the input
+    font-size: 0.9rem; // Adjust the label font size
+    line-height: 30px; // Ensure the label aligns with the input height
+  }
+
+  .MuiInputLabel-shrink {
+    top: 1px; // Adjust the label position when shrunk
+  }
+}
+
+.has_error {
+  border: 1px solid #e3342f; // Red border to indicate an error
+  background-color: #ffe5e5; // Light red background to highlight the error
+  color: #e3342f; // Red text color
+
+  &:focus {
+    outline: none; // Remove the default outline
+    border-color: #cc1f1a; // Darker red border on focus
+    box-shadow: 0 0 5px rgba(227, 52, 47, 0.5); // Red shadow on focus
+  }
+
+  &::placeholder {
+    color: #e3342f; // Red placeholder text
+    opacity: 0.7; // Slightly faded
+  }
+}
+
+.error_message {
+  position: absolute;
+  color: #e3342f; // Red text color for error message
+  font-size: 0.875rem; // Slightly smaller font size
+  margin-top: -1.85rem; // Small spacing above the message
+  padding-left: 0.5rem; // Indent the error message
+  transition: opacity 0.5s ease-in-out; // Smooth transition for visibility
+  transition: all 0.5s ease-in-out; // Smooth transition for visibility
+  opacity: 1;
+}

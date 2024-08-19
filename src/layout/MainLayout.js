@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Flex } from 'antd';
+import { Box, Button, Container } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useAuthContext } from '~/contexts/AuthContext';
 
@@ -13,21 +13,21 @@ function MainLayout({ children }) {
   };
 
   return (
-    <div>
-      <Flex style={{ justifyContent: 'space-between' }}>
+    <Container component="div">
+      <Box component="header" sx={{ justifyContent: 'space-between' }}>
         <h1>Layout</h1>
-        <div>
+        <Box component="div">
           {auth.session}
           {auth.session && (
             <Button style={{ marginLeft: 12 }} onClick={logout}>
               Logout
             </Button>
           )}
-        </div>
-      </Flex>
+        </Box>
+      </Box>
 
       {children}
-    </div>
+    </Container>
   );
 }
 

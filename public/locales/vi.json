@@ -1,4 +1,35 @@
 {
-    "title": "Tiêu đề",
-    "welcome": "Chào mừng"
+  "title": "Tiêu đề",
+  "welcome": "Chào mừng",
+
+  "passwordRequired": "Mật khẩu không được để trống",
+  "passwordInvalid": "Mật khẩu không hợp lệ",
+  "passwordConfirm": "Xác nhận mật khẩu",
+  "passwordConfirmRequired": "Xác nhận mật khẩu không được để trống",
+  "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
+  "passwordNotMatch": "Mật khẩu không trùng khớp",
+  "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
+  "forgotPassword": "Quên mật khẩu đăng nhập ?",
+
+  "loginForm": "Đăng nhập",
+  "login": "Đăng nhập",
+  "loginFailed": "Đăng nhập thất bại",
+  "loginSuccess": "Đăng nhập thành công",
+
+  "noAccount": "Đăng kí tài khoản mới",
+  "register": "Đăng kí",
+  "registerSuccess": "Đăng kí thành công",
+  "registerFailed": "Đăng kí thất bại",
+  "registerForm": "Đăng kí tài khoản",
+
+  "phoneNumber": "Số điện thoại",
+  "phoneNumberRequired": "Số điện thoại không được để trống",
+  "phoneNumberInvalid": "Số điện thoại không hợp lệ",
+  "phoneNumberHelperText": " ",
+  "phoneNumberWrong": "Số điện thoại không đúng!",
+
+  "headerQR": "Tạo mã QR",
+  "headerServiceConnect": "Kết nối dịch vụ",
+  "headerLogin": "Đăng nhập",
+  "headerRegister": "Đăng ký"
 }
