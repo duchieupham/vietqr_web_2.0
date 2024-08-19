@@ -7,9 +7,7 @@ import loginAPI from '~/api/login/loginService';
 import * as yup from 'yup';
 import styles from '~styles/Input.module.scss';
 
-function InputLogin(props) {
-  const { label, t, otherStyles, register, othersProp, errors } = props;
-
+function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
   const phoneNumberSchema = yup
     .string()
     .matches(/^(\+84|0)[3|5|7|8|9][0-9]{8}$/, t('phoneNumberInvalid'));
@@ -29,19 +27,21 @@ function InputLogin(props) {
       await phoneNumberSchema.validate(value);
       setPhoneNumberError({ status: false, message: '' });
 
+      const isExist = await loginAPI.checkExist(value);
+      console.log(isExist);
       // Check if the phone number exists via API
-      if (!loginAPI.checkExist(value)) {
+      if (!isExist) {
         setPhoneNumberError({
           status: true,
-          message: 'Phone number does not exist',
+          message: t('phoneNumberWrong'),
         });
       } else {
         setPhoneNumberError({ status: false, message: '' });
       }
+      console.log('Đây là số điện vừa nhập: ', value);
     } catch (error) {
       setPhoneNumberError({ status: true, message: error.message });
     }
-    console.log(value);
     if (phoneNumberError.status) {
       console.log(phoneNumberError.message);
     }

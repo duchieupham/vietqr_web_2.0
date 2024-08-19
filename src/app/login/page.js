@@ -1,7 +1,9 @@
 'use client';
 
+import { Container } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { FormLogin } from '~/components/form';
+import { LoginHeader } from '~/components/header';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 function Login() {
@@ -12,11 +14,10 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login page</h1>
-      <div>{t('welcome')}</div>
+    <Container>
+      <LoginHeader />
       <FormLogin />
-    </div>
+    </Container>
   );
 }
 

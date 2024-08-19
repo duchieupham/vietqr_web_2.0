@@ -6,10 +6,8 @@ import styles from '~styles/Input.module.scss';
 import { Box } from '@mui/material';
 import * as yup from 'yup';
 
-function InputPassword(props) {
-  // eslint-disable-next-line object-curly-newline
-  const { othersStyle, othersProp, t, register, label, watch } = props;
-
+// eslint-disable-next-line object-curly-newline
+function InputPassword({ othersStyle, othersProp, t, register, label, watch }) {
   const passwordSchema = useMemo(
     () =>
       yup

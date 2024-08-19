@@ -8,6 +8,7 @@
   "passwordConfirmRequired": "Xác nhận mật khẩu không được để trống",
   "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
   "passwordNotMatch": "Mật khẩu không trùng khớp",
+  "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
   "forgotPassword": "Quên mật khẩu đăng nhập ?",
 
   "loginForm": "Đăng nhập",
@@ -24,5 +25,11 @@
   "phoneNumber": "Số điện thoại",
   "phoneNumberRequired": "Số điện thoại không được để trống",
   "phoneNumberInvalid": "Số điện thoại không hợp lệ",
-  "phoneNumberHelperText": " // ?"
+  "phoneNumberHelperText": " ",
+  "phoneNumberWrong": "Số điện thoại không đúng!",
+
+  "headerQR": "Tạo mã QR",
+  "headerServiceConnect": "Kết nối dịch vụ",
+  "headerLogin": "Đăng nhập",
+  "headerRegister": "Đăng ký"
 }

@@ -6,8 +6,10 @@ import * as yup from 'yup';
 // eslint-disable-next-line object-curly-newline
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { ButtonGradient } from '../button';
+import { useAuthContext } from '~/contexts/AuthContext';
+import loginAPI from '~/api/login/loginService';
 import { InputPassword, InputLogin } from '../input';
+import { ButtonGradient } from '../button';
 
 const schema = yup
   .object({
@@ -42,10 +44,19 @@ function FormLogin() {
     mode: 'onChange',
   });
   const t = useTranslations();
+  const { login } = useAuthContext();
 
   // Submit form
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     console.log(formData);
+    const loginData = await loginAPI
+      .login(formData.phoneNumber, formData.password)
+      .then((res) => {
+        console.log(res);
+      });
+    console.log(loginData);
+    // Call API to login
+    login('admin');
   };
 
   return (
@@ -95,6 +106,7 @@ function FormLogin() {
                 paddingLeft: '10px',
               }}
             >
+              {/* <Image src={}/> */}
               VietQR ID Card
             </Button>
           </Grid>
