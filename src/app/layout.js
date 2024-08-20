@@ -1,8 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import theme from '~/theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import StoreProvider from './StoreProvider';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';

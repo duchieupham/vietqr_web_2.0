@@ -31,5 +31,8 @@
   "headerQR": "Tạo mã QR",
   "headerServiceConnect": "Kết nối dịch vụ",
   "headerLogin": "Đăng nhập",
-  "headerRegister": "Đăng ký"
+  "headerRegister": "Đăng ký",
+
+  "contact": "Liên hệ",
+  "vietnamese": "Tiếng Việt"
 }

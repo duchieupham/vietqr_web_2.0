@@ -13,21 +13,19 @@ function MainLayout({ children }) {
   };
 
   return (
-    <Container component="div">
-      <Box component="header" sx={{ justifyContent: 'space-between' }}>
-        {/* <h1>Layout</h1> */}
-        <Box component="div">
+    <>
+      <div>
+        <div>
           {auth.session}
           {auth.session && (
             <Button style={{ marginLeft: 12 }} onClick={logout}>
               Logout
             </Button>
           )}
-        </Box>
-      </Box>
-
+        </div>
+      </div>
       {children}
-    </Container>
+    </>
   );
 }
 

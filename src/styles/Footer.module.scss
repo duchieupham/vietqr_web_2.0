@@ -1,0 +1,21 @@
+.footer__left {
+  display: flex;
+  flex-wrap: wrap;
+  width: 25%;
+  gap: 20px;
+  padding: 1rem;
+  &_col {
+    justify-content: space-evenly;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    span {
+      border-left: 2px solid #dadada;
+      height: 18px;
+      align-items: center;
+      display: flex;
+      margin-bottom: 10px;
+    }
+  }
+}
