@@ -1,25 +1,53 @@
 'use client';
 
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { FooterLogin } from '~/components/footer';
-import { FormLogin } from '~/components/form';
+import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
+import useDisplay from '~/hooks/useDisplay';
 
 function Login() {
+  const { height, orientation, width } = useDisplay();
+
   return (
-    <>
-      <Navbar />
+    <Stack sx={{ minHeight: 1 }}>
       <Box
-        component="div"
-        style={{
-          display: 'flex',
-          marginBottom: '12rem',
+        component="nav"
+        sx={{
+          height: '100%',
         }}
       >
-        <FormLogin />
+        <Navbar />
       </Box>
-      <FooterLogin />
-    </>
+      <Box
+        component="main"
+        sx={{
+          display: 'flex',
+        }}
+      >
+        <Box
+          component="div"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}
+        >
+          <LoginForm />
+        </Box>
+      </Box>
+      <Box sx={{ flexGrow: 1 }} />
+      <Box
+        component="footer"
+        sx={{
+          height: '100%',
+        }}
+      >
+        <FooterLogin />
+      </Box>
+    </Stack>
   );
 }
 

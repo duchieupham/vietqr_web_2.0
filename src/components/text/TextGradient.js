@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
-function TextGradient({ text }) {
+function TextGradient({ text, otherStyles }) {
   return (
-    <Box
+    <Typography
       sx={{
         backgroundImage: 'linear-gradient(to right, #00C6FF, #0072FF)',
         WebkitBackgroundClip: 'text',
@@ -10,10 +10,11 @@ function TextGradient({ text }) {
         color: 'white',
         fontSize: '24px',
         fontWeight: 'bold',
+        ...otherStyles,
       }}
     >
       {text}
-    </Box>
+    </Typography>
   );
 }
 export default TextGradient;

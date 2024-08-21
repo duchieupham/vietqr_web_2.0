@@ -17,7 +17,13 @@ function FooterLogin() {
   }, []);
 
   return (
-    <Grid container>
+    <Grid
+      container
+      sx={{
+        position: 'absolute',
+        bottom: 0,
+      }}
+    >
       <Grid item xs={12} sm={6} md={3} lg={3}>
         <FooterLeft
           hotline="1900 6234"

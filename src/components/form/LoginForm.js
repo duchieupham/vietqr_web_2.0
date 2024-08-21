@@ -2,37 +2,17 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-// eslint-disable-next-line object-curly-newline
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useAuthContext } from '~/contexts/AuthContext';
 import loginAPI from '~/api/login/loginService';
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
+import { LoginFormSchema } from '~/utils/definitions';
 import { InputPassword, InputLogin } from '../input';
 import { ButtonGradient } from '../button';
+import { TextGradient } from '../text';
 
-const schema = yup
-  .object({
-    phoneNo: yup
-      .string()
-      .min(10, 'Số điện thoại phải có đủ 10 số')
-      .max(10, 'Số điện thoại phải có đủ 10 số digits')
-      .required('Phone number is required')
-      .matches(
-        /^(?:\+84|0)(?:3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/,
-        'Vui lòng nhập đúng số điện thoại !',
-      ),
-    password: yup
-      .string()
-      .trim()
-      .max(6, 'Mật khẩu phải có đúng 6 ký tự')
-      .min(6, 'Mật khẩu phải có đúng 6 ký tự')
-      .matches(/^\d{6}$/, 'Password must be exactly 6 digits')
-      .required('Vui lòng nhập mật khẩu !'),
-  })
-  .required();
-
-function FormLogin() {
+export default function LoginForm() {
   const {
     handleSubmit,
     register,
@@ -40,7 +20,7 @@ function FormLogin() {
     formState: { errors },
     trigger,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(LoginFormSchema),
     mode: 'onChange',
   });
   const t = useTranslations();
@@ -48,20 +28,30 @@ function FormLogin() {
 
   // Submit form
   const onSubmit = async (formData) => {
-    console.log(formData);
+    // console.log(formData);
     const userAgent = window?.navigator.userAgent;
     const loginData = await loginAPI.login(
       formData.phoneNo,
       formData.password,
       userAgent,
     );
-    console.log(loginData);
+    // console.log(loginData);
     // Call API to login
+    await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        login(res.data);
+      }
+    });
     // login('admin');
   };
 
   return (
-    <Container maxWidth="xs">
+    <Container
+      sx={{
+        maxWidth: '100%',
+      }}
+    >
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -70,28 +60,22 @@ function FormLogin() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          marginY: 0,
+          marginX: 'auto',
         }}
       >
         <Grid
-          container
-          justifyContent="space-between"
           sx={{
-            marginLeft: '3rem',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '6rem',
           }}
+          justifyContent="space-between"
         >
           <Grid item xs>
-            <Typography
-              component="h1"
-              variant="h5"
-              sx={{
-                background: 'linear-gradient(to right, #00C6FF, #0072FF)',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontWeight: 'bold',
-              }}
-            >
-              {t('login')}
-            </Typography>
+            <TextGradient text={t('login')} />
           </Grid>
           <Grid item xs>
             <Button
@@ -107,6 +91,14 @@ function FormLogin() {
                 paddingLeft: '10px',
               }}
             >
+              <ContactEmergencyOutlinedIcon
+                sx={{
+                  fontWeight: '400',
+                  color: '#000000.2',
+                  padding: '5px',
+                  marginRight: '3px',
+                }}
+              />
               VietQR ID Card
             </Button>
           </Grid>
@@ -131,7 +123,7 @@ function FormLogin() {
         <Typography
           variant="body2"
           color="textSecondary"
-          style={{ textAlign: 'left', marginBottom: '2rem' }}
+          style={{ textAlign: 'left', marginBottom: '1rem' }}
         >
           {t('forgotPassword')}
         </Typography>
@@ -146,23 +138,14 @@ function FormLogin() {
         >
           {t('login')}
         </ButtonGradient>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          style={{
-            textAlign: 'center',
-            marginTop: '2rem',
+        <TextGradient
+          text={t('noAccount')}
+          otherStyles={{
             fontSize: '15px',
-            background: 'linear-gradient(to right, #00C6FF, #0072FF)',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            marginTop: '1rem',
           }}
-        >
-          {t('noAccount')}
-        </Typography>
+        />
       </Box>
     </Container>
   );
 }
-
-export default FormLogin;

@@ -2,7 +2,8 @@ import useEncrypt from '~/hooks/useEncrypt';
 import axiosInstance from '../axios';
 
 const checkExist = async (phone) => {
-  await axiosInstance.get(`accounts/search/${phone}`).then((res) => res);
+  const res = await axiosInstance.get(`accounts/search/${phone}`);
+  return res;
 };
 
 const login = async (_phoneNo, pass) => {
@@ -17,7 +18,8 @@ const login = async (_phoneNo, pass) => {
     platform: 'Web',
     sharingCode: '',
   };
-  axiosInstance.post('accounts', data).then((res) => res);
+  const res = await axiosInstance.post('accounts', data);
+  return res;
 };
 
 const loginAPI = {

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Box, Button, MenuItem, Select } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
 import { LoginHeader } from '../header';
+import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 
 export default function Navbar() {
   const t = useTranslations();
@@ -59,8 +60,25 @@ export default function Navbar() {
               />
             )}
           </Box>
-          <Box component="div">
-            <Button>{t('contact')}</Button>
+          <Box
+            component="div"
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+            }}
+          >
+            <Button
+              sx={{
+                color: 'black',
+                fontSize: '1rem',
+                fontWeight: 'normal',
+                textTransform: 'none',
+                gap: '0.5rem',
+              }}
+            >
+              <HeadphonesOutlinedIcon />
+              {t('contact')}
+            </Button>
             <Select>
               {optionSelect &&
                 optionSelect.map((option) => (

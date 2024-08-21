@@ -24,12 +24,13 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
+            fontSize: '0.9rem',
           }}
         >
           <LocalPhoneOutlinedIcon
             sx={{
               color: 'black',
-              fontSize: '0.9rem',
+              fontSize: '0.8rem',
               alignItems: 'center',
               justifyItems: 'center',
               marginX: '10px',
@@ -42,12 +43,13 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
+            fontSize: '0.9rem',
           }}
         >
           <MarkEmailUnreadOutlinedIcon
             sx={{
               color: 'black',
-              fontSize: '0.9rem',
+              fontSize: '0.8rem',
               alignItems: 'center',
               justifyItems: 'center',
               marginX: '10px',
@@ -66,12 +68,13 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
+            fontSize: '0.9rem',
           }}
         >
           <PhoneIphoneOutlinedIcon
             sx={{
               color: 'black',
-              fontSize: '0.9rem',
+              fontSize: '0.8rem',
               alignItems: 'center',
               justifyItems: 'center',
               marginX: '10px',
@@ -84,12 +87,13 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
+            fontSize: '0.9rem',
           }}
         >
           <MarkEmailUnreadOutlinedIcon
             sx={{
               color: 'black',
-              fontSize: '0.9rem',
+              fontSize: '0.8rem',
               alignItems: 'center',
               justifyItems: 'center',
               marginX: '10px',
