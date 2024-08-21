@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Box,
-  Container,
-  List,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material';
+import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 import styles from '~styles/Header.module.scss';
@@ -40,7 +34,7 @@ function LoginHeader() {
 
   const handleLinkClick = (type) => {
     setActiveLink(type);
-    setMenuOpen(false); // Close menu after clicking a li'nk
+    setMenuOpen(false); // Close menu after clicking a link
   };
 
   return (

@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl';
 import useImage from '~/hooks/useImage';
 import Image from 'next/image';
-import { Button, MenuItem, Select } from '@mui/material';
+// eslint-disable-next-line object-curly-newline
+import { Box, Button, MenuItem, Select } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
 import { LoginHeader } from '../header';
 
@@ -11,14 +12,16 @@ export default function Navbar() {
   const optionSelect = [{ language: 'vietnamese' }];
 
   return (
-    <div
+    <Box
+      component="div"
       style={{
         width: '100%',
         position: 'sticky',
         top: 0,
       }}
     >
-      <div
+      <Box
+        component="div"
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -27,7 +30,8 @@ export default function Navbar() {
           height: '100%',
         }}
       >
-        <div
+        <Box
+          component="div"
           style={{
             justifyContent: 'space-between',
             display: 'flex',
@@ -35,16 +39,18 @@ export default function Navbar() {
             height: '100%',
           }}
         >
-          <div>
+          <Box component="div">
             <LoginHeader />
-          </div>
-          <div
+          </Box>
+          <Box
+            component="div"
             style={{
               marginRight: '25rem',
             }}
           >
             {imageUri && (
               <Image
+                quality={100}
                 priority
                 alt={imageUri}
                 src={imageUri}
@@ -52,8 +58,8 @@ export default function Navbar() {
                 height={70}
               />
             )}
-          </div>
-          <div>
+          </Box>
+          <Box component="div">
             <Button>{t('contact')}</Button>
             <Select>
               {optionSelect &&
@@ -63,9 +69,9 @@ export default function Navbar() {
                   </div>
                 ))}
             </Select>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }

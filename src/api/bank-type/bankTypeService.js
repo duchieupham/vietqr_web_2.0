@@ -1,11 +1,11 @@
 const { default: axiosInstance } = require('../axios');
 
 const bankTypeList = async () => {
-  await axiosInstance.get('bank-type').then((res) => res);
+  const res = await axiosInstance.get('bank-type/unauthenticated');
+  return res;
 };
 
 const bankTypeAPI = {
   bankTypeList,
 };
-
 export default bankTypeAPI;
