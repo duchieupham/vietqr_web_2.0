@@ -5,7 +5,7 @@ const bankTypeList = async () => {
   return res;
 };
 
-const bankTypeAPI = {
+const imagesAPI = {
   bankTypeList,
 };
-export default bankTypeAPI;
+export default imagesAPI;

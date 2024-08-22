@@ -4,8 +4,8 @@ import Image from 'next/image';
 // eslint-disable-next-line object-curly-newline
 import { Box, Button, MenuItem, Select } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
-import { LoginHeader } from '../header';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
+import { LoginHeader } from '../header';
 
 export default function Navbar() {
   const t = useTranslations();
@@ -37,7 +37,7 @@ export default function Navbar() {
             justifyContent: 'space-between',
             display: 'flex',
             alignItems: 'center',
-            height: '100%',
+            // height: '100%',
           }}
         >
           <Box component="div">
@@ -45,18 +45,23 @@ export default function Navbar() {
           </Box>
           <Box
             component="div"
-            style={{
-              marginRight: '25rem',
+            sx={{
+              marginRight: { xs: '2rem', md: '25rem' }, // Use responsive spacing if needed
+              display: 'flex', // Ensure proper alignment
+              alignItems: 'center',
             }}
           >
             {imageUri && (
               <Image
                 quality={100}
                 priority
-                alt={imageUri}
+                alt="Image"
                 src={imageUri}
-                width={70}
-                height={70}
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: 'contain',
+                }}
               />
             )}
           </Box>

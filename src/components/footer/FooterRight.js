@@ -4,25 +4,33 @@ import { Box } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 
 const responsive = {
   superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 10,
+    breakpoint: { max: 4000, min: 1920 },
+    items: 8,
+  },
+  largeDesktop: {
+    breakpoint: { max: 1920, min: 1440 },
+    items: 6,
+    slidesToSlide: 3,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 10,
+    breakpoint: { max: 1440, min: 1024 },
+    items: 4,
     slidesToSlide: 2,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+  },
+  smallTablet: {
+    breakpoint: { max: 768, min: 576 },
     items: 3,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
+    breakpoint: { max: 576, min: 0 },
+    items: 3,
   },
 };
 
@@ -51,42 +59,47 @@ function FooterRight({ initialValues }) {
   }, [initialValues]);
 
   return (
-    <Box
-      component="div"
-      sx={{
-        overflow: 'hidden',
-      }}
-    >
+    <Box component="div">
       <Carousel
-        showDots={false}
         responsive={responsive}
         infinite
+        centerMode
+        rtl
         autoPlay
-        autoPlaySpeed={1000}
-        customTransition="transform 500ms ease-in-out"
+        autoPlaySpeed={950}
+        customTransition="transform 950ms ease-in-out"
+        transitionDuration={950}
         removeArrowOnDeviceType={['tablet', 'mobile']}
         arrows={false}
       >
         {images &&
           images.map((image) => (
-            <div key={image.bankCode}>
+            <Box
+              component="div"
+              key={image.bankCode}
+              sx={{
+                overflow: 'hidden',
+                height: '100%',
+                position: 'relative',
+              }}
+            >
               {image.imageId && (
                 <Image
-                  quality={100}
-                  priority
                   src={image.imageId}
                   alt={image.bankShortName}
                   height={40}
                   width={90}
+                  sizes="(max-width: 576px) 30px,
+                       (max-width: 768px) 40px,
+                       (max-width: 1024px) 70px"
+                  loading="lazy"
+                  quality={100}
                   style={{
-                    objectFit: 'cover',
-                    transition:
-                      'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
-                    willChange: 'transform, opacity',
+                    objectFit: 'contain',
                   }}
                 />
               )}
-            </div>
+            </Box>
           ))}
       </Carousel>
     </Box>

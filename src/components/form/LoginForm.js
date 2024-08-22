@@ -1,13 +1,24 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { useAuthContext } from '~/contexts/AuthContext';
-import loginAPI from '~/api/login/loginService';
-import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import { LoginFormSchema } from '~/utils/definitions';
+
+// import next
+
+// import mui
+// eslint-disable-next-line object-curly-newline
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
+// import API
+import loginAPI from '~/api/login/loginService';
+
+// import hooks
+import { useForm } from 'react-hook-form';
+import useDecodeJWT from '~/hooks/useJWT';
+import { useLocalStorage } from '~/hooks/useLocalStorage';
+
+// import components
 import { InputPassword, InputLogin } from '../input';
 import { ButtonGradient } from '../button';
 import { TextGradient } from '../text';
@@ -24,26 +35,16 @@ export default function LoginForm() {
     mode: 'onChange',
   });
   const t = useTranslations();
-  const { login } = useAuthContext();
+  const [storedValue, setStoredValue] = useLocalStorage('session', '');
 
-  // Submit form
   const onSubmit = async (formData) => {
-    // console.log(formData);
-    const userAgent = window?.navigator.userAgent;
-    const loginData = await loginAPI.login(
-      formData.phoneNo,
-      formData.password,
-      userAgent,
-    );
-    // console.log(loginData);
     // Call API to login
     await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
-      console.log(res);
       if (res.status === 200) {
-        login(res.data);
+        const info = useDecodeJWT(res.data);
+        if (info) setStoredValue(info);
       }
     });
-    // login('admin');
   };
 
   return (
@@ -75,7 +76,7 @@ export default function LoginForm() {
           justifyContent="space-between"
         >
           <Grid item xs>
-            <TextGradient text={t('login')} />
+            <TextGradient>{t('login')}</TextGradient>
           </Grid>
           <Grid item xs>
             <Button
@@ -145,6 +146,42 @@ export default function LoginForm() {
             marginTop: '1rem',
           }}
         />
+        <TextGradient
+          otherStyles={{
+            backgroundImage:
+              'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
+            fontSize: '15px',
+            fontWeight: '400',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background:
+                'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              zIndex: -1,
+            },
+          }}
+        >
+          <AutoAwesomeIcon
+            sx={{
+              backgroundImage:
+                'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
+              WebkitTextFillColor: 'transparent',
+              WebkitBackgroundClip: 'unset',
+              fontSize: '15px',
+              marginRight: '5px',
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+          Quét mã QR để đăng nhập vào website
+        </TextGradient>
       </Box>
     </Container>
   );
