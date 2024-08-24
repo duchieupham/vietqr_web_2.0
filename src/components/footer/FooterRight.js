@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 
+import 'react-multi-carousel/lib/styles.css';
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1920 },
@@ -67,27 +69,24 @@ function FooterRight({ initialValues }) {
 
   return (
     <Box
-      component="div"
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         height: '100%',
         width: '100%',
       }}
     >
       <Carousel
+        rewind={false}
+        rewindWithAnimation={false}
         responsive={responsive}
         infinite
-        centerMode
         autoPlay
-        autoPlaySpeed={950}
-        customTransition="transform 1000ms ease-out"
-        transitionDuration={950}
+        autoPlaySpeed={1}
+        customTransition="all 1s linear"
         removeArrowOnDeviceType={['tablet', 'mobile']}
         arrows={false}
+        transitionDuration={1000}
       >
-        {images.length > 0 &&
+        {images.length > 0 ? (
           images?.map((image) => (
             <Box
               component="div"
@@ -117,7 +116,10 @@ function FooterRight({ initialValues }) {
                 />
               )}
             </Box>
-          ))}
+          ))
+        ) : (
+          <div>Loading...</div>
+        )}
       </Carousel>
     </Box>
   );
