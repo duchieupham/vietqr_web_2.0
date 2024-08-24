@@ -28,8 +28,6 @@ export function AuthContextProvider({ children }) {
     setSession(decodeJwt(data));
     setCookie('auth_token', data, {
       secure: true,
-      httpOnly: true,
-      sameSite: 'strict',
     });
     router.push('/');
   };
