@@ -62,6 +62,7 @@
         "tsx": "never"
       }
     ],
+    "object-curly-newline": "off",
     "function-paren-newline": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",

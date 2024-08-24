@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from 'cookies-next';
 import _toLower from 'lodash-es/toLower';
 // ----------------------------------------------------------------------
 
@@ -27,12 +28,13 @@ const withDefaultParams = (config, defaultParams) => {
 };
 
 const requestPreprocess = (axiosConfig, options) => {
-  if (axiosConfig?.usePageLoading && options?.loading?.setLoading) {
-    options?.loading.setLoading(true);
+  const session = getCookie('auth_token');
+
+  if (axiosConfig?.useAuth && session) {
+    axiosConfig.headers.Authorization = `Bearer ${session}`;
   }
 
   withDefaultParams(axiosConfig, options?.defaultParams);
-
   withFormData(axiosConfig);
   return axiosConfig;
 };
@@ -43,14 +45,11 @@ const handleAxiosError = (error) => {
     error?.request?.path ?? error?.request?.responseURL,
     error.message,
   );
+  return error;
 };
 
 const handleAxiosResponse = (response, options) => {
-  // if (response.config?.apiNotification) withToastMessage(response);
-
-  if (response.config?.usePageLoading && options?.loading?.setLoading) {
-    // options?.loading.setLoading(false);
-  }
+  response.headers.Authorization = null;
 
   return response;
 };
@@ -86,13 +85,6 @@ const axiosInstance = axios.create({
   withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
-    Accept: '*/*',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers':
-      'Origin, Content-Type, X-Requested-With, Accept',
-    'Access-Control-Allow-Credentials': 'true',
-    'Cache-Control': 'no-cache',
   },
 });
 

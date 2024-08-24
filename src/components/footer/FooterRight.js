@@ -8,19 +8,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1920 },
-    items: 8,
-  },
-  largeDesktop: {
-    breakpoint: { max: 1920, min: 1440 },
-    items: 6,
-    slidesToSlide: 3,
-  },
   desktop: {
-    breakpoint: { max: 1440, min: 1024 },
-    items: 4,
-    slidesToSlide: 2,
+    breakpoint: { max: 1920, min: 1024 },
+    items: 8,
   },
   tablet: {
     breakpoint: { max: 1024, min: 768 },
@@ -37,13 +27,10 @@ const responsive = {
 };
 
 function FooterRight({ initialValues }) {
-  console.log('initialValues:', initialValues); // Debugging
   const [images, setImages] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   function handleConvertImage(_images) {
-    console.log('_iamges:', _images); // Debugging
-
     const convertedImages = _images.map((image) => {
       const imageUrl = `${baseUrl}/images/${image.imageId}`;
       return {
@@ -52,8 +39,6 @@ function FooterRight({ initialValues }) {
       };
     });
 
-    console.log('convertedImages:', convertedImages); // Debugging
-
     if (convertedImages) {
       setImages(convertedImages);
     }
@@ -61,11 +46,9 @@ function FooterRight({ initialValues }) {
 
   useEffect(() => {
     if (initialValues) {
-      console.log('Initial Values:', initialValues); // Debugging
       handleConvertImage(initialValues);
     }
   }, [initialValues]);
-  console.log('images:', images); // Debugging
 
   return (
     <Box
@@ -86,7 +69,7 @@ function FooterRight({ initialValues }) {
         arrows={false}
         transitionDuration={1000}
       >
-        {images.length > 0 ? (
+        {images.length > 0 &&
           images?.map((image) => (
             <Box
               component="div"
@@ -103,23 +86,18 @@ function FooterRight({ initialValues }) {
                   priority
                   alt={image.bankShortName}
                   src={image.imageId}
-                  height={40}
-                  width={90}
-                  layout="responsive"
-                  // fill
+                  height={60}
+                  width={120}
                   sizes="(max-width: 576px) 30px,
-                       (max-width: 768px) 40px,
-                       (max-width: 1024px) 70px"
+                       (max-width: 768px) 80px,
+                       (max-width: 1024px) 120px"
                   style={{
                     objectFit: 'contain',
                   }}
                 />
               )}
             </Box>
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
+          ))}
       </Carousel>
     </Box>
   );

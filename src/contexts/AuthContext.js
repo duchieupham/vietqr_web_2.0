@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import {
   createContext,
@@ -9,68 +10,53 @@ import {
   useState,
 } from 'react';
 import LoadingContainer from '~/components/LoadingContainer';
-import { useLocalStorage } from '~/hooks/useLocalStorage';
+import decodeJwt from '~/utils/decodeJwt';
 
 const initialContext = {
   loading: true,
-  auth: {
-    session: null,
-    role: null,
-  },
+  session: null,
 };
 
 const AuthContext = createContext(initialContext);
 
 export function AuthContextProvider({ children }) {
   const router = useRouter();
-  const [session, setSession] = useLocalStorage('session');
+  const [session, setSession] = useState(initialContext.session);
   const [loading, setLoading] = useState(initialContext.loading);
-  const [auth, setAuth] = useState(initialContext.auth);
 
-  const authenticate = useCallback(() => {
-    setLoading(true);
-    if (!session) {
-      router.push('/login');
-      setLoading(false);
-      return;
-    }
-    setAuth({
-      session,
-      role: 'admin',
+  const authenticate = (data) => {
+    setSession(decodeJwt(data));
+    setCookie('auth_token', data, {
+      secure: true,
+      httpOnly: true,
+      sameSite: 'strict',
     });
     router.push('/');
-    setLoading(false);
-  }, [session]);
-
-  const login = useCallback((info) => {
-    if (info) {
-      setAuth({
-        session: info,
-        role: 'admin',
-      });
-      setSession(info);
-      // console.log('session', session);
-      router.push('/');
-    }
-  }, []);
+  };
 
   const clear = useCallback(() => {
-    setAuth(initialContext.auth);
+    localStorage.setItem('session', null);
+    deleteCookie('auth_token');
     setSession(null);
     router.push('/login');
   }, []);
 
   useEffect(() => {
-    authenticate();
-  }, [session]);
+    const storedSession = localStorage.getItem('session');
+    if (storedSession) {
+      setSession(JSON.parse(storedSession));
+    }
+    setLoading(false);
+  }, []);
 
   if (loading) return <LoadingContainer />;
+
   return (
     <AuthContext.Provider
       value={{
-        auth,
-        login,
+        session,
         clear,
+        authenticate,
       }}
     >
       {children}

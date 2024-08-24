@@ -1,8 +1,8 @@
 import { jwtDecode } from 'jwt-decode';
 
-function useDecodeJWT(token) {
+function decodeJwt(token) {
   const decodedToken = jwtDecode(token);
   return decodedToken;
 }
 
-export default useDecodeJWT;
+export default decodeJwt;

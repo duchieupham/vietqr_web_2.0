@@ -5,7 +5,7 @@ import { LoginFormSchema } from '~/utils/definitions';
 // import next
 
 // import mui
-// eslint-disable-next-line object-curly-newline
+
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -15,10 +15,13 @@ import loginAPI from '~/api/login/loginService';
 
 // import hooks
 import { useForm } from 'react-hook-form';
-import useDecodeJWT from '~/hooks/useJWT';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 
+// utils
+import decodeJwt from '~/utils/decodeJwt';
+
 // import components
+import { useAuthContext } from '~/contexts/AuthContext';
 import { InputPassword, InputLogin } from '../input';
 import { ButtonGradient } from '../button';
 import { TextGradient } from '../text';
@@ -35,13 +38,16 @@ export default function LoginForm() {
     mode: 'onChange',
   });
   const t = useTranslations();
+  const { authenticate } = useAuthContext();
   const [storedValue, setStoredValue] = useLocalStorage('session', '');
 
   const onSubmit = async (formData) => {
     // Call API to login
     await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
-      if (res.status === 200) {
-        const info = useDecodeJWT(res.data);
+      const { status, data } = res;
+      if (status === 200) {
+        authenticate(data);
+        const info = decodeJwt(data);
         if (info) setStoredValue(info);
       }
     });

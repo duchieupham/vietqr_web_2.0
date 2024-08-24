@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 /**
  * Custom hook for using localStorage
+ * Should only use in reactive component
  *
  * @param {string} key the stored key to get value
  * @param {any} initialValue the default value if null

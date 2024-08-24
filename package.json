@@ -20,6 +20,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.3",
+    "cookies-next": "^4.2.1",
     "dayjs": "^1.11.12",
     "i18next": "^23.12.2",
     "js-crypto-hmac": "^1.0.7",

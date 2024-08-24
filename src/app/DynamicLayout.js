@@ -26,7 +26,7 @@ function DynamicLayout({ children }) {
     return getLayout(layoutName);
   }, [auth]);
 
-  return <Layout>{children}</Layout>;
+  return <MainLayout>{children}</MainLayout>;
 }
 
 export default DynamicLayout;

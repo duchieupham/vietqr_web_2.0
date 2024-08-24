@@ -1,12 +1,10 @@
 'use client';
 
-import { Box, Button, Container } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { Button, Stack, Typography } from '@mui/material';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 function MainLayout({ children }) {
-  const t = useTranslations();
-  const { auth, clear } = useAuthContext();
+  const { session, clear } = useAuthContext();
 
   const logout = () => {
     clear();
@@ -14,16 +12,23 @@ function MainLayout({ children }) {
 
   return (
     <>
-      <div>
-        <div>
-          {auth.session}
-          {auth.session && (
-            <Button style={{ marginLeft: 12 }} onClick={logout}>
-              Logout
-            </Button>
-          )}
-        </div>
-      </div>
+      {session && (
+        <Stack
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>{`${session?.lastName} ${session?.firstName}`}</Typography>
+
+          <div style={{ padding: '0 8px' }}> |</div>
+          <Button onClick={logout} variant="text">
+            Logout
+          </Button>
+        </Stack>
+      )}
+
       {children}
     </>
   );

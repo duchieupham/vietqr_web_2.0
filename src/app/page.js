@@ -1,29 +1,36 @@
-'use client';
-
-import { Button } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { Box, Button } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
-import styles from '~styles/page.module.css';
+import styles from '~styles/page.module.scss';
 
 function Home() {
-  const t = useTranslations();
-
   return (
-    <div className={styles.main}>
-      <h1>Home</h1>
-      <Link href="/list">
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: {
-              xs: 'black',
-              md: 'blue',
-            },
-          }}
-        >
-          Go to List
-        </Button>
-      </Link>
+    <div className={styles.vietqr_home}>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        <Image
+          priority
+          alt="logo"
+          src="/images/logo.png"
+          width={500}
+          height={200}
+        />
+        <h1>Welcome to VietQR</h1>
+        <Link href="/dashboard">
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: {
+                xs: 'red',
+                md: 'black',
+              },
+            }}
+          >
+            Go to Dashboard
+          </Button>
+        </Link>
+      </Box>
     </div>
   );
 }
