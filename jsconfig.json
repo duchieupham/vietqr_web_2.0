@@ -9,7 +9,10 @@
       "~hooks/*": ["src/hooks/*"],
       "~components/*": ["src/components/*"],
       "~api/*": ["src/api/*"],
-      "~contexts/*": ["src/contexts/*"]
-    },
+      "~contexts/*": ["src/contexts/*"],
+      "~constants/*": ["src/constants/*"],
+      "~layout/*": ["src/layout/*"],
+      "~sections/*": ["src/sections/*"]
+    }
   }
 }

@@ -26,12 +26,17 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
       className={styles.footer__left}
       sx={{
         display: 'flex',
-        width: '100%',
+        width: {
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '90%',
+        },
         height: '100%',
-        gap: '10px',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         background: 'transparent',
         marginTop: '15px',
+        overflow: 'hidden',
       }}
     >
       <Box component="div" className={styles.footer__left_col}>
@@ -63,12 +68,10 @@ function FooterLeft({ hotline, phone, emailSales, emailIt }) {
       >
         <Typography sx={textStyle}>
           <PhoneIphoneOutlinedIcon sx={iconStyle} />
-
           {phone}
         </Typography>
         <Typography sx={textStyle}>
           <MarkEmailUnreadOutlinedIcon sx={iconStyle} />
-
           {emailIt}
         </Typography>
       </Box>

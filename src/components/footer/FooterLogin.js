@@ -8,10 +8,15 @@ function FooterLogin() {
   const [bankType, setBankType] = useState([]);
 
   const bankTypeList = async () => {
-    await imagesAPI.bankTypeList().then((res) => {
+    try {
+      const res = await imagesAPI.bankTypeList();
+      // console.log('API Response:', res.data); // Debugging
       setBankType(res.data);
-    });
+    } catch (error) {
+      console.error('Error fetching bank types:', error);
+    }
   };
+
   useEffect(() => {
     bankTypeList();
   }, []);
@@ -21,7 +26,7 @@ function FooterLogin() {
       container
       spacing={1}
       sx={{
-        position: 'absolute',
+        position: 'relative', // Changed to relative
         bottom: 0,
         alignItems: 'center',
       }}

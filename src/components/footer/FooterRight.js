@@ -35,10 +35,13 @@ const responsive = {
 };
 
 function FooterRight({ initialValues }) {
+  console.log('initialValues:', initialValues); // Debugging
   const [images, setImages] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   function handleConvertImage(_images) {
+    console.log('_iamges:', _images); // Debugging
+
     const convertedImages = _images.map((image) => {
       const imageUrl = `${baseUrl}/images/${image.imageId}`;
       return {
@@ -47,6 +50,8 @@ function FooterRight({ initialValues }) {
       };
     });
 
+    console.log('convertedImages:', convertedImages); // Debugging
+
     if (convertedImages) {
       setImages(convertedImages);
     }
@@ -54,26 +59,36 @@ function FooterRight({ initialValues }) {
 
   useEffect(() => {
     if (initialValues) {
+      console.log('Initial Values:', initialValues); // Debugging
       handleConvertImage(initialValues);
     }
   }, [initialValues]);
+  console.log('images:', images); // Debugging
 
   return (
-    <Box component="div">
+    <Box
+      component="div"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+      }}
+    >
       <Carousel
         responsive={responsive}
         infinite
         centerMode
-        rtl
         autoPlay
         autoPlaySpeed={950}
-        customTransition="transform 950ms ease-in-out"
+        customTransition="transform 1000ms ease-out"
         transitionDuration={950}
         removeArrowOnDeviceType={['tablet', 'mobile']}
         arrows={false}
       >
-        {images &&
-          images.map((image) => (
+        {images.length > 0 &&
+          images?.map((image) => (
             <Box
               component="div"
               key={image.bankCode}
@@ -83,17 +98,19 @@ function FooterRight({ initialValues }) {
                 position: 'relative',
               }}
             >
-              {image.imageId && (
+              {image && (
                 <Image
-                  src={image.imageId}
+                  quality={100}
+                  priority
                   alt={image.bankShortName}
+                  src={image.imageId}
                   height={40}
                   width={90}
+                  layout="responsive"
+                  // fill
                   sizes="(max-width: 576px) 30px,
                        (max-width: 768px) 40px,
                        (max-width: 1024px) 70px"
-                  loading="lazy"
-                  quality={100}
                   style={{
                     objectFit: 'contain',
                   }}
