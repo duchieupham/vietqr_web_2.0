@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/no-array-index-key */
 import { useTranslations } from 'next-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +13,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
@@ -20,7 +20,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import loginAPI from '~/api/login/loginService';
 
 // import hooks
-import { Controller, useForm, useFormContext } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 
 // utils
