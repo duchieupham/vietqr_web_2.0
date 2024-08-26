@@ -63,9 +63,10 @@ export default function Social() {
                     width={40}
                     height={40}
                     quality={100}
-                    objectFit="contain"
                     priority
-                    style={{}}
+                    style={{
+                      objectFit: 'contain',
+                    }}
                   />
                 </Link>
               </Box>
