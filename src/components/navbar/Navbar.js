@@ -39,6 +39,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             position: 'relative',
+            marginTop: '-0.7rem',
           }}
         >
           <Box component="div">
@@ -50,18 +51,25 @@ export default function Navbar() {
               marginRight: { xs: '2rem', md: '25rem' },
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               width: '250px',
-              height: '100px',
+              // height: '100px',
               position: 'relative', // the parent must be assigned a position of relative
             }}
           >
             <Link href="/">
               {imageUri && (
                 <Image
+                  quality={100}
+                  priority
+                  alt="VietQR logo"
                   src={imageUri}
-                  alt="VietQR Logo"
-                  objectFit="contain"
-                  fill
+                  height={80}
+                  width={170}
+                  style={{
+                    objectFit: 'contain',
+                    // padding: '1rem',
+                  }}
                 />
               )}
             </Link>

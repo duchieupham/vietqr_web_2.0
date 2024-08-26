@@ -17,7 +17,7 @@
   "loginSuccess": "Đăng nhập thành công",
 
   "noAccount": "Đăng kí tài khoản mới",
-  "register": "Đăng kí",
+  "register": "Đăng kí tài khoản mới",
   "registerSuccess": "Đăng kí thành công",
   "registerFailed": "Đăng kí thất bại",
   "registerForm": "Đăng kí tài khoản",
@@ -28,11 +28,30 @@
   "phoneNumberHelperText": " ",
   "phoneNumberWrong": "Số điện thoại không đúng!",
 
+  "headerHome": "Trang chủ",
   "headerQR": "Tạo mã QR",
   "headerServiceConnect": "Kết nối dịch vụ",
   "headerLogin": "Đăng nhập",
   "headerRegister": "Đăng ký",
 
+  "vietnamese": "Tiếng Việt",
+
   "contact": "Liên hệ",
-  "vietnamese": "Tiếng Việt"
+
+  "overview": "TỔNG QUAN",
+  "instructions-documents": "Hướng dẫn tài liệu",
+  "api-service-documents": "Tài liệu API Service",
+
+  "hotline": "HOTLINE",
+  "local-phone": "1900 6234",
+  "phone": "09 2233 3636",
+
+  "email": "EMAIL",
+  "sales-email": "sales@vietqr.vn",
+  "support-email": "itsupport@vietqr.vn",
+
+  "follow-us": "THEO DÕI CHÚNG TÔI QUA",
+  "facebook": "Facebook",
+  "youtube": "Youtube",
+  "telegram": "Telegram"
 }

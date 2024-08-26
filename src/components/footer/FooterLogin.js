@@ -20,8 +20,6 @@ function FooterLogin() {
     bankTypeList();
   }, []);
 
-  // console.log('bankType', bankType); // Debugging
-
   return (
     <Box>
       <Grid container columns={16}>

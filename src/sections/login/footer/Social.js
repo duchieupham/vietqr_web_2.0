@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 // others
 import { Box, Stack } from '@mui/material';
+import Image from 'next/image';
 
 const list = [
   {
@@ -14,17 +15,17 @@ const list = [
       {
         name: 'telegram',
         icon: '',
-        url: '',
+        url: '/images/telegram.png',
       },
       {
         name: 'facebook',
         icon: '',
-        url: '',
+        url: '/images/fb.png',
       },
       {
         name: 'youtube',
         icon: '',
-        url: '',
+        url: '/images/youtube.png',
       },
     ],
   },
@@ -52,8 +53,20 @@ export default function Social() {
           >
             {item.items.map((_item, index) => (
               <Box key={index} component="div">
-                <Link href="/" style={{ textDecoration: 'none' }}>
-                  {t(_item.name)}
+                <Link
+                  href="/"
+                  style={{ textDecoration: 'none', color: '#00C6FF' }}
+                >
+                  <Image
+                    src={_item.url}
+                    alt={_item.name}
+                    width={40}
+                    height={40}
+                    quality={100}
+                    objectFit="contain"
+                    priority
+                    style={{}}
+                  />
                 </Link>
               </Box>
             ))}

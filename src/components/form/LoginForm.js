@@ -21,7 +21,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import loginAPI from '~/api/login/loginService';
 
 // import hooks
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useFormContext } from 'react-hook-form';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 
 // utils
@@ -37,7 +37,7 @@ import styles from '~styles/Input.module.scss';
 
 // others
 import { TextGradient } from '../text';
-import { ButtonGradient } from '../button';
+import { ButtonGradient, ButtonSolid } from '../button';
 
 const inputStyle = {
   width: '360px',
@@ -83,6 +83,10 @@ const inputStyle = {
 const passwordStyle = {
   width: '360px',
   position: 'relative',
+  border: '1px solid #E0E0E0',
+  borderColor: 'transparent',
+  outline: 'none',
+  borderRadius: '20px',
   '& .MuiOutlinedInput-root': {
     height: '50px',
     '& fieldset': {
@@ -95,19 +99,15 @@ const passwordStyle = {
     '&.Mui-focused fieldset': {
       borderColor: '#0072ff',
     },
-    '& .MuiOutlinedInput-input': {
-      position: 'absolute',
-      opacity: 0,
-      width: '100%',
-      height: '100%',
-      top: '35px',
+    '&.Mui-disabled fieldset': {
+      borderColor: '#E0E0E0',
+      '& .MuiOutlinedInput-input': {
+        position: 'absolute',
+        opacity: 0,
+        width: '100%',
+        height: '100%',
+      },
     },
-  },
-  '& .MuiInputLabel-root': {
-    display: 'none',
-  },
-  '& .MuiInputLabel-shrink': {
-    display: 'none !important',
   },
 };
 
@@ -117,6 +117,7 @@ export default function LoginForm() {
     watch,
     formState: { errors },
     control,
+    setValue,
   } = useForm({
     resolver: yupResolver(LoginFormSchema),
     mode: 'onChange',
@@ -131,22 +132,23 @@ export default function LoginForm() {
 
   const onSubmit = async (formData) => {
     console.log(formData);
-
-    // Call API to login
-    await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
-      const { status, data } = res;
-      if (status === 200) {
-        authenticate(data);
-        const info = decodeJwt(data);
-        if (info) setStoredValue(info);
-      }
-    });
+    if (isCompleted.phoneNo && isCompleted.password) {
+      // Call API to login
+      await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
+        const { status, data } = res;
+        if (status === 200) {
+          authenticate(data);
+          const info = decodeJwt(data);
+          if (info) setStoredValue(info);
+        }
+      });
+    }
   };
 
-  const handleComplete = (field) => {
+  const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
       ...prevState,
-      [field]: !prevState[field],
+      [field]: value,
     }));
   };
 
@@ -158,10 +160,15 @@ export default function LoginForm() {
       event.target.value = event.target.value.slice(0, 10);
     }
     if (event.target.value.length === 10) {
-      setIsCompleted((prevState) => !prevState);
+      handleComplete('phoneNo', true);
     }
+    if (event.target.value.length < 10) {
+      handleComplete('phoneNo', false);
+    }
+
     phoneNoRef.current.value = event.target.value;
   };
+
   const handlePasswordChange = (event) => {
     // Remove any non-digit characters
     event.target.value = event.target.value.replace(/\D/g, '');
@@ -170,10 +177,10 @@ export default function LoginForm() {
       event.target.value = event.target.value.slice(0, 6);
     }
     if (event.target.value.length === 6) {
-      setIsCompleted((prevState) => !prevState);
+      handleComplete('password', true);
     }
     if (event.target.value.length < 6) {
-      setIsCompleted(false);
+      handleComplete('password', false);
     }
     passwordInput.current.value = event.target.value;
   };
@@ -186,7 +193,8 @@ export default function LoginForm() {
   };
 
   const handleClearInput = () => {
-    phoneNoRef.current.value = '';
+    setValue('phoneNo', '');
+    handleComplete('phoneNo', false);
     phoneNoRef.current.focus();
   };
 
@@ -198,36 +206,46 @@ export default function LoginForm() {
     >
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <Grid container>
-            <Grid item xs={2.7}>
-              <TextGradient>{t('login')}</TextGradient>
-            </Grid>
-            <Grid item>
-              <Button
-                sx={{
-                  borderRadius: '40px',
-                  width: '150px',
-                  height: '40px',
-                  background:
-                    'linear-gradient(to right, #e1efff 0%, #e5f9ff 100%)',
-                  color: '#000000',
-                  fontWeight: 'normal',
-                  fontSize: '12px',
-                  paddingLeft: '10px',
-                }}
-              >
-                <ContactEmergencyOutlinedIcon
+          <Box component="div">
+            <Grid
+              container
+              sx={{
+                display: 'flex',
+                justifyContent: 'start',
+                gap: '2.5rem',
+              }}
+              alignContent="center"
+            >
+              <Grid item xs={3}>
+                <TextGradient>{t('login')}</TextGradient>
+              </Grid>
+              <Grid item>
+                <Button
                   sx={{
-                    fontWeight: '400',
-                    color: '#000000.2',
-                    padding: '5px',
-                    marginRight: '3px',
+                    borderRadius: '40px',
+                    width: '150px',
+                    height: '40px',
+                    background:
+                      'linear-gradient(to right, #e1efff 0%, #e5f9ff 100%)',
+                    color: '#000000',
+                    fontWeight: 'normal',
+                    fontSize: '12px',
+                    paddingLeft: '10px',
                   }}
-                />
-                VietQR ID Card
-              </Button>
+                >
+                  <ContactEmergencyOutlinedIcon
+                    sx={{
+                      fontWeight: '400',
+                      color: '#000000.2',
+                      padding: '5px',
+                      marginRight: '3px',
+                    }}
+                  />
+                  VietQR ID Card
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
           <Controller
             name="phoneNo"
             control={control}
@@ -308,7 +326,7 @@ export default function LoginForm() {
                     ),
                   }}
                   autoComplete="current-password"
-                  {...{ disabled: !isCompleted }}
+                  {...{ disabled: !isCompleted.phoneNo }}
                 />
                 <Box
                   component="div"
@@ -358,7 +376,7 @@ export default function LoginForm() {
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              ...(isCompleted
+              ...(isCompleted.phoneNo && isCompleted.password
                 ? {}
                 : {
                     backgroundImage:
@@ -366,53 +384,22 @@ export default function LoginForm() {
                     color: '#000',
                   }),
             }}
-            {...{ disabled: !isCompleted }}
+            {...{ disabled: !(isCompleted.phoneNo && isCompleted.password) }}
           >
             {t('login')}
           </ButtonGradient>
-          <TextGradient
-            text={t('noAccount')}
-            otherStyles={{
-              fontSize: '15px',
-              marginTop: '1rem',
-            }}
-          />
-          <TextGradient
-            otherStyles={{
+          <ButtonSolid
+            style={{
+              backgroundColor: 'transparent',
+              width: '360px',
               backgroundImage:
-                'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
-              fontSize: '15px',
-              fontWeight: '400',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background:
-                  'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                zIndex: -1,
-              },
+                'linear-gradient(to right, #00C6FF 30%, #0072FF)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
-            <AutoAwesomeIcon
-              sx={{
-                backgroundImage:
-                  'linear-gradient(to right, #458bf8, #ff8021, #ff3751, #c958db)',
-                WebkitTextFillColor: 'transparent',
-                WebkitBackgroundClip: 'unset',
-                fontSize: '15px',
-                marginRight: '5px',
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            />
-            Quét mã QR để đăng nhập vào website
-          </TextGradient>
+            {t('register')}
+          </ButtonSolid>
         </Stack>
       </Box>
     </Container>

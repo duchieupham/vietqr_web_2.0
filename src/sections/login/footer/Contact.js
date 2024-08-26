@@ -63,7 +63,10 @@ export default function Contact() {
           <Stack spacing={1}>
             {item.items.map((_item, index) => (
               <Box key={index} component="div">
-                <Link href="/" style={{ textDecoration: 'none' }}>
+                <Link
+                  href="/"
+                  style={{ textDecoration: 'none', color: '#00C6FF' }}
+                >
                   {t(_item.name)}
                 </Link>
               </Box>
