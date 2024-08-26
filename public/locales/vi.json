@@ -53,5 +53,12 @@
   "follow-us": "THEO DÕI CHÚNG TÔI QUA",
   "facebook": "Facebook",
   "youtube": "Youtube",
-  "telegram": "Telegram"
+  "telegram": "Telegram",
+
+  "qr": "Mã QR",
+  "loginQR": "QR Đăng nhập",
+  "downloadQR": "QR tải ứng dụng",
+  "scanQR": "Quét mã QR đăng nhập",
+  "scanQRDescription": "Sử dụng ứng dụng VietQR để quét mã QR đăng nhập vào website tự động.",
+  "downloadApp": "Tải ứng dụng VietQR"
 }

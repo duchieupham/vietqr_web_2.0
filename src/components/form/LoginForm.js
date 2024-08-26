@@ -15,7 +15,6 @@ import {
 import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 // import API
 import loginAPI from '~/api/login/loginService';
@@ -108,6 +107,13 @@ const passwordStyle = {
         height: '100%',
       },
     },
+  },
+  '& .MuiOutlinedInput-input': {
+    position: 'absolute',
+    opacity: 0,
+    width: '100%',
+    height: '100%',
+    cursor: 'text',
   },
 };
 
@@ -392,10 +398,11 @@ export default function LoginForm() {
             style={{
               backgroundColor: 'transparent',
               width: '360px',
-              backgroundImage:
-                'linear-gradient(to right, #00C6FF 30%, #0072FF)',
+              backgroundImage: 'linear-gradient(to right, #00C6FF, #0072FF)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              fontWeight: '500',
+              fontSize: '15px',
             }}
           >
             {t('register')}
