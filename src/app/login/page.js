@@ -11,37 +11,12 @@ function Login() {
       <Box component="nav">
         <Navbar />
       </Box>
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: { xs: 2, md: 0 },
-        }}
-      >
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            flexDirection: { xs: 'column', md: 'row' },
-          }}
-        >
-          <Grid
-            item
-            xs={16}
-            md={8}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+      <Box component="main" sx={{}}>
+        <Grid container columns={16} rowSpacing={3}>
+          <Grid item xs={8}>
+            <Box component="div">QR</Box>
+          </Grid>
+          <Grid item xs={8}>
             <LoginForm />
           </Grid>
         </Grid>

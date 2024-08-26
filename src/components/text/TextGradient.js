@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-function TextGradient({ children, otherStyles }) {
+function TextGradient({ children, style }) {
   const styled = {
     backgroundImage: 'linear-gradient(to right, #00C6FF, #0072FF)',
     WebkitBackgroundClip: 'text',
@@ -8,7 +8,7 @@ function TextGradient({ children, otherStyles }) {
     color: 'white',
     fontSize: '24px',
     fontWeight: 'bold',
-    ...otherStyles,
+    ...style,
   };
   return <Typography sx={styled}>{children}</Typography>;
 }

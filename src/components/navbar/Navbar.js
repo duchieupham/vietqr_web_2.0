@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { Box, Button, MenuItem, Select } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import { LoginHeader } from '../header';
+import Link from 'next/link';
+import LoginHeaderBar from '../header/LoginHeaderBar';
 
 export default function Navbar() {
   const t = useTranslations();
@@ -37,33 +38,41 @@ export default function Navbar() {
             justifyContent: 'space-between',
             display: 'flex',
             alignItems: 'center',
-            // height: '100%',
+            position: 'relative',
+            marginTop: '-0.7rem',
           }}
         >
           <Box component="div">
-            <LoginHeader />
+            <LoginHeaderBar />
           </Box>
           <Box
             component="div"
             sx={{
-              marginRight: { xs: '2rem', md: '25rem' }, // Use responsive spacing if needed
-              display: 'flex', // Ensure proper alignment
+              marginRight: { xs: '2rem', md: '25rem' },
+              display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
+              width: '250px',
+              // height: '100px',
+              position: 'relative', // the parent must be assigned a position of relative
             }}
           >
-            {imageUri && (
-              <Image
-                quality={100}
-                priority
-                alt="Image"
-                src={imageUri}
-                fill
-                sizes="100vw"
-                style={{
-                  objectFit: 'contain',
-                }}
-              />
-            )}
+            <Link href="/">
+              {imageUri && (
+                <Image
+                  quality={100}
+                  priority
+                  alt="VietQR logo"
+                  src={imageUri}
+                  height={80}
+                  width={170}
+                  style={{
+                    objectFit: 'contain',
+                    // padding: '1rem',
+                  }}
+                />
+              )}
+            </Link>
           </Box>
           <Box
             component="div"

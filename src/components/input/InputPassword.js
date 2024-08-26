@@ -1,44 +1,40 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from '~styles/Input.module.scss';
 import { Box } from '@mui/material';
-import * as yup from 'yup';
+import { LoginFormSchema } from '~/utils/definitions';
 
-// eslint-disable-next-line object-curly-newline
-function InputPassword({ othersStyle, othersProp, t, register, label, watch }) {
-  const passwordSchema = useMemo(
-    () =>
-      yup
-        .string()
-        .trim()
-        .max(6, 'Mật khẩu không được nhiều hơn 6 ký tự')
-        .min(6, 'Mật khẩu không được ít hơn 6 ký tự')
-        .matches(/^\d{6}$/, t('passwordRegex'))
-        .required(t('passwordRequired')),
-    [],
-  );
+function InputPassword({
+  othersStyle,
+  othersProp,
+  register,
+  label,
+  watch,
+  errors,
+}) {
   const [passwordInput, setPasswordInput] = useState(watch('password') || '');
-  const [passwordError, setPasswordError] = useState({
-    status: false,
-    message: '',
-  });
+
+  useEffect(() => {
+    setPasswordInput(watch('password') || '');
+  }, [watch]);
+
   const handlePasswordChange = async (e) => {
     const { value } = e.target;
+
+    if (value.length > 6) {
+      return;
+    }
+
     setPasswordInput(value);
 
     try {
-      // Validate the password format using Yup schema
-      await passwordSchema.validate(value);
-      setPasswordError({ status: false, message: '' });
+      await LoginFormSchema.validateAt('password', { password: value });
     } catch (error) {
-      setPasswordError({ status: true, message: error.message });
-    }
-
-    console.log(value);
-    if (passwordError.status) {
-      console.log(passwordError.message);
+      if (error.name === 'ValidationError') {
+        // Handle validation error if needed
+      }
     }
   };
 
@@ -77,7 +73,6 @@ function InputPassword({ othersStyle, othersProp, t, register, label, watch }) {
       }}
     >
       <TextField
-        // label={t(label)}
         required
         name={label}
         id={label}
@@ -91,7 +86,7 @@ function InputPassword({ othersStyle, othersProp, t, register, label, watch }) {
             <InputAdornment position="start">
               <LockOutlinedIcon
                 sx={{
-                  color: 'grey.500',
+                  color: 'grey',
                   width: '30px',
                   height: '30px',
                   objectFit: 'cover',
@@ -114,21 +109,20 @@ function InputPassword({ othersStyle, othersProp, t, register, label, watch }) {
         {[...Array(6)].map((_, index) => (
           <Box
             component="div"
-            // eslint-disable-next-line react/no-array-index-key
             key={index}
             className={`${styles.circle} ${passwordInput.length > index ? `${styles.filled}` : ''}`}
           />
         ))}
       </Box>
-      {passwordError.status && (
+      {errors && errors.password && (
         <Box
           component="p"
           className={styles.error_message}
           sx={{
-            marginTop: '3.5rem',
+            marginTop: '4rem',
           }}
         >
-          {passwordError.message}
+          {errors.password.message}
         </Box>
       )}
     </Box>
