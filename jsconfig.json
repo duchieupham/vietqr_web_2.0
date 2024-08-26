@@ -12,7 +12,8 @@
       "~contexts/*": ["src/contexts/*"],
       "~constants/*": ["src/constants/*"],
       "~layout/*": ["src/layout/*"],
-      "~sections/*": ["src/sections/*"]
+      "~sections/*": ["src/sections/*"],
+      "~routes/*": ["src/routes/*"]
     }
   }
 }

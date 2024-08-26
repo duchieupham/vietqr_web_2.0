@@ -1,8 +1,7 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import imagesAPI from '~/api/images/imagesService';
-import FooterLeft from './FooterLeft';
-import FooterRight from './FooterRight';
+import { CarouselSlider, Contact, Social } from '~/sections/login/footer';
 
 function FooterLogin() {
   const [bankType, setBankType] = useState([]);
@@ -21,28 +20,25 @@ function FooterLogin() {
     bankTypeList();
   }, []);
 
+  // console.log('bankType', bankType); // Debugging
+
   return (
-    <Grid
-      container
-      spacing={1}
-      sx={{
-        position: 'relative', // Changed to relative
-        bottom: 0,
-        alignItems: 'center',
-      }}
-    >
-      <Grid item xs={12} sm={12} md={5} lg={3}>
-        <FooterLeft
-          hotline="1900 6234"
-          phone="0922 333 636"
-          emailSales="sales@vietqr.vn"
-          emailIt="itsupport@vietqr.vn"
-        />
+    <Box>
+      <Grid container columns={16}>
+        <Grid container item columns={16} sx={{ padding: '2rem' }}>
+          <Grid item xs={6}>
+            <Contact />
+          </Grid>
+          <Grid item xs={2} />
+          <Grid item xs={6}>
+            <Social />
+          </Grid>
+        </Grid>
+        <Grid item xs={16}>
+          <CarouselSlider initialValues={bankType} />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={12} md={7} lg={9}>
-        <FooterRight initialValues={bankType} />
-      </Grid>
-    </Grid>
+    </Box>
   );
 }
 export default FooterLogin;

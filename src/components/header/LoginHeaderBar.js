@@ -2,34 +2,17 @@
 
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { navConfig } from '~/layout/login/navbar/NavConfig';
 import styles from '~styles/Header.module.scss';
 
-const headerList = [
-  {
-    id: 1,
-    name: 'headerQR',
-  },
-  {
-    id: 2,
-    name: 'headerServiceConnect',
-  },
-  {
-    id: 3,
-    name: 'headerLogin',
-    style: 'nav__links_login',
-  },
-  {
-    id: 4,
-    name: 'headerRegister',
-  },
-];
-
-function LoginHeader() {
+function LoginHeaderBar() {
   const selectedTab = useRef(null);
   const t = useTranslations();
+  const navList = navConfig[0].items;
 
-  const [activeLink, setActiveLink] = useState(3);
+  const [activeLink, setActiveLink] = useState(4);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLinkClick = (type) => {
@@ -39,7 +22,7 @@ function LoginHeader() {
 
   return (
     <List component="nav" className={styles.nav}>
-      {headerList.map((item) => (
+      {navList.map((item) => (
         <ListItemButton
           key={item.id}
           alignItems="center"
@@ -70,21 +53,31 @@ function LoginHeader() {
             },
           }}
           disableRipple
+          disableGutters
           onClick={() => handleLinkClick(item.id)}
         >
-          <ListItemText
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+          <Link
+            href={item.path}
+            style={{
+              textDecoration: 'none',
               color: activeLink === item.id ? '#00c6ff' : 'inherit',
             }}
-            primary={t(item.name)}
-            className={`${activeLink === item.id ? styles.active : ''}`}
-          />
+            passHref
+          >
+            <ListItemText
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: activeLink === item.id ? '#00c6ff' : 'inherit',
+              }}
+              primary={t(item.name)}
+              className={`${activeLink === item.id ? styles.active : ''}`}
+            />
+          </Link>
         </ListItemButton>
       ))}
     </List>
   );
 }
-export default LoginHeader;
+export default LoginHeaderBar;
