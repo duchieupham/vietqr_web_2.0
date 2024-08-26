@@ -7,11 +7,10 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { fontGrid } from '@mui/material/styles/cssUtils';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import QRCodeComponent from '~/components/qr-component/QRcodeComponent';
+import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
 import theme from '~/theme';
 import styles from '~styles/Header.module.scss';
