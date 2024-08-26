@@ -225,7 +225,7 @@ export default function LoginForm() {
               <Grid item xs={3}>
                 <TextGradient>{t('login')}</TextGradient>
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <Button
                   sx={{
                     borderRadius: '40px',
@@ -249,7 +249,7 @@ export default function LoginForm() {
                   />
                   VietQR ID Card
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
           <Controller

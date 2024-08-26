@@ -12,7 +12,16 @@ function Login() {
       <Box component="nav">
         <Navbar />
       </Box>
-      <Box component="main" sx={{}}>
+      <Box
+        component="main"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          flexGrow: 1,
+        }}
+      >
         <Grid container columns={16} rowSpacing={3}>
           <Grid item xs={8}>
             <CreateQR />
@@ -22,7 +31,6 @@ function Login() {
           </Grid>
         </Grid>
       </Box>
-
       <Box component="footer" sx={{ mt: 'auto' }}>
         <FooterLogin />
       </Box>

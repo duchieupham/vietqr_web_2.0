@@ -39,9 +39,10 @@ export default function CreateQR() {
               height: '100%',
               width: '100%',
             }}
+            className={styles.nav}
           >
             <Button
-              component="div"
+              component="button"
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -58,7 +59,7 @@ export default function CreateQR() {
               {t('loginQR')}
             </Button>
             <Button
-              component="div"
+              component="button"
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
