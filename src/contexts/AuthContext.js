@@ -29,7 +29,7 @@ export function AuthContextProvider({ children }) {
     setCookie('auth_token', data, {
       secure: true,
     });
-    router.push('/');
+    router.push('/dashboard');
   };
 
   const clear = useCallback(() => {
