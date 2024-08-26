@@ -4,7 +4,7 @@ module.exports = {
       name: 'vietqr_web',
       script: 'npm start',
       env_production: {
-        NODE_ENV: 'production',
+        NODE_ENV: 'development',
       },
     },
   ],
