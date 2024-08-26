@@ -35,14 +35,13 @@ const responsive = {
 };
 
 export default function CarouselSlider({ initialValues }) {
-  console.log('initialValues:', initialValues); // Debugging
   const [images, setImages] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   function handleConvertImage(_images) {
     // console.log('_iamges:', _images); // Debugging
 
-    const convertedImages = _images.map((image) => {
+    const convertedImages = _images?.map((image) => {
       const imageUrl = `${baseUrl}/images/${image.imageId}`;
       return {
         ...image,
