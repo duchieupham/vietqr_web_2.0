@@ -404,6 +404,7 @@ export default function LoginForm() {
               fontWeight: '500',
               fontSize: '15px',
             }}
+            disableRipple
           >
             {t('register')}
           </ButtonSolid>
