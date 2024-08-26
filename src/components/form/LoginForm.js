@@ -30,7 +30,7 @@ import decodeJwt from '~/utils/decodeJwt';
 
 // components
 import { useAuthContext } from '~/contexts/AuthContext';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 // styles
 import styles from '~styles/Input.module.scss';
@@ -82,7 +82,6 @@ const inputStyle = {
 
 const passwordStyle = {
   width: '360px',
-  display: 'flex',
   position: 'relative',
   '& .MuiOutlinedInput-root': {
     height: '50px',
@@ -101,11 +100,14 @@ const passwordStyle = {
       opacity: 0,
       width: '100%',
       height: '100%',
-      cursor: 'text',
+      top: '35px',
     },
-    '& .MuiInputLabel-shrink': {
-      top: '0', // Adjust the label position when shrunk
-    },
+  },
+  '& .MuiInputLabel-root': {
+    display: 'none',
+  },
+  '& .MuiInputLabel-shrink': {
+    display: 'none !important',
   },
 };
 
@@ -122,7 +124,7 @@ export default function LoginForm() {
   const t = useTranslations();
   const { authenticate } = useAuthContext();
   const [storedValue, setStoredValue] = useLocalStorage('session', '');
-  // const [isCompleted, setIsCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState({});
   const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
   const passwordInput = watch('password', '');
@@ -141,12 +143,22 @@ export default function LoginForm() {
     });
   };
 
+  const handleComplete = (field) => {
+    setIsCompleted((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+  };
+
   const handleInputChange = (event) => {
     // Remove any non-digit characters
     event.target.value = event.target.value.replace(/\D/g, '');
     // Limit the input to 10 characters
     if (event.target.value.length > 10) {
       event.target.value = event.target.value.slice(0, 10);
+    }
+    if (event.target.value.length === 10) {
+      setIsCompleted((prevState) => !prevState);
     }
     phoneNoRef.current.value = event.target.value;
   };
@@ -156,6 +168,12 @@ export default function LoginForm() {
     // Limit the input to 10 characters
     if (event.target.value.length > 6) {
       event.target.value = event.target.value.slice(0, 6);
+    }
+    if (event.target.value.length === 6) {
+      setIsCompleted((prevState) => !prevState);
+    }
+    if (event.target.value.length < 6) {
+      setIsCompleted(false);
     }
     passwordInput.current.value = event.target.value;
   };
@@ -214,13 +232,6 @@ export default function LoginForm() {
             name="phoneNo"
             control={control}
             defaultValue=""
-            rules={{
-              required: 'Phone number is required',
-              maxLength: {
-                value: 10,
-                message: 'Phone number must be exactly 10 digits',
-              },
-            }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -261,19 +272,13 @@ export default function LoginForm() {
             name="password"
             control={control}
             defaultValue=""
-            rules={{
-              required: 'Password is required',
-              maxLength: {
-                value: 6,
-                message: 'Password must be exactly 6 digits',
-              },
-            }}
             render={({ field }) => (
               <Box
                 component="div"
                 sx={{
                   position: 'relative',
                   display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <TextField
@@ -303,6 +308,7 @@ export default function LoginForm() {
                     ),
                   }}
                   autoComplete="current-password"
+                  {...{ disabled: !isCompleted }}
                 />
                 <Box
                   component="div"
@@ -310,9 +316,10 @@ export default function LoginForm() {
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '42%',
+                    top: '50%',
                     left: { xs: '15%', sm: '12%', md: '7.5%' },
                     zIndex: 10,
+                    transform: 'translateY(-50%)',
                   }}
                 >
                   {[...Array(6)].map((_, index) => (
@@ -351,15 +358,15 @@ export default function LoginForm() {
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              // ...(isCompleted
-              //   ? {}
-              //   : {
-              //       backgroundImage:
-              //         'linear-gradient(to right, #e1efff 50%, #e5f9ff 100%)',
-              //       color: '#dadada',
-              //     }),
+              ...(isCompleted
+                ? {}
+                : {
+                    backgroundImage:
+                      'linear-gradient(to right, #e1efff 50%, #e5f9ff 100%)',
+                    color: '#000',
+                  }),
             }}
-            // {...{ disabled: !isCompleted }}
+            {...{ disabled: !isCompleted }}
           >
             {t('login')}
           </ButtonGradient>
