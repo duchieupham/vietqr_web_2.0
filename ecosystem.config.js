@@ -3,6 +3,9 @@ module.exports = {
     {
       name: 'vietqr_web',
       script: 'npm start',
+      env: {
+        PORT: 3000,
+      },
       env_production: {
         NODE_ENV: 'production',
       },
