@@ -79,6 +79,7 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               key={item.id}
               component="button"
               sx={{
+                whiteSpace: 'nowrap',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

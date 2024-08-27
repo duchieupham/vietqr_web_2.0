@@ -59,7 +59,14 @@ function FooterLogin() {
               style={{
                 justifyContent: isMobile ? 'space-between' : 'space-evenly',
                 margin: isTabletVertical ? '0 6rem' : '',
-                alignItems: isMobile ? 'center' : '',
+                // alignItems: isMobile ? 'center' : '',
+                // textAlign: isMobile ? 'center' : '',
+                // display: isMobile ? 'flex' : '',
+                // flexWrap: isMobile ? 'wrap' : '',
+                // gap: isMobile ? '1rem' : '',
+                // flexGrow: isMobile ? 2 : '',
+                // width: isMobile ? '50%' : '',
+                // marginBottom: isMobile ? '-3rem' : '',
               }}
             />
           </Grid>
