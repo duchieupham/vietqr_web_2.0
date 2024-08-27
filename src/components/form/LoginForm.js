@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import {
   Box,
-  Container,
   InputAdornment,
   Stack,
   TextField,
@@ -238,21 +237,32 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   }
 
   return (
-    <Container
+    <Box
       sx={{
-        maxWidth: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
         ...containerStyle,
       }}
     >
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           spacing={2}
           sx={{
-            display: 'flex',
+            width: 'fit-content',
+            alignItems: 'center',
             ...stackStyle,
           }}
         >
-          <Box component="div">
+          <Box
+            sx={{
+              alignSelf: {
+                xs: 'flex-start',
+                md: 'center',
+                lg: 'flex-start',
+              },
+            }}
+          >
             <TextGradient>{t('login')}</TextGradient>
           </Box>
           <Controller
@@ -384,7 +394,14 @@ export default function LoginForm({ containerStyle, stackStyle }) {
           <Typography
             variant="body2"
             color="textSecondary"
-            style={{ textAlign: 'left', marginBottom: '1rem' }}
+            sx={{
+              alignSelf: {
+                xs: 'flex-start',
+                md: 'center',
+                lg: 'flex-start',
+              },
+              marginBottom: '1rem',
+            }}
           >
             {t('forgotPassword')}
           </Typography>
@@ -422,7 +439,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
             {t('register')}
           </ButtonSolid>
         </Stack>
-      </Box>
-    </Container>
+      </form>
+    </Box>
   );
 }

@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
 
+const defaultPath = '/dashboard';
+const publicPaths = ['/', '/login', '/register'];
+
 export function middleware(req) {
   const path = req.nextUrl.pathname;
+
+  if (path === '/') {
+    return NextResponse.redirect(new URL(defaultPath, req.url));
+  }
+
   // Define which paths are considered public
-  const isPublicPath = path === '/login' || path === '/register';
+  const isPublicPath = publicPaths.includes(path);
 
   // Get the token from the cookies
   const token = req.cookies.get('auth_token')?.value;

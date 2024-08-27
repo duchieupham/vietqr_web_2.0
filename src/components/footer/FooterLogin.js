@@ -13,7 +13,6 @@ function FooterLogin() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isTabletVertical = isPortrait && isTabletSize;
   const [bankType, setBankType] = useState([]);
-  let direction = 'row';
 
   const bankTypeList = async () => {
     try {
@@ -29,59 +28,49 @@ function FooterLogin() {
     bankTypeList();
   }, []);
 
-  if (isMobile || isTabletVertical) {
-    direction = 'column';
-  }
-
   return (
-    <Box>
+    <Box
+      sx={{
+        px: {
+          xs: 2,
+          md: 4,
+          lg: '2rem',
+        },
+        pt: {
+          xs: '3rem',
+          lg: '2rem',
+        },
+      }}
+    >
       <Grid
         container
-        columns={16}
-        spacing={direction === 'row' ? '' : ''}
+        item
+        columns={12}
+        spacing={2}
         sx={{
-          position: isTabletVertical ? 'relative' : '',
+          flexDirection: {
+            xs: 'column',
+            lg: 'row',
+          },
+          alignItems: {
+            xs: 'center',
+            lg: 'flex-start',
+          },
         }}
       >
-        <Grid
-          container
-          item
-          columns={16}
-          sx={{
-            padding: '2rem',
-            justifyContent: direction === 'row' ? '' : 'space-between',
-          }}
-          direction={direction}
-          spacing={direction === 'row' ? 0 : 10}
-        >
-          <Grid item xs={direction === 'row' ? 6 : 0}>
-            <Contact
-              style={{
-                justifyContent: isMobile ? 'space-between' : 'space-evenly',
-                margin: isTabletVertical ? '0 6rem' : '',
-                // alignItems: isMobile ? 'center' : '',
-                // textAlign: isMobile ? 'center' : '',
-                // display: isMobile ? 'flex' : '',
-                // flexWrap: isMobile ? 'wrap' : '',
-                // gap: isMobile ? '1rem' : '',
-                // flexGrow: isMobile ? 2 : '',
-                // width: isMobile ? '50%' : '',
-                // marginBottom: isMobile ? '-3rem' : '',
-              }}
-            />
-          </Grid>
-          {direction === 'row' && <Grid item xs={2} />}
-          <Grid item xs={direction === 'row' ? 6 : 0}>
-            <Social
-              style={{
-                margin: isTabletVertical ? '0 6rem' : '',
-              }}
-            />
-          </Grid>
+        <Grid item xs={12} lg={6} sx={{ width: '100%' }}>
+          <Contact />
         </Grid>
-        <Grid item xs={16} sx={{}}>
-          <CarouselSlider initialValues={bankType} />
+        <Grid item xs={12} lg={6}>
+          <Social
+            sx={{
+              margin: isTabletVertical ? '0 6rem' : '',
+            }}
+          />
         </Grid>
+      </Grid>
+      <Grid item xs={16}>
+        <CarouselSlider initialValues={bankType} />
       </Grid>
     </Box>
   );
