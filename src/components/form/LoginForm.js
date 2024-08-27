@@ -99,6 +99,15 @@ const passwordStyle = {
     '&.Mui-focused fieldset': {
       borderColor: '#0072ff',
     },
+    '& .MuiOutlinedInput-input': {
+      color: 'transparent',
+      textShadow: '0 0 0 #000',
+      position: 'relative',
+      zIndex: 1,
+      '&::selection': {
+        background: 'transparent',
+      },
+    },
     '&.Mui-disabled fieldset': {
       borderColor: '#E0E0E0',
       '& .MuiOutlinedInput-input': {
@@ -204,6 +213,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const handleClearInput = () => {
     setValue('phoneNo', '');
+    setValue('password', '');
     handleComplete('phoneNo', false);
     phoneNoRef.current.focus();
   };
