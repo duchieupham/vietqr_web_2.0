@@ -57,9 +57,9 @@ function FooterLogin() {
           <Grid item xs={direction === 'row' ? 6 : 0}>
             <Contact
               style={{
-                justifyContent:
-                  direction === 'row' ? 'space-between' : 'space-evenly',
+                justifyContent: isMobile ? 'space-between' : 'space-evenly',
                 margin: isTabletVertical ? '0 6rem' : '',
+                alignItems: isMobile ? 'center' : '',
               }}
             />
           </Grid>
@@ -68,8 +68,6 @@ function FooterLogin() {
             <Social
               style={{
                 margin: isTabletVertical ? '0 6rem' : '',
-                // display: direction === 'row' ? '' : 'flex',
-                // justifyContent: direction === 'row' ? '' : 'space-evenly',
               }}
             />
           </Grid>

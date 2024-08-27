@@ -44,8 +44,12 @@ const inputStyle = {
   outline: 'none',
   borderColor: 'transparent',
   margin: '1rem 0',
+  '& .MuiInputBase-input': {
+    borderRadius: '10px',
+  },
   '& .MuiOutlinedInput-root': {
     height: '50px', // Set the height of the TextField
+    borderRadius: '10px',
     '& fieldset': {
       border: '1px solid #E0E0E0',
       borderRadius: '10px',
@@ -55,13 +59,14 @@ const inputStyle = {
     },
     '&.Mui-focused fieldset': {
       borderColor: '#0072ff', // Border color when focused
+      borderRadius: '10px',
     },
   },
   '& .MuiOutlinedInput-input': {
     height: '100%', // Ensure the input field takes up the full height
     padding: 'auto 16px', // Adjust padding to center the text vertically
     boxSizing: 'border-box', // Ensure padding doesn't affect overall height
-    borderRadius: '10px',
+    borderRadius: '10px !important',
     width: '360px',
     marginRight: '-22px',
   },
@@ -130,12 +135,13 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
+  const passwordRef = useRef(null);
   const passwordInput = watch('password', '');
   let phoneNoBorder = '1px solid #E0E0E0';
   let phoneNoBorderColor = '1px solid #E0E0E0';
 
   const onSubmit = async (formData) => {
-    if (isCompleted.phoneNo && isCompleted.password) {
+    if (isCompleted?.phoneNo && isCompleted?.password) {
       // Call API to login
       await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
         const { status, data } = res;
@@ -168,16 +174,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     if (event.target.value.length < 10) {
       handleComplete('phoneNo', false);
     }
-    if (event.target.value.length === 10) {
-      handleComplete('phoneNo', false);
-    }
     phoneNoRef.current.value = event.target.value;
   };
-
   const handlePasswordChange = (event) => {
     // Remove any non-digit characters
     event.target.value = event.target.value.replace(/\D/g, '');
-    // Limit the input to 10 characters
+    // Limit the input to 6 characters
     if (event.target.value.length > 6) {
       event.target.value = event.target.value.slice(0, 6);
     }
@@ -187,7 +189,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     if (event.target.value.length < 6) {
       handleComplete('password', false);
     }
-    passwordInput.current.value = event.target.value;
+    if (passwordInput.current) {
+      passwordInput.current.value = event.target.value;
+    }
   };
 
   const handleMouseEnter = (e) => {
