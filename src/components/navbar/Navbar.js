@@ -216,77 +216,84 @@ export default function Navbar() {
               width: '100%',
             }}
           >
-            <Box
-              sx={{
-                width: '39%',
-              }}
-            >
-              <LoginHeaderBar
-                styles={styles}
-                style={{
-                  width: '100%',
-                  '& .active': {
-                    width: {
-                      xs: '100%',
-                      sm: '100%',
-                      md: '100%',
-                      lg: '100%',
-                      xl: '100%',
+            <Grid container>
+              <Grid item xs={6}>
+                <LoginHeaderBar
+                  styles={styles}
+                  style={{
+                    width: '100%',
+                    '& .active': {
+                      width: {
+                        xs: '100%',
+                        sm: '100%',
+                        md: '100%',
+                        lg: '100%',
+                        xl: '100%',
+                      },
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      display: 'flex',
                     },
-                    justifyContent: 'center',
+                    '& .active::after': {
+                      width: {
+                        xs: '100%',
+                        sm: '100%',
+                        md: '100%',
+                        lg: '90%',
+                        xl: '90%',
+                      },
+                    },
+                  }}
+                  typographyStyle={{
+                    fontSize: {
+                      xs: '10px',
+                      sm: '10px',
+                      md: '12px',
+                      lg: '15px',
+                      xl: '16px',
+                    },
+                  }}
+                />
+              </Grid>
+              {/* Logo for all screen sizes */}
+              <Grid item xs={6}>
+                <Button
+                  component="div"
+                  sx={{
+                    display: { xs: 'flex', md: 'flex' },
                     alignItems: 'center',
-                    flexWrap: 'wrap',
-                    display: 'flex',
-                  },
-                  '& .active::after': {
-                    width: {
-                      xs: '100%',
-                      sm: '100%',
-                      md: '100%',
-                      lg: '90%',
-                      xl: '90%',
+                    justifyContent: 'flex-start',
+                    position: 'relative',
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                      textDecoration: 'none',
                     },
-                  },
-                }}
-                typographyStyle={{
-                  fontSize: {
-                    xs: '10px',
-                    sm: '10px',
-                    md: '10px',
-                    lg: '12px',
-                    xl: '12px',
-                  },
-                }}
-              />
-            </Box>
-            {/* Logo for all screen sizes */}
-            <Box
-              component="div"
-              sx={{
-                width: '15%',
-                marginRight: { xs: 'auto', md: '20rem' },
-                display: { xs: 'flex', md: 'flex' },
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-              }}
-            >
-              <Link href="/">
-                {imageUri && (
-                  <Image
-                    quality={100}
-                    priority
-                    alt="VietQR logo"
-                    src={imageUri}
-                    height={60}
-                    width={140}
-                    style={{
-                      objectFit: 'contain',
-                    }}
-                  />
-                )}
-              </Link>
-            </Box>
+                    marginTop: '-0.7rem',
+                  }}
+                  disableRipple
+                  disableFocusRipple
+                  disableTouchRipple
+                  disableElevation
+                >
+                  <Link href="/">
+                    {imageUri && (
+                      <Image
+                        quality={100}
+                        priority
+                        alt="VietQR logo"
+                        src={imageUri}
+                        height={70}
+                        width={150}
+                        style={{
+                          objectFit: 'contain',
+                        }}
+                      />
+                    )}
+                  </Link>
+                </Button>
+              </Grid>
+            </Grid>
             <Box
               sx={{
                 width: '20%',
@@ -311,6 +318,7 @@ export default function Navbar() {
                   textTransform: 'none',
                   gap: '0.5rem',
                 }}
+                disableRipple
               >
                 <HeadphonesOutlinedIcon />
                 {t('contact')}

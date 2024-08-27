@@ -113,7 +113,7 @@ const passwordStyle = {
   },
 };
 
-export default function LoginForm() {
+export default function LoginForm({ containerStyle, stackStyle }) {
   const {
     handleSubmit,
     watch,
@@ -167,7 +167,9 @@ export default function LoginForm() {
     if (event.target.value.length < 10) {
       handleComplete('phoneNo', false);
     }
-
+    if (event.target.value.length === 10) {
+      handleComplete('phoneNo', false);
+    }
     phoneNoRef.current.value = event.target.value;
   };
 
@@ -204,6 +206,7 @@ export default function LoginForm() {
     <Container
       sx={{
         maxWidth: '100%',
+        ...containerStyle,
       }}
     >
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -211,9 +214,7 @@ export default function LoginForm() {
           spacing={2}
           sx={{
             display: 'flex',
-            // justifyContent: 'center',
-            // alignItems: 'center',
-            // textAlign: 'center',
+            ...stackStyle,
           }}
         >
           <Box component="div">
@@ -229,9 +230,17 @@ export default function LoginForm() {
                 inputRef={phoneNoRef}
                 label={t('phoneNo')}
                 variant="outlined"
-                error={!!errors?.phoneNo}
+                error={
+                  phoneNoRef.current?.value.length === 0
+                    ? false
+                    : !!errors?.phoneNo
+                }
                 helperText={
-                  errors?.phoneNo?.message ? errors?.phoneNo?.message : ''
+                  phoneNoRef.current?.value.length === 0
+                    ? ''
+                    : errors?.phoneNo?.message
+                      ? errors?.phoneNo?.message
+                      : ''
                 }
                 onInput={handleInputChange}
                 required
@@ -239,16 +248,29 @@ export default function LoginForm() {
                   ...inputStyle,
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      border: errors?.phoneNo
-                        ? '1px solid red'
-                        : '1px solid #E0E0E0',
+                      border:
+                        phoneNoRef.current?.value.length === 0
+                          ? '1px solid #E0E0E0'
+                          : errors?.phoneNo
+                            ? '1px solid red'
+                            : '1px solid #E0E0E0',
                       borderRadius: '10px',
                     },
                     '&:hover fieldset': {
-                      borderColor: errors?.phoneNo ? 'red' : '#0072ff',
+                      borderColor:
+                        phoneNoRef.current?.value.length === 0
+                          ? '1px solid #E0E0E0'
+                          : errors?.phoneNo
+                            ? 'red'
+                            : '#0072ff',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: errors?.phoneNo ? 'red' : '#0072ff',
+                      borderColor:
+                        phoneNoRef.current?.value.length === 0
+                          ? '1px solid #E0E0E0'
+                          : errors?.phoneNo
+                            ? 'red'
+                            : '#0072ff',
                     },
                   },
                 }}
