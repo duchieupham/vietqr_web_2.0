@@ -78,6 +78,9 @@ export default function CustomList({
               }}
               primary={t(item.name)}
               className={`${activeLink === item.id ? styles.active : ''}`}
+              primaryTypographyProps={{
+                ...typographyStyle,
+              }}
             />
           </Link>
         </ListItemButton>
