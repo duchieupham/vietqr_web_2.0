@@ -30,18 +30,21 @@ const list = [
     ],
   },
 ];
-export default function Social() {
+export default function Social({ style }) {
   const t = useTranslations();
   return (
     <Box
       component="div"
       sx={{
         width: '100%',
+        ...style,
       }}
     >
       {list.map((item, index) => (
         <Stack key={index} spacing={2}>
-          <Box component="div">{t(item.name)}</Box>
+          <Box component="div" sx={{}}>
+            {t(item.name)}
+          </Box>
           <Stack
             sx={{
               display: 'flex',
@@ -49,6 +52,7 @@ export default function Social() {
               flexDirection: 'row',
               gap: '1rem',
               justifyItems: 'center',
+              flexWrap: 'wrap',
             }}
           >
             {item.items.map((_item, index) => (

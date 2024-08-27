@@ -45,7 +45,7 @@ const list = [
   },
 ];
 
-export default function Contact() {
+export default function Contact({ style }) {
   const t = useTranslations();
   return (
     <Box
@@ -53,19 +53,39 @@ export default function Contact() {
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexGrow: 1,
+        justifyContent: 'space-around',
         width: '100%',
+        ...style,
       }}
     >
       {list.map((item, index) => (
-        <Stack key={index} spacing={2}>
+        <Stack
+          key={index}
+          spacing={2}
+          useFlexGap
+          sx={{ width: '100%', flexWrap: 'wrap' }}
+        >
           <Box component="div">{t(item.name)}</Box>
           <Stack spacing={1}>
             {item.items.map((_item, index) => (
-              <Box key={index} component="div">
+              <Box
+                key={index}
+                component="div"
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  width: '100%',
+                }}
+              >
                 <Link
                   href="/"
-                  style={{ textDecoration: 'none', color: '#00C6FF' }}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#00C6FF',
+                    display: 'block',
+                    width: '100%',
+                  }}
                 >
                   {t(_item.name)}
                 </Link>
