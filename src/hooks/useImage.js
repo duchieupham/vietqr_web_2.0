@@ -10,7 +10,7 @@ const useImage = (imageId) => {
       const stringUrl = `${baseUrl}/images/${imageId}`;
       if (stringUrl) setImageUri(stringUrl);
     } catch (error) {
-      console.error('Failed to construct image URL:', error);
+      // console.error('Failed to construct image URL:', error);
       setImageUri(''); // Reset the state in case of an error.
     }
   }, []);
