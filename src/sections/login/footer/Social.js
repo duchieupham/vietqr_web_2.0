@@ -42,7 +42,9 @@ export default function Social({ style }) {
     >
       {list.map((item, index) => (
         <Stack key={index} spacing={2}>
-          <Box component="div">{t(item.name)}</Box>
+          <Box component="div" sx={{}}>
+            {t(item.name)}
+          </Box>
           <Stack
             sx={{
               display: 'flex',
@@ -50,6 +52,7 @@ export default function Social({ style }) {
               flexDirection: 'row',
               gap: '1rem',
               justifyItems: 'center',
+              flexWrap: 'wrap',
             }}
           >
             {item.items.map((_item, index) => (

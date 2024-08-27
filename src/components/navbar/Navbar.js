@@ -1,6 +1,14 @@
 // eslint-disable-next-line object-curly-newline
 // mui
-import { Box, Button, Drawer, Grid, IconButton, Stack } from '@mui/material';
+import {
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  IconButton,
+  Stack,
+  useMediaQuery,
+} from '@mui/material';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 // constants
 import AppImages from '~/constants/ImagesConstant';
@@ -26,6 +34,11 @@ export default function Navbar() {
   const optionSelect = [{ language: 'vietnamese' }];
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  const isTabletSize = useMediaQuery(
+    '(min-width: 768px) and (max-width: 1024px)',
+  );
+  const isTabletVertical = isPortrait && isTabletSize;
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -153,7 +166,7 @@ export default function Navbar() {
                 xs: 'block',
                 sm: 'block',
                 md: 'block',
-                lg: 'none',
+                lg: isTabletVertical ? 'block' : 'none',
                 xl: 'none',
               },
             }}
@@ -174,13 +187,19 @@ export default function Navbar() {
                 xs: 'flex',
                 sm: 'flex',
                 md: 'flex',
-                lg: 'none',
+                lg: isTabletVertical ? 'flex' : 'none',
                 xl: 'none',
               },
               alignItems: 'center',
               justifyContent: 'center',
               position: 'absolute',
-              left: { xs: '30%', sm: '30%', md: '40%', lg: '40%', xl: '45%' },
+              left: {
+                xs: '30%',
+                sm: '30%',
+                md: '40%',
+                lg: isTabletVertical ? '43%' : '40%',
+                xl: '45%',
+              },
               transform: { translateX: '50%' },
             }}
           >
@@ -208,7 +227,7 @@ export default function Navbar() {
                 xs: 'none',
                 sm: 'none',
                 md: 'none',
-                lg: 'flex',
+                lg: isTabletVertical ? 'none' : 'flex',
                 xl: 'flex',
               },
               justifyContent: 'space-between',
@@ -250,7 +269,7 @@ export default function Navbar() {
                       xs: '10px',
                       sm: '10px',
                       md: '12px',
-                      lg: '15px',
+                      lg: '14px',
                       xl: '16px',
                     },
                   }}
@@ -269,7 +288,8 @@ export default function Navbar() {
                       backgroundColor: 'transparent',
                       textDecoration: 'none',
                     },
-                    marginTop: '-0.7rem',
+                    marginTop: '-0.5rem',
+                    marginLeft: { xs: 'auto', md: '0', lg: '3rem', xl: '0' },
                   }}
                   disableRipple
                   disableFocusRipple

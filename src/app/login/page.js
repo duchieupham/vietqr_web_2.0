@@ -38,7 +38,11 @@ function Login() {
         <Grid container columns={16} rowSpacing={3} direction={direction}>
           {isMobile && (
             <Grid item xs={8}>
-              <LoginForm />
+              <LoginForm
+                stackStyle={{
+                  marginTop: '3rem',
+                }}
+              />
             </Grid>
           )}
 

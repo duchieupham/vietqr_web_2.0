@@ -36,7 +36,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isTabletVertical = isPortrait && isTabletSize;
-  
 
   const [qrState, setQrState] = useState(t('loginQR'));
 

@@ -33,11 +33,16 @@ function FooterLogin() {
     direction = 'column';
   }
 
-  console.log(direction);
-
   return (
     <Box>
-      <Grid container columns={16} spacing={direction === 'row' ? '' : 25}>
+      <Grid
+        container
+        columns={16}
+        spacing={direction === 'row' ? '' : ''}
+        sx={{
+          position: isTabletVertical ? 'relative' : '',
+        }}
+      >
         <Grid
           container
           item
@@ -54,6 +59,7 @@ function FooterLogin() {
               style={{
                 justifyContent:
                   direction === 'row' ? 'space-between' : 'space-evenly',
+                margin: isTabletVertical ? '0 6rem' : '',
               }}
             />
           </Grid>
@@ -61,14 +67,14 @@ function FooterLogin() {
           <Grid item xs={direction === 'row' ? 6 : 0}>
             <Social
               style={{
-                margin: direction === 'row' ? '' : '0 auto',
-                display: direction === 'row' ? '' : 'flex',
-                justifyContent: direction === 'row' ? '' : 'space-evenly',
+                margin: isTabletVertical ? '0 6rem' : '',
+                // display: direction === 'row' ? '' : 'flex',
+                // justifyContent: direction === 'row' ? '' : 'space-evenly',
               }}
             />
           </Grid>
         </Grid>
-        <Grid item xs={16}>
+        <Grid item xs={16} sx={{}}>
           <CarouselSlider initialValues={bankType} />
         </Grid>
       </Grid>
