@@ -14,7 +14,7 @@ function Login() {
   const isTabletSize = useMediaQuery(
     '(min-width: 768px) and (max-width: 1024px)',
   );
-
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isTabletVertical = isPortrait && isTabletSize;
   if (isMobile || isTabletVertical) {
     direction = 'column';
@@ -53,8 +53,14 @@ function Login() {
                   }}
                 />
               </Grid>
-              <Grid item xs={8}>
-                <CreateQR />
+              <Grid item xs={16}>
+                <CreateQR
+                  containerStyle={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                />
               </Grid>
             </>
           ) : (

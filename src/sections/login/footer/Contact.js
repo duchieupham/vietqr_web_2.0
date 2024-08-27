@@ -45,7 +45,7 @@ const list = [
   },
 ];
 
-export default function Contact() {
+export default function Contact({ style }) {
   const t = useTranslations();
   return (
     <Box
@@ -55,6 +55,7 @@ export default function Contact() {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
+        ...style,
       }}
     >
       {list.map((item, index) => (

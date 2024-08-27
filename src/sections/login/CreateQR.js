@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
-import useResponsive from '~/hooks/useResponsive';
 import theme from '~/theme';
 import styles from '~styles/Header.module.scss';
 
@@ -27,11 +26,17 @@ const list = [
   },
 ];
 
-export default function CreateQR() {
+export default function CreateQR({ containerStyle, stackStyle, ...props }) {
   const t = useTranslations();
   const selectedTab = useRef(null);
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  const isTabletSize = useMediaQuery(
+    '(min-width: 768px) and (max-width: 1024px)',
+  );
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isDesktop = useResponsive('up', 'lg');
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const isTabletVertical = isPortrait && isTabletSize;
+  
 
   const [qrState, setQrState] = useState(t('loginQR'));
 
@@ -45,6 +50,7 @@ export default function CreateQR() {
       sx={{
         padding: isMobile ? '10px' : '20px',
         maxWidth: isDesktop ? '1024px' : '768px',
+        ...containerStyle,
       }}
     >
       <Stack
@@ -57,14 +63,16 @@ export default function CreateQR() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
+          ...stackStyle,
         }}
       >
         <Box
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: isMobile ? '10px' : '20px',
-            width: isMobile ? '100%' : '76%',
+            justifyContent: isTabletVertical ? 'center' : '',
+            gap: isTabletVertical ? '6rem' : '20px',
+            width: isTabletVertical ? '100%' : '76%',
           }}
         >
           {list.map((item) => (
@@ -115,6 +123,8 @@ export default function CreateQR() {
                 },
               }}
               disableRipple
+              disableFocusRipple
+              disableTouchRipple
               className={`${styles.btn} ${qrState === t(item.name) ? styles.active : ''}`}
               onClick={() => handleClick(t(item.name))}
             >
@@ -127,27 +137,27 @@ export default function CreateQR() {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '20px',
+            gap: isTabletVertical ? '30px' : '20px',
             width: '100%',
           }}
         >
           <Box
             sx={{
-              width: isDesktop ? '30%' : '45%',
+              width: isTabletVertical ? '23%' : '35%',
+              marginLeft: isTabletVertical ? '6rem' : '6.5rem',
             }}
           >
             <QRCodeComponent value="https://www.messenger.com/" />
           </Box>
           <Box
             sx={{
-              width: isDesktop ? '50%' : '100%',
+              width: isTabletVertical ? '30%' : '50%',
             }}
           >
             <Typography
               sx={{
                 fontWeight: 'bold',
                 fontSize: '20px',
-                margin: '1rem 0',
               }}
             >
               {t('scanQR')}
@@ -158,6 +168,7 @@ export default function CreateQR() {
                 color: '#6C6C6C',
                 lineHeight: '1.5',
                 margin: '1rem 0',
+                width: isTabletVertical ? '75%' : '50%',
               }}
             >
               {t('scanQRDescription')}

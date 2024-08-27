@@ -30,13 +30,14 @@ const list = [
     ],
   },
 ];
-export default function Social() {
+export default function Social({ style }) {
   const t = useTranslations();
   return (
     <Box
       component="div"
       sx={{
         width: '100%',
+        ...style,
       }}
     >
       {list.map((item, index) => (
