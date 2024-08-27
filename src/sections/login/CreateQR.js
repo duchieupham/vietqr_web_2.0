@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
+import useResponsive from '~/hooks/useResponsive';
 import theme from '~/theme';
 import styles from '~styles/Header.module.scss';
 
@@ -29,7 +30,8 @@ const list = [
 export default function CreateQR() {
   const t = useTranslations();
   const selectedTab = useRef(null);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isDesktop = useResponsive('up', 'lg');
 
   const [qrState, setQrState] = useState(t('loginQR'));
 
@@ -39,10 +41,15 @@ export default function CreateQR() {
   };
 
   return (
-    <Container sx={{ padding: isMobile ? '10px' : '20px', maxWidth: '1024px' }}>
+    <Container
+      sx={{
+        padding: isMobile ? '10px' : '20px',
+        maxWidth: isDesktop ? '1024px' : '768px',
+      }}
+    >
       <Stack
-        direction={isMobile ? 'column' : 'row'}
-        spacing={isMobile ? 1 : 2}
+        direction="row"
+        spacing={{ xs: 0.5, sm: 1.5 }}
         useFlexGap
         flexWrap="wrap"
         sx={{
@@ -69,7 +76,7 @@ export default function CreateQR() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: '50px',
-                width: isMobile ? '100%' : '22%',
+                width: { xs: '100px', sm: '150px' },
                 borderRadius: '10px',
                 color: qrState === t(item.name) ? '#00c6ff' : 'inherit',
                 transition:
@@ -101,6 +108,11 @@ export default function CreateQR() {
                 '&:active': {
                   backgroundColor: 'transparent',
                 },
+                fontSize: { xs: '12px', sm: '14.5px' },
+
+                '&::after': {
+                  background: 'red',
+                },
               }}
               disableRipple
               className={`${styles.btn} ${qrState === t(item.name) ? styles.active : ''}`}
@@ -116,18 +128,19 @@ export default function CreateQR() {
             display: 'flex',
             justifyContent: 'center',
             gap: '20px',
+            width: '100%',
           }}
         >
           <Box
             sx={{
-              width: '30%',
+              width: isDesktop ? '30%' : '45%',
             }}
           >
             <QRCodeComponent value="https://www.messenger.com/" />
           </Box>
           <Box
             sx={{
-              width: '50%',
+              width: isDesktop ? '50%' : '100%',
             }}
           >
             <Typography
@@ -153,7 +166,7 @@ export default function CreateQR() {
               <TextGradient
                 style={{
                   backgroundImage:
-                    'linear-gradient(to right, #458BF8 0%, #FF8021 53%, #FF3751 71%, #C958DB 100%)',
+                    'linear-gradient(to right, #458BF8, #FF8021, #FF3751, #C958DB)',
                   fontWeight: 'bold',
                   fontSize: '15px',
                 }}

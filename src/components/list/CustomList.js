@@ -8,6 +8,7 @@ export default function CustomList({
   styles,
   defaultActive,
   style,
+  typographyStyle,
   ...props
 }) {
   const selectedTab = useRef(null);
@@ -50,6 +51,8 @@ export default function CustomList({
                 textDecoration: 'none',
               },
             },
+            display: 'flex',
+            justifyContent: 'center',
             ...style,
           }}
           disableRipple
@@ -70,9 +73,21 @@ export default function CustomList({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                textAlign: 'center',
                 color: activeLink === item.id ? '#00c6ff' : 'inherit',
               }}
               primary={t(item.name)}
+              // primaryTypographyProps={{
+              //   fontSize: '12px', // Customize the font size
+              //   fontWeight: activeLink === item.id ? 'bold' : 'normal', // Conditional font weight
+              //   color: activeLink === item.id ? '#00c6ff' : 'inherit', // Conditional color
+              //   textTransform: 'uppercase', // Transform text to uppercase
+              //   letterSpacing: '1px', // Add letter spacing
+              //   display: 'flex',
+              //   width: '100%',
+              //   maxWidth: '100%',
+              //   ...typographyStyle,
+              // }}
               className={`${activeLink === item.id ? styles.active : ''}`}
             />
           </Link>
