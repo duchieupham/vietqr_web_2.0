@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import {
   Box,
-  Button,
   Container,
   Grid,
   InputAdornment,
@@ -64,18 +63,15 @@ const inputStyle = {
     boxSizing: 'border-box', // Ensure padding doesn't affect overall height
     borderRadius: '10px',
     width: '360px',
-    marginRight: '-30px',
+    marginRight: '-22px',
   },
   '& .MuiInputLabel-root': {
-    top: '-3px',
+    top: '-5px',
     alignItems: 'center', // Align the label text with the input
     justifyContent: 'center', // Align the label text with the input
     display: 'flex', // Align the label text with the input
     fontSize: '1rem', // Adjust the label font size
     lineHeight: '30px', // Ensure the label aligns with the input height
-  },
-  '& .MuiInputLabel-shrink': {
-    top: '0', // Adjust the label position when shrunk
   },
 };
 
@@ -211,46 +207,17 @@ export default function LoginForm() {
       }}
     >
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
+        <Stack
+          spacing={2}
+          sx={{
+            display: 'flex',
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            // textAlign: 'center',
+          }}
+        >
           <Box component="div">
-            <Grid
-              container
-              sx={{
-                display: 'flex',
-                justifyContent: 'start',
-                gap: '2.5rem',
-              }}
-              alignContent="center"
-            >
-              <Grid item xs={3}>
-                <TextGradient>{t('login')}</TextGradient>
-              </Grid>
-              {/* <Grid item>
-                <Button
-                  sx={{
-                    borderRadius: '40px',
-                    width: '150px',
-                    height: '40px',
-                    background:
-                      'linear-gradient(to right, #e1efff 0%, #e5f9ff 100%)',
-                    color: '#000000',
-                    fontWeight: 'normal',
-                    fontSize: '12px',
-                    paddingLeft: '10px',
-                  }}
-                >
-                  <ContactEmergencyOutlinedIcon
-                    sx={{
-                      fontWeight: '400',
-                      color: '#000000.2',
-                      padding: '5px',
-                      marginRight: '3px',
-                    }}
-                  />
-                  VietQR ID Card
-                </Button>
-              </Grid> */}
-            </Grid>
+            <TextGradient>{t('login')}</TextGradient>
           </Box>
           <Controller
             name="phoneNo"
@@ -268,7 +235,23 @@ export default function LoginForm() {
                 }
                 onInput={handleInputChange}
                 required
-                sx={inputStyle}
+                sx={{
+                  ...inputStyle,
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      border: errors?.phoneNo
+                        ? '1px solid red'
+                        : '1px solid #E0E0E0',
+                      borderRadius: '10px',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: errors?.phoneNo ? 'red' : '#0072ff',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: errors?.phoneNo ? 'red' : '#0072ff',
+                    },
+                  },
+                }}
                 InputProps={{
                   maxLength: 10,
                   endAdornment: phoneNoValue ? (
@@ -314,7 +297,7 @@ export default function LoginForm() {
                   helperText={errors?.password?.message || ''}
                   required
                   onInput={handlePasswordChange}
-                  sx={passwordStyle}
+                  sx={{ ...passwordStyle }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -341,8 +324,6 @@ export default function LoginForm() {
                     display: 'flex',
                     position: 'absolute',
                     top: '50%',
-                    left: { xs: '15%', sm: '12%', md: '7.5%' },
-                    zIndex: 10,
                     transform: 'translateY(-50%)',
                   }}
                 >

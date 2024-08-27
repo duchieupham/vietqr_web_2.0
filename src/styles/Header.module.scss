@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 5px;
+  width: 100%;
 
   & .active {
-    font-size: 14px;
     font-weight: normal;
     align-items: center;
     color: #00c6ff;
@@ -33,7 +33,6 @@
 }
 
 .btn.active {
-  font-size: 14px;
   font-weight: normal;
   align-items: center;
   color: #00c6ff;
@@ -49,7 +48,7 @@
 .btn.active::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: 9px;
   left: 50%;
   width: 70%;
   height: 2px;

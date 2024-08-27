@@ -1,9 +1,8 @@
 import { useMediaQuery, useTheme } from '@mui/material';
+import theme from '~/theme';
 
 // eslint-disable-next-line consistent-return
 export default function useResponsive(query, key, start, end) {
-  const theme = useTheme();
-
   const mediaUp = useMediaQuery(theme.breakpoints.up(key));
 
   const mediaDown = useMediaQuery(theme.breakpoints.down(key));
