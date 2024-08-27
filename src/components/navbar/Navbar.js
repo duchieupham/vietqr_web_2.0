@@ -195,7 +195,7 @@ export default function Navbar() {
               position: 'absolute',
               left: {
                 xs: '30%',
-                sm: '30%',
+                sm: '31%',
                 md: '40%',
                 lg: isTabletVertical ? '43%' : '40%',
                 xl: '45%',
@@ -240,6 +240,7 @@ export default function Navbar() {
                 <LoginHeaderBar
                   styles={styles}
                   style={{
+                    whiteSpace: 'nowrap',
                     width: '100%',
                     '& .active': {
                       width: {
