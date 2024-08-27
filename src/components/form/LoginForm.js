@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Box,
   Container,
-  Grid,
   InputAdornment,
   Stack,
   TextField,
@@ -134,6 +133,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     formState: { errors },
     control,
     setValue,
+    clearErrors,
   } = useForm({
     resolver: yupResolver(LoginFormSchema),
     mode: 'onChange',
@@ -144,8 +144,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
-  const passwordRef = useRef(null);
-  const passwordInput = watch('password', '');
+  const passwordRef = watch('password', '');
+
   let phoneNoBorder = '1px solid #E0E0E0';
   let phoneNoBorderColor = '1px solid #E0E0E0';
 
@@ -177,7 +177,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     if (event.target.value.length > 10) {
       event.target.value = event.target.value.slice(0, 10);
     }
-    if (event.target.value.length === 10) {
+    if (
+      event.target.value.length === 10 &&
+      event.target.value.match(
+        /^(?:\+84|0)(?:3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/,
+      )
+    ) {
       handleComplete('phoneNo', true);
     }
     if (event.target.value.length < 10) {
@@ -185,6 +190,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
     phoneNoRef.current.value = event.target.value;
   };
+
   const handlePasswordChange = (event) => {
     // Remove any non-digit characters
     event.target.value = event.target.value.replace(/\D/g, '');
@@ -198,8 +204,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     if (event.target.value.length < 6) {
       handleComplete('password', false);
     }
-    if (passwordInput.current) {
-      passwordInput.current.value = event.target.value;
+    if (passwordRef.current) {
+      passwordRef.current.value = event.target.value;
     }
   };
 
@@ -215,6 +221,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     setValue('phoneNo', '');
     setValue('password', '');
     handleComplete('phoneNo', false);
+    clearErrors('phoneNo');
+    clearErrors('password');
     phoneNoRef.current.focus();
   };
 
@@ -356,14 +364,14 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       component="div"
                       key={index}
                       className={`${styles.circle} ${
-                        passwordInput.length > index ? styles.filled : ''
+                        passwordRef.length > index ? styles.filled : ''
                       }`}
                       sx={{
                         width: '10px',
                         height: '10px',
                         borderRadius: '50%',
                         backgroundColor:
-                          passwordInput.length > index ? 'blue' : 'lightgray',
+                          passwordRef.length > index ? 'blue' : 'lightgray',
                         margin: '2px',
                         zIndex: 10,
                       }}
