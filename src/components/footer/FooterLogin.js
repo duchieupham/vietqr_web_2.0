@@ -12,7 +12,7 @@ function FooterLogin() {
       // console.log('API Response:', res.data); // Debugging
       setBankType(res.data);
     } catch (error) {
-      console.error('Error fetching bank types:', error);
+      // console.error('Error fetching bank types:', error);
     }
   };
 

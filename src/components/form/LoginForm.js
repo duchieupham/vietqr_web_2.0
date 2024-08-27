@@ -131,9 +131,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
   const passwordInput = watch('password', '');
+  let phoneNoBorder = '1px solid #E0E0E0';
+  let phoneNoBorderColor = '1px solid #E0E0E0';
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     if (isCompleted.phoneNo && isCompleted.password) {
       // Call API to login
       await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
@@ -188,6 +189,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
     passwordInput.current.value = event.target.value;
   };
+
   const handleMouseEnter = (e) => {
     e.currentTarget.style.opacity = 1;
   };
@@ -201,6 +203,17 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     handleComplete('phoneNo', false);
     phoneNoRef.current.focus();
   };
+
+  const phoneNoError =
+    phoneNoRef.current?.value.length === 0 ? false : !!errors?.phoneNo;
+
+  const phoneNoHelperText =
+    phoneNoRef.current?.value.length === 0 ? false : !!errors?.phoneNo;
+
+  if (phoneNoRef.current?.value.length !== 0) {
+    phoneNoBorder = errors?.phoneNo ? '1px solid red' : '1px solid #E0E0E0';
+    phoneNoBorderColor = errors?.phoneNo ? 'red' : '#0072ff';
+  }
 
   return (
     <Container
@@ -230,47 +243,22 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                 inputRef={phoneNoRef}
                 label={t('phoneNo')}
                 variant="outlined"
-                error={
-                  phoneNoRef.current?.value.length === 0
-                    ? false
-                    : !!errors?.phoneNo
-                }
-                helperText={
-                  phoneNoRef.current?.value.length === 0
-                    ? ''
-                    : errors?.phoneNo?.message
-                      ? errors?.phoneNo?.message
-                      : ''
-                }
+                error={phoneNoError}
+                helperText={phoneNoHelperText}
                 onInput={handleInputChange}
                 required
                 sx={{
                   ...inputStyle,
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      border:
-                        phoneNoRef.current?.value.length === 0
-                          ? '1px solid #E0E0E0'
-                          : errors?.phoneNo
-                            ? '1px solid red'
-                            : '1px solid #E0E0E0',
+                      border: phoneNoBorder,
                       borderRadius: '10px',
                     },
                     '&:hover fieldset': {
-                      borderColor:
-                        phoneNoRef.current?.value.length === 0
-                          ? '1px solid #E0E0E0'
-                          : errors?.phoneNo
-                            ? 'red'
-                            : '#0072ff',
+                      borderColor: phoneNoBorderColor,
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor:
-                        phoneNoRef.current?.value.length === 0
-                          ? '1px solid #E0E0E0'
-                          : errors?.phoneNo
-                            ? 'red'
-                            : '#0072ff',
+                      borderColor: phoneNoBorderColor,
                     },
                   },
                 }}

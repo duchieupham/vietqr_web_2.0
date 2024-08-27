@@ -38,12 +38,8 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
       } else {
         setPhoneNumberError({ status: false, message: '' });
       }
-      // console.log('Đây là số điện vừa nhập: ', value);
     } catch (error) {
       setPhoneNumberError({ status: true, message: error.message });
-    }
-    if (phoneNumberError.status) {
-      console.log(phoneNumberError.message);
     }
   };
 

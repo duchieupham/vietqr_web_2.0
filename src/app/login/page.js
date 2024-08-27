@@ -9,9 +9,16 @@ import theme from '~/theme';
 
 function Login() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isTabletVertical = useMediaQuery(
-    '(min-width: 768px) and (max-width: 1024px) and (orientation: portrait)',
+  let direction = 'row';
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  const isTabletSize = useMediaQuery(
+    '(min-width: 768px) and (max-width: 1024px)',
   );
+
+  const isTabletVertical = isPortrait && isTabletSize;
+  if (isMobile || isTabletVertical) {
+    direction = 'column';
+  }
 
   return (
     <Stack sx={{ minHeight: isTabletVertical ? '' : '100vh' }}>
@@ -28,19 +35,14 @@ function Login() {
           flexGrow: 1,
         }}
       >
-        <Grid
-          container
-          columns={16}
-          rowSpacing={3}
-          direction={isMobile ? 'column' : isTabletVertical ? 'column' : 'row'}
-        >
-          {isMobile ? (
-            <>
-              <Grid item xs={8}>
-                <LoginForm />
-              </Grid>
-            </>
-          ) : isTabletVertical ? (
+        <Grid container columns={16} rowSpacing={3} direction={direction}>
+          {isMobile && (
+            <Grid item xs={8}>
+              <LoginForm />
+            </Grid>
+          )}
+
+          {isTabletVertical ? (
             <>
               <Grid item xs={16}>
                 <LoginForm
@@ -56,14 +58,16 @@ function Login() {
               </Grid>
             </>
           ) : (
-            <>
-              <Grid item xs={8}>
-                <CreateQR />
-              </Grid>
-              <Grid item xs={8}>
-                <LoginForm />
-              </Grid>
-            </>
+            !isMobile && (
+              <>
+                <Grid item xs={8}>
+                  <CreateQR />
+                </Grid>
+                <Grid item xs={8}>
+                  <LoginForm />
+                </Grid>
+              </>
+            )
           )}
         </Grid>
       </Box>

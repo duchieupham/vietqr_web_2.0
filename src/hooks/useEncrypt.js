@@ -10,7 +10,7 @@ const useEncrypt = async (prefix, dataEncrypt) => {
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
   } catch (error) {
-    console.error('Encryption failed:', error);
+    // console.error('Encryption failed:', error);
     return null;
   }
 };
