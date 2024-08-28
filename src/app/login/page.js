@@ -47,7 +47,6 @@ function Login() {
           <CreateQR encryptedQrValue={encryptedQrValue} />
           <LoginForm encryptedQrValue={encryptedQrValue} />
         </Stack>
-
         <Box
           component="footer"
           sx={{
@@ -55,6 +54,10 @@ function Login() {
               xs: 'auto',
               md: 'auto',
               lg: '0',
+              xl: '3%',
+            },
+            position: {
+              xs: 'relative',
             },
           }}
         >
