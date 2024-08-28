@@ -52,7 +52,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
       component="div"
       sx={{
         display: 'flex',
-        flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         width: '100%',

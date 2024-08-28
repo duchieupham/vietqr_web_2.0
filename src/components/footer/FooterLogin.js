@@ -60,10 +60,17 @@ function FooterLogin() {
       >
         <Grid item xs={12} lg={6} sx={{ width: '100%' }}>
           <Contact
+            style={{
+              flexWrap: {
+                xs: 'wrap',
+                md: 'nowrap',
+              },
+            }}
             stackStyle={{
               margin: {
                 xs: '0 1rem',
                 md: '0 5rem',
+                lg: '0 3rem',
               },
               whiteSpace: 'nowrap',
               flexGrow: 1,
