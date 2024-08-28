@@ -198,7 +198,7 @@ export default function Navbar() {
               left: {
                 xs: '30%',
                 sm: '28%',
-                md: isTabletVertical ? '41%' : '40%',
+                md: isTabletVertical ? '40.5%' : '40%',
                 lg: isTabletVertical ? '40%' : '40%',
                 xl: '45%',
               },
@@ -280,7 +280,6 @@ export default function Navbar() {
                   }}
                 />
               </Grid>
-              {/* Logo for all screen sizes */}
               <Grid item xs={6}>
                 <Button
                   component="div"
@@ -294,7 +293,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     marginTop: '-0.5rem',
-                    marginLeft: { xs: 'auto', md: '0', lg: '3rem', xl: '0' },
+                    marginLeft: { xs: 'auto', md: '0', lg: '2rem', xl: '1rem' },
                   }}
                   disableRipple
                   disableFocusRipple
