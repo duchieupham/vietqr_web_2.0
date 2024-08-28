@@ -285,7 +285,11 @@ export default function LoginForm({
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        width: '100%',
+        width: {
+          xs: '100%',
+          md: '100%',
+          lg: '50%',
+        },
         ...containerStyle,
       }}
     >
