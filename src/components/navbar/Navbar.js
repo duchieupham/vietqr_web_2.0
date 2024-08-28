@@ -36,7 +36,7 @@ export default function Navbar() {
   const isDesktop = useResponsive('up', 'lg');
   const isPortrait = useMediaQuery('(orientation: portrait)');
   const isTabletSize = useMediaQuery(
-    '(min-width: 768px) and (max-width: 1024px)',
+    '(min-width: 768px) and (max-width: 1169px)',
   );
   const isTabletVertical = isPortrait && isTabletSize;
 
@@ -198,7 +198,7 @@ export default function Navbar() {
               left: {
                 xs: '30%',
                 sm: '28%',
-                md: isTabletVertical ? '40.5%' : '40%',
+                md: isTabletVertical ? '41%' : '42%',
                 lg: isTabletVertical ? '40%' : '40%',
                 xl: '45%',
               },
