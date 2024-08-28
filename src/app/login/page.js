@@ -12,12 +12,11 @@ function Login() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
-    <Box height="100vh">
+    <Box sx={{ minHeight: '100vh' }}>
       <Stack height="100%">
         <Box component="nav">
           <Navbar />
         </Box>
-
         <Stack
           component="main"
           sx={{
@@ -50,7 +49,16 @@ function Login() {
           <LoginForm />
         </Stack>
 
-        <Box component="footer" sx={{ mt: 'auto' }}>
+        <Box
+          component="footer"
+          sx={{
+            mt: {
+              xs: 'auto',
+              md: 'auto',
+              lg: 0,
+            },
+          }}
+        >
           <FooterLogin />
         </Box>
       </Stack>
