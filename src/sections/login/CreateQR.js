@@ -26,7 +26,12 @@ const getOS = (userAgent) => {
   if (userAgent.match(/Windows NT/i)) return 'Windows NT';
   return 'unknown';
 };
-export default function CreateQR({ containerStyle, stackStyle, ...props }) {
+export default function CreateQR({
+  containerStyle,
+  stackStyle,
+  encryptedQrValue,
+  ...props
+}) {
   const t = useTranslations();
   const selectedTab = useRef(null);
   const isPortrait = useMediaQuery('(orientation: portrait)');
@@ -38,19 +43,15 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
   const isTabletVertical = isPortrait && isTabletSize;
   const [qrUrl, setQrUrl] = useState('');
 
-  const userUrgent = window?.navigator.userAgent;
-
   const [qrState, setQrState] = useState(t('loginQR'));
 
   const handleClick = (tab) => {
     selectedTab.current = tab;
     setQrState(tab);
   };
-
   useEffect(() => {
     const userAgent = window?.navigator.userAgent;
     const os = getOS(userAgent);
-
     switch (os) {
       case 'Android':
         setQrUrl(
@@ -58,6 +59,8 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
         );
         break;
       case 'iOS':
+        setQrUrl('https://apps.apple.com/vn/app/vietqr-vn/id6447118484');
+        break;
       case 'Macintosh':
         setQrUrl('https://apps.apple.com/vn/app/vietqr-vn/id6447118484');
         break;
@@ -98,7 +101,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               xs: '2rem',
               md: '2rem',
               lg: 0,
-              xl: '8%',
             },
             width: '100%',
           }}
@@ -194,7 +196,13 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               },
             }}
           >
-            <QRCodeComponent value="https://www.messenger.com/" />
+            <QRCodeComponent
+              value={
+                selectedTab.current === t('downloadQR')
+                  ? qrUrl
+                  : encryptedQrValue.qrValue
+              }
+            />
           </Box>
           <Box
             sx={{
