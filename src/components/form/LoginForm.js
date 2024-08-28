@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 
 // import API
 import loginAPI from '~/api/login/loginService';
@@ -270,51 +271,87 @@ export default function LoginForm({ containerStyle, stackStyle }) {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <TextField
-                {...field}
-                inputRef={phoneNoRef}
-                label={t('phoneNo')}
-                variant="outlined"
-                error={phoneNoError}
-                helperText={phoneNoHelperText}
-                onInput={handleInputChange}
-                required
+              <Box
                 sx={{
-                  ...inputStyle,
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      border: phoneNoBorder,
-                      borderRadius: '10px',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: phoneNoBorderColor,
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: phoneNoBorderColor,
-                    },
-                  },
+                  position: 'relative',
                 }}
-                InputProps={{
-                  maxLength: 10,
-                  endAdornment: phoneNoValue ? (
-                    <InputAdornment position="end">
-                      <CloseIcon
-                        onClick={handleClearInput}
-                        style={{
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease-in-out',
-                          position: 'absolute',
-                          right: '20px',
-                          opacity: 0.8,
-                          backgroundColor: 'inherit',
-                        }}
-                        onMouseEnter={(e) => handleMouseEnter(e)}
-                        onMouseLeave={(e) => handleMouseLeave(e)}
-                      />
-                    </InputAdornment>
-                  ) : null,
-                }}
-              />
+              >
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '33%',
+                    margin: '0 1rem',
+                  }}
+                >
+                  <PhoneOutlinedIcon
+                    sx={{
+                      color: 'grey',
+                      width: '30px',
+                      height: '30px',
+                      objectFit: 'cover',
+                      padding: '7px',
+                      marginRight: '5px',
+                      position: 'absolute',
+                      zIndex: 1,
+                    }}
+                  />
+                </Box>
+                <TextField
+                  {...field}
+                  inputRef={phoneNoRef}
+                  label={t('phoneNo')}
+                  variant="outlined"
+                  error={phoneNoError}
+                  helperText={phoneNoHelperText}
+                  onInput={handleInputChange}
+                  required
+                  sx={{
+                    ...inputStyle,
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        border: phoneNoBorder,
+                        borderRadius: '10px',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: phoneNoBorderColor,
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: phoneNoBorderColor,
+                      },
+                      '& .MuiOutlinedInput-input': {
+                        paddingLeft: '50px', // Adjust padding to account for the icon space
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      paddingLeft: '50px',
+                    },
+                    '& .MuiInputLabel-shrink': {
+                      paddingLeft: '0px',
+                      transition: 'all 0.2s ease-in-out',
+                    },
+                  }}
+                  InputProps={{
+                    maxLength: 10,
+                    endAdornment: phoneNoValue ? (
+                      <InputAdornment position="end">
+                        <CloseIcon
+                          onClick={handleClearInput}
+                          style={{
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease-in-out',
+                            position: 'absolute',
+                            right: '20px',
+                            opacity: 0.8,
+                            backgroundColor: 'inherit',
+                          }}
+                          onMouseEnter={(e) => handleMouseEnter(e)}
+                          onMouseLeave={(e) => handleMouseLeave(e)}
+                        />
+                      </InputAdornment>
+                    ) : null,
+                  }}
+                />
+              </Box>
             )}
           />
           <Controller
@@ -339,7 +376,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   helperText={errors?.password?.message || ''}
                   required
                   onInput={handlePasswordChange}
-                  sx={{ ...passwordStyle }}
+                  sx={{
+                    ...passwordStyle,
+                  }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">

@@ -2,18 +2,18 @@
   &__links {
     display: inline-block;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   & .active {
     font-weight: normal;
-    align-items: center;
+    align-items: start;
     color: #00c6ff;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
-    display: flex;
+    display: inline-block;
     transition:
       color 0.3s ease,
       background 0.3s ease;
@@ -23,7 +23,7 @@
     position: absolute;
     bottom: -5px;
     left: 50%;
-    width: 50%;
+    width: 100%;
     height: 2px;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     z-index: 1;

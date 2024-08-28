@@ -45,7 +45,7 @@ const list = [
   },
 ];
 
-export default function Contact({ style }) {
+export default function Contact({ style, stackStyle, subStackStyle }) {
   const t = useTranslations();
   return (
     <Box
@@ -63,10 +63,15 @@ export default function Contact({ style }) {
           key={index}
           spacing={2}
           useFlexGap
-          sx={{ width: 'fit-content', flexWrap: 'wrap' }}
+          sx={{ width: 'fit-content', flexWrap: 'wrap', ...stackStyle }}
         >
           <Box component="div">{t(item.name)}</Box>
-          <Stack spacing={1}>
+          <Stack
+            spacing={1}
+            sx={{
+              ...subStackStyle,
+            }}
+          >
             {item.items.map((_item, index) => (
               <Box
                 key={index}

@@ -1,7 +1,6 @@
 'use client';
 
-import { StackedBarChartOutlined } from '@mui/icons-material';
-import { Box, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
@@ -12,12 +11,11 @@ function Login() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
-    <Box height="100vh">
+    <Box sx={{ minHeight: '100vh' }}>
       <Stack height="100%">
         <Box component="nav">
           <Navbar />
         </Box>
-
         <Stack
           component="main"
           sx={{
@@ -50,7 +48,16 @@ function Login() {
           <LoginForm />
         </Stack>
 
-        <Box component="footer" sx={{ mt: 'auto' }}>
+        <Box
+          component="footer"
+          sx={{
+            mt: {
+              xs: 'auto',
+              md: 'auto',
+              lg: 0,
+            },
+          }}
+        >
           <FooterLogin />
         </Box>
       </Stack>

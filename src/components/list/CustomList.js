@@ -71,9 +71,6 @@ export default function CustomList({
             <ListItemText
               sx={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                textAlign: 'center',
                 color: activeLink === item.id ? '#00c6ff' : 'inherit',
               }}
               primary={t(item.name)}
