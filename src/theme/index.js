@@ -10,6 +10,8 @@ const theme = createTheme({
       md: 768,
       lg: 1280,
       xl: 1920,
+      xxl: 2560,
+      fluid: '100%',
     },
   },
 });

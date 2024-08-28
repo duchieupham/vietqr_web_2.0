@@ -34,7 +34,7 @@ function FooterLogin() {
         px: {
           xs: 2,
           md: 4,
-          lg: '2rem',
+          lg: 0,
         },
         pt: {
           xs: '3rem',
@@ -68,7 +68,7 @@ function FooterLogin() {
             }}
             stackStyle={{
               margin: {
-                xs: '0 1rem',
+                xs: '0 2rem',
                 md: '0 5rem',
                 lg: '0 3rem',
               },

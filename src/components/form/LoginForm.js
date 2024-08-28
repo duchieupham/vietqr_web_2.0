@@ -1,7 +1,5 @@
 /* eslint-disable indent */
 /* eslint-disable react/no-array-index-key */
-import { useTranslations } from 'next-intl';
-import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import {
   Box,
@@ -33,6 +31,8 @@ import { useRef, useState } from 'react';
 import styles from '~styles/Input.module.scss';
 
 // others
+import { useTranslations } from 'next-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { TextGradient } from '../text';
 import { ButtonGradient, ButtonSolid } from '../button';
 
@@ -134,6 +134,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     control,
     setValue,
     clearErrors,
+    setError,
   } = useForm({
     resolver: yupResolver(LoginFormSchema),
     mode: 'onChange',
@@ -151,15 +152,32 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmit = async (formData) => {
     if (isCompleted?.phoneNo && isCompleted?.password) {
-      // Call API to login
-      await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
-        const { status, data } = res;
-        if (status === 200) {
-          authenticate(data);
-          const info = decodeJwt(data);
-          if (info) setStoredValue(info);
-        }
-      });
+      try {
+        // Call API to login
+        await loginAPI
+          .login(formData.phoneNo, formData.password)
+          .then((res) => {
+            // console.log(res);
+            const { status, data } = res;
+            if (status === 200) {
+              authenticate(data);
+              const info = decodeJwt(data);
+              if (info) setStoredValue(info);
+            }
+            if (status === 400) {
+              setError('phoneNo', {
+                type: 'manual',
+                message: 'Invalid phone number or password',
+              });
+              setValue('password', '');
+            }
+          });
+      } catch (error) {
+        setError('phoneNo', {
+          type: 'manual',
+          message: 'An error occurred during login',
+        });
+      }
     }
   };
 
@@ -180,7 +198,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     if (
       event.target.value.length === 10 &&
       event.target.value.match(
-        /^(?:\+84|0)(?:3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/,
+        /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g,
       )
     ) {
       handleComplete('phoneNo', true);
@@ -209,14 +227,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
   };
 
-  const handleMouseEnter = (e) => {
-    e.currentTarget.style.opacity = 1;
-  };
-
-  const handleMouseLeave = (e) => {
-    e.currentTarget.style.opacity = 0.8;
-  };
-
   const handleClearInput = () => {
     setValue('phoneNo', '');
     setValue('password', '');
@@ -236,6 +246,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     phoneNoBorder = errors?.phoneNo ? '1px solid red' : '1px solid #E0E0E0';
     phoneNoBorderColor = errors?.phoneNo ? 'red' : '#0072ff';
   }
+
+  const showErrorMessage = !!errors.phoneNo;
 
   return (
     <Box
@@ -302,7 +314,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   label={t('phoneNo')}
                   variant="outlined"
                   error={phoneNoError}
-                  helperText={phoneNoHelperText}
+                  helperText={
+                    phoneNoHelperText ? errors.phoneNo?.message || '' : ''
+                  }
                   onInput={handleInputChange}
                   required
                   sx={{
@@ -319,7 +333,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                         borderColor: phoneNoBorderColor,
                       },
                       '& .MuiOutlinedInput-input': {
-                        paddingLeft: '50px', // Adjust padding to account for the icon space
+                        paddingLeft: '50px',
                       },
                     },
                     '& .MuiInputLabel-root': {
@@ -328,6 +342,13 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     '& .MuiInputLabel-shrink': {
                       paddingLeft: '0px',
                       transition: 'all 0.2s ease-in-out',
+                    },
+                    '& .MuiFormHelperText-root': {
+                      transition: 'all 0.2s ease-in-out',
+                      opacity: showErrorMessage ? 1 : 0,
+                      visibility: showErrorMessage ? 'visible' : 'hidden',
+                      position: 'absolute',
+                      bottom: '-20px',
                     },
                   }}
                   InputProps={{
@@ -343,9 +364,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                             right: '20px',
                             opacity: 0.8,
                             backgroundColor: 'inherit',
+                            '&:hover': {
+                              opacity: 1,
+                            },
                           }}
-                          onMouseEnter={(e) => handleMouseEnter(e)}
-                          onMouseLeave={(e) => handleMouseLeave(e)}
                         />
                       </InputAdornment>
                     ) : null,

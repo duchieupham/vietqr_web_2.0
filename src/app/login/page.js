@@ -22,7 +22,7 @@ function Login() {
             p: {
               xs: '0 32px',
               md: '0 64px',
-              lg: '128px',
+              lg: '56px',
             },
             gap: {
               xs: 4,
@@ -54,7 +54,7 @@ function Login() {
             mt: {
               xs: 'auto',
               md: 'auto',
-              lg: 0,
+              lg: '0',
             },
           }}
         >
