@@ -59,7 +59,20 @@ function FooterLogin() {
         }}
       >
         <Grid item xs={12} lg={6} sx={{ width: '100%' }}>
-          <Contact />
+          <Contact
+            stackStyle={{
+              margin: {
+                xs: '0 1rem',
+                md: '0 5rem',
+              },
+              whiteSpace: 'nowrap',
+              flexGrow: 1,
+              marginBottom: {
+                xs: '0.7rem',
+                md: '0.5rem',
+              },
+            }}
+          />
         </Grid>
         <Grid item xs={12} lg={6}>
           <Social

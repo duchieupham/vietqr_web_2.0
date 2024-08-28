@@ -63,13 +63,14 @@ export default function Navbar() {
     >
       <Stack spacing={40}>
         <Box sx={{ marginBottom: '2rem', position: 'relative' }}>
-          <Box
+          <Button
             component="div"
             sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
+            disableRipple
           >
             <Link href="/">
               {imageUri && (
@@ -86,10 +87,11 @@ export default function Navbar() {
                 />
               )}
             </Link>
-          </Box>
+          </Button>
           <LoginHeaderBar
             styles={drawerStyles}
             style={{
+              whiteSpace: 'nowrap',
               display: 'block',
               flexDirection: 'column',
               flexWrap: 'wrap',
@@ -179,7 +181,7 @@ export default function Navbar() {
             />
           </IconButton>
           {/* Logo for all screen sizes */}
-          <Box
+          <Button
             component="div"
             sx={{
               margin: '0 auto',
@@ -195,13 +197,15 @@ export default function Navbar() {
               position: 'absolute',
               left: {
                 xs: '30%',
-                sm: '31%',
-                md: '40%',
-                lg: isTabletVertical ? '43%' : '40%',
+                sm: '28%',
+                md: isTabletVertical ? '41%' : '40%',
+                lg: isTabletVertical ? '40%' : '40%',
                 xl: '45%',
               },
               transform: { translateX: '50%' },
             }}
+            disableRipple
+            disableTouchRipple
           >
             <Link href="/">
               {imageUri && (
@@ -210,15 +214,15 @@ export default function Navbar() {
                   priority
                   alt="VietQR logo"
                   src={imageUri}
-                  height={60}
-                  width={140}
+                  height={80}
+                  width={160}
                   style={{
                     objectFit: 'contain',
                   }}
                 />
               )}
             </Link>
-          </Box>
+          </Button>
           {/* Full Navbar for larger screens */}
           <Box
             component="div"

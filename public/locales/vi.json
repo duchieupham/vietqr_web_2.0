@@ -9,7 +9,7 @@
   "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
   "passwordNotMatch": "Mật khẩu không trùng khớp",
   "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
-  "forgotPassword": "Quên mật khẩu đăng nhập ?",
+  "forgotPassword": "Bạn quên mật khẩu đăng nhập?",
 
   "loginForm": "Đăng nhập",
   "login": "Đăng nhập",

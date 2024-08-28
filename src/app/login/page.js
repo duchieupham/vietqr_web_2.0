@@ -1,7 +1,6 @@
 'use client';
 
-import { StackedBarChartOutlined } from '@mui/icons-material';
-import { Box, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
