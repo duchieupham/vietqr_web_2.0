@@ -60,5 +60,8 @@
   "downloadQR": "QR tải ứng dụng",
   "scanQR": "Quét mã QR đăng nhập",
   "scanQRDescription": "Sử dụng ứng dụng VietQR để quét mã QR đăng nhập vào website tự động.",
-  "downloadApp": "Tải ứng dụng VietQR"
+  "downloadApp": "Tải ứng dụng VietQR",
+
+  "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ",
+  "errorOccurred": "Đã xảy ra lỗi!"
 }

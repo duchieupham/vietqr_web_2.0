@@ -1,6 +1,9 @@
 /* eslint-disable indent */
 /* eslint-disable react/no-array-index-key */
 // @mui
+import CloseIcon from '@mui/icons-material/Close';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import {
   Box,
   InputAdornment,
@@ -8,9 +11,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 
 // import API
 import loginAPI from '~/api/login/loginService';
@@ -18,23 +18,24 @@ import loginAPI from '~/api/login/loginService';
 // import hooks
 import { Controller, useForm } from 'react-hook-form';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
+import useLoginSocket from '~/hooks/useLoginSocket';
 
 // utils
-import { LoginFormSchema } from '~/utils/definitions';
 import decodeJwt from '~/utils/decodeJwt';
+import { LoginFormSchema } from '~/utils/definitions';
 
 // components
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
-import { useRef, useState } from 'react';
 
 // styles
 import styles from '~styles/Input.module.scss';
 
 // others
-import { useTranslations } from 'next-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextGradient } from '../text';
+import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '../button';
+import { TextGradient } from '../text';
 
 const inputStyle = {
   width: '360px',
@@ -126,7 +127,11 @@ const passwordStyle = {
   },
 };
 
-export default function LoginForm({ containerStyle, stackStyle }) {
+export default function LoginForm({
+  containerStyle,
+  stackStyle,
+  encryptedQrValue,
+}) {
   const {
     handleSubmit,
     watch,
@@ -146,108 +151,134 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
   const passwordRef = watch('password', '');
-
-  let phoneNoBorder = '1px solid #E0E0E0';
-  let phoneNoBorderColor = '1px solid #E0E0E0';
-
-  const onSubmit = async (formData) => {
-    if (isCompleted?.phoneNo && isCompleted?.password) {
-      try {
-        // Call API to login
-        await loginAPI
-          .login(formData.phoneNo, formData.password)
-          .then((res) => {
-            // console.log(res);
-            const { status, data } = res;
-            if (status === 200) {
-              authenticate(data);
-              const info = decodeJwt(data);
-              if (info) setStoredValue(info);
-            }
-            if (status === 400) {
-              setError('phoneNo', {
-                type: 'manual',
-                message: 'Invalid phone number or password',
-              });
-              setValue('password', '');
-            }
-          });
-      } catch (error) {
-        setError('phoneNo', {
-          type: 'manual',
-          message: 'An error occurred during login',
-        });
-      }
-    }
-  };
-
-  const handleComplete = (field, value) => {
+  const phoneNoBorder = '1px solid #E0E0E0';
+  const phoneNoBorderColor = '1px solid #E0E0E0';
+  const handleComplete = useCallback((field, value) => {
     setIsCompleted((prevState) => ({
       ...prevState,
       [field]: value,
     }));
-  };
+  }, []);
 
-  const handleInputChange = (event) => {
-    // Remove any non-digit characters
-    event.target.value = event.target.value.replace(/\D/g, '');
-    // Limit the input to 10 characters
-    if (event.target.value.length > 10) {
-      event.target.value = event.target.value.slice(0, 10);
-    }
-    if (
-      event.target.value.length === 10 &&
-      event.target.value.match(
-        /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g,
-      )
-    ) {
-      handleComplete('phoneNo', true);
-    }
-    if (event.target.value.length < 10) {
-      handleComplete('phoneNo', false);
-    }
-    phoneNoRef.current.value = event.target.value;
-  };
+  const handleInputChange = useCallback(
+    (event) => {
+      // Remove any non-digit characters
+      event.target.value = event.target.value.replace(/\D/g, '');
+      // Limit the input to 10 characters
+      if (event.target.value.length > 10) {
+        event.target.value = event.target.value.slice(0, 10);
+      }
+      if (
+        event.target.value.length === 10 &&
+        event.target.value.match(
+          /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g,
+        )
+      ) {
+        handleComplete('phoneNo', true);
+      }
+      if (event.target.value.length < 10) {
+        handleComplete('phoneNo', false);
+      }
+      phoneNoRef.current.value = event.target.value;
+    },
+    [handleComplete],
+  );
 
-  const handlePasswordChange = (event) => {
-    // Remove any non-digit characters
-    event.target.value = event.target.value.replace(/\D/g, '');
-    // Limit the input to 6 characters
-    if (event.target.value.length > 6) {
-      event.target.value = event.target.value.slice(0, 6);
-    }
-    if (event.target.value.length === 6) {
-      handleComplete('password', true);
-    }
-    if (event.target.value.length < 6) {
-      handleComplete('password', false);
-    }
-    if (passwordRef.current) {
-      passwordRef.current.value = event.target.value;
-    }
-  };
+  const handlePasswordChange = useCallback(
+    (event) => {
+      event.target.value = event.target.value.replace(/\D/g, '');
+      if (event.target.value.length > 6) {
+        event.target.value = event.target.value.slice(0, 6);
+      }
+      if (event.target.value.length === 6) {
+        handleComplete('password', true);
+      }
+      if (event.target.value.length < 6) {
+        handleComplete('password', false);
+      }
+      if (passwordRef.current) {
+        passwordRef.current.value = event.target.value;
+      }
+    },
+    [handleComplete],
+  );
 
-  const handleClearInput = () => {
+  const handleClearInput = useCallback(() => {
     setValue('phoneNo', '');
     setValue('password', '');
     handleComplete('phoneNo', false);
     clearErrors('phoneNo');
     clearErrors('password');
     phoneNoRef.current.focus();
-  };
+  }, [setValue, handleComplete, clearErrors]);
 
-  const phoneNoError =
-    phoneNoRef.current?.value.length === 0 ? false : !!errors?.phoneNo;
+  const phoneNoError = useMemo(
+    () => phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo,
+    [errors, phoneNoRef.current?.value],
+  );
+  const phoneNoHelperText = useMemo(
+    () => phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo,
+    [errors, phoneNoRef.current?.value],
+  );
+  const showErrorMessage = useMemo(() => !!errors.phoneNo, [errors.phoneNo]);
 
-  const phoneNoHelperText =
-    phoneNoRef.current?.value.length === 0 ? false : !!errors?.phoneNo;
+  const onSubmit = useCallback(
+    async (formData) => {
+      if (isCompleted?.phoneNo && isCompleted?.password) {
+        try {
+          // Call API to login
+          await loginAPI
+            .login(formData.phoneNo, formData.password)
+            .then((res) => {
+              // console.log(res);
+              const { status, data } = res;
+              if (status === 200) {
+                authenticate(data);
+                const info = decodeJwt(data);
+                if (info) setStoredValue(info);
+              }
+              if (status === 400) {
+                setError('phoneNo', {
+                  type: 'manual',
+                  message: t('invalidPhone&Password'),
+                });
+                setValue('password', '');
+              }
+            });
+        } catch (error) {
+          setError('phoneNo', {
+            type: 'manual',
+            message: t('errorOccurred'),
+          });
+        }
+      }
+    },
+    [isCompleted, authenticate, setStoredValue, setError, setValue, t],
+  );
 
-  if (phoneNoRef.current?.value.length !== 0) {
-    phoneNoBorder = errors?.phoneNo ? '1px solid red' : '1px solid #E0E0E0';
-    phoneNoBorderColor = errors?.phoneNo ? 'red' : '#0072ff';
-  }
+  const onSubmitQR = useCallback(async (data) => {
+    try {
+      // console.log(data);
+      await loginAPI.loginQR(data.userId).then((res) => {
+        // console.log(res);
+        const { status, data: qrData } = res;
+        if (status === 200) {
+          authenticate(qrData);
+          const info = decodeJwt(qrData);
+          if (info) setStoredValue(info);
+          // console.log(qrData);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
-  const showErrorMessage = !!errors.phoneNo;
+  useLoginSocket(
+    encryptedQrValue.loginID,
+    encryptedQrValue.randomKey,
+    onSubmitQR,
+  );
 
   return (
     <Box

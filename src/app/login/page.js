@@ -1,15 +1,14 @@
 'use client';
 
-import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
 import CreateQR from '~/sections/login/CreateQR';
+import { generateQrValue } from '~/utils/aesConvert';
 
 function Login() {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-
+  const encryptedQrValue = generateQrValue();
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Stack height="100%">
@@ -36,6 +35,7 @@ function Login() {
               xs: 'center',
               md: 'flex-end',
               lg: 'center',
+              xl: 'center',
             },
             alignItems: 'center',
             minHeight: {
@@ -44,8 +44,8 @@ function Login() {
             },
           }}
         >
-          <CreateQR />
-          <LoginForm />
+          <CreateQR encryptedQrValue={encryptedQrValue} />
+          <LoginForm encryptedQrValue={encryptedQrValue} />
         </Stack>
 
         <Box
