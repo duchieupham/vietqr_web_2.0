@@ -53,8 +53,7 @@ export default function Contact({ style }) {
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        flexGrow: 1,
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
         width: '100%',
         ...style,
       }}
@@ -64,7 +63,7 @@ export default function Contact({ style }) {
           key={index}
           spacing={2}
           useFlexGap
-          sx={{ width: '100%', flexWrap: 'wrap' }}
+          sx={{ width: 'fit-content', flexWrap: 'wrap' }}
         >
           <Box component="div">{t(item.name)}</Box>
           <Stack spacing={1}>

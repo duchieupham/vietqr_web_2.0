@@ -34,14 +34,37 @@ export default function Social({ style }) {
   const t = useTranslations();
   return (
     <Box
+      // Why need component div?
       component="div"
       sx={{
+        display: 'flex',
         width: '100%',
+        justifyContent: {
+          xs: 'center',
+          lg: 'flex-start',
+        },
         ...style,
       }}
     >
       {list.map((item, index) => (
-        <Stack key={index} spacing={2}>
+        <Stack
+          key={index}
+          sx={{
+            flexDirection: {
+              xs: 'row',
+              md: 'column',
+            },
+            alignItems: {
+              xs: 'center',
+              lg: 'flex-start',
+            },
+            justifyContent: {
+              xs: 'space-between',
+              lg: 'flex-start',
+            },
+            gap: 2,
+          }}
+        >
           <Box component="div" sx={{}}>
             {t(item.name)}
           </Box>

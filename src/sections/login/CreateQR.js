@@ -1,12 +1,5 @@
 // mui
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
@@ -45,33 +38,33 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
   };
 
   return (
-    <Container
+    <Box
       sx={{
-        padding: isMobile ? '10px' : '20px',
-        maxWidth: isDesktop ? '1024px' : '768px',
+        display: {
+          xs: 'none',
+          md: 'block',
+        },
         ...containerStyle,
       }}
     >
       <Stack
-        direction="row"
         spacing={{ xs: 0.5, sm: 1.5 }}
-        useFlexGap
-        flexWrap="wrap"
         sx={{
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          width: '100%',
+          flexDirection: 'column',
           ...stackStyle,
         }}
       >
         <Box
           sx={{
             display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: isTabletVertical ? 'center' : '',
-            gap: isTabletVertical ? '6rem' : '20px',
-            width: isTabletVertical ? '100%' : '76%',
+            gap: {
+              xs: '5rem',
+              lg: 0,
+              xl: '8%',
+            },
+            width: '100%',
           }}
         >
           {list.map((item) => (
@@ -133,31 +126,42 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           ))}
         </Box>
         <Box
-          component="div"
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            gap: isTabletVertical ? '30px' : '20px',
+            gap: '2rem',
             width: '100%',
           }}
         >
           <Box
             sx={{
-              width: isTabletVertical ? '23%' : '35%',
-              marginLeft: isTabletVertical ? '6rem' : '6.5rem',
+              width: {
+                xs: 170,
+                lg: 300,
+                xl: 350,
+              },
+              minWidth: {
+                xs: 170,
+                lg: 300,
+                xl: 350,
+              },
             }}
           >
             <QRCodeComponent value="https://www.messenger.com/" />
           </Box>
           <Box
             sx={{
-              width: isTabletVertical ? '30%' : '50%',
+              width: {
+                xs: 200,
+                lg: 230,
+              },
             }}
           >
             <Typography
               sx={{
                 fontWeight: 'bold',
                 fontSize: '20px',
+                whiteSpace: 'nowrap',
               }}
             >
               {t('scanQR')}
@@ -168,7 +172,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
                 color: '#6C6C6C',
                 lineHeight: '1.5',
                 margin: '1rem 0',
-                width: isTabletVertical ? '75%' : '50%',
               }}
             >
               {t('scanQRDescription')}
@@ -188,6 +191,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           </Box>
         </Box>
       </Stack>
-    </Container>
+    </Box>
   );
 }
