@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import {
+  Backdrop,
   Box,
   InputAdornment,
   Stack,
@@ -36,6 +37,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
+import LoadingContainer from '../LoadingContainer';
 
 const inputStyle = {
   width: '360px',
@@ -273,15 +275,18 @@ export default function LoginForm({
         }
       });
     } catch (error) {
-      console.error(error);
+      setError(error);
     }
   }, []);
 
-  useLoginSocket(
-    encryptedQrValue.loginID,
-    encryptedQrValue.randomKey,
-    onSubmitQR,
-  );
+  setTimeout(() => {
+    useLoginSocket(
+      encryptedQrValue.loginID,
+      encryptedQrValue.randomKey,
+      onSubmitQR,
+      loading,
+    );
+  }, [3000]);
 
   return (
     <Box
@@ -456,6 +461,7 @@ export default function LoginForm({
                     ),
                   }}
                   autoComplete="current-password"
+                  onFocus={() => {}}
                   {...{ disabled: !isCompleted.phoneNo }}
                 />
                 <Box
