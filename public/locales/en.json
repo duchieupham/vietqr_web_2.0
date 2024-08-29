@@ -4,5 +4,70 @@
   "phoneNumber": "Phone number*",
   "loginForm": "Login",
   "password": "",
-  "login": "Login"
+  "login": "Login",
+
+  "passwordRequired": "Mật khẩu không được để trống",
+  "passwordInvalid": "Mật khẩu không hợp lệ",
+  "passwordConfirm": "Xác nhận mật khẩu",
+  "passwordConfirmRequired": "Xác nhận mật khẩu không được để trống",
+  "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
+  "passwordNotMatch": "Mật khẩu không trùng khớp",
+  "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
+  "forgotPassword": "Bạn quên mật khẩu đăng nhập?",
+
+  "loginFailed": "Đăng nhập thất bại",
+  "loginSuccess": "Đăng nhập thành công",
+
+  "noAccount": "Đăng kí tài khoản mới",
+  "register": "Đăng kí tài khoản mới",
+  "registerSuccess": "Đăng kí thành công",
+  "registerFailed": "Đăng kí thất bại",
+  "registerForm": "Đăng kí tài khoản",
+
+  "phoneNo": "Số điện thoại",
+  "phoneNumberRequired": "Số điện thoại không được để trống",
+  "phoneNumberInvalid": "Số điện thoại không hợp lệ",
+  "phoneNumberHelperText": " ",
+  "phoneNumberWrong": "Số điện thoại không đúng!",
+
+  "headerHome": "Trang chủ",
+  "headerQR": "Tạo mã QR",
+  "headerServiceConnect": "Kết nối dịch vụ",
+  "headerLogin": "Đăng nhập",
+  "headerRegister": "Đăng ký",
+
+  "vietnamese": "Tiếng Việt",
+  "english": "Tiếng Anh",
+
+  "contact": "Liên hệ",
+
+  "overview": "TỔNG QUAN",
+  "instructions-documents": "Hướng dẫn tài liệu",
+  "api-service-documents": "Tài liệu API Service",
+
+  "hotline": "HOTLINE",
+  "local-phone": "1900 6234",
+  "phone": "09 2233 3636",
+
+  "email": "EMAIL",
+  "sales-email": "sales@vietqr.vn",
+  "it-support-email": "itsupport@vietqr.vn",
+
+  "follow-us": "THEO DÕI CHÚNG TÔI QUA",
+  "facebook": "Facebook",
+  "youtube": "Youtube",
+  "telegram": "Telegram",
+
+  "qr": "Mã QR",
+  "loginQR": "QR Đăng nhập",
+  "downloadQR": "QR tải ứng dụng",
+  "scanQR": "Quét mã QR đăng nhập",
+  "scanQRDescription": "Sử dụng ứng dụng VietQR để quét mã QR đăng nhập vào website tự động.",
+  "downloadApp": "Tải ứng dụng VietQR",
+
+  "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ",
+  "errorOccurred": "Đã xảy ra lỗi!",
+
+  "notice": "Thông báo",
+  "noticeUpdateServiceFee": "THÔNG BÁO CẬP NHẬT PHÍ DỊCH VỤ PHẦN MỀM VIETQR"
 }

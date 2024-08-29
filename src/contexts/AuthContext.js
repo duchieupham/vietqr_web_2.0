@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteCookie, setCookie } from 'cookies-next';
-import { set } from 'lodash-es';
 import { useRouter } from 'next/navigation';
 import {
   createContext,
@@ -11,6 +10,7 @@ import {
   useState,
 } from 'react';
 import LoadingContainer from '~/components/LoadingContainer';
+import { AUTH_COOKIE } from '~/constants';
 import decodeJwt from '~/utils/decodeJwt';
 
 const initialContext = {
@@ -26,11 +26,11 @@ export function AuthContextProvider({ children }) {
   const [loading, setLoading] = useState(initialContext.loading);
 
   const authenticate = (data) => {
+    setLoading(true);
     setSession(decodeJwt(data));
-    setCookie('auth_token', data, {
+    setCookie(AUTH_COOKIE, data, {
       secure: true,
     });
-    setLoading(true);
     setTimeout(() => {
       router.push('/dashboard');
       setLoading(false);
@@ -39,7 +39,7 @@ export function AuthContextProvider({ children }) {
 
   const clear = useCallback(() => {
     localStorage.setItem('session', null);
-    deleteCookie('auth_token');
+    deleteCookie(AUTH_COOKIE);
     setSession(null);
     router.push('/login');
   }, []);

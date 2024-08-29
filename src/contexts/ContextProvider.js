@@ -1,14 +1,13 @@
 import { AuthContextProvider } from './AuthContext';
 import { CollapseDrawerProvider } from './CollapseDrawerContext';
-import { LanguageProvider } from './LanguageContext';
+import { AppContextProvider } from './AppContext';
 
 const ContextProvider = ({ children }) => (
-  // Add more context if any
-  <LanguageProvider>
+  <AppContextProvider>
     <CollapseDrawerProvider>
       <AuthContextProvider>{children}</AuthContextProvider>
     </CollapseDrawerProvider>
-  </LanguageProvider>
+  </AppContextProvider>
 );
 
 export default ContextProvider;

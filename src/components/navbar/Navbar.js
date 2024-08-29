@@ -7,6 +7,8 @@ import {
   Drawer,
   Grid,
   IconButton,
+  MenuItem,
+  Select,
   Stack,
   useMediaQuery,
 } from '@mui/material';
@@ -26,12 +28,23 @@ import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
+import { useAppContext } from '~/contexts/AppContext';
+import { setCookie } from 'cookies-next';
+import { LOCALE_COOKIE } from '~/constants';
+import { useRouter } from 'next/navigation';
 import LoginHeaderBar from '../header/LoginHeaderBar';
+
+const languageOptions = [
+  { id: 1, label: 'vietnamese', value: 'vi' },
+  { id: 2, label: 'english', value: 'en' },
+];
 
 export default function Navbar() {
   const t = useTranslations();
+  const { language, setLanguage } = useAppContext();
+  const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
-  const optionSelect = [{ language: 'vietnamese' }];
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
   const isPortrait = useMediaQuery('(orientation: portrait)');
@@ -39,6 +52,13 @@ export default function Navbar() {
     '(min-width: 768px) and (max-width: 1169px)',
   );
   const isTabletVertical = isPortrait && isTabletSize;
+
+  const onChangeLanguage = (e) => {
+    const locale = e.target.value;
+    setCookie(LOCALE_COOKIE, locale);
+    setLanguage(locale);
+    router.refresh();
+  };
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -122,11 +142,13 @@ export default function Navbar() {
             <HeadphonesOutlinedIcon />
             {t('contact')}
           </Button>
-          {/* <Select sx={{ width: '100%' }}>
-            {optionSelect.map((option) => (
-              <MenuItem key={option.language}>{t(option.language)}</MenuItem>
+          <Select value={language} onChange={onChangeLanguage}>
+            {languageOptions.map((option) => (
+              <MenuItem key={option.id} value={option.value}>
+                {t(option.label)}
+              </MenuItem>
             ))}
-          </Select> */}
+          </Select>
         </Box>
       </Stack>
     </Box>
@@ -357,13 +379,13 @@ export default function Navbar() {
                 <HeadphonesOutlinedIcon />
                 {t('contact')}
               </Button>
-              {/* <Select>
-                {optionSelect.map((option) => (
-                  <MenuItem key={option.language}>
-                    {t(option.language)}
+              <Select value={language} onChange={onChangeLanguage}>
+                {languageOptions.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {t(option.label)}
                   </MenuItem>
                 ))}
-              </Select> */}
+              </Select>
             </Box>
           </Box>
         </Box>

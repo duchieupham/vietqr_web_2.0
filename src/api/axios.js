@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import _toLower from 'lodash-es/toLower';
+import { AUTH_COOKIE } from '~/constants';
 // ----------------------------------------------------------------------
 
 const withFormData = (config) => {
@@ -28,7 +29,7 @@ const withDefaultParams = (config, defaultParams) => {
 };
 
 const requestPreprocess = (axiosConfig, options) => {
-  const session = getCookie('auth_token');
+  const session = getCookie(AUTH_COOKIE);
 
   if (axiosConfig?.useAuth && session) {
     axiosConfig.headers.Authorization = `Bearer ${session}`;

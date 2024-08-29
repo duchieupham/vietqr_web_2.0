@@ -1,7 +1,9 @@
 import { getRequestConfig } from 'next-intl/server';
+import { getLocale } from './utils/localeCookie';
 
 export default getRequestConfig(async () => {
-  const locale = 'vi';
+  const locale = await getLocale();
+  console.log('locale', locale);
 
   return {
     locale,
