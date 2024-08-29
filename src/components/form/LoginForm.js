@@ -153,6 +153,8 @@ export default function LoginForm({
   const passwordRef = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
   const phoneNoBorderColor = '1px solid #E0E0E0';
+  const [loading, setLoading] = useState(false);
+
   const handleComplete = useCallback((field, value) => {
     setIsCompleted((prevState) => ({
       ...prevState,

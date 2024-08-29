@@ -1,6 +1,7 @@
 'use client';
 
 import { deleteCookie, setCookie } from 'cookies-next';
+import { set } from 'lodash-es';
 import { useRouter } from 'next/navigation';
 import {
   createContext,
@@ -29,7 +30,11 @@ export function AuthContextProvider({ children }) {
     setCookie('auth_token', data, {
       secure: true,
     });
-    router.push('/dashboard');
+    setLoading(true);
+    setTimeout(() => {
+      router.push('/dashboard');
+      setLoading(false);
+    }, [2000]);
   };
 
   const clear = useCallback(() => {
