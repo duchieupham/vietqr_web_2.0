@@ -47,9 +47,9 @@ function Login() {
               xxs: '50vh',
               xs: '50vh',
               sm: '45vh',
-              md: '39vh',
+              md: '45vh',
               lg: '74vh',
-              lgp: '56vh',
+              lgp: '74vh',
             },
           }}
         >
