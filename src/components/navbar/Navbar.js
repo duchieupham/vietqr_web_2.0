@@ -1,5 +1,6 @@
 // eslint-disable-next-line object-curly-newline
 // mui
+import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 import {
   Box,
   Button,
@@ -9,23 +10,22 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
-import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 // constants
 import AppImages from '~/constants/ImagesConstant';
 // react
 import { useState } from 'react';
 // next
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 // styles
-import styles from '~styles/Header.module.scss';
 import drawerStyles from '~styles/Drawer.module.scss';
+import styles from '~styles/Header.module.scss';
 // hooks
-import useResponsive from '~/hooks/useResponsive';
 import useImage from '~/hooks/useImage';
+import useResponsive from '~/hooks/useResponsive';
 // others
-import { useTranslations } from 'next-intl';
 import Hamburger from 'hamburger-react';
+import { useTranslations } from 'next-intl';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
 export default function Navbar() {
@@ -53,7 +53,7 @@ export default function Navbar() {
   const drawerContent = (
     <Box
       sx={{
-        width: { xs: '150px' },
+        width: { xxs: '100%', xs: '100%' },
         padding: '1rem',
         justifyContent: 'space-between',
       }}
@@ -159,12 +159,16 @@ export default function Navbar() {
             alignItems: 'center',
             position: 'relative',
             marginTop: '-0.7rem',
+            marginLeft: {
+              xxs: -2,
+            },
           }}
         >
           {/* Hamburger Menu for small screens */}
           <IconButton
             sx={{
               display: {
+                xxs: 'block',
                 xs: 'block',
                 sm: 'block',
                 md: 'block',
@@ -186,6 +190,7 @@ export default function Navbar() {
             sx={{
               margin: '0 auto',
               display: {
+                xxs: 'flex',
                 xs: 'flex',
                 sm: 'flex',
                 md: 'flex',
@@ -196,9 +201,10 @@ export default function Navbar() {
               justifyContent: 'center',
               position: 'absolute',
               left: {
-                xs: '30%',
-                sm: '28%',
-                md: isTabletVertical ? '41%' : '42%',
+                xxs: '27.5%',
+                xs: '33%',
+                sm: '40.2%',
+                md: '41.5%',
                 lg: isTabletVertical ? '40%' : '40%',
                 xl: '45%',
               },
@@ -228,6 +234,7 @@ export default function Navbar() {
             component="div"
             sx={{
               display: {
+                xxs: 'none',
                 xs: 'none',
                 sm: 'none',
                 md: 'none',
@@ -248,6 +255,7 @@ export default function Navbar() {
                     width: '100%',
                     '& .active': {
                       width: {
+                        xxs: '100%',
                         xs: '100%',
                         sm: '100%',
                         md: '100%',
@@ -261,6 +269,7 @@ export default function Navbar() {
                     },
                     '& .active::after': {
                       width: {
+                        xxs: '100%',
                         xs: '100%',
                         sm: '100%',
                         md: '100%',
@@ -271,6 +280,7 @@ export default function Navbar() {
                   }}
                   typographyStyle={{
                     fontSize: {
+                      xxs: '9px',
                       xs: '10px',
                       sm: '10px',
                       md: '12px',

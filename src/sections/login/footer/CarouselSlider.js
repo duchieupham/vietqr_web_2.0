@@ -9,28 +9,36 @@ import 'react-multi-carousel/lib/styles.css';
 
 const responsive = {
   superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1920 },
+    breakpoint: { max: 4000, min: 2560 },
     items: 10,
   },
   largeDesktop: {
-    breakpoint: { max: 1920, min: 1440 },
-    items: 10,
+    breakpoint: { max: 2560, min: 1920 },
+    items: 8,
   },
   desktop: {
-    breakpoint: { max: 1440, min: 1024 },
-    items: 10,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 768 },
+    breakpoint: { max: 1920, min: 1440 },
     items: 6,
   },
-  smallTablet: {
-    breakpoint: { max: 768, min: 576 },
+  largeTablet: {
+    breakpoint: { max: 1440, min: 1280 },
     items: 5,
   },
-  mobile: {
-    breakpoint: { max: 576, min: 0 },
+  tablet: {
+    breakpoint: { max: 1280, min: 960 },
+    items: 4,
+  },
+  smallTablet: {
+    breakpoint: { max: 960, min: 640 },
     items: 3,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 320 },
+    items: 2,
+  },
+  smallMobile: {
+    breakpoint: { max: 320, min: 0 },
+    items: 1,
   },
 };
 
@@ -39,8 +47,6 @@ export default function CarouselSlider({ initialValues }) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   function handleConvertImage(_images) {
-    // console.log('_iamges:', _images); // Debugging
-
     const convertedImages = _images?.map((image) => {
       const imageUrl = `${baseUrl}/images/${image.imageId}`;
       return {
@@ -48,8 +54,6 @@ export default function CarouselSlider({ initialValues }) {
         imageId: imageUrl,
       };
     });
-
-    // console.log('convertedImages:', convertedImages); // Debugging
 
     if (convertedImages) {
       setImages(convertedImages);
@@ -104,7 +108,7 @@ export default function CarouselSlider({ initialValues }) {
                   src={image.imageId}
                   height={70}
                   width={150}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, (max-width: 1440px) 33vw, 25vw"
                   style={{
                     objectFit: 'contain',
                     padding: '1rem',

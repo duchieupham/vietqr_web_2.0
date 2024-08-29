@@ -212,48 +212,49 @@ export default function LoginForm({
     phoneNoRef.current.focus();
   }, [setValue, handleComplete, clearErrors]);
 
-  const phoneNoError = useMemo(
-    () => phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo,
-    [errors, phoneNoRef.current?.value],
+  const phoneNoError =
+    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
+
+  const phoneNoHelperText =
+    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
+
+  const showErrorMessage = !!errors.phoneNo;
+
+  const isButtonDisabled = useCallback(
+    () => !(isCompleted.phoneNo && isCompleted.password),
+    [isCompleted.phoneNo, isCompleted.password],
   );
-  const phoneNoHelperText = useMemo(
-    () => phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo,
-    [errors, phoneNoRef.current?.value],
-  );
-  const showErrorMessage = useMemo(() => !!errors.phoneNo, [errors.phoneNo]);
 
   const onSubmit = useCallback(
     async (formData) => {
-      if (isCompleted?.phoneNo && isCompleted?.password) {
-        try {
-          // Call API to login
-          await loginAPI
-            .login(formData.phoneNo, formData.password)
-            .then((res) => {
-              // console.log(res);
-              const { status, data } = res;
-              if (status === 200) {
-                authenticate(data);
-                const info = decodeJwt(data);
-                if (info) setStoredValue(info);
-              }
-              if (status === 400) {
-                setError('phoneNo', {
-                  type: 'manual',
-                  message: t('invalidPhone&Password'),
-                });
-                setValue('password', '');
-              }
-            });
-        } catch (error) {
-          setError('phoneNo', {
-            type: 'manual',
-            message: t('errorOccurred'),
+      try {
+        // Call API to login
+        await loginAPI
+          .login(formData.phoneNo, formData.password)
+          .then((res) => {
+            // console.log(res);
+            const { status, data } = res;
+            if (status === 200) {
+              authenticate(data);
+              const info = decodeJwt(data);
+              if (info) setStoredValue(info);
+            }
+            if (status === 400) {
+              setError('phoneNo', {
+                type: 'manual',
+                message: t('invalidPhone&Password'),
+              });
+              setValue('password', '');
+            }
           });
-        }
+      } catch (error) {
+        setError('phoneNo', {
+          type: 'manual',
+          message: t('invalidPhone&Password'),
+        });
       }
     },
-    [isCompleted, authenticate, setStoredValue, setError, setValue, t],
+    [isCompleted, authenticate, setStoredValue, setValue, t],
   );
 
   const onSubmitQR = useCallback(async (data) => {
@@ -512,11 +513,11 @@ export default function LoginForm({
                 ? {}
                 : {
                     backgroundImage:
-                      'linear-gradient(to right, #e1efff 50%, #e5f9ff 100%)',
+                      'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
                     color: '#000',
                   }),
             }}
-            {...{ disabled: !(isCompleted.phoneNo && isCompleted.password) }}
+            {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>

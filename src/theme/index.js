@@ -5,13 +5,14 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: 50,
-      sm: 375,
-      md: 768,
+      xxs: 320,
+      xs: 480,
+      sm: 640,
+      md: 960,
       lg: 1280,
-      xl: 1879,
+      lgp: 1440,
+      xl: 1920,
       xxl: 2560,
-      fluid: '100%',
     },
   },
 });

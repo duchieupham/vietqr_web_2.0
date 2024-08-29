@@ -79,14 +79,16 @@ export default function CreateQR({
     <Box
       sx={{
         display: {
+          xxs: 'none',
           xs: 'none',
+          sm: 'block',
           md: 'block',
         },
         ...containerStyle,
       }}
     >
       <Stack
-        spacing={{ xs: 0.5, sm: 1.5 }}
+        spacing={{ xxs: 0.5, xs: 0.5, sm: 1.5 }}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -98,6 +100,7 @@ export default function CreateQR({
           sx={{
             display: 'flex',
             gap: {
+              xxs: '1rem',
               xs: '2rem',
               md: '2rem',
               lg: 0,
@@ -115,7 +118,7 @@ export default function CreateQR({
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: '50px',
-                width: { xs: '100px', sm: '150px' },
+                width: { xxs: '100px', xs: '100px', sm: '150px' },
                 borderRadius: '10px',
                 color: qrState === t(item.name) ? '#00c6ff' : 'inherit',
                 transition:
@@ -147,7 +150,7 @@ export default function CreateQR({
                 '&:active': {
                   backgroundColor: 'transparent',
                 },
-                fontSize: { xs: '12px', sm: '14.5px' },
+                fontSize: { xxs: '11px', xs: '12px', sm: '14.5px' },
 
                 '&::after': {
                   background: 'red',
@@ -174,21 +177,25 @@ export default function CreateQR({
           <Box
             sx={{
               width: {
+                xxs: 170,
                 xs: 170,
                 lg: 250,
                 xl: 250,
               },
               minWidth: {
+                xxs: 170,
                 xs: 170,
                 lg: 250,
                 xl: 250,
               },
               minHeight: {
+                xxs: 170,
                 xs: 170,
                 lg: 250,
                 xl: 250,
               },
               marginLeft: {
+                xxs: '0',
                 xs: '0',
                 md: '1rem',
                 lg: '1rem',
@@ -199,7 +206,7 @@ export default function CreateQR({
             <QRCodeComponent
               value={
                 selectedTab.current === t('downloadQR')
-                  ? qrUrl
+                  ? 'https://onelink.to/q7zwpe'
                   : encryptedQrValue.qrValue
               }
             />
@@ -207,6 +214,7 @@ export default function CreateQR({
           <Box
             sx={{
               width: {
+                xxs: 190,
                 xs: 190,
                 lg: 200,
               },

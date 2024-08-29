@@ -32,11 +32,13 @@ function FooterLogin() {
     <Box
       sx={{
         px: {
+          xxs: 2,
           xs: 2,
           md: 4,
           lg: 0,
         },
         pt: {
+          xxs: '3rem',
           xs: '3rem',
           lg: '2rem',
         },
@@ -49,33 +51,48 @@ function FooterLogin() {
         spacing={2}
         sx={{
           flexDirection: {
+            xxs: 'column',
             xs: 'column',
             lg: 'row',
           },
           alignItems: {
+            xxs: 'center',
             xs: 'center',
             lg: 'flex-start',
           },
         }}
       >
-        <Grid item xs={12} lg={6} sx={{ width: '100%' }}>
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            width: '100%',
+            position: 'relative',
+          }}
+        >
           <Contact
             style={{
               flexWrap: {
+                xxs: 'wrap',
                 xs: 'wrap',
                 md: 'nowrap',
               },
             }}
             stackStyle={{
               margin: {
+                xxs: '0 1rem',
                 xs: '0 2rem',
-                md: '0 5rem',
+                sm: '0 3rem',
+                md: '0 6rem',
                 lg: '0 3rem',
               },
               whiteSpace: 'nowrap',
               flexGrow: 1,
               marginBottom: {
+                xxs: '0.5rem',
                 xs: '0.7rem',
+                sm: '1rem',
                 md: '0.5rem',
               },
             }}
@@ -84,7 +101,12 @@ function FooterLogin() {
         <Grid item xs={12} lg={6}>
           <Social
             sx={{
-              margin: isTabletVertical ? '0 6rem' : '',
+              margin: {
+                xxs: '0 1rem',
+                xs: '0 2rem',
+                md: '0 5rem',
+                lg: '0 3rem',
+              },
             }}
           />
         </Grid>

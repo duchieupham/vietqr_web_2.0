@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 
 const defaultPath = '/dashboard';
-const publicPaths = ['/', '/login', '/register'];
+const publicPaths = ['/', '/login', '/register', '/notice'];
 
 export function middleware(req) {
   const path = req.nextUrl.pathname;
+
+  console.log('pathname: ', path);
 
   if (path === '/') {
     return NextResponse.redirect(new URL(defaultPath, req.url));
