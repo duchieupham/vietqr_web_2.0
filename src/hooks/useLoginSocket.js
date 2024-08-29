@@ -15,11 +15,9 @@ const useLoginSocket = (loginID, randomKey, onSubmit) => {
       });
       socket.send(message);
     };
-    socket.onmessage = (event) => {
-      console.log('WebSocket message received:', event.data);
-      const data = JSON.parse(event.data);
-      console.log(data);
 
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
       if (data.loginId === loginID) {
         onSubmit(data);
       }
