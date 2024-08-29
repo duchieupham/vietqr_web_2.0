@@ -15,7 +15,7 @@ import {
 // import API
 import loginAPI from '~/api/login/loginService';
 
-// import hooks
+// hooks
 import { Controller, useForm } from 'react-hook-form';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 import useLoginSocket from '~/hooks/useLoginSocket';
@@ -34,6 +34,7 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
 
@@ -127,11 +128,7 @@ const passwordStyle = {
   },
 };
 
-export default function LoginForm({
-  containerStyle,
-  stackStyle,
-  encryptedQrValue,
-}) {
+export default function LoginForm({ containerStyle, stackStyle }) {
   const {
     handleSubmit,
     watch,
@@ -153,7 +150,7 @@ export default function LoginForm({
   const passwordRef = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
   const phoneNoBorderColor = '1px solid #E0E0E0';
-  const [loading, setLoading] = useState(false);
+  const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = useCallback((field, value) => {
     setIsCompleted((prevState) => ({
@@ -169,6 +166,10 @@ export default function LoginForm({
       // Limit the input to 10 characters
       if (event.target.value.length > 10) {
         event.target.value = event.target.value.slice(0, 10);
+      }
+      if (!event.target.value) {
+        clearErrors('phoneNo');
+        handleComplete('phoneNo', false);
       }
       if (
         event.target.value.length === 10 &&
@@ -217,32 +218,25 @@ export default function LoginForm({
   const phoneNoError =
     phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const showErrorMessage = !!errors.phoneNo;
+  const showErrorMessage = !!errors.phoneNo || !!errors.password;
 
   const onSubmit = useCallback(
     async (formData) => {
       if (!formData.phoneNo || !formData.password) {
-        // Display error messages if fields are empty
         if (!formData.phoneNo) {
           setError('phoneNo', {
             type: 'manual',
             message: t('phoneNoRequired'),
           });
         }
+
         if (!formData.password) {
           setError('password', {
             type: 'manual',
             message: t('passwordRequired'),
           });
         }
-        return;
-      }
-      if (!isCompleted.phoneNo || !isCompleted.password) {
-        // Set errors if needed or handle invalid form state
-        setError('phoneNo', {
-          type: 'manual',
-          message: t('invalidPhone&Password'),
-        });
+
         return;
       }
       try {
@@ -293,11 +287,7 @@ export default function LoginForm({
     }
   }, []);
 
-  useLoginSocket(
-    encryptedQrValue.loginID,
-    encryptedQrValue.randomKey,
-    onSubmitQR,
-  );
+  useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
 
   return (
     <Box
@@ -314,7 +304,7 @@ export default function LoginForm({
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Stack
-          spacing={2}
+          spacing={2.5}
           sx={{
             width: 'fit-content',
             alignItems: 'center',
@@ -367,8 +357,12 @@ export default function LoginForm({
                   inputRef={phoneNoRef}
                   label={t('phoneNo')}
                   variant="outlined"
-                  error={phoneNoError}
-                  helperText={phoneNoError ? errors.phoneNo?.message || '' : ''}
+                  error={!!errors?.phoneNo || phoneNoError}
+                  helperText={
+                    !!errors?.phoneNo || phoneNoError
+                      ? errors.phoneNo?.message || ''
+                      : ''
+                  }
                   onInput={handleInputChange}
                   required
                   sx={{
@@ -401,6 +395,7 @@ export default function LoginForm({
                       visibility: showErrorMessage ? 'visible' : 'hidden',
                       position: 'absolute',
                       bottom: '-20px',
+                      transform: 'translateY(50%)',
                     },
                   }}
                   InputProps={{
@@ -444,16 +439,26 @@ export default function LoginForm({
               >
                 <TextField
                   {...field}
-                  aria-label="password"
                   hiddenLabel
                   id="password"
                   type="password"
                   error={!!errors?.password}
-                  helperText={errors?.password?.message || ''}
+                  helperText={errors?.password?.message}
                   required
                   onInput={handlePasswordChange}
                   sx={{
                     ...passwordStyle,
+                    '& .MuiInputLabel-shrink': {
+                      paddingLeft: '0px',
+                      transition: 'all 0.2s ease-in-out',
+                    },
+                    '& .MuiFormHelperText-root': {
+                      transition: 'all 0.2s ease-in-out',
+                      opacity: showErrorMessage ? 1 : 0,
+                      visibility: showErrorMessage ? 'visible' : 'hidden',
+                      position: 'absolute',
+                      bottom: '-25px',
+                    },
                   }}
                   InputProps={{
                     startAdornment: (

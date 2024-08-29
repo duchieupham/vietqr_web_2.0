@@ -9,7 +9,7 @@
   "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
   "passwordNotMatch": "Mật khẩu không trùng khớp",
   "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
-  "forgotPassword": "Bạn quên mật khẩu đăng nhập?",
+  "forgotPassword": "Quên mật khẩu?",
 
   "loginForm": "Đăng nhập",
   "login": "Đăng nhập",
@@ -23,7 +23,7 @@
   "registerForm": "Đăng kí tài khoản",
 
   "phoneNo": "Số điện thoại",
-  "phoneNumberRequired": "Số điện thoại không được để trống",
+  "phoneNoRequired": "Số điện thoại không được để trống",
   "phoneNumberInvalid": "Số điện thoại không hợp lệ",
   "phoneNumberHelperText": " ",
   "phoneNumberWrong": "Số điện thoại không đúng!",
@@ -63,7 +63,7 @@
   "scanQRDescription": "Sử dụng ứng dụng VietQR để quét mã QR đăng nhập vào website tự động.",
   "downloadApp": "Tải ứng dụng VietQR",
 
-  "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ",
+  "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ. Vui lòng thử lại.",
   "errorOccurred": "Đã xảy ra lỗi!",
 
   "notice": "Thông báo",

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   qr: {},
 };
+
 export const qrSlice = createSlice({
   name: 'qr',
   initialState,
