@@ -243,7 +243,7 @@ export default function CreateQR({
               {t('scanQRDescription')}
             </Typography>
             <Link
-              href={qrUrl}
+              href="https://onelink.to/q7zwpe"
               target="_blank"
               style={{
                 textDecorationColor:

@@ -95,11 +95,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                 onClick={() => {
                   if (_item.path) {
                     router.push(_item.path);
-                  } else {
-                    console.warn(
-                      'Path is not defined for this item:',
-                      _item.name,
-                    );
                   }
                 }}
               >
