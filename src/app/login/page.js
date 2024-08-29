@@ -4,11 +4,17 @@ import { Box, Stack } from '@mui/material';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
+import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { setQr } from '~/redux/slices/qrSlice';
 import CreateQR from '~/sections/login/CreateQR';
 import { generateQrValue } from '~/utils/aesConvert';
 
 function Login() {
+  const dispatch = useAppDispatch();
+  // const { qr } = useAppSelector((store) => store.qr);
   const encryptedQrValue = generateQrValue();
+  // dispatch(setQr(encryptedQrValue));
+
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Stack height="100%">
@@ -47,9 +53,10 @@ function Login() {
               xxs: '50vh',
               xs: '50vh',
               sm: '45vh',
-              md: '45vh',
-              lg: '74vh',
-              lgp: '74vh',
+              md: '50vh',
+              lg: '56vh',
+              lgp: '64vh',
+              xl: '77vh',
             },
           }}
         >
@@ -63,11 +70,14 @@ function Login() {
               xxs: 'auto',
               xs: 'auto',
               md: 'auto',
-              lg: '0',
+              lg: 'auto',
               xl: '3%',
             },
-            position: {
-              xs: 'relative',
+            bottom: {
+              xxs: 0,
+              xs: 0,
+              md: 0,
+              lg: 0,
             },
           }}
         >

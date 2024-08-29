@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import {
-  Backdrop,
   Box,
   InputAdornment,
   Stack,
@@ -26,7 +25,7 @@ import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -37,7 +36,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
-import LoadingContainer from '../LoadingContainer';
 
 const inputStyle = {
   width: '360px',
@@ -219,18 +217,34 @@ export default function LoginForm({
   const phoneNoError =
     phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const phoneNoHelperText =
-    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
-
   const showErrorMessage = !!errors.phoneNo;
-
-  const isButtonDisabled = useCallback(
-    () => !(isCompleted.phoneNo && isCompleted.password),
-    [isCompleted.phoneNo, isCompleted.password],
-  );
 
   const onSubmit = useCallback(
     async (formData) => {
+      if (!formData.phoneNo || !formData.password) {
+        // Display error messages if fields are empty
+        if (!formData.phoneNo) {
+          setError('phoneNo', {
+            type: 'manual',
+            message: t('phoneNoRequired'),
+          });
+        }
+        if (!formData.password) {
+          setError('password', {
+            type: 'manual',
+            message: t('passwordRequired'),
+          });
+        }
+        return;
+      }
+      if (!isCompleted.phoneNo || !isCompleted.password) {
+        // Set errors if needed or handle invalid form state
+        setError('phoneNo', {
+          type: 'manual',
+          message: t('invalidPhone&Password'),
+        });
+        return;
+      }
       try {
         // Call API to login
         await loginAPI
@@ -279,14 +293,11 @@ export default function LoginForm({
     }
   }, []);
 
-  setTimeout(() => {
-    useLoginSocket(
-      encryptedQrValue.loginID,
-      encryptedQrValue.randomKey,
-      onSubmitQR,
-      loading,
-    );
-  }, [3000]);
+  useLoginSocket(
+    encryptedQrValue.loginID,
+    encryptedQrValue.randomKey,
+    onSubmitQR,
+  );
 
   return (
     <Box
@@ -301,7 +312,7 @@ export default function LoginForm({
         ...containerStyle,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Stack
           spacing={2}
           sx={{
@@ -357,9 +368,7 @@ export default function LoginForm({
                   label={t('phoneNo')}
                   variant="outlined"
                   error={phoneNoError}
-                  helperText={
-                    phoneNoHelperText ? errors.phoneNo?.message || '' : ''
-                  }
+                  helperText={phoneNoError ? errors.phoneNo?.message || '' : ''}
                   onInput={handleInputChange}
                   required
                   sx={{
@@ -415,6 +424,7 @@ export default function LoginForm({
                       </InputAdornment>
                     ) : null,
                   }}
+                  aria-required="true"
                 />
               </Box>
             )}
@@ -434,6 +444,7 @@ export default function LoginForm({
               >
                 <TextField
                   {...field}
+                  aria-label="password"
                   hiddenLabel
                   id="password"
                   type="password"
@@ -461,8 +472,7 @@ export default function LoginForm({
                     ),
                   }}
                   autoComplete="current-password"
-                  onFocus={() => {}}
-                  {...{ disabled: !isCompleted.phoneNo }}
+                  // {...{ disabled: !isCompleted.phoneNo }}
                 />
                 <Box
                   component="div"
@@ -488,7 +498,6 @@ export default function LoginForm({
                         backgroundColor:
                           passwordRef.length > index ? 'blue' : 'lightgray',
                         margin: '2px',
-                        zIndex: 10,
                       }}
                     />
                   ))}
@@ -525,7 +534,7 @@ export default function LoginForm({
                     color: '#000',
                   }),
             }}
-            {...{ disabled: isButtonDisabled() }}
+            // {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>
