@@ -88,6 +88,7 @@ const passwordStyle = {
   borderColor: 'transparent',
   outline: 'none',
   borderRadius: '20px',
+  marginBottom: '0.5rem',
   '& .MuiOutlinedInput-root': {
     height: '50px',
     '& fieldset': {
