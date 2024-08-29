@@ -1,13 +1,13 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 // @mui
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 // @next
 
 // others
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const list = [
   {
@@ -15,6 +15,7 @@ const list = [
     items: [
       {
         name: 'instructions-documents',
+        path: '/notice',
       },
       {
         name: 'api-service-documents',
@@ -47,6 +48,8 @@ const list = [
 
 export default function Contact({ style, stackStyle, subStackStyle }) {
   const t = useTranslations();
+  const router = useRouter();
+
   return (
     <Box
       component="div"
@@ -80,10 +83,21 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   display: 'flex',
                   flexWrap: 'wrap',
                   width: '100%',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  console.log('Routing to:', _item.path);
+                  if (_item.path) {
+                    router.push(_item.path);
+                  } else {
+                    console.warn(
+                      'Path is not defined for this item:',
+                      _item.name,
+                    );
+                  }
                 }}
               >
-                <Link
-                  href="/"
+                <Typography
                   style={{
                     textDecoration: 'none',
                     color: '#00C6FF',
@@ -92,7 +106,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   }}
                 >
                   {t(_item.name)}
-                </Link>
+                </Typography>
               </Box>
             ))}
           </Stack>

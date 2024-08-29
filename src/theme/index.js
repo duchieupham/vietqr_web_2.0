@@ -11,7 +11,6 @@ const theme = createTheme({
       lg: 1280,
       xl: 1879,
       xxl: 2560,
-      fluid: '100%',
     },
   },
 });

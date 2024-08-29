@@ -63,5 +63,8 @@
   "downloadApp": "Tải ứng dụng VietQR",
 
   "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ",
-  "errorOccurred": "Đã xảy ra lỗi!"
+  "errorOccurred": "Đã xảy ra lỗi!",
+
+  "notice": "Thông báo",
+  "noticeUpdateServiceFee": "THÔNG BÁO CẬP NHẬT PHÍ DỊCH VỤ PHẦN MỀM VIETQR"
 }

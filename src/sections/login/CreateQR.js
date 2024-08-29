@@ -199,7 +199,7 @@ export default function CreateQR({
             <QRCodeComponent
               value={
                 selectedTab.current === t('downloadQR')
-                  ? qrUrl
+                  ? 'https://onelink.to/q7zwpe'
                   : encryptedQrValue.qrValue
               }
             />
