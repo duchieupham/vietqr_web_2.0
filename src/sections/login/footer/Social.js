@@ -40,6 +40,7 @@ export default function Social({ style }) {
         display: 'flex',
         width: '100%',
         justifyContent: {
+          xxs: 'center',
           xs: 'center',
           lg: 'flex-start',
         },
@@ -51,21 +52,34 @@ export default function Social({ style }) {
           key={index}
           sx={{
             flexDirection: {
+              xxs: 'row',
               xs: 'row',
               md: 'column',
             },
             alignItems: {
+              xxs: 'center',
               xs: 'center',
               lg: 'flex-start',
             },
             justifyContent: {
+              xxs: 'space-between',
               xs: 'space-between',
               lg: 'flex-start',
             },
-            gap: 2,
+            gap: {
+              xxs: 1,
+              xs: 2,
+            },
           }}
         >
-          <Box component="div" sx={{}}>
+          <Box
+            component="div"
+            sx={{
+              whiteSpace: {
+                xxs: 'nowrap',
+              },
+            }}
+          >
             {t(item.name)}
           </Box>
           <Stack
@@ -73,16 +87,26 @@ export default function Social({ style }) {
               display: 'flex',
               alignItems: 'center',
               flexDirection: 'row',
-              gap: '1rem',
+              gap: {
+                xxs: '0.3rem',
+              },
               justifyItems: 'center',
-              flexWrap: 'wrap',
+              flexWrap: {
+                xxs: '',
+                xs: '',
+                md: 'wrap',
+              },
+              whiteSpace: 'nowrap',
             }}
           >
             {item.items.map((_item, index) => (
-              <Box key={index} component="div">
+              <Box key={index} component="div" sx={{}}>
                 <Link
                   href="/"
-                  style={{ textDecoration: 'none', color: '#00C6FF' }}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#00C6FF',
+                  }}
                 >
                   <Image
                     src={_item.url}

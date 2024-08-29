@@ -57,7 +57,14 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        width: '100%',
+        alignItems: 'center',
+        width: {
+          xxs: '100%',
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '100%',
+        },
         ...style,
       }}
     >
@@ -86,7 +93,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   cursor: 'pointer',
                 }}
                 onClick={() => {
-                  console.log('Routing to:', _item.path);
                   if (_item.path) {
                     router.push(_item.path);
                   } else {

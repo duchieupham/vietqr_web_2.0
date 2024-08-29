@@ -19,19 +19,24 @@ function Login() {
           component="main"
           sx={{
             p: {
+              xxs: '0 16px',
               xs: '0 32px',
               md: '0 64px',
               lg: '56px',
             },
             gap: {
+              xxs: 2,
               xs: 4,
               lg: 8,
             },
             flexDirection: {
+              xxs: 'column-reverse',
               xs: 'column-reverse',
+              md: 'row',
               lg: 'row',
             },
             justifyContent: {
+              xxs: 'center',
               xs: 'center',
               md: 'flex-end',
               lg: 'center',
@@ -39,8 +44,12 @@ function Login() {
             },
             alignItems: 'center',
             minHeight: {
+              xxs: '50vh',
               xs: '50vh',
-              md: '66vh',
+              sm: '45vh',
+              md: '35vh',
+              lg: '73vh',
+              lgp: '58vh',
             },
           }}
         >
@@ -51,6 +60,7 @@ function Login() {
           component="footer"
           sx={{
             mt: {
+              xxs: 'auto',
               xs: 'auto',
               md: 'auto',
               lg: '0',
