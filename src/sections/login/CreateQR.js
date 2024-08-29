@@ -1,11 +1,12 @@
 // mui
-import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
-import theme from '~/theme';
+import { useAppSelector } from '~/redux/hook';
+import { getOS } from '~/utils/getOS';
 import styles from '~styles/Header.module.scss';
 
 const list = [
@@ -19,36 +20,19 @@ const list = [
   },
 ];
 
-const getOS = (userAgent) => {
-  if (userAgent.match(/Android/i)) return 'Android';
-  if (userAgent.match(/iPhone|iPad|iPod/i)) return 'iOS';
-  if (userAgent.match(/Macintosh/i)) return 'Macintosh';
-  if (userAgent.match(/Windows NT/i)) return 'Windows NT';
-  return 'unknown';
-};
-export default function CreateQR({
-  containerStyle,
-  stackStyle,
-  encryptedQrValue,
-  ...props
-}) {
+export default function CreateQR({ containerStyle, stackStyle, ...props }) {
   const t = useTranslations();
-  const selectedTab = useRef(null);
-  const isPortrait = useMediaQuery('(orientation: portrait)');
-  const isTabletSize = useMediaQuery(
-    '(min-width: 768px) and (max-width: 1024px)',
-  );
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  const isTabletVertical = isPortrait && isTabletSize;
+  const selectedOption = useRef(null);
   const [qrUrl, setQrUrl] = useState('');
-
+  const { qr } = useAppSelector((store) => store.qr);
+  const { qrValue } = qr;
   const [qrState, setQrState] = useState(t('loginQR'));
 
-  const handleClick = (tab) => {
-    selectedTab.current = tab;
-    setQrState(tab);
+  const handleClick = (option) => {
+    selectedOption.current = option;
+    setQrState(option);
   };
+
   useEffect(() => {
     const userAgent = window?.navigator.userAgent;
     const os = getOS(userAgent);
@@ -160,7 +144,7 @@ export default function CreateQR({
               disableFocusRipple
               disableTouchRipple
               className={`${styles.btn} ${qrState === t(item.name) ? styles.active : ''}`}
-              onClick={() => handleClick(t(item.name))}
+              onClick={() => handleClick(item.id)}
             >
               {t(item.name)}
             </Button>
@@ -205,9 +189,9 @@ export default function CreateQR({
           >
             <QRCodeComponent
               value={
-                selectedTab.current === t('downloadQR')
+                selectedOption.current === 2
                   ? 'https://onelink.to/q7zwpe'
-                  : encryptedQrValue.qrValue
+                  : qrValue || ''
               }
             />
           </Box>

@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import {
-  Backdrop,
   Box,
   InputAdornment,
   Stack,
@@ -16,7 +15,7 @@ import {
 // import API
 import loginAPI from '~/api/login/loginService';
 
-// import hooks
+// hooks
 import { Controller, useForm } from 'react-hook-form';
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 import useLoginSocket from '~/hooks/useLoginSocket';
@@ -26,7 +25,7 @@ import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -35,9 +34,9 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
-import LoadingContainer from '../LoadingContainer';
 
 const inputStyle = {
   width: '360px',
@@ -89,6 +88,7 @@ const passwordStyle = {
   borderColor: 'transparent',
   outline: 'none',
   borderRadius: '20px',
+  marginBottom: '0.5rem',
   '& .MuiOutlinedInput-root': {
     height: '50px',
     '& fieldset': {
@@ -129,11 +129,7 @@ const passwordStyle = {
   },
 };
 
-export default function LoginForm({
-  containerStyle,
-  stackStyle,
-  encryptedQrValue,
-}) {
+export default function LoginForm({ containerStyle, stackStyle }) {
   const {
     handleSubmit,
     watch,
@@ -155,7 +151,7 @@ export default function LoginForm({
   const passwordRef = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
   const phoneNoBorderColor = '1px solid #E0E0E0';
-  const [loading, setLoading] = useState(false);
+  const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = useCallback((field, value) => {
     setIsCompleted((prevState) => ({
@@ -171,6 +167,10 @@ export default function LoginForm({
       // Limit the input to 10 characters
       if (event.target.value.length > 10) {
         event.target.value = event.target.value.slice(0, 10);
+      }
+      if (!event.target.value) {
+        clearErrors('phoneNo');
+        handleComplete('phoneNo', false);
       }
       if (
         event.target.value.length === 10 &&
@@ -219,18 +219,27 @@ export default function LoginForm({
   const phoneNoError =
     phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const phoneNoHelperText =
-    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
-
-  const showErrorMessage = !!errors.phoneNo;
-
-  const isButtonDisabled = useCallback(
-    () => !(isCompleted.phoneNo && isCompleted.password),
-    [isCompleted.phoneNo, isCompleted.password],
-  );
+  const showErrorMessage = !!errors.phoneNo || !!errors.password;
 
   const onSubmit = useCallback(
     async (formData) => {
+      if (!formData.phoneNo || !formData.password) {
+        if (!formData.phoneNo) {
+          setError('phoneNo', {
+            type: 'manual',
+            message: t('phoneNoRequired'),
+          });
+        }
+
+        if (!formData.password) {
+          setError('password', {
+            type: 'manual',
+            message: t('passwordRequired'),
+          });
+        }
+
+        return;
+      }
       try {
         // Call API to login
         await loginAPI
@@ -279,14 +288,7 @@ export default function LoginForm({
     }
   }, []);
 
-  setTimeout(() => {
-    useLoginSocket(
-      encryptedQrValue.loginID,
-      encryptedQrValue.randomKey,
-      onSubmitQR,
-      loading,
-    );
-  }, [3000]);
+  useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
 
   return (
     <Box
@@ -301,9 +303,9 @@ export default function LoginForm({
         ...containerStyle,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Stack
-          spacing={2}
+          spacing={2.5}
           sx={{
             width: 'fit-content',
             alignItems: 'center',
@@ -356,9 +358,11 @@ export default function LoginForm({
                   inputRef={phoneNoRef}
                   label={t('phoneNo')}
                   variant="outlined"
-                  error={phoneNoError}
+                  error={!!errors?.phoneNo || phoneNoError}
                   helperText={
-                    phoneNoHelperText ? errors.phoneNo?.message || '' : ''
+                    !!errors?.phoneNo || phoneNoError
+                      ? errors.phoneNo?.message || ''
+                      : ''
                   }
                   onInput={handleInputChange}
                   required
@@ -392,6 +396,7 @@ export default function LoginForm({
                       visibility: showErrorMessage ? 'visible' : 'hidden',
                       position: 'absolute',
                       bottom: '-20px',
+                      transform: 'translateY(50%)',
                     },
                   }}
                   InputProps={{
@@ -415,6 +420,7 @@ export default function LoginForm({
                       </InputAdornment>
                     ) : null,
                   }}
+                  aria-required="true"
                 />
               </Box>
             )}
@@ -438,11 +444,22 @@ export default function LoginForm({
                   id="password"
                   type="password"
                   error={!!errors?.password}
-                  helperText={errors?.password?.message || ''}
+                  helperText={errors?.password?.message}
                   required
                   onInput={handlePasswordChange}
                   sx={{
                     ...passwordStyle,
+                    '& .MuiInputLabel-shrink': {
+                      paddingLeft: '0px',
+                      transition: 'all 0.2s ease-in-out',
+                    },
+                    '& .MuiFormHelperText-root': {
+                      transition: 'all 0.2s ease-in-out',
+                      opacity: showErrorMessage ? 1 : 0,
+                      visibility: showErrorMessage ? 'visible' : 'hidden',
+                      position: 'absolute',
+                      bottom: '-25px',
+                    },
                   }}
                   InputProps={{
                     startAdornment: (
@@ -461,8 +478,7 @@ export default function LoginForm({
                     ),
                   }}
                   autoComplete="current-password"
-                  onFocus={() => {}}
-                  {...{ disabled: !isCompleted.phoneNo }}
+                  // {...{ disabled: !isCompleted.phoneNo }}
                 />
                 <Box
                   component="div"
@@ -488,7 +504,6 @@ export default function LoginForm({
                         backgroundColor:
                           passwordRef.length > index ? 'blue' : 'lightgray',
                         margin: '2px',
-                        zIndex: 10,
                       }}
                     />
                   ))}
@@ -525,7 +540,7 @@ export default function LoginForm({
                     color: '#000',
                   }),
             }}
-            {...{ disabled: isButtonDisabled() }}
+            // {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>
