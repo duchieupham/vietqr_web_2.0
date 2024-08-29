@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useLoginSocket = (loginID, randomKey, onSubmit, loading) => {
+const useLoginSocket = (loginID, randomKey, onSubmit) => {
   useEffect(() => {
     const socket = new WebSocket(
       `wss://api.vietqr.org/vqr/socket?loginId=${loginID}`,
@@ -34,7 +34,7 @@ const useLoginSocket = (loginID, randomKey, onSubmit, loading) => {
     return () => {
       socket.close();
     };
-  }, [loginID, randomKey, onSubmit, loading]);
+  }, [loginID, randomKey, onSubmit]);
 };
 
 export default useLoginSocket;
