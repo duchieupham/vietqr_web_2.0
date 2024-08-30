@@ -28,14 +28,14 @@ function Login() {
         sx={{
           p: {
             xxs: '0 16px',
-            xs: '0 32px',
-            sm: '0 48px',
-            md: '0 64px',
+            xs: '0 24px',
+            sm: '0 32px',
+            md: '0 40px',
           },
           gap: {
             xxs: 2,
             xs: 4,
-            lg: 8,
+            lg: 6,
           },
           flexDirection: {
             xxs: 'column-reverse',
@@ -48,24 +48,23 @@ function Login() {
           },
           alignItems: 'center',
           minHeight: {
-            xxs: '56vh',
-            md: '62vh',
-            lg: '64vh',
-            lgp: '70vh',
-            xl: '72vh',
+            xxs: '54vh',
+            md: '68vh',
+            lg: '60vh',
+            lgp: '64vh',
+            xl: '68vh',
+            xxl: '70vh',
           },
         }}
       >
         <CreateQR />
         <LoginForm />
       </Stack>
-      <Box sx={{ flexGrow: 1 }} />
       <Box
         component="footer"
         sx={{
           mt: {
             xxs: 'auto',
-            md: '3rem',
           },
         }}
       >
