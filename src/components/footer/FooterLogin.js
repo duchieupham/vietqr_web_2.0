@@ -60,7 +60,6 @@ function FooterLogin() {
             style={{
               flexWrap: {
                 xxs: 'wrap',
-                xs: 'wrap',
                 md: 'nowrap',
               },
             }}
@@ -69,8 +68,6 @@ function FooterLogin() {
                 xxs: '0 1rem',
                 xs: '0 2rem',
                 sm: '0 3rem',
-                md: '0 6rem',
-                lg: '0 3rem',
               },
               whiteSpace: 'nowrap',
               flexGrow: 1,

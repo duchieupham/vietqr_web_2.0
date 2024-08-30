@@ -50,10 +50,9 @@ function Login() {
           minHeight: {
             xxs: '54vh',
             md: '68vh',
-            lg: '60vh',
-            lgp: '64vh',
+            lg: '64vh',
             xl: '68vh',
-            xxl: '70vh',
+            xxl: '76vh',
           },
         }}
       >
