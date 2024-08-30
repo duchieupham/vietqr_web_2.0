@@ -26,12 +26,12 @@ import styles from '~styles/Header.module.scss';
 import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
+import { setCookie } from 'cookies-next';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
-import { useAppContext } from '~/contexts/AppContext';
-import { setCookie } from 'cookies-next';
-import { LOCALE_COOKIE } from '~/constants';
 import { useRouter } from 'next/navigation';
+import { LOCALE_COOKIE } from '~/constants';
+import { useAppContext } from '~/contexts/AppContext';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
 const languageOptions = [
@@ -227,7 +227,7 @@ export default function Navbar() {
                 xs: '33%',
                 sm: '40.2%',
                 md: '41.5%',
-                lg: isTabletVertical ? '40%' : '40%',
+                lg: '40%',
                 xl: '45%',
               },
               transform: { translateX: '50%' },
@@ -257,9 +257,6 @@ export default function Navbar() {
             sx={{
               display: {
                 xxs: 'none',
-                xs: 'none',
-                sm: 'none',
-                md: 'none',
                 lg: isTabletVertical ? 'none' : 'flex',
                 xl: 'flex',
               },
@@ -278,11 +275,6 @@ export default function Navbar() {
                     '& .active': {
                       width: {
                         xxs: '100%',
-                        xs: '100%',
-                        sm: '100%',
-                        md: '100%',
-                        lg: '100%',
-                        xl: '100%',
                       },
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -292,11 +284,7 @@ export default function Navbar() {
                     '& .active::after': {
                       width: {
                         xxs: '100%',
-                        xs: '100%',
-                        sm: '100%',
-                        md: '100%',
                         lg: '90%',
-                        xl: '90%',
                       },
                     },
                   }}
@@ -363,10 +351,7 @@ export default function Navbar() {
                   color: 'black',
                   fontSize: {
                     xs: '15px',
-                    sm: '15px',
                     md: '12px',
-                    lg: '12px',
-                    xl: '12px',
                   },
                   flexDirection: 'row',
                   flexWrap: 'wrap',

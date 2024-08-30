@@ -5,13 +5,6 @@ import { CarouselSlider, Contact, Social } from '~/sections/login/footer';
 import theme from '~/theme';
 
 function FooterLogin() {
-  const isPortrait = useMediaQuery('(orientation: portrait)');
-  const isTabletSize = useMediaQuery(
-    '(min-width: 768px) and (max-width: 1024px)',
-  );
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  const isTabletVertical = isPortrait && isTabletSize;
   const [bankType, setBankType] = useState([]);
 
   const bankTypeList = async () => {
@@ -32,15 +25,10 @@ function FooterLogin() {
     <Box
       sx={{
         px: {
-          xxs: 2,
-          xs: 2,
-          md: 4,
-          lg: 0,
+          xxs: 0,
         },
         pt: {
-          xxs: '3rem',
-          xs: '3rem',
-          lg: '2rem',
+          xxs: '1.5rem',
         },
       }}
     >
@@ -48,16 +36,13 @@ function FooterLogin() {
         container
         item
         columns={12}
-        spacing={2}
         sx={{
           flexDirection: {
             xxs: 'column',
-            xs: 'column',
             lg: 'row',
           },
           alignItems: {
             xxs: 'center',
-            xs: 'center',
             lg: 'flex-start',
           },
         }}
@@ -99,19 +84,10 @@ function FooterLogin() {
           />
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Social
-            sx={{
-              margin: {
-                xxs: '0 1rem',
-                xs: '0 2rem',
-                md: '0 5rem',
-                lg: '0 3rem',
-              },
-            }}
-          />
+          <Social />
         </Grid>
       </Grid>
-      <Grid item xs={16}>
+      <Grid xs={16}>
         <CarouselSlider initialValues={bankType} />
       </Grid>
     </Box>
