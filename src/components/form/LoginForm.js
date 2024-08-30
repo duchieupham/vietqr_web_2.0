@@ -34,6 +34,7 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
+import { phoneRegex } from '~/constants/phoneRegex';
 import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
@@ -174,9 +175,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
       }
       if (
         event.target.value.length === 10 &&
-        event.target.value.match(
-          /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g,
-        )
+        event.target.value.match(phoneRegex)
       ) {
         handleComplete('phoneNo', true);
       }

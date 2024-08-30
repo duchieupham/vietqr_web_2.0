@@ -30,7 +30,6 @@ function Login() {
             xxs: '0 16px',
             xs: '0 32px',
             md: '0 64px',
-            lg: '56px',
           },
           gap: {
             xxs: 2,
@@ -39,26 +38,17 @@ function Login() {
           },
           flexDirection: {
             xxs: 'column-reverse',
-            xs: 'column-reverse',
             md: 'row',
-            lg: 'row',
           },
           justifyContent: {
             xxs: 'center',
-            xs: 'center',
             md: 'flex-end',
             lg: 'center',
-            xl: 'center',
           },
           alignItems: 'center',
           minHeight: {
-            xxs: '100%',
-            xs: '50vh',
-            sm: '45vh',
-            md: '50vh',
-            lg: '60vh',
-            lgp: '74vh',
-            xl: '74vh',
+            xxs: '50vh',
+            lg: '64vh',
           },
         }}
       >
@@ -71,9 +61,6 @@ function Login() {
         sx={{
           mt: {
             xxs: 'auto',
-            xs: 'auto',
-            md: 'auto',
-            lg: 'auto',
           },
         }}
       >
