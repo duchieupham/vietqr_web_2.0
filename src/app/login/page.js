@@ -29,6 +29,7 @@ function Login() {
           p: {
             xxs: '0 16px',
             xs: '0 32px',
+            sm: '0 48px',
             md: '0 64px',
           },
           gap: {
@@ -64,6 +65,7 @@ function Login() {
         sx={{
           mt: {
             xxs: 'auto',
+            md: '3rem',
           },
         }}
       >
