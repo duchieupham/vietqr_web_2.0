@@ -28,7 +28,7 @@ function FooterLogin() {
           xxs: 0,
         },
         pt: {
-          xxs: '1.5rem',
+          xxl: '1.5rem',
         },
       }}
     >
@@ -83,9 +83,9 @@ function FooterLogin() {
         <Grid item xs={12} lg={6}>
           <Social />
         </Grid>
-      </Grid>
-      <Grid xs={16}>
-        <CarouselSlider initialValues={bankType} />
+        <Grid item xs={16}>
+          <CarouselSlider initialValues={bankType} />
+        </Grid>
       </Grid>
     </Box>
   );
