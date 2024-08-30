@@ -49,7 +49,8 @@ function Login() {
           minHeight: {
             xxs: '50vh',
             md: '56vh',
-            lg: '64vh',
+            lg: '58vh',
+            lgp: '64vh',
           },
         }}
       >
