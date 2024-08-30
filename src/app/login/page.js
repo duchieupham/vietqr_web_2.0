@@ -47,11 +47,11 @@ function Login() {
           },
           alignItems: 'center',
           minHeight: {
-            xxs: '54vh',
-            md: '60vh',
-            lg: '62vh',
-            lgp: '68vh',
-            xl: '70vh',
+            xxs: '56vh',
+            md: '62vh',
+            lg: '64vh',
+            lgp: '70vh',
+            xl: '72vh',
           },
         }}
       >
