@@ -48,7 +48,7 @@ function Login() {
           alignItems: 'center',
           minHeight: {
             xxs: '50vh',
-            md: '53vh',
+            md: '56vh',
             lg: '64vh',
           },
         }}
