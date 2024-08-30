@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
-import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';
 import CreateQR from '~/sections/login/CreateQR';
 import { generateQrValue } from '~/utils/aesConvert';
@@ -48,6 +48,7 @@ function Login() {
           alignItems: 'center',
           minHeight: {
             xxs: '50vh',
+            md: '53vh',
             lg: '64vh',
           },
         }}
