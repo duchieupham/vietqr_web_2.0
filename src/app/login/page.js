@@ -51,8 +51,8 @@ function Login() {
             xxs: '54vh',
             md: '68vh',
             lg: '64vh',
-            xl: '68vh',
-            xxl: '76vh',
+            xl: '74vh',
+            xxl: '78vh',
           },
         }}
       >
@@ -64,6 +64,7 @@ function Login() {
         sx={{
           mt: {
             xxs: 'auto',
+            xxl: '3rem',
           },
         }}
       >
