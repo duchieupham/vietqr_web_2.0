@@ -313,7 +313,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     marginTop: '-0.5rem',
-                    marginLeft: { xs: 'auto', md: '0', lg: '2rem', xl: '1rem' },
+                    marginLeft: { xs: 'auto', md: '0', lg: '2rem', xl: '5rem' },
                   }}
                   disableRipple
                   disableFocusRipple
