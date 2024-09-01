@@ -19,7 +19,13 @@ function Login() {
   }, []);
 
   return (
-    <Stack sx={{ minHeight: 1 }}>
+    <Stack
+      sx={{
+        minHeight: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
       <Box component="nav">
         <Navbar />
       </Box>
@@ -48,12 +54,13 @@ function Login() {
           },
           alignItems: 'center',
           minHeight: {
-            xxs: '54vh',
+            xxs: '56vh',
             md: '68vh',
             lg: '64vh',
             xl: '74vh',
             xxl: '78vh',
           },
+          flexGrow: 1,
         }}
       >
         <CreateQR />
@@ -64,8 +71,10 @@ function Login() {
         sx={{
           mt: {
             xxs: 'auto',
-            xxl: '3rem',
+            md: 3,
+            xxl: 7,
           },
+          width: '100%',
         }}
       >
         <FooterLogin />
