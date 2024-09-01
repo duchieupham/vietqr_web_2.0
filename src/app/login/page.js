@@ -21,8 +21,8 @@ function Login() {
   return (
     <Box
       sx={{
-        height: '100%',
         minHeight: '100vh',
+        display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
       }}
@@ -34,10 +34,10 @@ function Login() {
         component="main"
         sx={{
           p: {
-            xxs: '16px 16px',
-            xs: '0 24px',
-            sm: '0 32px',
-            md: '0 40px',
+            xxs: '16px',
+            xs: '24px',
+            sm: '32px',
+            md: '40px',
           },
           gap: {
             xxs: 2,
@@ -53,7 +53,6 @@ function Login() {
             md: 'flex-end',
             lg: 'center',
           },
-          height: '100%',
           alignItems: 'center',
           flexGrow: 1,
         }}
@@ -65,15 +64,7 @@ function Login() {
         component="footer"
         sx={{
           width: '100%',
-          position: {
-            xxs: 'relative',
-            md: 'absolute',
-          },
-          bottom: 0,
-          mt: {
-            xxs: '25%',
-            md: 'auto',
-          },
+          mt: 'auto',
         }}
       >
         <FooterLogin />
