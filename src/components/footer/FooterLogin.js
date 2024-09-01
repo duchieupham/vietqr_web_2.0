@@ -1,8 +1,7 @@
-import { Box, Grid, useMediaQuery } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import imagesAPI from '~/api/images/imagesService';
 import { CarouselSlider, Contact, Social } from '~/sections/login/footer';
-import theme from '~/theme';
 
 function FooterLogin() {
   const [bankType, setBankType] = useState([]);
@@ -39,7 +38,7 @@ function FooterLogin() {
         sx={{
           flexDirection: {
             xxs: 'column',
-            lg: 'row',
+            md: 'row',
           },
           alignItems: {
             xxs: 'center',
@@ -83,10 +82,10 @@ function FooterLogin() {
         <Grid item xs={12} lg={6}>
           <Social />
         </Grid>
-        <Grid item xs={16}>
-          <CarouselSlider initialValues={bankType} />
-        </Grid>
       </Grid>
+      <Box sx={{}}>
+        <CarouselSlider initialValues={bankType} />
+      </Box>
     </Box>
   );
 }

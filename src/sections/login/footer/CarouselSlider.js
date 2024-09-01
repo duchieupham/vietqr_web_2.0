@@ -82,9 +82,7 @@ export default function CarouselSlider({ initialValues }) {
         infinite
         centerMode
         autoPlay
-        // autoPlaySpeed={1}
         customTransition="all 5s linear"
-        removeArrowOnDeviceType={['tablet', 'mobile']}
         arrows={false}
         transitionDuration={1000}
         pauseOnHover={false}
