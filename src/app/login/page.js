@@ -78,6 +78,7 @@ function Login() {
             bottom: 0,
             top: {
               xxs: '70%',
+              lg: '75%',
             },
           }}
         >
