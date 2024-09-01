@@ -21,6 +21,7 @@ function Login() {
   return (
     <Box
       sx={{
+        height: '100%',
         minHeight: '100vh',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -33,7 +34,7 @@ function Login() {
         component="main"
         sx={{
           p: {
-            xxs: '0 16px',
+            xxs: '16px 16px',
             xs: '0 24px',
             sm: '0 32px',
             md: '0 40px',
@@ -55,17 +56,6 @@ function Login() {
           height: '100%',
           alignItems: 'center',
           flexGrow: 1,
-          minHeight: {
-            xxs: '60vh',
-            md: '66vh',
-            lg: '68vh',
-            // xl: '74vh',
-            // xxl: '78vh',
-          },
-          marginTop: {
-            xxs: 2,
-            sm: 4,
-          },
         }}
       >
         <CreateQR />
@@ -74,9 +64,16 @@ function Login() {
       <Box
         component="footer"
         sx={{
-          mt: 'auto',
           width: '100%',
-          position: 'absolute',
+          position: {
+            xxs: 'relative',
+            md: 'absolute',
+          },
+          bottom: 0,
+          mt: {
+            xxs: '25%',
+            md: 'auto',
+          },
         }}
       >
         <FooterLogin />
