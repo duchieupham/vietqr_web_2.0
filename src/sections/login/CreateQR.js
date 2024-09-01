@@ -64,9 +64,7 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
       sx={{
         display: {
           xxs: 'none',
-          xs: 'none',
           sm: 'block',
-          md: 'block',
         },
         ...containerStyle,
       }}
@@ -86,7 +84,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
             gap: {
               xxs: '1rem',
               xs: '2rem',
-              md: '2rem',
               lg: 0,
             },
             width: '100%',

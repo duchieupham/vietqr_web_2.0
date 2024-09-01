@@ -22,6 +22,7 @@ function Login() {
     <Box
       sx={{
         minHeight: '100vh',
+        display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
       }}
@@ -33,10 +34,10 @@ function Login() {
         component="main"
         sx={{
           p: {
-            xxs: '0 16px',
-            xs: '0 24px',
-            sm: '0 32px',
-            md: '0 40px',
+            xxs: '16px',
+            xs: '24px',
+            sm: '32px',
+            md: '40px',
           },
           gap: {
             xxs: 2,
@@ -52,20 +53,8 @@ function Login() {
             md: 'flex-end',
             lg: 'center',
           },
-          height: '100%',
           alignItems: 'center',
           flexGrow: 1,
-          minHeight: {
-            xxs: '60vh',
-            md: '66vh',
-            lg: '68vh',
-            // xl: '74vh',
-            // xxl: '78vh',
-          },
-          marginTop: {
-            xxs: 2,
-            sm: 4,
-          },
         }}
       >
         <CreateQR />
@@ -74,9 +63,8 @@ function Login() {
       <Box
         component="footer"
         sx={{
-          mt: 'auto',
           width: '100%',
-          position: 'absolute',
+          mt: 'auto',
         }}
       >
         <FooterLogin />
