@@ -21,7 +21,7 @@ function Login() {
   return (
     <Stack
       sx={{
-        minHeight: 1,
+        // minHeight: '100vh',
         flexDirection: 'column',
         justifyContent: 'space-between',
       }}
@@ -52,15 +52,15 @@ function Login() {
             md: 'flex-end',
             lg: 'center',
           },
+          height: '100%',
           alignItems: 'center',
           minHeight: {
-            xxs: '56vh',
-            md: '74vh',
-            lg: '68vh',
-            xl: '74vh',
-            xxl: '78vh',
+            xxs: '50vh',
+            md: '66vh',
+            // lg: '68vh',
+            // xl: '74vh',
+            // xxl: '78vh',
           },
-          flexGrow: 1,
         }}
       >
         <CreateQR />
@@ -73,6 +73,8 @@ function Login() {
             xxs: 'auto',
           },
           width: '100%',
+          position: 'absolute',
+          bottom: 0,
         }}
       >
         <FooterLogin />
