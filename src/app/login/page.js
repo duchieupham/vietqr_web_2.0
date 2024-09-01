@@ -23,7 +23,6 @@ function Login() {
       <Stack
         // height="100%"
         sx={{
-          // minHeight: '100vh',
           flexDirection: 'column',
           justifyContent: 'space-between',
         }}
@@ -57,7 +56,7 @@ function Login() {
             height: '100%',
             alignItems: 'center',
             minHeight: {
-              xxs: '55vh',
+              xxs: '60vh',
               md: '66vh',
               // lg: '68vh',
               // xl: '74vh',
@@ -77,6 +76,9 @@ function Login() {
             width: '100%',
             position: 'absolute',
             bottom: 0,
+            top: {
+              xxs: '65%',
+            },
           }}
         >
           <FooterLogin />
