@@ -77,7 +77,7 @@ function Login() {
             position: 'absolute',
             bottom: 0,
             top: {
-              xxs: '65%',
+              xxs: '70%',
             },
           }}
         >
