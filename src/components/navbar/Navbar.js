@@ -223,7 +223,7 @@ export default function Navbar() {
               justifyContent: 'center',
               position: 'absolute',
               left: {
-                xxs: '27.5%',
+                xxs: '28.7%',
                 xs: '33%',
                 sm: '40.2%',
                 md: '41.5%',
@@ -290,12 +290,8 @@ export default function Navbar() {
                   }}
                   typographyStyle={{
                     fontSize: {
-                      xxs: '9px',
-                      xs: '10px',
-                      sm: '10px',
-                      md: '12px',
-                      lg: '14px',
-                      xl: '16px',
+                      xxs: '12px',
+                      md: '16px',
                     },
                   }}
                 />
