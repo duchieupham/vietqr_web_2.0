@@ -19,67 +19,70 @@ function Login() {
   }, []);
 
   return (
-    <Stack
-      sx={{
-        // minHeight: '100vh',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Box component="nav">
-        <Navbar />
-      </Box>
+    <Box height="100vh">
       <Stack
-        component="main"
+        // height="100%"
         sx={{
-          p: {
-            xxs: '0 16px',
-            xs: '0 24px',
-            sm: '0 32px',
-            md: '0 40px',
-          },
-          gap: {
-            xxs: 2,
-            xs: 4,
-            lg: 6,
-          },
-          flexDirection: {
-            xxs: 'column-reverse',
-            md: 'row',
-          },
-          justifyContent: {
-            xxs: 'center',
-            md: 'flex-end',
-            lg: 'center',
-          },
-          height: '100%',
-          alignItems: 'center',
-          minHeight: {
-            xxs: '50vh',
-            md: '66vh',
-            // lg: '68vh',
-            // xl: '74vh',
-            // xxl: '78vh',
-          },
+          // minHeight: '100vh',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
-        <CreateQR />
-        <LoginForm />
+        <Box component="nav">
+          <Navbar />
+        </Box>
+        <Stack
+          component="main"
+          sx={{
+            p: {
+              xxs: '0 16px',
+              xs: '0 24px',
+              sm: '0 32px',
+              md: '0 40px',
+            },
+            gap: {
+              xxs: 2,
+              xs: 4,
+              lg: 6,
+            },
+            flexDirection: {
+              xxs: 'column-reverse',
+              md: 'row',
+            },
+            justifyContent: {
+              xxs: 'center',
+              md: 'flex-end',
+              lg: 'center',
+            },
+            height: '100%',
+            alignItems: 'center',
+            minHeight: {
+              xxs: '50vh',
+              md: '66vh',
+              // lg: '68vh',
+              // xl: '74vh',
+              // xxl: '78vh',
+            },
+          }}
+        >
+          <CreateQR />
+          <LoginForm />
+        </Stack>
+        <Box
+          component="footer"
+          sx={{
+            mt: {
+              xxs: 'auto',
+            },
+            width: '100%',
+            position: 'absolute',
+            bottom: 0,
+          }}
+        >
+          <FooterLogin />
+        </Box>
       </Stack>
-      <Box
-        component="footer"
-        sx={{
-          mt: {
-            xxs: 'auto',
-          },
-          width: '100%',
-          position: 'absolute',
-          bottom: 0,
-        }}
-      >
-        <FooterLogin />
-      </Box>
-    </Stack>
+    </Box>
   );
 }
 
