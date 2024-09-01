@@ -57,7 +57,7 @@ function Login() {
             height: '100%',
             alignItems: 'center',
             minHeight: {
-              xxs: '50vh',
+              xxs: '55vh',
               md: '66vh',
               // lg: '68vh',
               // xl: '74vh',
