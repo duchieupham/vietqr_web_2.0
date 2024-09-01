@@ -55,8 +55,8 @@ function Login() {
           alignItems: 'center',
           minHeight: {
             xxs: '56vh',
-            md: '68vh',
-            lg: '64vh',
+            md: '74vh',
+            lg: '68vh',
             xl: '74vh',
             xxl: '78vh',
           },
@@ -71,8 +71,6 @@ function Login() {
         sx={{
           mt: {
             xxs: 'auto',
-            md: 3,
-            xxl: 7,
           },
           width: '100%',
         }}
