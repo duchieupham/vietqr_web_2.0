@@ -83,7 +83,7 @@ function FooterLogin() {
           <Social />
         </Grid>
       </Grid>
-      <Box sx={{}}>
+      <Box>
         <CarouselSlider initialValues={bankType} />
       </Box>
     </Box>

@@ -1,5 +1,6 @@
 // eslint-disable-next-line object-curly-newline
 // mui
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 import {
   Box,
@@ -13,7 +14,10 @@ import {
   useMediaQuery,
 } from '@mui/material';
 // constants
+import { LOCALE_COOKIE } from '~/constants';
 import AppImages from '~/constants/ImagesConstant';
+// contexts
+import { useAppContext } from '~/contexts/AppContext';
 // react
 import { useState } from 'react';
 // next
@@ -30,8 +34,6 @@ import { setCookie } from 'cookies-next';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { LOCALE_COOKIE } from '~/constants';
-import { useAppContext } from '~/contexts/AppContext';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
 const languageOptions = [
@@ -360,7 +362,19 @@ export default function Navbar() {
                 <HeadphonesOutlinedIcon />
                 {t('contact')}
               </Button>
-              <Select value={language} onChange={onChangeLanguage}>
+              <Select
+                value={language}
+                onChange={onChangeLanguage}
+                IconComponent={ExpandMoreIcon}
+                sx={{
+                  '.MuiOutlinedInput-notchedOutline': {
+                    border: 'none',
+                  },
+                  '.MuiSelect-icon': {
+                    color: 'inherit',
+                  },
+                }}
+              >
                 {languageOptions.map((option) => (
                   <MenuItem key={option.id} value={option.value}>
                     {t(option.label)}

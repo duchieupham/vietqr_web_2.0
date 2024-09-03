@@ -1,8 +1,18 @@
 /* eslint-disable react/no-array-index-key */
-import CheckIcon from '@mui/icons-material/Check';
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const promoItems = [
   { duration: '12 tháng', promo: 'Khuyến mãi 01 tháng' },
@@ -14,21 +24,28 @@ const pricingData = [
   {
     category: 'Khách hàng Cá nhân',
     includesVAT: 'Đã bao gồm VAT (8%)',
-    prices: ['712,800 VND', '1,425,600 VND', '2,138,400 VND'],
+    prices: ['712,800', '1,425,600', '2,138,400'],
   },
   {
     category: 'Khách hàng Doanh nghiệp',
     includesVAT: 'Đã bao gồm VAT (8%)',
-    prices: ['1,425,600 VND', '2,851,200 VND', '4,276,800 VND'],
+    prices: ['1,425,600', '2,851,200', '4,276,800'],
   },
 ];
 
 const features = [
-  'Nhận Biến động số dư',
-  'Đối soát giao dịch',
-  'Quản lý cửa hàng',
-  'Thống kê dữ liệu',
+  { feat: 'Nhận Biến động số dư', active: [true, true, true] },
+  { feat: 'Đối soát giao dịch', active: [true, true, true] },
+  { feat: 'Quản lý cửa hàng', active: [true, true, true] },
+  { feat: 'Thống kê dữ liệu', active: [true, true, true] },
 ];
+
+const lineStyle = {
+  width: '1px',
+  height: '100px',
+  backgroundColor: '#DADADA',
+  mx: 3,
+};
 
 export default function FeesGrid() {
   const t = useTranslations();
@@ -42,18 +59,26 @@ export default function FeesGrid() {
     'Khách hàng doanh nghiệp',
     'Đã bao gồm VAT (8%)');
   return (
-    <Box sx={{ p: 20 }}>
+    <Box sx={{ px: 20 }}>
       <Grid
         container
-        columns={16}
-        spacing={3}
+        spacing={3.6}
         sx={{
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
         }}
       >
-        <Grid item xs={12} md="auto">
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Image
             src="/images/image 498.png"
             width={240}
@@ -61,70 +86,206 @@ export default function FeesGrid() {
             alt="image 498"
           />
         </Grid>
-        <Grid item>
-          <Box
-            sx={{
-              width: '1px',
-              height: '60px',
-              backgroundColor: '#E0E0E0',
-              display: { xxs: 'none', md: 'block' },
-              mx: 3,
-            }}
-          />
-        </Grid>
-        {promoItems.map((item, index) => (
-          <>
-            <Grid item xs={12} md="auto">
-              <Typography
+        <Grid item xs={12} md={8} sx={{ display: 'flex' }}>
+          {promoItems.map((item, index) => (
+            <>
+              <Box
+                key={index}
                 sx={{
-                  fontWeight: 'bold',
-                  fontSize: { xxs: 18, md: 20 },
-                  color: '#003366',
-                  textAlign: 'center',
+                  minWidth: 200,
+                  minHeight: 80,
+                  alignContent: 'center',
+                  display: 'flex',
+                  gap: 2,
+                  p: 2,
+                  pl: 0,
+                  ml: -0.5,
+                  mr: 2,
+                  whiteSpace: 'nowrap',
                 }}
               >
-                {item.duration}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xxs: 12, md: 14 },
-                  color: '#FF3333',
-                  textAlign: 'center',
-                }}
-              >
-                {item.promo}
-              </Typography>
-            </Grid>
-            {index < promoItems.length - 1 && (
-              <Grid item>
+                <Box sx={{ ...lineStyle, width: '1px' }} />
                 <Box
                   sx={{
-                    width: '1px',
-                    height: '60px',
-                    backgroundColor: '#E0E0E0',
-                    display: { xxs: 'none', md: 'block' },
-                    mx: 3,
+                    alignContent: 'center',
+                    mb: 3,
                   }}
-                />
-              </Grid>
-            )}
-          </>
-        ))}
-        <Grid item xs={16}>
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: 'bold',
+                      color: '#1E427E',
+                      fontSize: { xxs: 15, md: 20 },
+                    }}
+                  >
+                    {item.duration}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: '#EC2232',
+                      fontSize: { xxs: 12, md: 15 },
+                    }}
+                  >
+                    {item.promo}
+                  </Typography>
+                </Box>
+              </Box>
+            </>
+          ))}
+        </Grid>
+        <Grid item xs={12}>
           <Typography
             sx={{
-              fontWeight: 'bold',
-              fontSize: { xxs: 20, md: 25 },
+              fontSize: { xxs: 12, md: 15 },
               color: '#1E427E',
-              lineHeight: 1.2,
-              whiteSpace: 1.2,
-              letterSpacing: '0.1em',
-              position: 'relative',
-              left: '-25%',
+              fontWeight: 'bold',
+              textAlign: 'start',
+              mb: 2,
+              ml: 2,
             }}
           >
             Mức phí
           </Typography>
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {pricingData.map((data, index) => (
+                  <TableRow key={index}>
+                    <TableCell
+                      sx={{
+                        border: '1px solid #DADADA',
+                        maxWidth: 400,
+                        minHeight: 80,
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          color: '#1E427E',
+                          fontSize: { xxs: 13, md: 15 },
+                        }}
+                      >
+                        {data.category}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          color: '#EC2232',
+                          fontSize: { xxs: 10, md: 12 },
+                        }}
+                      >
+                        {data.includesVAT}
+                      </Typography>
+                    </TableCell>
+                    {data.prices.map((price, index) => (
+                      <TableCell
+                        key={index}
+                        sx={{
+                          border: '1px solid #DADADA',
+                          maxWidth: 200,
+                          maxHeight: 150,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: 0.5,
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              color: '#1E427E',
+                              fontSize: { xxs: 15, md: 20 },
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {price}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              alignSelf: 'flex-end',
+                              mb: 0.2,
+                            }}
+                          >
+                            VND
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            sx={{
+              fontSize: { xxs: 12, md: 15 },
+              color: '#1E427E',
+              fontWeight: 'bold',
+              textAlign: 'start',
+              mb: 2,
+              ml: 2,
+            }}
+          >
+            Tính năng
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {features.map((data, index) => (
+                  <TableRow key={index}>
+                    <TableCell
+                      sx={{
+                        border: '1px solid #DADADA',
+                        maxWidth: 400,
+                        minHeight: 80,
+                        width: '30%',
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          color: '#1E427E',
+                          fontSize: { xxs: 13, md: 15 },
+                        }}
+                      >
+                        {data.feat}
+                      </Typography>
+                    </TableCell>
+                    {data.active.map((isActive, index) => (
+                      <TableCell
+                        key={index}
+                        sx={{
+                          border: '1px solid #DADADA',
+                          minWidth: 200,
+                          minHeight: 80,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: 0.5,
+                          }}
+                        >
+                          {isActive ? (
+                            <CheckCircleIcon
+                              sx={{ color: '#0A7AFF', fontSize: 20 }}
+                            />
+                          ) : (
+                            <CancelIcon
+                              sx={{ color: '#EC2232', fontSize: 20 }}
+                            />
+                          )}
+                        </Box>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
       </Grid>
     </Box>

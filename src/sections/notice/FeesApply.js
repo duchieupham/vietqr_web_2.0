@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { TextGradient } from '~/components/text';
 
 const feesApply = (currency, time) => [
@@ -25,43 +26,46 @@ export default function FeesApply() {
   return (
     <Stack
       sx={{
-        gap: 2,
+        gap: { xxs: 2, md: 15 },
+        mt: {
+          xxs: 5,
+          md: 0,
+        },
         p: 2,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        lineHeight: 1.5,
+        display: 'flex',
+        flexDirection: 'row-reverse',
       }}
     >
       <Box>
-        <Box
+        <Image
+          src="/images/image 499.png"
+          width={150}
+          height={97}
+          alt="image 499"
+        />
+      </Box>
+      <Box>
+        <Typography
           sx={{
-            mb: 1,
+            fontSize: {
+              xxs: 15,
+              md: 20,
+            },
+            mb: '20px',
           }}
         >
-          <Typography
-            sx={{
-              fontSize: {
-                xxs: 15,
-                md: 20,
-              },
-              lineHeight: 1.2,
-              whiteSpace: 1.2,
-            }}
-          >
-            {t('noticeFeesApply')}
-          </Typography>
-        </Box>
+          {t('noticeFeesApply')}
+        </Typography>
         <Stack
           direction={{ xxs: 'column', md: 'row' }}
           sx={{
-            display: {
-              xxs: 'flex',
-              md: 'flex',
-            },
+            display: 'flex',
             justifyContent: 'space-around',
           }}
-          spacing={5}
+          spacing={2}
         >
           {feesApply('VND', 'THÁNG').map((item, key) => (
             <>
@@ -101,7 +105,7 @@ export default function FeesApply() {
                       color: '#666A72',
                       display: 'flex',
                       alignItems: 'flex-end',
-                      marginBottom: 0.5,
+                      marginBottom: 0.4,
                     }}
                   >
                     {item.type}
@@ -124,7 +128,7 @@ export default function FeesApply() {
                   sx={{
                     width: '1px',
                     height: 'auto',
-                    backgroundColor: '#E0E0E0',
+                    backgroundColor: '#DADADA',
                     display: { xxs: 'none', md: 'block' },
                     marginRight: { xxs: 0, md: '25px !important' },
                   }}
