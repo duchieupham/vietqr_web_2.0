@@ -35,10 +35,15 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import LoginHeaderBar from '../header/LoginHeaderBar';
+import CNIcon from '../icon/CNIcon';
+import USIcon from '../icon/USIcon';
+import VNIcon from '../icon/VNIcon';
+import theme from '~/theme';
 
 const languageOptions = [
-  { id: 1, label: 'vietnamese', value: 'vi' },
-  { id: 2, label: 'english', value: 'en' },
+  { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
+  { id: 2, label: 'english', value: 'en', icon: <USIcon /> },
+  { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
 ];
 
 export default function Navbar() {
@@ -46,6 +51,7 @@ export default function Navbar() {
   const { language, setLanguage } = useAppContext();
   const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
@@ -121,7 +127,7 @@ export default function Navbar() {
             }}
           />
         </Box>
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -151,7 +157,7 @@ export default function Navbar() {
               </MenuItem>
             ))}
           </Select>
-        </Box>
+        </Box> */}
       </Stack>
     </Box>
   );
@@ -208,7 +214,7 @@ export default function Navbar() {
               size={isDesktop ? 30 : 20}
             />
           </IconButton>
-          {/* Logo for all screen sizes */}
+          {/* Logo for xs screen sizes */}
           <Button
             component="div"
             sx={{
@@ -250,6 +256,91 @@ export default function Navbar() {
               )}
             </Link>
           </Button>
+          {/* System Func xs screen sizes */}
+          <Box
+            sx={{
+              display: {
+                xxs: 'flex',
+                lg: 'none',
+              },
+              gap: {
+                xxs: 0,
+                lg: 2,
+              },
+              justifyContent: 'center',
+            }}
+          >
+            <Button
+              sx={{
+                color: 'black',
+                fontSize: {
+                  xs: '10px',
+                  md: '12px',
+                },
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                fontWeight: 'normal',
+                textTransform: 'none',
+                gap: {
+                  xxs: 0,
+                  lg: '0.5rem',
+                },
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  textDecoration: 'none',
+                },
+                p: 0,
+                justifyContent: 'flex-end',
+              }}
+              disableRipple
+            >
+              <HeadphonesOutlinedIcon width={20} />
+              {isMdUp && t('contact')}
+            </Button>
+            <Select
+              value={language}
+              onChange={onChangeLanguage}
+              IconComponent={ExpandMoreIcon}
+              renderValue={(selected) => {
+                const selectedOption = languageOptions.find(
+                  (option) => option.value === selected,
+                );
+                return selectedOption ? selectedOption.icon : null;
+              }}
+              sx={{
+                '.MuiOutlinedInput-notchedOutline': {
+                  border: 'none',
+                },
+                '.MuiSelect-icon': {
+                  color: 'inherit',
+                },
+                fontSize: {
+                  xs: '15px',
+                  md: '12px',
+                },
+                '.MuiSelect-select': {
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                },
+              }}
+            >
+              {languageOptions.map((option) => (
+                <MenuItem
+                  key={option.id}
+                  value={option.value}
+                  sx={{
+                    justifyContent: 'center',
+                    display: 'flex',
+                    gap: 1,
+                  }}
+                >
+                  {option.icon}
+                  {t(option.label)}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
           {/* Full Navbar for larger screens */}
           <Box
             component="div"
@@ -308,7 +399,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: '0', lg: 7, xl: '5rem' },
+                    marginLeft: { xs: 'auto', md: '0', lg: 8, xl: '5rem' },
                   }}
                   disableRipple
                 >
@@ -337,7 +428,7 @@ export default function Navbar() {
                 sx={{
                   color: 'black',
                   fontSize: {
-                    xs: '15px',
+                    xs: '10px',
                     md: '12px',
                   },
                   flexDirection: 'row',
@@ -345,10 +436,14 @@ export default function Navbar() {
                   fontWeight: 'normal',
                   textTransform: 'none',
                   gap: '0.5rem',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    textDecoration: 'none',
+                  },
                 }}
                 disableRipple
               >
-                <HeadphonesOutlinedIcon />
+                <HeadphonesOutlinedIcon width={20} />
                 {t('contact')}
               </Button>
               <Select
@@ -362,10 +457,28 @@ export default function Navbar() {
                   '.MuiSelect-icon': {
                     color: 'inherit',
                   },
+                  fontSize: {
+                    xs: '15px',
+                    md: '12px',
+                  },
+                  '.MuiSelect-select': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  },
                 }}
               >
                 {languageOptions.map((option) => (
-                  <MenuItem key={option.id} value={option.value}>
+                  <MenuItem
+                    key={option.id}
+                    value={option.value}
+                    sx={{
+                      justifyContent: 'center',
+                      display: 'flex',
+                      gap: 1,
+                    }}
+                  >
+                    {option.icon}
                     {t(option.label)}
                   </MenuItem>
                 ))}
