@@ -7,7 +7,6 @@ export default function QRCodeComponent({ value }) {
       size={256} // Size of the QR code
       style={{ height: 'auto', maxWidth: '100%', width: '250px' }}
       viewBox="0 0 256 256" // ViewBox for the QR code
-      
     />
   );
 }

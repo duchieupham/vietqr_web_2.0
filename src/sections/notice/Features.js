@@ -26,7 +26,7 @@ export default function Features() {
       }}
     >
       {features.map((feature, index) => (
-        <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box key={feature} sx={{ display: 'flex', alignItems: 'center' }}>
           <Image
             src={`/images/image ${feature.icon}.png`}
             alt="image"

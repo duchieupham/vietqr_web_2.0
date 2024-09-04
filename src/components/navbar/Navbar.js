@@ -34,11 +34,12 @@ import { setCookie } from 'cookies-next';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import theme from '~/theme';
 import LoginHeaderBar from '../header/LoginHeaderBar';
+
+import VNIcon from '../icon/VNIcon';
 import CNIcon from '../icon/CNIcon';
 import USIcon from '../icon/USIcon';
-import VNIcon from '../icon/VNIcon';
-import theme from '~/theme';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
@@ -409,8 +410,8 @@ export default function Navbar() {
                       priority
                       alt="VietQR logo"
                       src="/images/Logo_min.png"
-                      height={24}
-                      width={58}
+                      height={32}
+                      width={66}
                     />
                   </Link>
                 </Button>

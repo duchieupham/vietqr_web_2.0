@@ -159,21 +159,15 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
             sx={{
               width: {
                 xxs: 170,
-                xs: 170,
                 lg: 250,
-                xl: 250,
               },
               minWidth: {
                 xxs: 170,
-                xs: 170,
                 lg: 250,
-                xl: 250,
               },
               minHeight: {
                 xxs: 170,
-                xs: 170,
                 lg: 250,
-                xl: 250,
               },
               marginLeft: {
                 xxs: '0',

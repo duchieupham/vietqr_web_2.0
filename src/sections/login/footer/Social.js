@@ -41,7 +41,6 @@ export default function Social({ style }) {
         width: '100%',
         justifyContent: {
           xxs: 'center',
-          xs: 'center',
           lg: 'flex-start',
         },
         ...style,
@@ -66,6 +65,7 @@ export default function Social({ style }) {
               xs: 'space-between',
               lg: 'flex-start',
             },
+
             gap: {
               xxs: 1,
               xs: 2,
