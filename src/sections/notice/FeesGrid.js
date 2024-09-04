@@ -88,50 +88,48 @@ export default function FeesGrid() {
         </Grid>
         <Grid item xs={12} md={8} sx={{ display: 'flex' }}>
           {promoItems.map((item, index) => (
-            <>
+            <Box
+              key={index}
+              sx={{
+                minWidth: 200,
+                minHeight: 80,
+                alignContent: 'center',
+                display: 'flex',
+                gap: 2,
+                p: 2,
+                pl: 0,
+                ml: -0.5,
+                mr: 2,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <Box sx={{ ...lineStyle, width: '1px' }} />
               <Box
-                key={index}
                 sx={{
-                  minWidth: 200,
-                  minHeight: 80,
                   alignContent: 'center',
-                  display: 'flex',
-                  gap: 2,
-                  p: 2,
-                  pl: 0,
-                  ml: -0.5,
-                  mr: 2,
-                  whiteSpace: 'nowrap',
+                  mb: 3,
                 }}
               >
-                <Box sx={{ ...lineStyle, width: '1px' }} />
-                <Box
+                <Typography
                   sx={{
-                    alignContent: 'center',
-                    mb: 3,
+                    fontWeight: 'bold',
+                    color: '#1E427E',
+                    fontSize: { xxs: 15, md: 20 },
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontWeight: 'bold',
-                      color: '#1E427E',
-                      fontSize: { xxs: 15, md: 20 },
-                    }}
-                  >
-                    {item.duration}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: '#EC2232',
-                      fontSize: { xxs: 12, md: 15 },
-                    }}
-                  >
-                    {item.promo}
-                  </Typography>
-                </Box>
+                  {item.duration}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#EC2232',
+                    fontSize: { xxs: 12, md: 15 },
+                  }}
+                >
+                  {item.promo}
+                </Typography>
               </Box>
-            </>
+            </Box>
           ))}
         </Grid>
         <Grid item xs={12}>
@@ -176,9 +174,9 @@ export default function FeesGrid() {
                         {data.includesVAT}
                       </Typography>
                     </TableCell>
-                    {data.prices.map((price, index) => (
+                    {data.prices.map((price, _index) => (
                       <TableCell
-                        key={index}
+                        key={_index}
                         sx={{
                           border: '1px solid #DADADA',
                           maxWidth: 200,
@@ -205,6 +203,7 @@ export default function FeesGrid() {
                             sx={{
                               alignSelf: 'flex-end',
                               mb: 0.2,
+                              color: '#666A72',
                             }}
                           >
                             VND
@@ -253,9 +252,9 @@ export default function FeesGrid() {
                         {data.feat}
                       </Typography>
                     </TableCell>
-                    {data.active.map((isActive, index) => (
+                    {data.active.map((isActive, __index) => (
                       <TableCell
-                        key={index}
+                        key={__index}
                         sx={{
                           border: '1px solid #DADADA',
                           minWidth: 200,

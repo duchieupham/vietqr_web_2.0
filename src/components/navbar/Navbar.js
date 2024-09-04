@@ -215,9 +215,6 @@ export default function Navbar() {
               margin: '0 auto',
               display: {
                 xxs: 'flex',
-                xs: 'flex',
-                sm: 'flex',
-                md: 'flex',
                 lg: isTabletVertical ? 'flex' : 'none',
                 xl: 'none',
               },
@@ -302,7 +299,7 @@ export default function Navbar() {
                 <Button
                   component="div"
                   sx={{
-                    display: { xs: 'flex', md: 'flex' },
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     position: 'relative',
@@ -310,28 +307,20 @@ export default function Navbar() {
                       backgroundColor: 'transparent',
                       textDecoration: 'none',
                     },
-                    marginTop: '-0.5rem',
-                    marginLeft: { xs: 'auto', md: '0', lg: '2rem', xl: '5rem' },
+                    mt: 1.5,
+                    marginLeft: { xs: 'auto', md: '0', lg: 7, xl: '5rem' },
                   }}
                   disableRipple
-                  disableFocusRipple
-                  disableTouchRipple
-                  disableElevation
                 >
                   <Link href="/">
-                    {imageUri && (
-                      <Image
-                        quality={100}
-                        priority
-                        alt="VietQR logo"
-                        src={imageUri}
-                        height={70}
-                        width={150}
-                        style={{
-                          objectFit: 'contain',
-                        }}
-                      />
-                    )}
+                    <Image
+                      quality={100}
+                      priority
+                      alt="VietQR logo"
+                      src="/images/Logo_min.png"
+                      height={24}
+                      width={58}
+                    />
                   </Link>
                 </Button>
               </Grid>

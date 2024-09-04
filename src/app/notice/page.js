@@ -30,6 +30,9 @@ export default function Notice() {
             position: 'relative',
             transition: 'translateX(50%)',
             left: { md: '43%' },
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
           }}
           disableRipple
           disableTouchRipple

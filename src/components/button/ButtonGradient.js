@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import React from 'react';
 import styles from '~styles/Button.module.css';
 
 function ButtonGradient({
