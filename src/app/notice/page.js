@@ -29,7 +29,7 @@ export default function Notice() {
           sx={{
             position: 'relative',
             transition: 'translateX(50%)',
-            left: { xs: '20%', md: '43%' },
+            left: { xs: '20%',sm: '35%', md: '40%' },
             '&:hover': {
               backgroundColor: 'transparent',
             },

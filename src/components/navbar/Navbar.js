@@ -190,9 +190,7 @@ export default function Navbar() {
             alignItems: 'center',
             position: 'relative',
             marginTop: '-0.7rem',
-            marginLeft: {
-              xs: -2,
-            },
+            marginLeft: -2,
           }}
         >
           {/* Hamburger Menu for small screens */}
