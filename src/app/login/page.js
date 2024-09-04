@@ -34,22 +34,20 @@ function Login() {
         component="main"
         sx={{
           p: {
-            xxs: '16px',
-            xs: '24px',
+            xs: '16px',
             sm: '32px',
             md: '40px',
           },
           gap: {
-            xxs: 2,
-            xs: 4,
+            xs: 2,
             lg: 6,
           },
           flexDirection: {
-            xxs: 'column-reverse',
+            xs: 'column-reverse',
             md: 'row',
           },
           justifyContent: {
-            xxs: 'center',
+            xs: 'center',
             md: 'flex-end',
             lg: 'center',
           },

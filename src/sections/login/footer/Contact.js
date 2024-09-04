@@ -59,7 +59,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: {
-          xxs: '100%',
           xs: '100%',
           sm: '100%',
           md: '100%',

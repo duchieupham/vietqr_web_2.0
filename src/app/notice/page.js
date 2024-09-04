@@ -29,7 +29,7 @@ export default function Notice() {
           sx={{
             position: 'relative',
             transition: 'translateX(50%)',
-            left: { md: '43%' },
+            left: { xs: '20%',sm: '35%', md: '40%' },
             '&:hover': {
               backgroundColor: 'transparent',
             },
@@ -59,7 +59,7 @@ export default function Notice() {
             sx={{
               fontWeight: 'normal',
               fontSize: {
-                xxs: 20,
+                xs: 20,
                 md: 25,
               },
               color: '#1E427E',
@@ -81,7 +81,7 @@ export default function Notice() {
             gap: 5,
             justifyContent: 'center',
             flexDirection: {
-              xxs: 'column',
+              xs: 'column',
               md: 'row',
             },
           }}
@@ -89,7 +89,7 @@ export default function Notice() {
           <Box
             sx={{
               margin: {
-                xxs: '0 auto',
+                xs: '0 auto',
                 md: '0',
               },
             }}
@@ -102,12 +102,12 @@ export default function Notice() {
             />
           </Box>
           <Stack
-            spacing={{ xxs: 9, md: 2 }}
+            spacing={{ xs: 9, md: 2 }}
             sx={{
               alignItems: 'flex-start',
               color: '#1E427E',
               textAlign: {
-                xxs: 'center',
+                xs: 'center',
                 md: 'start',
               },
             }}
@@ -157,13 +157,13 @@ export default function Notice() {
           <Box>
             <TextGradient
               style={{
-                fontSize: { xxs: 20, md: 25 },
+                fontSize: { xs: 20, md: 25 },
                 color: '#1E427E',
               }}
             >
               Giải pháp tối ưu cho doanh nghiệp
             </TextGradient>
-            <Typography sx={{ fontSize: { xxs: 15, md: 20 } }}>
+            <Typography sx={{ fontSize: { xs: 15, md: 20 } }}>
               Đăng ký để trải nghiệm các tính năng không giới hạn.
             </Typography>
           </Box>

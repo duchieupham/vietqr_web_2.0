@@ -26,14 +26,14 @@ export default function Features() {
       }}
     >
       {features.map((feature, index) => (
-        <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box key={feature} sx={{ display: 'flex', alignItems: 'center' }}>
           <Image
             src={`/images/image ${feature.icon}.png`}
             alt="image"
             width={50}
             height={50}
           />
-          <Typography sx={{ fontSize: { xxs: 13, md: 15 } }}>
+          <Typography sx={{ fontSize: { xs: 13, md: 15 } }}>
             {feature.feat}
           </Typography>
         </Box>

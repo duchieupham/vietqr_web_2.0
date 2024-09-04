@@ -31,9 +31,6 @@ const buttonList = [
 ];
 
 export default function Footer() {
-  const navigate = (url) => {
-    window.location.href = url;
-  };
   return (
     <Grid container>
       <Grid item xs={6}>
@@ -46,7 +43,7 @@ export default function Footer() {
               <Typography
                 sx={{
                   fontSize: {
-                    xxs: 15,
+                    xs: 15,
                     md: 20,
                   },
                   color: 'black',

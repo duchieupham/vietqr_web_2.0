@@ -24,7 +24,7 @@ function FooterLogin() {
     <Box
       sx={{
         px: {
-          xxs: 0,
+          xs: 0,
         },
         pt: {
           xxl: '1.5rem',
@@ -37,11 +37,11 @@ function FooterLogin() {
         columns={12}
         sx={{
           flexDirection: {
-            xxs: 'column',
+            xs: 'column',
             md: 'row',
           },
           alignItems: {
-            xxs: 'center',
+            xs: 'center',
             lg: 'flex-start',
           },
         }}
@@ -58,21 +58,19 @@ function FooterLogin() {
           <Contact
             style={{
               flexWrap: {
-                xxs: 'wrap',
+                xs: 'wrap',
                 md: 'nowrap',
               },
             }}
             stackStyle={{
               margin: {
-                xxs: '0 1rem',
-                xs: '0 2rem',
+                xs: '0 1rem',
                 sm: '0 3rem',
               },
               whiteSpace: 'nowrap',
               flexGrow: 1,
               marginBottom: {
-                xxs: '0.5rem',
-                xs: '0.7rem',
+                xs: '0.5rem',
                 sm: '1rem',
                 md: '0.5rem',
               },

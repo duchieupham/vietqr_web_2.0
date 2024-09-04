@@ -26,9 +26,9 @@ export default function FeesApply() {
   return (
     <Stack
       sx={{
-        gap: { xxs: 2, md: 15 },
+        gap: { xs: 2, md: 15 },
         mt: {
-          xxs: 5,
+          xs: 5,
           md: 0,
         },
         p: 2,
@@ -51,7 +51,7 @@ export default function FeesApply() {
         <Typography
           sx={{
             fontSize: {
-              xxs: 15,
+              xs: 15,
               md: 20,
             },
             mb: '20px',
@@ -60,7 +60,7 @@ export default function FeesApply() {
           {t('noticeFeesApply')}
         </Typography>
         <Stack
-          direction={{ xxs: 'column', md: 'row' }}
+          direction={{ xs: 'column', md: 'row' }}
           sx={{
             display: 'flex',
             justifyContent: 'space-around',
@@ -72,7 +72,7 @@ export default function FeesApply() {
               <Box
                 key={item.id || key}
                 sx={{
-                  marginLeft: { xxs: 0, md: 25 },
+                  marginLeft: { xs: 0, md: 25 },
                 }}
               >
                 <Box
@@ -87,7 +87,7 @@ export default function FeesApply() {
                     style={{
                       whiteSpace: 'nowrap',
                       fontSize: {
-                        xxs: 20,
+                        xs: 20,
                         md: 25,
                       },
                       fontWeight: 'bold',
@@ -99,7 +99,7 @@ export default function FeesApply() {
                     sx={{
                       whiteSpace: 'nowrap',
                       fontSize: {
-                        xxs: 12,
+                        xs: 12,
                         md: 15,
                       },
                       color: '#666A72',
@@ -115,7 +115,7 @@ export default function FeesApply() {
                   sx={{
                     whiteSpace: 'nowrap',
                     fontSize: {
-                      xxs: 12,
+                      xs: 12,
                       md: 15,
                     },
                   }}
@@ -129,8 +129,8 @@ export default function FeesApply() {
                     width: '1px',
                     height: 'auto',
                     backgroundColor: '#DADADA',
-                    display: { xxs: 'none', md: 'block' },
-                    marginRight: { xxs: 0, md: '25px !important' },
+                    display: { xs: 'none', md: 'block' },
+                    marginRight: { xs: 0, md: '25px !important' },
                   }}
                 />
               )}
