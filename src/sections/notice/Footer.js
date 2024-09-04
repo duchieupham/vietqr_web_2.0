@@ -31,10 +31,7 @@ const buttonList = [
 ];
 
 export default function Footer() {
-  const navigate = (url) => {
-    window.location.href = url;
-  };
-return (
+  return (
     <Grid container>
       <Grid item xs={6}>
         <Box sx={{ display: 'flex', gap: 2 }}>

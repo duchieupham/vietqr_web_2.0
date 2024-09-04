@@ -240,7 +240,7 @@ export default function FeesGrid() {
                         border: '1px solid #DADADA',
                         maxWidth: 400,
                         minHeight: 80,
-                        width: '30%',
+                        width: { xs: '60%', md: '30.5%' },
                       }}
                     >
                       <Typography
