@@ -59,10 +59,10 @@ export default function FeesGrid() {
     'Khách hàng doanh nghiệp',
     'Đã bao gồm VAT (8%)');
   return (
-    <Box sx={{ px: 20 }}>
+    <Box sx={{ px: { xs: 2, sm: 5, md: 10, lg: 20 } }}>
       <Grid
         container
-        spacing={3.6}
+        spacing={{ xs: 2, sm: 3.6 }}
         sx={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -98,7 +98,7 @@ export default function FeesGrid() {
                 gap: 2,
                 p: 2,
                 pl: 0,
-                ml: -0.5,
+                ml: { xs: 0, sm: -0.5 },
                 mr: 2,
                 whiteSpace: 'nowrap',
               }}
@@ -114,7 +114,7 @@ export default function FeesGrid() {
                   sx={{
                     fontWeight: 'bold',
                     color: '#1E427E',
-                    fontSize: { xxs: 15, md: 20 },
+                    fontSize: { xs: 15, md: 20 },
                   }}
                 >
                   {item.duration}
@@ -123,7 +123,7 @@ export default function FeesGrid() {
                   variant="body1"
                   sx={{
                     color: '#EC2232',
-                    fontSize: { xxs: 12, md: 15 },
+                    fontSize: { xs: 12, md: 15 },
                   }}
                 >
                   {item.promo}
@@ -135,7 +135,7 @@ export default function FeesGrid() {
         <Grid item xs={12}>
           <Typography
             sx={{
-              fontSize: { xxs: 12, md: 15 },
+              fontSize: { xs: 12, md: 15 },
               color: '#1E427E',
               fontWeight: 'bold',
               textAlign: 'start',
@@ -145,7 +145,7 @@ export default function FeesGrid() {
           >
             Mức phí
           </Typography>
-          <TableContainer>
+          <TableContainer sx={{ overflowX: 'auto' }}>
             <Table>
               <TableBody>
                 {pricingData.map((data, index) => (
@@ -160,7 +160,7 @@ export default function FeesGrid() {
                       <Typography
                         sx={{
                           color: '#1E427E',
-                          fontSize: { xxs: 13, md: 15 },
+                          fontSize: { xs: 13, md: 15 },
                         }}
                       >
                         {data.category}
@@ -168,7 +168,7 @@ export default function FeesGrid() {
                       <Typography
                         sx={{
                           color: '#EC2232',
-                          fontSize: { xxs: 10, md: 12 },
+                          fontSize: { xs: 10, md: 12 },
                         }}
                       >
                         {data.includesVAT}
@@ -193,7 +193,7 @@ export default function FeesGrid() {
                           <Typography
                             sx={{
                               color: '#1E427E',
-                              fontSize: { xxs: 15, md: 20 },
+                              fontSize: { xs: 15, md: 20 },
                               fontWeight: 'bold',
                             }}
                           >
@@ -220,7 +220,7 @@ export default function FeesGrid() {
         <Grid item xs={12}>
           <Typography
             sx={{
-              fontSize: { xxs: 12, md: 15 },
+              fontSize: { xs: 12, md: 15 },
               color: '#1E427E',
               fontWeight: 'bold',
               textAlign: 'start',
@@ -230,7 +230,7 @@ export default function FeesGrid() {
           >
             Tính năng
           </Typography>
-          <TableContainer>
+          <TableContainer sx={{ overflowX: 'auto' }}>
             <Table>
               <TableBody>
                 {features.map((data, index) => (
@@ -246,7 +246,7 @@ export default function FeesGrid() {
                       <Typography
                         sx={{
                           color: '#1E427E',
-                          fontSize: { xxs: 13, md: 15 },
+                          fontSize: { xs: 13, md: 15 },
                         }}
                       >
                         {data.feat}

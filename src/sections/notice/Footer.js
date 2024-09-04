@@ -34,7 +34,7 @@ export default function Footer() {
   const navigate = (url) => {
     window.location.href = url;
   };
-  return (
+return (
     <Grid container>
       <Grid item xs={6}>
         <Box sx={{ display: 'flex', gap: 2 }}>
@@ -46,7 +46,7 @@ export default function Footer() {
               <Typography
                 sx={{
                   fontSize: {
-                    xxs: 15,
+                    xs: 15,
                     md: 20,
                   },
                   color: 'black',

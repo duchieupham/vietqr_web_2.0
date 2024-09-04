@@ -82,7 +82,7 @@ export default function Navbar() {
   const drawerContent = (
     <Box
       sx={{
-        width: { xxs: '100%', xs: '100%' },
+        width: '100%',
         padding: '1rem',
         justifyContent: 'space-between',
       }}
@@ -191,7 +191,7 @@ export default function Navbar() {
             position: 'relative',
             marginTop: '-0.7rem',
             marginLeft: {
-              xxs: -2,
+              xs: -2,
             },
           }}
         >
@@ -199,10 +199,7 @@ export default function Navbar() {
           <IconButton
             sx={{
               display: {
-                xxs: 'block',
                 xs: 'block',
-                sm: 'block',
-                md: 'block',
                 lg: isTabletVertical ? 'block' : 'none',
                 xl: 'none',
               },
@@ -221,7 +218,7 @@ export default function Navbar() {
             sx={{
               margin: '0 auto',
               display: {
-                xxs: 'flex',
+                xs: 'flex',
                 lg: isTabletVertical ? 'flex' : 'none',
                 xl: 'none',
               },
@@ -229,8 +226,7 @@ export default function Navbar() {
               justifyContent: 'center',
               position: 'absolute',
               left: {
-                xxs: '28.7%',
-                xs: '33%',
+                xs: '28.7%',
                 sm: '40.2%',
                 md: '41.5%',
                 lg: '40%',
@@ -261,11 +257,11 @@ export default function Navbar() {
           <Box
             sx={{
               display: {
-                xxs: 'flex',
+                xs: 'flex',
                 lg: 'none',
               },
               gap: {
-                xxs: 0,
+                xs: 0,
                 lg: 2,
               },
               justifyContent: 'center',
@@ -283,7 +279,7 @@ export default function Navbar() {
                 fontWeight: 'normal',
                 textTransform: 'none',
                 gap: {
-                  xxs: 0,
+                  xs: 0,
                   lg: '0.5rem',
                 },
                 '&:hover': {
@@ -316,8 +312,8 @@ export default function Navbar() {
                   color: 'inherit',
                 },
                 fontSize: {
-                  xs: '15px',
-                  md: '12px',
+                  xs: '12px',
+                  md: '15px',
                 },
                 '.MuiSelect-select': {
                   display: 'flex',
@@ -347,7 +343,7 @@ export default function Navbar() {
             component="div"
             sx={{
               display: {
-                xxs: 'none',
+                xs: 'none',
                 lg: isTabletVertical ? 'none' : 'flex',
                 xl: 'flex',
               },
@@ -365,7 +361,7 @@ export default function Navbar() {
                     width: '100%',
                     '& .active': {
                       width: {
-                        xxs: '100%',
+                        xs: '100%',
                       },
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -374,14 +370,14 @@ export default function Navbar() {
                     },
                     '& .active::after': {
                       width: {
-                        xxs: '100%',
+                        xs: '100%',
                         lg: '90%',
                       },
                     },
                   }}
                   typographyStyle={{
                     fontSize: {
-                      xxs: '12px',
+                      xs: '12px',
                       md: '16px',
                     },
                   }}

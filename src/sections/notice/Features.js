@@ -33,7 +33,7 @@ export default function Features() {
             width={50}
             height={50}
           />
-          <Typography sx={{ fontSize: { xxs: 13, md: 15 } }}>
+          <Typography sx={{ fontSize: { xs: 13, md: 15 } }}>
             {feature.feat}
           </Typography>
         </Box>

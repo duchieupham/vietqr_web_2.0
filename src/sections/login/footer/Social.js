@@ -40,7 +40,7 @@ export default function Social({ style }) {
         display: 'flex',
         width: '100%',
         justifyContent: {
-          xxs: 'center',
+          xs: 'center',
           lg: 'flex-start',
         },
         ...style,
@@ -51,24 +51,19 @@ export default function Social({ style }) {
           key={index}
           sx={{
             flexDirection: {
-              xxs: 'row',
               xs: 'row',
               md: 'column',
             },
             alignItems: {
-              xxs: 'center',
               xs: 'center',
               lg: 'flex-start',
             },
             justifyContent: {
-              xxs: 'space-between',
               xs: 'space-between',
               lg: 'flex-start',
             },
-
             gap: {
-              xxs: 1,
-              xs: 2,
+              xs: 1,
             },
           }}
         >
@@ -76,7 +71,7 @@ export default function Social({ style }) {
             component="div"
             sx={{
               whiteSpace: {
-                xxs: 'nowrap',
+                xs: 'nowrap',
               },
             }}
           >
@@ -88,11 +83,10 @@ export default function Social({ style }) {
               alignItems: 'center',
               flexDirection: 'row',
               gap: {
-                xxs: '0.3rem',
+                xs: '0.3rem',
               },
               justifyItems: 'center',
               flexWrap: {
-                xxs: '',
                 xs: '',
                 md: 'wrap',
               },
