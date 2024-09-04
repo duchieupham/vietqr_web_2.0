@@ -151,7 +151,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoValue = watch('phoneNo', '');
   const passwordRef = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
-  const phoneNoBorderColor = '1px solid #E0E0E0';
   const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = useCallback((field, value) => {
@@ -302,7 +301,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         ...containerStyle,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           spacing={2.5}
           sx={{
@@ -373,10 +372,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                         borderRadius: '10px',
                       },
                       '&:hover fieldset': {
-                        borderColor: phoneNoBorderColor,
+                        borderColor: phoneNoBorder,
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: phoneNoBorderColor,
+                        borderColor: phoneNoBorder,
                       },
                       '& .MuiOutlinedInput-input': {
                         paddingLeft: '50px',
