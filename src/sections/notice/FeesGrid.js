@@ -134,8 +134,8 @@ export default function FeesGrid() {
           </Box> */}
           <Grid container>
             <Grid item xs={3} sm="auto" />
-            {promoItems.map((item, index) => (
-              <Grid item xs={3} sm={4} key={index}>
+            {promoItems.map((item) => (
+              <Grid item xs={3} sm={4} key={item}>
                 <Box
                   sx={{
                     borderLeft: '1px solid #DADADA',
@@ -193,6 +193,11 @@ export default function FeesGrid() {
                         border: '1px solid #DADADA',
                         maxHeight: 80,
                         width: { xs: '60%', md: '36%' },
+                        display: 'block',
+                        flexWrap: {
+                          xs: 'wrap',
+                          sm: 'nowrap',
+                        },
                       }}
                     >
                       <Typography
@@ -224,12 +229,16 @@ export default function FeesGrid() {
                         <Box
                           sx={{
                             display: 'flex',
+                            flexWrap: {
+                              xs: 'wrap',
+                              sm: 'nowrap',
+                            },
                             justifyContent: 'center',
                             gap: 0.5,
                           }}
                         >
                           <TextGradient
-                            sx={{
+                            style={{
                               fontSize: { xs: 15, md: 20 },
                               fontWeight: 'bold',
                             }}
@@ -241,6 +250,7 @@ export default function FeesGrid() {
                               alignSelf: 'flex-end',
                               mb: 0.2,
                               color: '#666A72',
+                              fontSize: 12,
                             }}
                           >
                             VND
