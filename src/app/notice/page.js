@@ -1,6 +1,13 @@
 'use client';
 
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,9 +16,12 @@ import Features from '~/sections/notice/Features';
 import FeesApply from '~/sections/notice/FeesApply';
 import FeesGrid from '~/sections/notice/FeesGrid';
 import Footer from '~/sections/notice/Footer';
+import theme from '~/theme';
 
 export default function Notice() {
   const t = useTranslations();
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+
   return (
     <Grid
       container
@@ -26,33 +36,37 @@ export default function Notice() {
       }}
     >
       <Grid item xs={16}>
-        <Button
+        <Box
           sx={{
-            position: 'relative',
-            transition: 'translateX(50%)',
-            left: { xs: '20%', sm: '35%', md: '40%' },
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
+            display: 'flex',
+            justifyContent: 'center',
           }}
-          disableRipple
-          disableTouchRipple
-          disableFocusRipple
         >
-          <Link href="/">
-            <Image
-              quality={100}
-              priority
-              alt="VietQR logo"
-              src="/images/image 282.png"
-              height={100}
-              width={203.33}
-              style={{
-                objectFit: 'contain',
-              }}
-            />
-          </Link>
-        </Button>
+          <Button
+            sx={{
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            }}
+            disableRipple
+            disableTouchRipple
+            disableFocusRipple
+          >
+            <Link href="/">
+              <Image
+                quality={100}
+                priority
+                alt="VietQR logo"
+                src="/images/image 282.png"
+                height={100}
+                width={isMdUp ? 203.33 : 101.67}
+                style={{
+                  objectFit: 'contain',
+                }}
+              />
+            </Link>
+          </Button>
+        </Box>
       </Grid>
       <Grid item xs={16}>
         <Box>
