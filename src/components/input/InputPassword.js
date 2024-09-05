@@ -110,7 +110,7 @@ function InputPassword({
         {[...Array(6)].map((_, index) => (
           <Box
             component="div"
-            key={_}
+            key={[_]}
             className={`${styles.circle} ${passwordInput.length > index ? `${styles.filled}` : ''}`}
           />
         ))}

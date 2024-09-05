@@ -491,7 +491,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   {[...Array(6)].map((_, index) => (
                     <Box
                       component="div"
-                      key={_}
+                      key={index}
                       className={`${styles.circle} ${
                         passwordRef.length > index ? styles.filled : ''
                       }`}

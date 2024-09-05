@@ -94,7 +94,7 @@ export default function Social({ style }) {
             }}
           >
             {item.items.map((_item, index) => (
-              <Box key={_item} component="div" sx={{}}>
+              <Box key={_item} component="div">
                 <Link
                   href="/"
                   style={{

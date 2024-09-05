@@ -212,7 +212,7 @@ export default function FeesGrid() {
                     </TableCell>
                     {data.prices.map((price, _index) => (
                       <TableCell
-                        key={_index}
+                        key={price}
                         sx={{
                           border: '1px solid #DADADA',
                           maxWidth: 200,
@@ -270,7 +270,7 @@ export default function FeesGrid() {
             <Table>
               <TableBody>
                 {features.map((data, index) => (
-                  <TableRow key={data}>
+                  <TableRow key={index}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',

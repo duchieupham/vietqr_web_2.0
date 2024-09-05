@@ -58,7 +58,7 @@ export default function Footer() {
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-              {buttonList.map((button) => (
+              {buttonList.map((button, index) => (
                 <Button
                   key={button}
                   disableRipple

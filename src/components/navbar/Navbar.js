@@ -128,37 +128,6 @@ export default function Navbar() {
             }}
           />
         </Box>
-        {/* <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'absolute',
-            bottom: 0,
-            width: '85%',
-            paddingBottom: '2rem',
-          }}
-        >
-          <Button
-            sx={{
-              color: 'black',
-              fontSize: '1rem',
-              fontWeight: 'normal',
-              textTransform: 'none',
-              gap: '0.5rem',
-              marginBottom: '1rem',
-            }}
-          >
-            <HeadphonesOutlinedIcon />
-            {t('contact')}
-          </Button>
-          <Select value={language} onChange={onChangeLanguage}>
-            {languageOptions.map((option) => (
-              <MenuItem key={option.id} value={option.value}>
-                {t(option.label)}
-              </MenuItem>
-            ))}
-          </Select>
-        </Box> */}
       </Stack>
     </Box>
   );
