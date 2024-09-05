@@ -23,17 +23,38 @@ export default function Features() {
         display: 'flex',
         alignContent: 'center',
         gap: 2,
+        flexDirection: {
+          xs: 'column',
+          sm: 'row',
+        },
+        position: 'relative',
+        transform: {
+          xs: 'translateX(15%)',
+          sm: 'translateX(0)',
+        },
       }}
     >
-      {features.map((feature, index) => (
-        <Box key={feature} sx={{ display: 'flex', alignItems: 'center' }}>
+      {features.map((feature) => (
+        <Box
+          key={feature}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
           <Image
             src={`/images/image ${feature.icon}.png`}
             alt="image"
             width={50}
             height={50}
           />
-          <Typography sx={{ fontSize: { xs: 13, md: 15 } }}>
+          <Typography
+            sx={{
+              fontSize: { xs: 13, md: 15 },
+              whiteSpace: 'nowrap',
+            }}
+          >
             {feature.feat}
           </Typography>
         </Box>

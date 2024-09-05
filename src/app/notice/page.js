@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -17,11 +19,10 @@ export default function Notice() {
       spacing={3}
       sx={{
         gap: 2,
-        p: 2,
+        p: { xs: 0.5, sm: 2 },
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        lineHeight: 1.5,
       }}
     >
       <Grid item xs={16}>
