@@ -21,6 +21,7 @@ const list = [
       {
         id: 2,
         name: 'api-service-documents',
+        path: '',
       },
     ],
   },
@@ -30,10 +31,12 @@ const list = [
       {
         id: 1,
         name: 'local-phone',
+        path: '',
       },
       {
         id: 2,
         name: 'phone',
+        path: '',
       },
     ],
   },
@@ -43,10 +46,12 @@ const list = [
       {
         id: 1,
         name: 'sales-email',
+        path: '',
       },
       {
         id: 2,
         name: 'it-support-email',
+        path: '',
       },
     ],
   },
@@ -64,12 +69,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: {
-          xs: '100%',
-          sm: '100%',
-          md: '100%',
-          lg: '100%',
-        },
+        width: '100%',
         ...style,
       }}
     >
@@ -90,7 +90,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
             {item.items.map((_item, index) => (
               <Box
                 key={_item.id}
-                component="div"
                 sx={{
                   display: 'flex',
                   flexWrap: 'wrap',
@@ -98,9 +97,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   cursor: 'pointer',
                 }}
                 onClick={() => {
-                  if (_item.path) {
-                    router.push(_item.path);
-                  }
+                  router.push(_item.path);
                 }}
               >
                 <Typography
