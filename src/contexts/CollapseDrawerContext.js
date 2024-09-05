@@ -1,6 +1,9 @@
-import { useMediaQuery, useTheme } from '@mui/material';
+'use client';
+
+import { useMediaQuery } from '@mui/material';
 // eslint-disable-next-line object-curly-newline
 import { createContext, useContext, useEffect, useState } from 'react';
+import theme from '~/theme';
 
 const initialState = {
   collapseClick: false,
@@ -11,8 +14,8 @@ const initialState = {
 };
 
 const CollapseDrawerContext = createContext(initialState);
-function CollapseDrawerProvider({ children }) {
-  const theme = useTheme();
+
+export function CollapseDrawerProvider({ children }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [collapse, setCollapse] = useState({
     click: false,
@@ -52,4 +55,4 @@ function CollapseDrawerProvider({ children }) {
     </CollapseDrawerContext.Provider>
   );
 }
-export const useCollapseDrawer = () => useContext(CollapseDrawerContext);
+export const useCollapseDrawerContext = () => useContext(CollapseDrawerContext);

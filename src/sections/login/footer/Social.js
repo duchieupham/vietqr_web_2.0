@@ -30,32 +30,74 @@ const list = [
     ],
   },
 ];
-export default function Social() {
+export default function Social({ style }) {
   const t = useTranslations();
   return (
     <Box
-      component="div"
       sx={{
+        display: 'flex',
         width: '100%',
+        justifyContent: {
+          xs: 'center',
+          lg: 'flex-start',
+        },
+        ...style,
       }}
     >
       {list.map((item, index) => (
-        <Stack key={index} spacing={2}>
-          <Box component="div">{t(item.name)}</Box>
+        <Stack
+          key={index}
+          sx={{
+            flexDirection: {
+              xs: 'row',
+              md: 'column',
+            },
+            alignItems: {
+              xs: 'center',
+              lg: 'flex-start',
+            },
+            justifyContent: {
+              xs: 'space-between',
+              lg: 'flex-start',
+            },
+            gap: {
+              xs: 1,
+            },
+          }}
+        >
+          <Box
+            sx={{
+              whiteSpace: {
+                xs: 'nowrap',
+              },
+            }}
+          >
+            {t(item.name)}
+          </Box>
           <Stack
             sx={{
               display: 'flex',
               alignItems: 'center',
               flexDirection: 'row',
-              gap: '1rem',
+              gap: {
+                xs: '0.3rem',
+              },
               justifyItems: 'center',
+              flexWrap: {
+                xs: '',
+                md: 'wrap',
+              },
+              whiteSpace: 'nowrap',
             }}
           >
             {item.items.map((_item, index) => (
-              <Box key={index} component="div">
+              <Box key={index}>
                 <Link
                   href="/"
-                  style={{ textDecoration: 'none', color: '#00C6FF' }}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#00C6FF',
+                  }}
                 >
                   <Image
                     src={_item.url}
@@ -63,9 +105,10 @@ export default function Social() {
                     width={40}
                     height={40}
                     quality={100}
-                    objectFit="contain"
                     priority
-                    style={{}}
+                    style={{
+                      objectFit: 'contain',
+                    }}
                   />
                 </Link>
               </Box>

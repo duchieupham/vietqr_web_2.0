@@ -1,40 +1,73 @@
 'use client';
 
-import { Box, Grid, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import { useEffect } from 'react';
 import { FooterLogin } from '~/components/footer';
 import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/Navbar';
+import { useAppDispatch } from '~/redux/hook';
+import { setQr } from '~/redux/slices/qrSlice';
 import CreateQR from '~/sections/login/CreateQR';
+import { generateQrValue } from '~/utils/aesConvert';
 
 function Login() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const qrValue = generateQrValue();
+    dispatch(setQr(qrValue));
+  }, []);
+
   return (
-    <Stack sx={{ minHeight: '100vh' }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
       <Box component="nav">
         <Navbar />
       </Box>
-      <Box
+      <Stack
         component="main"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          p: {
+            xs: '16px',
+            sm: '32px',
+            md: '40px',
+          },
+          gap: {
+            xs: 2,
+            lg: 6,
+          },
+          flexDirection: {
+            xs: 'column-reverse',
+            md: 'row',
+          },
+          justifyContent: {
+            xs: 'center',
+            md: 'flex-end',
+            lg: 'center',
+          },
           alignItems: 'center',
-          flexDirection: 'column',
           flexGrow: 1,
         }}
       >
-        <Grid container columns={16} rowSpacing={3}>
-          <Grid item xs={8}>
-            <CreateQR />
-          </Grid>
-          <Grid item xs={8}>
-            <LoginForm />
-          </Grid>
-        </Grid>
-      </Box>
-      <Box component="footer" sx={{ mt: 'auto' }}>
+        <CreateQR />
+        <LoginForm />
+      </Stack>
+      <Box
+        component="footer"
+        sx={{
+          width: '100%',
+          mt: 'auto',
+        }}
+      >
         <FooterLogin />
       </Box>
-    </Stack>
+    </Box>
   );
 }
 

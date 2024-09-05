@@ -8,6 +8,7 @@ export default function CustomList({
   styles,
   defaultActive,
   style,
+  typographyStyle,
   ...props
 }) {
   const selectedTab = useRef(null);
@@ -20,7 +21,7 @@ export default function CustomList({
   };
 
   return (
-    <List component="div" className={styles.nav}>
+    <List className={styles.nav}>
       {list.map((item) => (
         <ListItemButton
           key={item.id}
@@ -50,6 +51,8 @@ export default function CustomList({
                 textDecoration: 'none',
               },
             },
+            display: 'flex',
+            justifyContent: 'center',
             ...style,
           }}
           disableRipple
@@ -68,12 +71,13 @@ export default function CustomList({
             <ListItemText
               sx={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 color: activeLink === item.id ? '#00c6ff' : 'inherit',
               }}
               primary={t(item.name)}
               className={`${activeLink === item.id ? styles.active : ''}`}
+              primaryTypographyProps={{
+                ...typographyStyle,
+              }}
             />
           </Link>
         </ListItemButton>

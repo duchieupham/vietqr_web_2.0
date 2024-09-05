@@ -1,8 +1,13 @@
-const { AuthContextProvider } = require('./AuthContext');
+import { AuthContextProvider } from './AuthContext';
+import { CollapseDrawerProvider } from './CollapseDrawerContext';
+import { AppContextProvider } from './AppContext';
 
 const ContextProvider = ({ children }) => (
-  // Add more context if any
-  <AuthContextProvider>{children}</AuthContextProvider>
+  <AppContextProvider>
+    <CollapseDrawerProvider>
+      <AuthContextProvider>{children}</AuthContextProvider>
+    </CollapseDrawerProvider>
+  </AppContextProvider>
 );
 
 export default ContextProvider;

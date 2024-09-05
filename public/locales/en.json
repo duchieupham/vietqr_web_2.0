@@ -4,5 +4,70 @@
   "phoneNumber": "Phone number*",
   "loginForm": "Login",
   "password": "",
-  "login": "Login"
+  "login": "Login",
+
+  "passwordRequired": "Password cannot be empty",
+  "passwordInvalid": "Invalid password",
+  "passwordConfirm": "Confirm password",
+  "passwordConfirmRequired": "Password confirmation cannot be empty",
+  "passwordConfirmInvalid": "Invalid password confirmation",
+  "passwordNotMatch": "Passwords do not match",
+  "passwordRegex": "Password must be 6 characters long, including uppercase, lowercase letters, and numbers",
+  "forgotPassword": "Forgot your login password?",
+
+  "loginFailed": "Login failed",
+  "loginSuccess": "Login successful",
+
+  "noAccount": "Register a new account",
+  "register": "Register a new account",
+  "registerSuccess": "Registration successful",
+  "registerFailed": "Registration failed",
+  "registerForm": "Register an account",
+
+  "phoneNo": "Phone number",
+  "phoneNumberRequired": "Phone number cannot be empty",
+  "phoneNumberInvalid": "Invalid phone number",
+  "phoneNumberHelperText": " ",
+  "phoneNumberWrong": "Incorrect phone number!",
+
+  "headerHome": "Home",
+  "headerQR": "Create QR code",
+  "headerServiceConnect": "Service connection",
+  "headerLogin": "Login",
+  "headerRegister": "Register",
+
+  "vietnamese": "Vietnamese",
+  "english": "English",
+
+  "contact": "Contact",
+
+  "overview": "OVERVIEW",
+  "instructions-documents": "Instructions & documents",
+  "api-service-documents": "API service documents",
+
+  "hotline": "HOTLINE",
+  "local-phone": "1900 6234",
+  "phone": "09 2233 3636",
+
+  "email": "EMAIL",
+  "sales-email": "sales@vietqr.vn",
+  "it-support-email": "itsupport@vietqr.vn",
+
+  "follow-us": "FOLLOW US ON",
+  "facebook": "Facebook",
+  "youtube": "YouTube",
+  "telegram": "Telegram",
+
+  "qr": "QR code",
+  "loginQR": "Login QR",
+  "downloadQR": "Download app QR",
+  "scanQR": "Scan login QR code",
+  "scanQRDescription": "Use the VietQR app to scan the login QR code to automatically log in to the website.",
+  "downloadApp": "Download VietQR app",
+
+  "invalidPhone&Password": "Invalid phone number or password",
+  "errorOccurred": "An error occurred!",
+
+  "notice": "Notice",
+  "noticeUpdateServiceFee": "NOTICE OF VIETQR SOFTWARE SERVICE FEE UPDATE"
 }

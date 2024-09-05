@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "minhdt",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.3",
     "cookies-next": "^4.2.1",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.12",
     "hamburger-react": "^2.5.1",
     "i18next": "^23.12.2",
@@ -36,11 +37,13 @@
     "react-multi-carousel": "^2.8.5",
     "react-qr-code": "^2.0.15",
     "react-redux": "^9.1.2",
+    "react-use-websocket": "3.0.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "sass": "^1.77.8",
     "simplebar-react": "^3.2.6",
     "styled-components": "^6.1.12",
+    "uuid": "^10.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

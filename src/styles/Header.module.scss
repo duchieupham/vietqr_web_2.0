@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 5px;
+  width: 100%;
 
   & .active {
-    font-size: 14px;
     font-weight: normal;
     align-items: center;
     color: #00c6ff;
@@ -21,12 +21,39 @@
   & .active::after {
     content: '';
     position: absolute;
-    bottom: -8px;
-    left: 10px;
-    width: 70%;
+    bottom: -5px;
+    left: 50%;
+    width: 100%;
     height: 2px;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     z-index: 1;
     transition: width 0.3s ease;
+    transform: translateX(-50%);
   }
+}
+
+.btn.active {
+  font-weight: normal;
+  align-items: center;
+  color: #00c6ff;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: flex;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease;
+}
+.btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  width: 70%;
+  height: 2px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  z-index: 1;
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
 }

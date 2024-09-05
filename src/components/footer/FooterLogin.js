@@ -12,7 +12,7 @@ function FooterLogin() {
       // console.log('API Response:', res.data); // Debugging
       setBankType(res.data);
     } catch (error) {
-      console.error('Error fetching bank types:', error);
+      // console.error('Error fetching bank types:', error);
     }
   };
 
@@ -21,21 +21,69 @@ function FooterLogin() {
   }, []);
 
   return (
-    <Box>
-      <Grid container columns={16}>
-        <Grid container item columns={16} sx={{ padding: '2rem' }}>
-          <Grid item xs={6}>
-            <Contact />
-          </Grid>
-          <Grid item xs={2} />
-          <Grid item xs={6}>
-            <Social />
-          </Grid>
+    <Box
+      sx={{
+        px: {
+          xs: 0,
+        },
+        pt: {
+          xxl: '1.5rem',
+        },
+      }}
+    >
+      <Grid
+        container
+        item
+        columns={12}
+        sx={{
+          flexDirection: {
+            xs: 'column',
+            md: 'row',
+          },
+          alignItems: {
+            xs: 'center',
+            lg: 'flex-start',
+          },
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          sx={{
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          <Contact
+            style={{
+              flexWrap: {
+                xs: 'wrap',
+                md: 'nowrap',
+              },
+            }}
+            stackStyle={{
+              margin: {
+                xs: '0 1rem',
+                sm: '0 3rem',
+              },
+              whiteSpace: 'nowrap',
+              flexGrow: 1,
+              marginBottom: {
+                xs: '0.5rem',
+                sm: '1rem',
+                md: '0.5rem',
+              },
+            }}
+          />
         </Grid>
-        <Grid item xs={16}>
-          <CarouselSlider initialValues={bankType} />
+        <Grid item xs={12} lg={6}>
+          <Social />
         </Grid>
       </Grid>
+      <Box>
+        <CarouselSlider initialValues={bankType} />
+      </Box>
     </Box>
   );
 }

@@ -9,7 +9,7 @@
   "passwordConfirmInvalid": "Xác nhận mật khẩu không hợp lệ",
   "passwordNotMatch": "Mật khẩu không trùng khớp",
   "passwordRegex": "Mật khẩu phải chứa 6 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường và số",
-  "forgotPassword": "Quên mật khẩu đăng nhập ?",
+  "forgotPassword": "Quên mật khẩu?",
 
   "loginForm": "Đăng nhập",
   "login": "Đăng nhập",
@@ -23,7 +23,7 @@
   "registerForm": "Đăng kí tài khoản",
 
   "phoneNo": "Số điện thoại",
-  "phoneNumberRequired": "Số điện thoại không được để trống",
+  "phoneNoRequired": "Số điện thoại không được để trống",
   "phoneNumberInvalid": "Số điện thoại không hợp lệ",
   "phoneNumberHelperText": " ",
   "phoneNumberWrong": "Số điện thoại không đúng!",
@@ -35,6 +35,7 @@
   "headerRegister": "Đăng ký",
 
   "vietnamese": "Tiếng Việt",
+  "english": "Tiếng Anh",
 
   "contact": "Liên hệ",
 
@@ -60,5 +61,14 @@
   "downloadQR": "QR tải ứng dụng",
   "scanQR": "Quét mã QR đăng nhập",
   "scanQRDescription": "Sử dụng ứng dụng VietQR để quét mã QR đăng nhập vào website tự động.",
-  "downloadApp": "Tải ứng dụng VietQR"
+  "downloadApp": "Tải ứng dụng VietQR",
+
+  "invalidPhone&Password": "Số điện thoại hoặc mật khẩu không hợp lệ. Vui lòng thử lại.",
+  "errorOccurred": "Đã xảy ra lỗi!",
+
+  "notice": "Thông báo",
+  "noticeUpdateServiceFee": "THÔNG BÁO CẬP NHẬT PHÍ DỊCH VỤ PHẦN MỀM VIETQR",
+  "noticeUpdateServiceFeeContent": "VietQR thông báo về việc áp dụng thu phí dịch vụ đối với các tính năng nhận Biến động số dư. Áp dụng cho các tài khoản ngân hàng đã tích hợp liên kết.",
+  "noticeUpdateServiceFeeContent2": "Phí dịch vụ sẽ được áp dụng từ ngày 02/05/2024. Chúng tôi hy vọng Quý khách hàng có những trải nghiệm dịch vụ tốt nhất mà VietQR mang lại.",
+  "noticeFeesApply": "Mức phí áp dụng"
 }

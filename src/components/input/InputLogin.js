@@ -38,12 +38,8 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
       } else {
         setPhoneNumberError({ status: false, message: '' });
       }
-      // console.log('Đây là số điện vừa nhập: ', value);
     } catch (error) {
       setPhoneNumberError({ status: true, message: error.message });
-    }
-    if (phoneNumberError.status) {
-      console.log(phoneNumberError.message);
     }
   };
 
@@ -103,7 +99,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
   };
 
   return (
-    <Box component="div">
+    <Box>
       <TextField
         variant="outlined"
         label={t(label)}
@@ -139,9 +135,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
         {...othersProp}
       />
       {phoneNumberError.status && (
-        <Box component="p" className={styles.error_message}>
-          {phoneNumberError.message}
-        </Box>
+        <Box className={styles.error_message}>{phoneNumberError.message}</Box>
       )}
     </Box>
   );

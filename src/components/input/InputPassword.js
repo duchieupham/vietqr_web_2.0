@@ -68,7 +68,6 @@ function InputPassword({
   return (
     <Box
       className={styles.circle_password_input}
-      component="div"
       sx={{
         marginBottom: '1rem',
       }}
@@ -101,7 +100,6 @@ function InputPassword({
         {...othersProp}
       />
       <Box
-        component="div"
         className={styles.circles}
         sx={{
           display: 'flex',
@@ -109,7 +107,6 @@ function InputPassword({
       >
         {[...Array(6)].map((_, index) => (
           <Box
-            component="div"
             key={index}
             className={`${styles.circle} ${passwordInput.length > index ? `${styles.filled}` : ''}`}
           />
@@ -117,7 +114,6 @@ function InputPassword({
       </Box>
       {errors && errors.password && (
         <Box
-          component="p"
           className={styles.error_message}
           sx={{
             marginTop: '4rem',
