@@ -37,9 +37,9 @@ import { useRouter } from 'next/navigation';
 import theme from '~/theme';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
+import VNIcon from '../icon/VNIcon';
 import CNIcon from '../icon/CNIcon';
 import USIcon from '../icon/USIcon';
-import VNIcon from '../icon/VNIcon';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
