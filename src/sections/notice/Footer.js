@@ -34,18 +34,18 @@ const buttonList = [
 ];
 
 export default function Footer() {
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Grid container>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} md={6}>
         <Box
           sx={{
             display: 'flex',
             gap: 2,
             flexDirection: {
               xs: 'column',
-              sm: 'row',
+              md: 'row',
             },
             justifyContent: 'center',
             alignItems: 'center',
@@ -92,7 +92,7 @@ export default function Footer() {
                 mt: 2,
                 justifyContent: {
                   xs: 'center',
-                  sm: 'flex-start',
+                  md: 'flex-start',
                 },
               }}
             >
@@ -121,19 +121,20 @@ export default function Footer() {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} md={6}>
         <Box
           sx={{
-            pr: { xs: 2, sm: 7 },
+            pr: { xs: 1, lg: 6 },
             mb: { xs: 6, sm: 0 },
           }}
         >
+          {/* Contact */}
           <Box
             sx={{
               display: 'flex',
               gap: 2,
               mb: 2,
-              justifyContent: 'flex-end',
+              justifyContent: { xs: 'center', md: 'flex-end' },
             }}
           >
             <Box sx={boxStyle}>
@@ -197,10 +198,11 @@ export default function Footer() {
               </Box>
             </Box>
           </Box>
+          {/* Document */}
           <Box
             sx={{
               display: 'flex',
-              justifyContent: { xs: 'center', sm: 'flex-end' },
+              justifyContent: { xs: 'center', md: 'flex-end' },
               gap: 2,
               mr: { xs: -2, sm: 0 },
             }}
@@ -209,7 +211,7 @@ export default function Footer() {
               <ButtonGradient
                 gradientColors={['#E1EFFF', '#E5F9FF']}
                 style={{
-                  width: isSmUp ? 190 : 106,
+                  width: isMdUp ? 190 : 106,
                   minHeight: 30,
                   color: '#000000',
                 }}
@@ -231,7 +233,7 @@ export default function Footer() {
                     textTransform: 'none',
                   }}
                 >
-                  {isSmUp ? 'Tài liệu hướng dẫn sử dụng' : 'HDSD'}
+                  {isMdUp ? 'Tài liệu hướng dẫn sử dụng' : 'HDSD'}
                 </Typography>
               </ButtonGradient>
             </Box>
@@ -239,7 +241,7 @@ export default function Footer() {
               <ButtonGradient
                 gradientColors={['#E1EFFF', '#E5F9FF']}
                 style={{
-                  width: isSmUp ? 106 : 84,
+                  width: isMdUp ? 106 : 84,
                   minHeight: 30,
                   color: '#000000',
                 }}
@@ -261,7 +263,7 @@ export default function Footer() {
                     textTransform: 'none',
                   }}
                 >
-                  {isSmUp ? 'Tài liệu API' : 'API'}
+                  {isMdUp ? 'Tài liệu API' : 'API'}
                 </Typography>
               </ButtonGradient>
             </Box>
@@ -292,7 +294,7 @@ export default function Footer() {
                     textTransform: 'none',
                   }}
                 >
-                  {isSmUp ? 'Cộng đồng VietQR' : 'Cộng đồng'}
+                  {isMdUp ? 'Cộng đồng VietQR' : 'Cộng đồng'}
                 </Typography>
               </ButtonGradient>
             </Box>

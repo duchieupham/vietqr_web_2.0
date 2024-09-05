@@ -25,12 +25,13 @@ export default function Features() {
         gap: 2,
         flexDirection: {
           xs: 'column',
-          sm: 'row',
+          md: 'row',
         },
         position: 'relative',
         transform: {
           xs: 'translateX(15%)',
-          sm: 'translateX(0)',
+          sm: 'translateX(30%)',
+          md: 'translateX(0)',
         },
       }}
     >
