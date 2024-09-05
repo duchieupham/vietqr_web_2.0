@@ -132,16 +132,18 @@ export default function FeesGrid() {
             ))}
           </Box> */}
           <Grid container>
+            <Grid item xs={3} />
             {promoItems.map((item, index) => (
-              <Grid item xs={4} key={item}>
+              <Grid item xs={3} key={index}>
                 <Box
                   sx={{
                     borderLeft: '1px solid #DADADA',
                     width: {
-                      xs: '60%',
+                      xs: '70',
                       sm: '100%',
                     },
-                    ml: 1.7,
+                    ml: { xs: 0.5, sm: 1.7 },
+                    py: 2,
                   }}
                 >
                   <Typography
@@ -184,7 +186,7 @@ export default function FeesGrid() {
             <Table>
               <TableBody>
                 {pricingData.map((data, index) => (
-                  <TableRow key={data}>
+                  <TableRow key={index}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
@@ -212,7 +214,7 @@ export default function FeesGrid() {
                     </TableCell>
                     {data.prices.map((price, _index) => (
                       <TableCell
-                        key={price}
+                        key={_index}
                         sx={{
                           border: '1px solid #DADADA',
                           maxWidth: 200,

@@ -48,7 +48,7 @@ export default function Social({ style }) {
     >
       {list.map((item, index) => (
         <Stack
-          key={item}
+          key={index}
           sx={{
             flexDirection: {
               xs: 'row',
@@ -94,7 +94,7 @@ export default function Social({ style }) {
             }}
           >
             {item.items.map((_item, index) => (
-              <Box key={_item} component="div">
+              <Box key={index} component="div">
                 <Link
                   href="/"
                   style={{
