@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { TextGradient } from '~/components/text';
 
 const promoItems = [
   { duration: '12 tháng', promo: 'Khuyến mãi 01 tháng' },
@@ -182,7 +183,7 @@ export default function FeesGrid() {
           >
             Mức phí
           </Typography>
-          <TableContainer sx={{ overflowX: 'auto' }}>
+          <TableContainer>
             <Table>
               <TableBody>
                 {pricingData.map((data, index) => (
@@ -190,8 +191,7 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        maxWidth: 400,
-                        minHeight: 80,
+                        maxHeight: 80,
                         width: { xs: '60%', md: '36%' },
                       }}
                     >
@@ -217,8 +217,8 @@ export default function FeesGrid() {
                         key={_index}
                         sx={{
                           border: '1px solid #DADADA',
-                          maxWidth: 200,
-                          maxHeight: 150,
+                          maxWidth: { xs: 100, sm: 200 },
+                          maxHeight: 80,
                         }}
                       >
                         <Box
@@ -228,15 +228,14 @@ export default function FeesGrid() {
                             gap: 0.5,
                           }}
                         >
-                          <Typography
+                          <TextGradient
                             sx={{
-                              color: '#1E427E',
                               fontSize: { xs: 15, md: 20 },
                               fontWeight: 'bold',
                             }}
                           >
                             {price}
-                          </Typography>
+                          </TextGradient>
                           <Typography
                             sx={{
                               alignSelf: 'flex-end',
@@ -268,7 +267,7 @@ export default function FeesGrid() {
           >
             Tính năng
           </Typography>
-          <TableContainer sx={{ overflowX: 'auto' }}>
+          <TableContainer>
             <Table>
               <TableBody>
                 {features.map((data, index) => (
