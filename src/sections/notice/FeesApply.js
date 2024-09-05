@@ -40,12 +40,7 @@ export default function FeesApply() {
       }}
     >
       <Box>
-        <Image
-          src="/images/image 499.png"
-          width={150}
-          height={97}
-          alt="image 499"
-        />
+        <Image src="/images/clap.png" width={150} height={97} alt="image 499" />
       </Box>
       <Box>
         <Typography
@@ -71,7 +66,7 @@ export default function FeesApply() {
           }}
           spacing={1}
         >
-          {feesApply('VND', 'THÁNG').map((item, key) => (
+          {feesApply('VND', 'THÁNG').map((item) => (
             <>
               <Box
                 key={item.id}

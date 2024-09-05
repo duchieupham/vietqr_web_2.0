@@ -57,9 +57,9 @@ export default function Notice() {
                 quality={100}
                 priority
                 alt="VietQR logo"
-                src="/images/image 282.png"
+                src="/images/VietQRLogo.png"
                 height={100}
-                width={isMdUp ? 203.33 : 101.67}
+                width={isMdUp ? 200 : 100}
                 style={{
                   objectFit: 'contain',
                 }}
@@ -110,7 +110,7 @@ export default function Notice() {
             }}
           >
             <Image
-              src="/images/image 500.png"
+              src="/images/bell.png"
               width={138}
               height={92}
               alt="image 498"

@@ -3,15 +3,15 @@ import Image from 'next/image';
 
 const features = [
   {
-    icon: '450',
+    icon: '/images/image 450.png',
     feat: 'Nhận thông báo biến động số dư',
   },
   {
-    icon: '404',
+    icon: '/images/image 404.png',
     feat: 'Chia sẻ BĐSD qua nền tảng mạng xã hội',
   },
   {
-    icon: '411',
+    icon: '/images/image 411.png',
     feat: 'Quản lý doanh thu các cửa hàng',
   },
 ];
@@ -44,12 +44,7 @@ export default function Features() {
             justifyContent: 'flex-start',
           }}
         >
-          <Image
-            src={`/images/image ${feature.icon}.png`}
-            alt="image"
-            width={50}
-            height={50}
-          />
+          <Image src={feature.icon} alt="image" width={50} height={50} />
           <Typography
             sx={{
               fontSize: { xs: 13, md: 15 },
