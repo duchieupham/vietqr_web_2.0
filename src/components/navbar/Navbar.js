@@ -44,7 +44,7 @@ import USIcon from '../icon/USIcon';
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
   { id: 2, label: 'english', value: 'en', icon: <USIcon /> },
-  { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
+  // { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
 ];
 
 export default function Navbar() {

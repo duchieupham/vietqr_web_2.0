@@ -1,4 +1,4 @@
-import useEncrypt from '~/hooks/useEncrypt';
+import useEncrypt from '~/utils/encrypt';
 import axios from 'axios';
 import axiosInstance from '../axios';
 

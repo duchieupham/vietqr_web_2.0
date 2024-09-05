@@ -34,7 +34,7 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
-import { phoneRegex } from '~/constants/phoneRegex';
+import { phoneRegex } from '~/constants';
 import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
