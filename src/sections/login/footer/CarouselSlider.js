@@ -90,7 +90,6 @@ export default function CarouselSlider({ initialValues }) {
         {images.length > 0 ? (
           images?.map((image) => (
             <Box
-              component="div"
               key={image.bankCode}
               sx={{
                 overflow: 'hidden',

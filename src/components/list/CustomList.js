@@ -21,7 +21,7 @@ export default function CustomList({
   };
 
   return (
-    <List component="div" className={styles.nav}>
+    <List className={styles.nav}>
       {list.map((item) => (
         <ListItemButton
           key={item.id}

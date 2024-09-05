@@ -93,7 +93,6 @@ export default function Navbar() {
       <Stack spacing={40}>
         <Box sx={{ marginBottom: '2rem', position: 'relative' }}>
           <Button
-            component="div"
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -134,7 +133,6 @@ export default function Navbar() {
 
   return (
     <Box
-      component="div"
       style={{
         width: '100%',
         position: 'sticky',
@@ -142,7 +140,6 @@ export default function Navbar() {
       }}
     >
       <Box
-        component="div"
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -152,7 +149,6 @@ export default function Navbar() {
         }}
       >
         <Box
-          component="div"
           sx={{
             justifyContent: 'space-between',
             display: 'flex',
@@ -181,7 +177,6 @@ export default function Navbar() {
           </IconButton>
           {/* Logo for xs screen sizes */}
           <Button
-            component="div"
             sx={{
               margin: '0 auto',
               display: {
@@ -307,7 +302,6 @@ export default function Navbar() {
           </Box>
           {/* Full Navbar for larger screens */}
           <Box
-            component="div"
             sx={{
               display: {
                 xs: 'none',
@@ -352,7 +346,6 @@ export default function Navbar() {
               </Grid>
               <Grid item xs={6}>
                 <Button
-                  component="div"
                   sx={{
                     display: 'flex',
                     alignItems: 'center',

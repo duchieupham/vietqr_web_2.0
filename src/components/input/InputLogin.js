@@ -99,7 +99,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
   };
 
   return (
-    <Box component="div">
+    <Box>
       <TextField
         variant="outlined"
         label={t(label)}
@@ -135,9 +135,7 @@ function InputLogin({ label, t, otherStyles, register, othersProp, errors }) {
         {...othersProp}
       />
       {phoneNumberError.status && (
-        <Box component="p" className={styles.error_message}>
-          {phoneNumberError.message}
-        </Box>
+        <Box className={styles.error_message}>{phoneNumberError.message}</Box>
       )}
     </Box>
   );

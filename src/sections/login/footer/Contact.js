@@ -63,7 +63,6 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
 
   return (
     <Box
-      component="div"
       sx={{
         display: 'flex',
         flexDirection: 'row',
@@ -80,7 +79,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           useFlexGap
           sx={{ width: 'fit-content', flexWrap: 'wrap', ...stackStyle }}
         >
-          <Box component="div">{t(item.name)}</Box>
+          <Box>{t(item.name)}</Box>
           <Stack
             spacing={1}
             sx={{

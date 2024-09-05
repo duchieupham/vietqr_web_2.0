@@ -34,8 +34,6 @@ export default function Social({ style }) {
   const t = useTranslations();
   return (
     <Box
-      // Why need component div?
-      component="div"
       sx={{
         display: 'flex',
         width: '100%',
@@ -68,7 +66,6 @@ export default function Social({ style }) {
           }}
         >
           <Box
-            component="div"
             sx={{
               whiteSpace: {
                 xs: 'nowrap',
@@ -94,7 +91,7 @@ export default function Social({ style }) {
             }}
           >
             {item.items.map((_item, index) => (
-              <Box key={index} component="div">
+              <Box key={index}>
                 <Link
                   href="/"
                   style={{

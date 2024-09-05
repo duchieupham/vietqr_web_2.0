@@ -193,11 +193,7 @@ export default function FeesGrid() {
                         border: '1px solid #DADADA',
                         maxHeight: 80,
                         width: { xs: '60%', md: '36%' },
-                        display: 'block',
-                        flexWrap: {
-                          xs: 'wrap',
-                          sm: 'nowrap',
-                        },
+                        height: 80,
                       }}
                     >
                       <Typography

@@ -91,7 +91,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           {list.map((item) => (
             <Button
               key={item.id}
-              component="button"
               sx={{
                 whiteSpace: 'nowrap',
                 display: 'flex',
