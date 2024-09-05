@@ -1,12 +1,9 @@
-import { AuthContextProvider } from './AuthContext';
-import { CollapseDrawerProvider } from './CollapseDrawerContext';
 import { AppContextProvider } from './AppContext';
+import { AuthContextProvider } from './AuthContext';
 
 const ContextProvider = ({ children }) => (
   <AppContextProvider>
-    <CollapseDrawerProvider>
-      <AuthContextProvider>{children}</AuthContextProvider>
-    </CollapseDrawerProvider>
+    <AuthContextProvider>{children}</AuthContextProvider>
   </AppContextProvider>
 );
 

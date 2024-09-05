@@ -44,7 +44,7 @@ import USIcon from '../icon/USIcon';
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
   { id: 2, label: 'english', value: 'en', icon: <USIcon /> },
-  { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
+  // { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
 ];
 
 export default function Navbar() {
@@ -261,6 +261,7 @@ export default function Navbar() {
               onChange={onChangeLanguage}
               IconComponent={ExpandMoreIcon}
               renderValue={(selected) => {
+                if (!selected) return null;
                 const selectedOption = languageOptions.find(
                   (option) => option.value === selected,
                 );
@@ -407,6 +408,17 @@ export default function Navbar() {
                 value={language}
                 onChange={onChangeLanguage}
                 IconComponent={ExpandMoreIcon}
+                renderValue={(selected) => {
+                  const selectedOption = languageOptions.find(
+                    (option) => option.value === selected,
+                  );
+                  return selectedOption ? (
+                    <>
+                      {selectedOption.icon}
+                      {t(selectedOption.label)}
+                    </>
+                  ) : null;
+                }}
                 sx={{
                   '.MuiOutlinedInput-notchedOutline': {
                     border: 'none',

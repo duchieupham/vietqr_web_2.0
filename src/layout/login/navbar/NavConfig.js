@@ -1,4 +1,4 @@
-import { PATH_PAGE } from '~/routes/path';
+import { PATH_PAGE } from '~/constants';
 
 export const navConfig = [
   {

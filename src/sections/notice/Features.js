@@ -3,15 +3,15 @@ import Image from 'next/image';
 
 const features = [
   {
-    icon: '/images/image 450.png',
+    icon: '/images/wallet.png',
     feat: 'Nhận thông báo biến động số dư',
   },
   {
-    icon: '/images/image 404.png',
+    icon: '/images/global.png',
     feat: 'Chia sẻ BĐSD qua nền tảng mạng xã hội',
   },
   {
-    icon: '/images/image 411.png',
+    icon: '/images/House.png',
     feat: 'Quản lý doanh thu các cửa hàng',
   },
 ];

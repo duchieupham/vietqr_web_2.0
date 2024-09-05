@@ -228,7 +228,6 @@ export default function Footer() {
                       md: 12,
                     },
                     whiteSpace: 'nowrap',
-                    width: 153,
                     minHeight: 15,
                     textTransform: 'none',
                   }}
@@ -278,7 +277,7 @@ export default function Footer() {
               >
                 <Image
                   quality={100}
-                  src="/images/image 488.png"
+                  src="/images/telegram.png"
                   alt="image 488"
                   width={30}
                   height={30}
