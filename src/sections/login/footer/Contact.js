@@ -86,7 +86,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
               ...subStackStyle,
             }}
           >
-            {item.items.map((_item, index) => (
+            {item.items.map((_item) => (
               <Box
                 key={_item.id}
                 sx={{

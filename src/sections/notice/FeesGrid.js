@@ -191,8 +191,7 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        maxHeight: 80,
-                        width: { xs: '60%', md: '36%' },
+                        width: { xs: 90, sm: 400 },
                         height: 80,
                       }}
                     >
@@ -218,8 +217,8 @@ export default function FeesGrid() {
                         key={_index}
                         sx={{
                           border: '1px solid #DADADA',
-                          maxWidth: { xs: 100, sm: 200 },
-                          maxHeight: 80,
+                          width: { xs: 100, sm: 200 },
+                          height: 80,
                         }}
                       >
                         <Box
@@ -281,9 +280,8 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        maxWidth: 400,
-                        minHeight: 80,
-                        width: { xs: '60%', md: '36%' },
+                        width: { xs: 90, sm: 400 },
+                        height: 80,
                       }}
                     >
                       <Typography

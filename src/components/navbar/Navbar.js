@@ -425,7 +425,7 @@ export default function Navbar() {
                   },
                 }}
               >
-                {languageOptions.map((option, index) => (
+                {languageOptions.map((option) => (
                   <MenuItem
                     key={option.id}
                     value={option.value}
