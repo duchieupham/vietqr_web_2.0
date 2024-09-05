@@ -167,7 +167,7 @@ export default function Notice() {
           <Box>
             <Image
               alt="image 422"
-              src="/images/image 422.png"
+              src="/images/CustomMeta.png"
               width={150}
               height={150}
             />
