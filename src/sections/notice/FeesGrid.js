@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { TextGradient } from '~/components/text';
 
 const promoItems = [
   { duration: '12 tháng', promo: 'Khuyến mãi 01 tháng' },
@@ -86,51 +87,88 @@ export default function FeesGrid() {
             alt="image 498"
           />
         </Grid>
-        <Grid item xs={12} md={8} sx={{ display: 'flex' }}>
-          {promoItems.map((item, index) => (
-            <Box
-              key={index}
-              sx={{
-                minWidth: 200,
-                minHeight: 80,
-                alignContent: 'center',
-                display: 'flex',
-                gap: 2,
-                p: 2,
-                pl: 0,
-                ml: { xs: 0, sm: -0.5 },
-                mr: 2,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <Box sx={{ ...lineStyle, width: '1px' }} />
+        <Grid item xs={12} md={8}>
+          {/* <Box sx={{ display: 'flex' }}>
+            {promoItems.map((item, index) => (
               <Box
                 sx={{
+                  minWidth: 200,
+                  minHeight: 80,
                   alignContent: 'center',
-                  mb: 3,
+                  display: 'flex',
+                  gap: 2,
+                  p: 2,
+                  pl: 0,
+                  ml: { xs: 0, sm: -0.5 },
+                  mr: 2,
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    fontWeight: 'bold',
-                    color: '#1E427E',
-                    fontSize: { xs: 15, md: 20 },
+                    alignContent: 'center',
+                    mb: 3,
                   }}
                 >
-                  {item.duration}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: '#EC2232',
-                    fontSize: { xs: 12, md: 15 },
-                  }}
-                >
-                  {item.promo}
-                </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: 'bold',
+                      color: '#1E427E',
+                      fontSize: { xs: 15, md: 20 },
+                    }}
+                  >
+                    {item.duration}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: '#EC2232',
+                      fontSize: { xs: 12, md: 15 },
+                    }}
+                  >
+                    {item.promo}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
+          </Box> */}
+          <Grid container>
+            <Grid item xs={3} sm="auto" />
+            {promoItems.map((item) => (
+              <Grid item xs={3} sm={4} key={item.duration}>
+                <Box
+                  sx={{
+                    borderLeft: '1px solid #DADADA',
+                    width: {
+                      xs: '70',
+                      sm: '100%',
+                    },
+                    ml: { xs: 0, sm: 1.7 },
+                    py: 2,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: 'bold',
+                      color: '#1E427E',
+                      fontSize: { xs: 15, md: 20 },
+                    }}
+                  >
+                    {item.duration}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: '#EC2232',
+                      fontSize: { xs: 12, md: 15 },
+                    }}
+                  >
+                    {item.promo}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <Typography
@@ -145,16 +183,16 @@ export default function FeesGrid() {
           >
             Mức phí
           </Typography>
-          <TableContainer sx={{ overflowX: 'auto' }}>
+          <TableContainer>
             <Table>
               <TableBody>
-                {pricingData.map((data, index) => (
-                  <TableRow key={index}>
+                {pricingData.map((data) => (
+                  <TableRow key={data.category}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        maxWidth: 400,
-                        minHeight: 80,
+                        width: { xs: 90, sm: 400 },
+                        height: 80,
                       }}
                     >
                       <Typography
@@ -179,31 +217,35 @@ export default function FeesGrid() {
                         key={_index}
                         sx={{
                           border: '1px solid #DADADA',
-                          maxWidth: 200,
-                          maxHeight: 150,
+                          width: { xs: 100, sm: 200 },
+                          height: 80,
                         }}
                       >
                         <Box
                           sx={{
                             display: 'flex',
+                            flexWrap: {
+                              xs: 'wrap',
+                              sm: 'nowrap',
+                            },
                             justifyContent: 'center',
                             gap: 0.5,
                           }}
                         >
-                          <Typography
-                            sx={{
-                              color: '#1E427E',
+                          <TextGradient
+                            style={{
                               fontSize: { xs: 15, md: 20 },
                               fontWeight: 'bold',
                             }}
                           >
                             {price}
-                          </Typography>
+                          </TextGradient>
                           <Typography
                             sx={{
                               alignSelf: 'flex-end',
                               mb: 0.2,
                               color: '#666A72',
+                              fontSize: 12,
                             }}
                           >
                             VND
@@ -230,7 +272,7 @@ export default function FeesGrid() {
           >
             Tính năng
           </Typography>
-          <TableContainer sx={{ overflowX: 'auto' }}>
+          <TableContainer>
             <Table>
               <TableBody>
                 {features.map((data, index) => (
@@ -238,9 +280,8 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        maxWidth: 400,
-                        minHeight: 80,
-                        width: { xs: '60%', md: '30.5%' },
+                        width: { xs: 90, sm: 400 },
+                        height: 80,
                       }}
                     >
                       <Typography

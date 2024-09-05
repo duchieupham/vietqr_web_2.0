@@ -23,9 +23,11 @@ const textBoxStyle = {
 
 const buttonList = [
   {
+    id: 1,
     icon: '494',
   },
   {
+    id: 2,
     icon: '495',
   },
 ];
@@ -60,7 +62,7 @@ export default function Footer() {
             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
               {buttonList.map((button) => (
                 <Button
-                  key={button}
+                  key={button.id}
                   disableRipple
                   sx={{
                     p: 0,

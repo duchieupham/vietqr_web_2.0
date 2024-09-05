@@ -14,11 +14,14 @@ const list = [
     name: 'overview',
     items: [
       {
+        id: 1,
         name: 'instructions-documents',
         path: '/notice',
       },
       {
+        id: 2,
         name: 'api-service-documents',
+        path: '',
       },
     ],
   },
@@ -26,10 +29,14 @@ const list = [
     name: 'hotline',
     items: [
       {
+        id: 1,
         name: 'local-phone',
+        path: '',
       },
       {
+        id: 2,
         name: 'phone',
+        path: '',
       },
     ],
   },
@@ -37,10 +44,14 @@ const list = [
     name: 'email',
     items: [
       {
+        id: 1,
         name: 'sales-email',
+        path: '',
       },
       {
+        id: 2,
         name: 'it-support-email',
+        path: '',
       },
     ],
   },
@@ -52,18 +63,12 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
 
   return (
     <Box
-      component="div"
       sx={{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: {
-          xs: '100%',
-          sm: '100%',
-          md: '100%',
-          lg: '100%',
-        },
+        width: '100%',
         ...style,
       }}
     >
@@ -74,17 +79,16 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           useFlexGap
           sx={{ width: 'fit-content', flexWrap: 'wrap', ...stackStyle }}
         >
-          <Box component="div">{t(item.name)}</Box>
+          <Box>{t(item.name)}</Box>
           <Stack
             spacing={1}
             sx={{
               ...subStackStyle,
             }}
           >
-            {item.items.map((_item, index) => (
+            {item.items.map((_item) => (
               <Box
-                key={index}
-                component="div"
+                key={_item.id}
                 sx={{
                   display: 'flex',
                   flexWrap: 'wrap',
@@ -92,9 +96,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   cursor: 'pointer',
                 }}
                 onClick={() => {
-                  if (_item.path) {
-                    router.push(_item.path);
-                  }
+                  router.push(_item.path);
                 }}
               >
                 <Typography

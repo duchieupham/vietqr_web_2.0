@@ -93,7 +93,6 @@ export default function Navbar() {
       <Stack spacing={40}>
         <Box sx={{ marginBottom: '2rem', position: 'relative' }}>
           <Button
-            component="div"
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -128,44 +127,12 @@ export default function Navbar() {
             }}
           />
         </Box>
-        {/* <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'absolute',
-            bottom: 0,
-            width: '85%',
-            paddingBottom: '2rem',
-          }}
-        >
-          <Button
-            sx={{
-              color: 'black',
-              fontSize: '1rem',
-              fontWeight: 'normal',
-              textTransform: 'none',
-              gap: '0.5rem',
-              marginBottom: '1rem',
-            }}
-          >
-            <HeadphonesOutlinedIcon />
-            {t('contact')}
-          </Button>
-          <Select value={language} onChange={onChangeLanguage}>
-            {languageOptions.map((option) => (
-              <MenuItem key={option.id} value={option.value}>
-                {t(option.label)}
-              </MenuItem>
-            ))}
-          </Select>
-        </Box> */}
       </Stack>
     </Box>
   );
 
   return (
     <Box
-      component="div"
       style={{
         width: '100%',
         position: 'sticky',
@@ -173,7 +140,6 @@ export default function Navbar() {
       }}
     >
       <Box
-        component="div"
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -183,7 +149,6 @@ export default function Navbar() {
         }}
       >
         <Box
-          component="div"
           sx={{
             justifyContent: 'space-between',
             display: 'flex',
@@ -212,7 +177,6 @@ export default function Navbar() {
           </IconButton>
           {/* Logo for xs screen sizes */}
           <Button
-            component="div"
             sx={{
               margin: '0 auto',
               display: {
@@ -338,7 +302,6 @@ export default function Navbar() {
           </Box>
           {/* Full Navbar for larger screens */}
           <Box
-            component="div"
             sx={{
               display: {
                 xs: 'none',
@@ -383,7 +346,6 @@ export default function Navbar() {
               </Grid>
               <Grid item xs={6}>
                 <Button
-                  component="div"
                   sx={{
                     display: 'flex',
                     alignItems: 'center',

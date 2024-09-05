@@ -429,7 +429,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
             defaultValue=""
             render={({ field }) => (
               <Box
-                component="div"
                 sx={{
                   position: 'relative',
                   display: 'flex',
@@ -479,7 +478,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   // {...{ disabled: !isCompleted.phoneNo }}
                 />
                 <Box
-                  component="div"
                   className={styles.circles}
                   sx={{
                     display: 'flex',
@@ -490,7 +488,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                 >
                   {[...Array(6)].map((_, index) => (
                     <Box
-                      component="div"
                       key={index}
                       className={`${styles.circle} ${
                         passwordRef.length > index ? styles.filled : ''
