@@ -132,9 +132,9 @@ export default function FeesGrid() {
             ))}
           </Box> */}
           <Grid container>
-            <Grid item xs={3} />
+            <Grid item xs={3} sm="auto" />
             {promoItems.map((item, index) => (
-              <Grid item xs={3} key={index}>
+              <Grid item xs={3} sm={4} key={index}>
                 <Box
                   sx={{
                     borderLeft: '1px solid #DADADA',
@@ -142,7 +142,7 @@ export default function FeesGrid() {
                       xs: '70',
                       sm: '100%',
                     },
-                    ml: { xs: 0.5, sm: 1.7 },
+                    ml: { xs: 0, sm: 1.7 },
                     py: 2,
                   }}
                 >

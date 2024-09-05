@@ -14,10 +14,12 @@ const list = [
     name: 'overview',
     items: [
       {
+        id: 1,
         name: 'instructions-documents',
         path: '/notice',
       },
       {
+        id: 2,
         name: 'api-service-documents',
       },
     ],
@@ -26,9 +28,11 @@ const list = [
     name: 'hotline',
     items: [
       {
+        id: 1,
         name: 'local-phone',
       },
       {
+        id: 2,
         name: 'phone',
       },
     ],
@@ -37,9 +41,11 @@ const list = [
     name: 'email',
     items: [
       {
+        id: 1,
         name: 'sales-email',
       },
       {
+        id: 2,
         name: 'it-support-email',
       },
     ],
@@ -83,7 +89,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           >
             {item.items.map((_item, index) => (
               <Box
-                key={_item}
+                key={_item.id}
                 component="div"
                 sx={{
                   display: 'flex',
