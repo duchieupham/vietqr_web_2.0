@@ -25,11 +25,11 @@ const textBoxStyle = {
 const buttonList = [
   {
     id: 1,
-    icon: '494',
+    icon: '/images/image 494.png',
   },
   {
     id: 2,
-    icon: '495',
+    icon: '/images/image 495.png',
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Footer() {
                 >
                   <Link target="_blank" href="https://onelink.to/q7zwpe">
                     <Image
-                      src={`/images/image ${button.icon}.png`}
+                      src={button.icon}
                       alt="image"
                       width={165.14}
                       height={40}
@@ -141,7 +141,7 @@ export default function Footer() {
               <Box sx={textBoxStyle}>
                 <Image
                   quality={100}
-                  src="/images/image 487.png"
+                  src="/images/phone.png"
                   width={30}
                   height={30}
                   alt="image 487"
