@@ -25,11 +25,11 @@ const textBoxStyle = {
 const buttonList = [
   {
     id: 1,
-    icon: '494',
+    icon: '/images/AppleStore.png',
   },
   {
     id: 2,
-    icon: '495',
+    icon: '/images/CHPlayStore.png',
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Footer() {
                 >
                   <Link target="_blank" href="https://onelink.to/q7zwpe">
                     <Image
-                      src={`/images/image ${button.icon}.png`}
+                      src={button.icon}
                       alt="image"
                       width={165.14}
                       height={40}
@@ -141,19 +141,19 @@ export default function Footer() {
               <Box sx={textBoxStyle}>
                 <Image
                   quality={100}
-                  src="/images/image 487.png"
+                  src="/images/phone.png"
                   width={30}
                   height={30}
-                  alt="image 487"
+                  alt="phone"
                 />
                 <Typography>1900 6234</Typography>
               </Box>
               <Box sx={textBoxStyle}>
                 <Image
-                  src="/images/image 489.png"
+                  src="/images/mail.png"
                   width={30}
                   height={30}
-                  alt="image 487"
+                  alt="mail"
                 />
                 <Typography>sales@vietqr.vn</Typography>
               </Box>
@@ -180,7 +180,7 @@ export default function Footer() {
             <Box sx={boxStyle}>
               <Box sx={textBoxStyle}>
                 <Image
-                  src="/images/image 487.png"
+                  src="/images/phone.png"
                   width={30}
                   height={30}
                   alt="image 487"
@@ -189,7 +189,7 @@ export default function Footer() {
               </Box>
               <Box sx={textBoxStyle}>
                 <Image
-                  src="/images/image 489.png"
+                  src="/images/mail.png"
                   width={30}
                   height={30}
                   alt="image 487"
