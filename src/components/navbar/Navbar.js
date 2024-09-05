@@ -261,6 +261,7 @@ export default function Navbar() {
               onChange={onChangeLanguage}
               IconComponent={ExpandMoreIcon}
               renderValue={(selected) => {
+                if (!selected) return null;
                 const selectedOption = languageOptions.find(
                   (option) => option.value === selected,
                 );
@@ -407,6 +408,17 @@ export default function Navbar() {
                 value={language}
                 onChange={onChangeLanguage}
                 IconComponent={ExpandMoreIcon}
+                renderValue={(selected) => {
+                  const selectedOption = languageOptions.find(
+                    (option) => option.value === selected,
+                  );
+                  return selectedOption ? (
+                    <>
+                      {selectedOption.icon}
+                      {t(selectedOption.label)}
+                    </>
+                  ) : null;
+                }}
                 sx={{
                   '.MuiOutlinedInput-notchedOutline': {
                     border: 'none',

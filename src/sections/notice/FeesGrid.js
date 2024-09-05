@@ -41,13 +41,6 @@ const features = [
   { feat: 'Thống kê dữ liệu', active: [true, true, true] },
 ];
 
-const lineStyle = {
-  width: '1px',
-  height: '100px',
-  backgroundColor: '#DADADA',
-  mx: 3,
-};
-
 export default function FeesGrid() {
   const t = useTranslations();
   const fees =
@@ -145,6 +138,7 @@ export default function FeesGrid() {
                     },
                     ml: { xs: 0, sm: 1.7 },
                     py: 2,
+                    px: 0.5,
                   }}
                 >
                   <Typography
@@ -183,7 +177,11 @@ export default function FeesGrid() {
           >
             Mức phí
           </Typography>
-          <TableContainer>
+          <TableContainer
+            sx={{
+              overflowX: 'hidden',
+            }}
+          >
             <Table>
               <TableBody>
                 {pricingData.map((data) => (
@@ -191,14 +189,16 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        width: { xs: 90, sm: 400 },
+                        width: { xs: 70, sm: 335 },
                         height: 80,
+                        px: { xs: 0.3, sm: 2 },
                       }}
                     >
                       <Typography
                         sx={{
                           color: '#1E427E',
                           fontSize: { xs: 13, md: 15 },
+                          width: { xs: 85, sm: 200 },
                         }}
                       >
                         {data.category}
@@ -207,6 +207,7 @@ export default function FeesGrid() {
                         sx={{
                           color: '#EC2232',
                           fontSize: { xs: 10, md: 12 },
+                          width: { xs: 70, sm: 200 },
                         }}
                       >
                         {data.includesVAT}
@@ -217,8 +218,9 @@ export default function FeesGrid() {
                         key={_index}
                         sx={{
                           border: '1px solid #DADADA',
-                          width: { xs: 100, sm: 200 },
+                          width: { xs: 80, sm: 200 },
                           height: 80,
+                          p: 0.3,
                         }}
                       >
                         <Box
@@ -280,14 +282,16 @@ export default function FeesGrid() {
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
-                        width: { xs: 90, sm: 400 },
+                        width: { xs: 70, sm: 335 },
                         height: 80,
+                        px: { xs: 0.3, sm: 2 },
                       }}
                     >
                       <Typography
                         sx={{
                           color: '#1E427E',
                           fontSize: { xs: 13, md: 15 },
+                          width: { xs: 88, sm: 200 },
                         }}
                       >
                         {data.feat}
@@ -298,8 +302,9 @@ export default function FeesGrid() {
                         key={__index}
                         sx={{
                           border: '1px solid #DADADA',
-                          minWidth: 200,
                           minHeight: 80,
+                          width: { xs: 80, sm: 200 },
+                          p: 0,
                         }}
                       >
                         <Box
