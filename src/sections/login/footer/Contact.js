@@ -7,6 +7,7 @@ import { Box, Stack, Typography } from '@mui/material';
 
 // others
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const list = [
@@ -59,7 +60,6 @@ const list = [
 
 export default function Contact({ style, stackStyle, subStackStyle }) {
   const t = useTranslations();
-  const router = useRouter();
 
   return (
     <Box
@@ -95,20 +95,25 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
                   width: '100%',
                   cursor: 'pointer',
                 }}
-                onClick={() => {
-                  router.push(_item.path);
-                }}
               >
-                <Typography
+                <Link
+                  target="_blank"
+                  href={_item.path}
                   style={{
                     textDecoration: 'none',
-                    color: '#00C6FF',
-                    display: 'block',
-                    width: '100%',
                   }}
                 >
-                  {t(_item.name)}
-                </Typography>
+                  <Typography
+                    style={{
+                      textDecoration: 'none',
+                      color: '#00C6FF',
+                      display: 'block',
+                      width: '100%',
+                    }}
+                  >
+                    {t(_item.name)}
+                  </Typography>
+                </Link>
               </Box>
             ))}
           </Stack>

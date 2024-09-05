@@ -26,15 +26,11 @@ export function AuthContextProvider({ children }) {
   const [loading, setLoading] = useState(initialContext.loading);
 
   const authenticate = (data) => {
-    setLoading(true);
     setSession(decodeJwt(data));
     setCookie(AUTH_COOKIE, data, {
       secure: true,
     });
-    setTimeout(() => {
-      router.push('/dashboard');
-      setLoading(false);
-    }, [2000]);
+    router.push('/dashboard');
   };
 
   const clear = useCallback(() => {
