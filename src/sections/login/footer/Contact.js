@@ -69,7 +69,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
     >
       {list.map((item, index) => (
         <Stack
-          key={index}
+          key={item}
           spacing={2}
           useFlexGap
           sx={{ width: 'fit-content', flexWrap: 'wrap', ...stackStyle }}
@@ -83,7 +83,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           >
             {item.items.map((_item, index) => (
               <Box
-                key={index}
+                key={_item}
                 component="div"
                 sx={{
                   display: 'flex',

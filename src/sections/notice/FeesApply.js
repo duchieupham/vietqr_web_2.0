@@ -54,7 +54,11 @@ export default function FeesApply() {
               xs: 15,
               md: 20,
             },
-            mb: '20px',
+            mb: {
+              xs: 1,
+              md: 2,
+            },
+            color: '#000000',
           }}
         >
           {t('noticeFeesApply')}
@@ -65,12 +69,12 @@ export default function FeesApply() {
             display: 'flex',
             justifyContent: 'space-around',
           }}
-          spacing={2}
+          spacing={1}
         >
           {feesApply('VND', 'THÁNG').map((item, key) => (
             <>
               <Box
-                key={item.id || key}
+                key={item.id}
                 sx={{
                   marginLeft: { xs: 0, md: 25 },
                 }}

@@ -29,7 +29,7 @@ export default function Notice() {
           sx={{
             position: 'relative',
             transition: 'translateX(50%)',
-            left: { xs: '20%',sm: '35%', md: '40%' },
+            left: { xs: '20%', sm: '35%', md: '40%' },
             '&:hover': {
               backgroundColor: 'transparent',
             },
@@ -102,9 +102,12 @@ export default function Notice() {
             />
           </Box>
           <Stack
-            spacing={{ xs: 9, md: 2 }}
+            spacing={{ xs: 8, md: 2 }}
             sx={{
-              alignItems: 'flex-start',
+              alignItems: {
+                xs: 'center',
+                md: 'start',
+              },
               color: '#1E427E',
               textAlign: {
                 xs: 'center',
