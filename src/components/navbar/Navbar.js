@@ -231,7 +231,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: -4, lg: 0 },
+                    marginLeft: { xs: 'auto', md: -4, lg: 10, xl: '5rem' },
                   }}
                   disableRipple
                 >
@@ -247,7 +247,7 @@ export default function Navbar() {
                   </Link>
                 </Button>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid item xs={6} md={3} lg={4}>
                 <ContactLangButton languageOptions={languageOptions} />
               </Grid>
             </Grid>
