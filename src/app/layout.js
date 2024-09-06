@@ -1,12 +1,12 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
-import theme from '~/theme';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import ContextProvider from '~/contexts/ContextProvider';
-import StoreProvider from './StoreProvider';
+import theme from '~/theme';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
+import StoreProvider from './StoreProvider';
 
 export const metadata = {
   title: 'VietQR',

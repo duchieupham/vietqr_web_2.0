@@ -27,9 +27,9 @@ function LoadingContainer() {
     >
       <Image
         alt="logo"
-        src="/images/logo.png"
+        src="/images/VietQRLogo.png"
         width={300}
-        height={120}
+        height={150}
         priority
       />
       <GradientCircularProgress />

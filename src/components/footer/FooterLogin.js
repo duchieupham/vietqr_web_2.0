@@ -49,7 +49,7 @@ function FooterLogin() {
         <Grid
           item
           xs={12}
-          lg={6}
+          md={6}
           sx={{
             width: '100%',
             position: 'relative',
@@ -77,7 +77,7 @@ function FooterLogin() {
             }}
           />
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} md={6}>
           <Social />
         </Grid>
       </Grid>

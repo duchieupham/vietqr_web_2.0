@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListItemText } from '@mui/material';
+import { Box, List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
@@ -25,9 +25,7 @@ export default function CustomList({
       {list.map((item) => (
         <ListItemButton
           key={item.id}
-          alignItems="center"
           selected={activeLink === item.id}
-          className={styles.nav__links}
           sx={{
             borderRadius: '8px',
             transition:
