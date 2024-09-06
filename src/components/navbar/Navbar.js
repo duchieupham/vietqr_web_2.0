@@ -1,23 +1,9 @@
 // eslint-disable-next-line object-curly-newline
 // mui
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import {
-  Box,
-  Button,
-  Drawer,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  Stack,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Drawer, Grid, IconButton, Stack } from '@mui/material';
 // constants
-import { LOCALE_COOKIE } from '~/constants';
 import AppImages from '~/constants/ImagesConstant';
 // contexts
-import { useAppContext } from '~/contexts/AppContext';
 // react
 import { useState } from 'react';
 // next
@@ -30,15 +16,12 @@ import styles from '~styles/Header.module.scss';
 import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
-import { setCookie } from 'cookies-next';
 import Hamburger from 'hamburger-react';
-import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import theme from '~/theme';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
-import VNIcon from '../icon/VNIcon';
 import USIcon from '../icon/USIcon';
+import VNIcon from '../icon/VNIcon';
 import SysFuncButton from '../SysFuncButton';
 
 const languageOptions = [
@@ -47,20 +30,11 @@ const languageOptions = [
 ];
 
 export default function Navbar() {
-  const t = useTranslations();
-  const { language, setLanguage } = useAppContext();
   const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
-
-  const onChangeLanguage = (e) => {
-    const locale = e.target.value;
-    setCookie(LOCALE_COOKIE, locale);
-    setLanguage(locale);
-    router.refresh();
-  };
 
   const toggleDrawer = (open) => (event) => {
     if (

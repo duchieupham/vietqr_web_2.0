@@ -69,7 +69,7 @@ export default function SysFuncButton({
           return selectedOption ? (
             <>
               {selectedOption.icon}
-              {!mobile && t(selectedOption.label)}
+              {isMdUp && t(selectedOption.label)}
             </>
           ) : null;
         }}

@@ -26,7 +26,7 @@ export default function CreateQR({ ...props }) {
   const [qrUrl, setQrUrl] = useState('');
   const { qr } = useAppSelector((store) => store.qr);
   const { qrValue } = qr;
-  const [qrState, setQrState] = useState(t('loginQR'));
+  const [qrState, setQrState] = useState('loginQR');
 
   const handleClick = (option) => {
     selectedOption.current = option;
@@ -74,7 +74,7 @@ export default function CreateQR({ ...props }) {
           display: 'flex',
           flexDirection: 'column',
           mb: {
-            xs: '5.5rem',
+            xs: '6rem',
             lg: 0,
           },
         }}
@@ -198,11 +198,10 @@ function OptionButton({ t, qrState, handleClick }) {
             height: '50px',
             width: { xs: '100px', sm: '150px' },
             borderRadius: '10px',
-            color: qrState === t(item.name) ? '#00c6ff' : 'inherit',
+            color: qrState === item.name ? '#00c6ff' : 'inherit',
             transition:
               'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-            backgroundColor:
-              qrState === t(item.name) ? 'transparent' : 'initial',
+            backgroundColor: qrState === item.name ? 'transparent' : 'initial',
             '&:hover': {
               background:
                 'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255, 1.0))',
