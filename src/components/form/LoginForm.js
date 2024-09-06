@@ -246,21 +246,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         justifyContent: 'center',
         width: {
           xs: '100%',
-          md: '100%',
-          lg: '47%',
           lg: '47%',
         },
         ...containerStyle,
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          sx={{
-            alignSelf: 'flex-start',
-          }}
-        >
-          <TextGradient>{t('login')}</TextGradient>
-        </Box>
         <Box
           sx={{
             alignSelf: 'flex-start',

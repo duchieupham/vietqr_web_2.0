@@ -39,8 +39,9 @@ export default function Social({ style }) {
         width: '100%',
         justifyContent: {
           xs: 'center',
-          md: 'flex-start',
+          lg: 'flex-start',
         },
+        mb: 3.5,
         ...style,
       }}
     >
