@@ -1,6 +1,12 @@
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import {
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Popover,
+} from '@mui/material';
 import { useState } from 'react';
-import MyAvatar from '~/components/MyAvatar';
+import Profile from '~/components/Profile';
 
 export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -13,11 +19,10 @@ export default function AccountPopover() {
 
   return (
     <>
-      <IconButton>{/* lang */}</IconButton>
-      <IconButton>{/* noti */}</IconButton>
       <IconButton onClick={handleOpen} sx={{ p: 0 }}>
-        <MyAvatar />
+        <Profile />
       </IconButton>
+      {/* //TODO: MenuPopover */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -31,9 +36,7 @@ export default function AccountPopover() {
           horizontal: 'center',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {/* //TODO: Additional the content */}
       </Menu>
     </>
   );

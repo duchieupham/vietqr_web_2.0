@@ -1,5 +1,9 @@
 import * as yup from 'yup';
-import { passwordLengthRegex, phoneLengthRegex, phoneRegex } from '~/constants';
+import {
+  PASSWORD_LENGTH_REGEX,
+  PHONE_LENGTH_REGEX,
+  PHONE_REGEX,
+} from '~/constants';
 
 export const LoginFormSchema = yup
   .object()
@@ -7,11 +11,11 @@ export const LoginFormSchema = yup
     phoneNo: yup
       .string()
       .required('Số điện thoại không được để trống')
-      .matches(phoneRegex, 'Vui lòng nhập đúng số điện thoại.')
-      .matches(phoneLengthRegex, 'Số điện thoại phải có 10 chữ số.'),
+      .matches(PHONE_REGEX, 'Vui lòng nhập đúng số điện thoại.')
+      .matches(PHONE_LENGTH_REGEX, 'Số điện thoại phải có 10 chữ số.'),
     password: yup
       .string()
       .trim()
-      .matches(passwordLengthRegex, 'Mật khẩu phải có 6 chữ số.'),
+      .matches(PASSWORD_LENGTH_REGEX, 'Mật khẩu phải có 6 chữ số.'),
   })
   .required();

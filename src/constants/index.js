@@ -1,3 +1,6 @@
+import USIcon from '~/components/icon/USIcon';
+import VNIcon from '~/components/icon/VNIcon';
+
 // cookie
 export const LOCALE_COOKIE = 'LOCALE';
 export const AUTH_COOKIE = 'AUTH_TOKEN';
@@ -16,10 +19,29 @@ export const DEFAULT_PATH = '/dashboard';
 export const PUBLIC_PATHS = ['/', '/login', '/register', '/notice'];
 
 // regex
-export const phoneRegex =
+export const PHONE_REGEX =
   /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g;
-export const phoneLengthRegex = /^\d{10}$/;
-export const passwordLengthRegex = /^\d{6}$/;
+export const PHONE_LENGTH_REGEX = /^\d{10}$/;
+export const PASSWORD_LENGTH_REGEX = /^\d{6}$/;
 
 // lang
 export const DEFAULT_LANG = 'vi';
+export const LANGUAGE_OPTIONS = [
+  {
+    id: 1,
+    label: 'vietnamese',
+    value: 'vi',
+    icon: <VNIcon />,
+    icon2: '/images/VN.png',
+  },
+  {
+    id: 2,
+    label: 'english',
+    value: 'en',
+    icon: <USIcon />,
+    icon2: '/images/GB.png',
+  },
+];
+
+// image
+export const DEFAULT_IMAGE = '/images/logo.png';
