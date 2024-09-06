@@ -192,7 +192,7 @@ export default function Navbar() {
             }}
           >
             <Grid container>
-              <Grid item xs={6} md={6}>
+              <Grid item xs={6}>
                 <LoginHeaderBar
                   styles={styles}
                   style={{
