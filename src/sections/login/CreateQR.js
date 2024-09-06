@@ -30,7 +30,7 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
 
   const handleClick = (option) => {
     selectedOption.current = option;
-    setQrState(option);
+    setQrState(t(option.name));
   };
 
   useEffect(() => {
@@ -73,8 +73,11 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
         spacing={{ xs: 0.5, sm: 1.5 }}
         sx={{
           display: 'flex',
-          alignItems: 'center',
           flexDirection: 'column',
+          mb: {
+            xs: '4.5rem',
+            md: '0',
+          },
           ...stackStyle,
         }}
       >
@@ -86,6 +89,9 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               lg: 0,
             },
             width: '100%',
+            mb: {
+              md: '1rem !important', // just want to override the default margin bottom of the stack when the screen size is medium
+            },
           }}
         >
           {list.map((item) => (
@@ -139,7 +145,7 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               disableFocusRipple
               disableTouchRipple
               className={`${styles.btn} ${qrState === t(item.name) ? styles.active : ''}`}
-              onClick={() => handleClick(item.id)}
+              onClick={() => handleClick(item)}
             >
               {t(item.name)}
             </Button>
@@ -170,8 +176,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
               marginLeft: {
                 xs: '0',
                 md: '1rem',
-                lg: '1rem',
-                xl: '1rem',
               },
             }}
           >

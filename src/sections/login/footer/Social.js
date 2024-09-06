@@ -39,7 +39,11 @@ export default function Social({ style }) {
         width: '100%',
         justifyContent: {
           xs: 'center',
-          lg: 'flex-start',
+          md: 'flex-start',
+        },
+        pl: {
+          xs: '0',
+          md: '6rem',
         },
         ...style,
       }}
@@ -54,15 +58,13 @@ export default function Social({ style }) {
             },
             alignItems: {
               xs: 'center',
-              lg: 'flex-start',
+              md: 'flex-start',
             },
             justifyContent: {
               xs: 'space-between',
-              lg: 'flex-start',
+              md: 'flex-start',
             },
-            gap: {
-              xs: 1,
-            },
+            gap: 1,
           }}
         >
           <Box

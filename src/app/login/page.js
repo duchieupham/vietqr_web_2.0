@@ -8,7 +8,6 @@ import Navbar from '~/components/navbar/Navbar';
 import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';
 import CreateQR from '~/sections/login/CreateQR';
-import FloatingActionButton from '~/sections/login/FloatingActionButton';
 import { generateQrValue } from '~/utils/aesConvert';
 
 function Login() {
@@ -58,7 +57,7 @@ function Login() {
       >
         <CreateQR />
         <LoginForm />
-        <FloatingActionButton />
+        {/* <FloatingActionButton /> */}
       </Stack>
       <Box
         component="footer"

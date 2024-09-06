@@ -296,31 +296,27 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         width: {
           xs: '100%',
           md: '100%',
-          lg: '50%',
+          lg: '47%',
         },
         ...containerStyle,
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Box
+          sx={{
+            alignSelf: 'flex-start',
+          }}
+        >
+          <TextGradient>{t('login')}</TextGradient>
+        </Box>
         <Stack
-          spacing={2.5}
+          spacing={errors?.phoneNo || errors?.password ? 3 : 1}
           sx={{
             width: 'fit-content',
             alignItems: 'center',
             ...stackStyle,
           }}
         >
-          <Box
-            sx={{
-              alignSelf: {
-                xs: 'flex-start',
-                md: 'center',
-                lg: 'flex-start',
-              },
-            }}
-          >
-            <TextGradient>{t('login')}</TextGradient>
-          </Box>
           <Controller
             name="phoneNo"
             control={control}
@@ -482,7 +478,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '50%',
+                    top: '45%',
                     transform: 'translateY(-50%)',
                   }}
                 >

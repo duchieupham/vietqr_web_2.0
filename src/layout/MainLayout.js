@@ -6,6 +6,8 @@ import { useAuthContext } from '~/contexts/AuthContext';
 function MainLayout({ children }) {
   const { session, clear } = useAuthContext();
 
+  console.log(session);
+
   const logout = () => {
     clear();
   };

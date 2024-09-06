@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  width: 100%;
+  width: 90%;
 
   & .active {
     font-weight: normal;
@@ -33,7 +32,6 @@
 }
 
 .btn.active {
-  font-weight: normal;
   align-items: center;
   color: #00c6ff;
   background: linear-gradient(90deg, #00c6ff, #0072ff);

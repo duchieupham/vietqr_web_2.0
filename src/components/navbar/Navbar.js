@@ -38,13 +38,11 @@ import theme from '~/theme';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
 import VNIcon from '../icon/VNIcon';
-import CNIcon from '../icon/CNIcon';
 import USIcon from '../icon/USIcon';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
   { id: 2, label: 'english', value: 'en', icon: <USIcon /> },
-  // { id: 3, label: 'chinese', value: 'cn', icon: <CNIcon /> },
 ];
 
 export default function Navbar() {
@@ -56,11 +54,6 @@ export default function Navbar() {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
-  const isPortrait = useMediaQuery('(orientation: portrait)');
-  const isTabletSize = useMediaQuery(
-    '(min-width: 768px) and (max-width: 1169px)',
-  );
-  const isTabletVertical = isPortrait && isTabletSize;
 
   const onChangeLanguage = (e) => {
     const locale = e.target.value;
@@ -163,8 +156,7 @@ export default function Navbar() {
             sx={{
               display: {
                 xs: 'block',
-                lg: isTabletVertical ? 'block' : 'none',
-                xl: 'none',
+                md: 'none',
               },
             }}
             onClick={toggleDrawer(true)}
@@ -181,8 +173,7 @@ export default function Navbar() {
               margin: '0 auto',
               display: {
                 xs: 'flex',
-                lg: isTabletVertical ? 'flex' : 'none',
-                xl: 'none',
+                md: 'none',
               },
               alignItems: 'center',
               justifyContent: 'center',
@@ -220,7 +211,7 @@ export default function Navbar() {
             sx={{
               display: {
                 xs: 'flex',
-                lg: 'none',
+                md: 'none',
               },
               gap: {
                 xs: 0,
@@ -306,8 +297,7 @@ export default function Navbar() {
             sx={{
               display: {
                 xs: 'none',
-                lg: isTabletVertical ? 'none' : 'flex',
-                xl: 'flex',
+                md: 'flex',
               },
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -315,16 +305,13 @@ export default function Navbar() {
             }}
           >
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} md={6}>
                 <LoginHeaderBar
                   styles={styles}
                   style={{
                     whiteSpace: 'nowrap',
-                    width: '100%',
                     '& .active': {
-                      width: {
-                        xs: '100%',
-                      },
+                      width: '100%',
                       justifyContent: 'center',
                       alignItems: 'center',
                       flexWrap: 'wrap',
@@ -333,19 +320,19 @@ export default function Navbar() {
                     '& .active::after': {
                       width: {
                         xs: '100%',
-                        lg: '90%',
+                        md: '90%',
                       },
                     },
                   }}
                   typographyStyle={{
                     fontSize: {
                       xs: '12px',
-                      md: '16px',
+                      md: '15px',
                     },
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} md={3}>
                 <Button
                   sx={{
                     display: 'flex',
@@ -357,7 +344,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: '0', lg: 8, xl: '5rem' },
+                    marginLeft: { xs: 'auto', md: '0', xl: '5rem' },
                   }}
                   disableRipple
                 >
@@ -373,86 +360,87 @@ export default function Navbar() {
                   </Link>
                 </Button>
               </Grid>
-            </Grid>
-            <Box
-              sx={{
-                width: '20%',
-                display: 'flex',
-                justifyContent: 'flex-end',
-                gap: '1rem',
-              }}
-            >
-              <Button
-                sx={{
-                  color: 'black',
-                  fontSize: {
-                    xs: '10px',
-                    md: '12px',
-                  },
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  fontWeight: 'normal',
-                  textTransform: 'none',
-                  gap: '0.5rem',
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    textDecoration: 'none',
-                  },
-                }}
-                disableRipple
-              >
-                <HeadphonesOutlinedIcon width={20} />
-                {t('contact')}
-              </Button>
-              <Select
-                value={language}
-                onChange={onChangeLanguage}
-                IconComponent={ExpandMoreIcon}
-                renderValue={(selected) => {
-                  const selectedOption = languageOptions.find(
-                    (option) => option.value === selected,
-                  );
-                  return selectedOption ? (
-                    <>
-                      {selectedOption.icon}
-                      {t(selectedOption.label)}
-                    </>
-                  ) : null;
-                }}
-                sx={{
-                  '.MuiOutlinedInput-notchedOutline': {
-                    border: 'none',
-                  },
-                  '.MuiSelect-icon': {
-                    color: 'inherit',
-                  },
-                  fontSize: {
-                    xs: '15px',
-                    md: '12px',
-                  },
-                  '.MuiSelect-select': {
+              <Grid item xs={6} md={3}>
+                <Box
+                  sx={{
+                    alignContent: 'center',
+                    justifyContent: 'flex-end',
                     display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                  },
-                }}
-              >
-                {languageOptions.map((option) => (
-                  <MenuItem
-                    key={option.id}
-                    value={option.value}
+                  }}
+                >
+                  <Button
                     sx={{
-                      justifyContent: 'center',
-                      display: 'flex',
-                      gap: 1,
+                      color: 'black',
+                      fontSize: {
+                        xs: '10px',
+                        md: '12px',
+                      },
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      fontWeight: 'normal',
+                      textTransform: 'none',
+                      gap: '0.5rem',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                        textDecoration: 'none',
+                      },
+                    }}
+                    disableRipple
+                  >
+                    <HeadphonesOutlinedIcon width={20} />
+                    {t('contact')}
+                  </Button>
+                  <Select
+                    value={language}
+                    onChange={onChangeLanguage}
+                    IconComponent={ExpandMoreIcon}
+                    renderValue={(selected) => {
+                      const selectedOption = languageOptions.find(
+                        (option) => option.value === selected,
+                      );
+                      return selectedOption ? (
+                        <>
+                          {selectedOption.icon}
+                          {t(selectedOption.label)}
+                        </>
+                      ) : null;
+                    }}
+                    sx={{
+                      '.MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                      },
+                      '.MuiSelect-icon': {
+                        color: 'inherit',
+                      },
+                      fontSize: {
+                        xs: '12px',
+                        md: '15px',
+                      },
+                      '.MuiSelect-select': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                      },
                     }}
                   >
-                    {option.icon}
-                    {t(option.label)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
+                    {languageOptions.map((option) => (
+                      <MenuItem
+                        key={option.id}
+                        value={option.value}
+                        sx={{
+                          justifyContent: 'center',
+                          display: 'flex',
+                          gap: 1,
+                        }}
+                      >
+                        {option.icon}
+                        {t(option.label)}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Box>
