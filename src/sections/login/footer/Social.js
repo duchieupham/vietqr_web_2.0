@@ -41,10 +41,6 @@ export default function Social({ style }) {
           xs: 'center',
           md: 'flex-start',
         },
-        pl: {
-          xs: '0',
-          md: '6rem',
-        },
         ...style,
       }}
     >

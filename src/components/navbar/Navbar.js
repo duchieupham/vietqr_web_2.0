@@ -170,22 +170,12 @@ export default function Navbar() {
           {/* Logo for xs screen sizes */}
           <Button
             sx={{
-              margin: '0 auto',
               display: {
                 xs: 'flex',
                 md: 'none',
               },
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              left: {
-                xs: '28.7%',
-                sm: '40.2%',
-                md: '41.5%',
-                lg: '40%',
-                xl: '45%',
-              },
-              transform: { translateX: '50%' },
+              m: '0 auto',
+              pl: 12,
             }}
             disableRipple
             disableTouchRipple

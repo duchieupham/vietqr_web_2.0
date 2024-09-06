@@ -217,8 +217,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoError =
     phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const showErrorMessage = !!errors.phoneNo || !!errors.password;
-
   const onSubmit = useCallback(
     async (formData) => {
       if (!formData.phoneNo || !formData.password) {
@@ -310,7 +308,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
           <TextGradient>{t('login')}</TextGradient>
         </Box>
         <Stack
-          spacing={errors?.phoneNo || errors?.password ? 3 : 1}
+          spacing={1}
           sx={{
             width: 'fit-content',
             alignItems: 'center',
@@ -327,26 +325,21 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   position: 'relative',
                 }}
               >
-                <Box
+                <PhoneOutlinedIcon
                   sx={{
+                    color: 'grey',
+                    width: '30px',
+                    height: '30px',
+                    objectFit: 'cover',
+                    padding: '7px',
+                    marginRight: '5px',
                     position: 'absolute',
-                    top: '33%',
-                    margin: '0 1rem',
+                    zIndex: 1,
+                    left: '10px',
+                    top: errors?.phoneNo ? '40%' : '50%',
+                    transform: 'translateY(-50%)',
                   }}
-                >
-                  <PhoneOutlinedIcon
-                    sx={{
-                      color: 'grey',
-                      width: '30px',
-                      height: '30px',
-                      objectFit: 'cover',
-                      padding: '7px',
-                      marginRight: '5px',
-                      position: 'absolute',
-                      zIndex: 1,
-                    }}
-                  />
-                </Box>
+                />
                 <TextField
                   {...field}
                   inputRef={phoneNoRef}
@@ -378,7 +371,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       },
                     },
                     '& .MuiInputLabel-root': {
-                      paddingLeft: '50px',
+                      paddingLeft: '40px',
                     },
                     '& .MuiInputLabel-shrink': {
                       paddingLeft: '0px',
@@ -386,11 +379,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiFormHelperText-root': {
                       transition: 'all 0.2s ease-in-out',
-                      opacity: showErrorMessage ? 1 : 0,
-                      visibility: showErrorMessage ? 'visible' : 'hidden',
-                      position: 'absolute',
-                      bottom: '-20px',
+                      opacity: errors?.phoneNo ? 1 : 0,
+                      visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       transform: 'translateY(50%)',
+                      mt: -1.7,
                     },
                   }}
                   InputProps={{
@@ -448,8 +440,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiFormHelperText-root': {
                       transition: 'all 0.2s ease-in-out',
-                      opacity: showErrorMessage ? 1 : 0,
-                      visibility: showErrorMessage ? 'visible' : 'hidden',
+                      opacity: errors?.password ? 1 : 0,
+                      visibility: errors?.password ? 'visible' : 'hidden',
                       position: 'absolute',
                       bottom: '-25px',
                     },

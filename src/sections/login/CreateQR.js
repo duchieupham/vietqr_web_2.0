@@ -20,7 +20,7 @@ const list = [
   },
 ];
 
-export default function CreateQR({ containerStyle, stackStyle, ...props }) {
+export default function CreateQR({ ...props }) {
   const t = useTranslations();
   const selectedOption = useRef(null);
   const [qrUrl, setQrUrl] = useState('');
@@ -30,7 +30,7 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
 
   const handleClick = (option) => {
     selectedOption.current = option;
-    setQrState(t(option.name));
+    setQrState(option.name);
   };
 
   useEffect(() => {
@@ -66,7 +66,6 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           xs: 'none',
           sm: 'block',
         },
-        ...containerStyle,
       }}
     >
       <Stack
@@ -76,81 +75,11 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           flexDirection: 'column',
           mb: {
             xs: '4.5rem',
-            md: '0',
+            lg: 0,
           },
-          ...stackStyle,
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            gap: {
-              xs: '1rem',
-              lg: 0,
-            },
-            width: '100%',
-            mb: {
-              md: '1rem !important', // just want to override the default margin bottom of the stack when the screen size is medium
-            },
-          }}
-        >
-          {list.map((item) => (
-            <Button
-              key={item.id}
-              sx={{
-                whiteSpace: 'nowrap',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '50px',
-                width: { xs: '100px', sm: '150px' },
-                borderRadius: '10px',
-                color: qrState === t(item.name) ? '#00c6ff' : 'inherit',
-                transition:
-                  'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-                backgroundColor:
-                  qrState === t(item.name) ? 'transparent' : 'initial',
-                '&:hover': {
-                  background:
-                    'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255, 1.0))',
-                  textDecoration: 'none',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                },
-                '&.Mui-selected': {
-                  backgroundColor: 'transparent',
-                  boxShadow: 'none',
-                  transform: 'scale(0.98)',
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    textDecoration: 'none',
-                  },
-                  '&:active': {
-                    backgroundColor: 'transparent',
-                  },
-                },
-                '&:focus': {
-                  backgroundColor: 'transparent',
-                },
-                '&:active': {
-                  backgroundColor: 'transparent',
-                },
-                fontSize: { xs: '12px', sm: '15px' },
-
-                '&::after': {
-                  background: 'red',
-                },
-              }}
-              disableRipple
-              disableFocusRipple
-              disableTouchRipple
-              className={`${styles.btn} ${qrState === t(item.name) ? styles.active : ''}`}
-              onClick={() => handleClick(item)}
-            >
-              {t(item.name)}
-            </Button>
-          ))}
-        </Box>
+        <OptionButton t={t} handleClick={handleClick} qrState={qrState} />
         <Box
           sx={{
             display: 'flex',
@@ -239,6 +168,81 @@ export default function CreateQR({ containerStyle, stackStyle, ...props }) {
           </Box>
         </Box>
       </Stack>
+    </Box>
+  );
+}
+
+function OptionButton({ t, qrState, handleClick }) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        gap: {
+          xs: '1rem',
+          lg: 0,
+        },
+        width: '100%',
+        mb: {
+          md: '1.5rem !important', // just want to override the default margin bottom of the stack when the screen size is medium
+        },
+      }}
+    >
+      {list.map((item) => (
+        <Button
+          key={item.id}
+          sx={{
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50px',
+            width: { xs: '100px', sm: '150px' },
+            borderRadius: '10px',
+            color: qrState === t(item.name) ? '#00c6ff' : 'inherit',
+            transition:
+              'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
+            backgroundColor:
+              qrState === t(item.name) ? 'transparent' : 'initial',
+            '&:hover': {
+              background:
+                'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255, 1.0))',
+              textDecoration: 'none',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              transform: 'scale(0.98)',
+              '&:hover': {
+                backgroundColor: 'transparent',
+                textDecoration: 'none',
+              },
+              '&:active': {
+                backgroundColor: 'transparent',
+              },
+            },
+            '&:focus': {
+              backgroundColor: 'transparent',
+            },
+            '&:active': {
+              backgroundColor: 'transparent',
+            },
+            fontSize: { xs: '12px', sm: '15px' },
+
+            '&::after': {
+              background: 'red',
+            },
+          }}
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+          className={`${styles.btn} ${qrState === item.name ? styles.active : ''}`}
+          onClick={() => handleClick(item)}
+        >
+          {t(item.name)}
+        </Button>
+      ))}
     </Box>
   );
 }
