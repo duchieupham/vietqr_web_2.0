@@ -1,23 +1,9 @@
 // eslint-disable-next-line object-curly-newline
 // mui
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import {
-  Box,
-  Button,
-  Drawer,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  Stack,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Drawer, Grid, IconButton, Stack } from '@mui/material';
 // constants
-import { LOCALE_COOKIE } from '~/constants';
 import AppImages from '~/constants/ImagesConstant';
 // contexts
-import { useAppContext } from '~/contexts/AppContext';
 // react
 import { useState } from 'react';
 // next
@@ -30,15 +16,12 @@ import styles from '~styles/Header.module.scss';
 import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
-import { setCookie } from 'cookies-next';
 import Hamburger from 'hamburger-react';
-import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-import theme from '~/theme';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
-import VNIcon from '../icon/VNIcon';
+import ContactLangButton from '../ContactLangButton';
 import USIcon from '../icon/USIcon';
+import VNIcon from '../icon/VNIcon';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
@@ -46,21 +29,10 @@ const languageOptions = [
 ];
 
 export default function Navbar() {
-  const t = useTranslations();
-  const { language, setLanguage } = useAppContext();
-  const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
-
-  const onChangeLanguage = (e) => {
-    const locale = e.target.value;
-    setCookie(LOCALE_COOKIE, locale);
-    setLanguage(locale);
-    router.refresh();
-  };
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -170,22 +142,12 @@ export default function Navbar() {
           {/* Logo for xs screen sizes */}
           <Button
             sx={{
-              margin: '0 auto',
               display: {
                 xs: 'flex',
                 md: 'none',
               },
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              left: {
-                xs: '28.7%',
-                sm: '40.2%',
-                md: '41.5%',
-                lg: '40%',
-                xl: '45%',
-              },
-              transform: { translateX: '50%' },
+              m: '0 auto',
+              pl: 12,
             }}
             disableRipple
             disableTouchRipple
@@ -207,91 +169,16 @@ export default function Navbar() {
             </Link>
           </Button>
           {/* System Func xs screen sizes */}
-          <Box
-            sx={{
+          <ContactLangButton
+            languageOptions={languageOptions}
+            style={{
               display: {
                 xs: 'flex',
                 md: 'none',
               },
-              gap: {
-                xs: 0,
-                lg: 2,
-              },
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
             }}
-          >
-            <Button
-              sx={{
-                color: 'black',
-                fontSize: {
-                  xs: '10px',
-                  md: '12px',
-                },
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                fontWeight: 'normal',
-                textTransform: 'none',
-                gap: {
-                  xs: 0,
-                  lg: '0.5rem',
-                },
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  textDecoration: 'none',
-                },
-                p: 0,
-                justifyContent: 'flex-end',
-              }}
-              disableRipple
-            >
-              <HeadphonesOutlinedIcon width={20} />
-              {isMdUp && t('contact')}
-            </Button>
-            <Select
-              value={language}
-              onChange={onChangeLanguage}
-              IconComponent={ExpandMoreIcon}
-              renderValue={(selected) => {
-                if (!selected) return null;
-                const selectedOption = languageOptions.find(
-                  (option) => option.value === selected,
-                );
-                return selectedOption ? selectedOption.icon : null;
-              }}
-              sx={{
-                '.MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-                '.MuiSelect-icon': {
-                  color: 'inherit',
-                },
-                fontSize: {
-                  xs: '12px',
-                  md: '15px',
-                },
-                '.MuiSelect-select': {
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                },
-              }}
-            >
-              {languageOptions.map((option) => (
-                <MenuItem
-                  key={option.id}
-                  value={option.value}
-                  sx={{
-                    justifyContent: 'center',
-                    display: 'flex',
-                    gap: 1,
-                  }}
-                >
-                  {option.icon}
-                  {t(option.label)}
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
+          />
           {/* Full Navbar for larger screens */}
           <Box
             sx={{
@@ -305,13 +192,13 @@ export default function Navbar() {
             }}
           >
             <Grid container>
-              <Grid item xs={6} md={6} lg={5}>
+              <Grid item xs={5}>
                 <LoginHeaderBar
                   styles={styles}
                   style={{
                     whiteSpace: 'nowrap',
                     '& .active': {
-                      width: '100%',
+                      justifyContent: 'center',
                       alignItems: 'center',
                       flexWrap: 'wrap',
                       display: 'flex',
@@ -320,6 +207,7 @@ export default function Navbar() {
                       width: {
                         xs: '100%',
                         md: '90%',
+                        lg: '80%',
                       },
                     },
                   }}
@@ -331,7 +219,7 @@ export default function Navbar() {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} md={3} lg={4}>
+              <Grid item xs={6} md={3}>
                 <Button
                   sx={{
                     display: 'flex',
@@ -343,7 +231,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: -4, lg: 10, xl: '5rem' },
+                    marginLeft: { xs: 'auto', md: '0', lg: 12 },
                   }}
                   disableRipple
                 >
@@ -359,85 +247,8 @@ export default function Navbar() {
                   </Link>
                 </Button>
               </Grid>
-              <Grid item xs={6} md={3}>
-                <Box
-                  sx={{
-                    alignContent: 'center',
-                    justifyContent: 'flex-end',
-                    display: 'flex',
-                  }}
-                >
-                  <Button
-                    sx={{
-                      color: 'black',
-                      fontSize: {
-                        xs: '10px',
-                        md: '12px',
-                      },
-                      flexDirection: 'row',
-                      flexWrap: 'wrap',
-                      fontWeight: 'normal',
-                      textTransform: 'none',
-                      gap: '0.5rem',
-                      '&:hover': {
-                        backgroundColor: 'transparent',
-                        textDecoration: 'none',
-                      },
-                    }}
-                    disableRipple
-                  >
-                    <HeadphonesOutlinedIcon width={20} />
-                    {t('contact')}
-                  </Button>
-                  <Select
-                    value={language}
-                    onChange={onChangeLanguage}
-                    IconComponent={ExpandMoreIcon}
-                    renderValue={(selected) => {
-                      const selectedOption = languageOptions.find(
-                        (option) => option.value === selected,
-                      );
-                      return selectedOption ? (
-                        <>
-                          {selectedOption.icon}
-                          {t(selectedOption.label)}
-                        </>
-                      ) : null;
-                    }}
-                    sx={{
-                      '.MuiOutlinedInput-notchedOutline': {
-                        border: 'none',
-                      },
-                      '.MuiSelect-icon': {
-                        color: 'inherit',
-                      },
-                      fontSize: {
-                        xs: '12px',
-                        md: '15px',
-                      },
-                      '.MuiSelect-select': {
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 1,
-                      },
-                    }}
-                  >
-                    {languageOptions.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.value}
-                        sx={{
-                          justifyContent: 'center',
-                          display: 'flex',
-                          gap: 1,
-                        }}
-                      >
-                        {option.icon}
-                        {t(option.label)}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
+              <Grid item xs={6} md={4}>
+                <ContactLangButton languageOptions={languageOptions} />
               </Grid>
             </Grid>
           </Box>

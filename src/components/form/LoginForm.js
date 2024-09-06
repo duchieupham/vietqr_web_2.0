@@ -248,6 +248,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
           xs: '100%',
           md: '100%',
           lg: '47%',
+          lg: '47%',
         },
         ...containerStyle,
       }}
@@ -260,7 +261,15 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         >
           <TextGradient>{t('login')}</TextGradient>
         </Box>
+        <Box
+          sx={{
+            alignSelf: 'flex-start',
+          }}
+        >
+          <TextGradient>{t('login')}</TextGradient>
+        </Box>
         <Stack
+          spacing={1}
           spacing={1}
           sx={{
             width: 'fit-content',
@@ -326,6 +335,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiInputLabel-root': {
                       paddingLeft: '40px',
+                      paddingLeft: '40px',
                     },
                     '& .MuiInputLabel-shrink': {
                       paddingLeft: '0px',
@@ -333,6 +343,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiFormHelperText-root': {
                       transition: 'all 0.2s ease-in-out',
+                      opacity: errors?.phoneNo ? 1 : 0,
+                      visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       opacity: errors?.phoneNo ? 1 : 0,
                       visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       transform: 'translateY(50%)',
