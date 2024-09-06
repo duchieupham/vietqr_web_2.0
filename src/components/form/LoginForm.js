@@ -270,7 +270,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         </Box>
         <Stack
           spacing={1}
-          spacing={1}
           sx={{
             width: 'fit-content',
             alignItems: 'center',
@@ -335,7 +334,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiInputLabel-root': {
                       paddingLeft: '40px',
-                      paddingLeft: '40px',
                     },
                     '& .MuiInputLabel-shrink': {
                       paddingLeft: '0px',
@@ -343,8 +341,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     },
                     '& .MuiFormHelperText-root': {
                       transition: 'all 0.2s ease-in-out',
-                      opacity: errors?.phoneNo ? 1 : 0,
-                      visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       opacity: errors?.phoneNo ? 1 : 0,
                       visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       transform: 'translateY(50%)',
