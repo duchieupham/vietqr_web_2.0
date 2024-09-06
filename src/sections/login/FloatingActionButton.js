@@ -1,9 +1,19 @@
-import { Fab, useMediaQuery } from '@mui/material';
+import { Fab, keyframes, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function FloatingActionButton() {
   const isSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const fadeInUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
   return (
     <Fab
       sx={{
@@ -12,6 +22,12 @@ export default function FloatingActionButton() {
         right: isSm ? 25 : 50,
         background: 'transparent',
         boxShadow: 'none',
+        animation: `${fadeInUp} 1s ease-out`,
+        transition: 'transform 0.3s ease, opacity 0.3s ease',
+        '&:hover': {
+          transform: 'scaleX(-1)',
+          opacity: 0.8,
+        },
       }}
       disableRipple
       disableFocusRipple

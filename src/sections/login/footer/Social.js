@@ -39,7 +39,7 @@ export default function Social({ style }) {
         width: '100%',
         justifyContent: {
           xs: 'center',
-          lg: 'flex-start',
+          md: 'flex-start',
         },
         ...style,
       }}
@@ -54,22 +54,18 @@ export default function Social({ style }) {
             },
             alignItems: {
               xs: 'center',
-              lg: 'flex-start',
+              md: 'flex-start',
             },
             justifyContent: {
               xs: 'space-between',
-              lg: 'flex-start',
+              md: 'flex-start',
             },
-            gap: {
-              xs: 1,
-            },
+            gap: 1,
           }}
         >
           <Box
             sx={{
-              whiteSpace: {
-                xs: 'nowrap',
-              },
+              whiteSpace: 'nowrap',
             }}
           >
             {t(item.name)}
@@ -79,9 +75,7 @@ export default function Social({ style }) {
               display: 'flex',
               alignItems: 'center',
               flexDirection: 'row',
-              gap: {
-                xs: '0.3rem',
-              },
+              gap: '0.3rem',
               justifyItems: 'center',
               flexWrap: {
                 xs: '',
