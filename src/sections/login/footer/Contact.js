@@ -69,6 +69,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '100%',
+        rowGap: 2,
         ...style,
       }}
     >
@@ -77,7 +78,11 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           key={index}
           spacing={2}
           useFlexGap
-          sx={{ width: 'fit-content', flexWrap: 'wrap', ...stackStyle }}
+          sx={{
+            width: 'fit-content',
+            flexWrap: 'wrap',
+            ...stackStyle,
+          }}
         >
           <Box>{t(item.name)}</Box>
           <Stack
