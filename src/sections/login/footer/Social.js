@@ -65,9 +65,7 @@ export default function Social({ style }) {
         >
           <Box
             sx={{
-              whiteSpace: {
-                xs: 'nowrap',
-              },
+              whiteSpace: 'nowrap',
             }}
           >
             {t(item.name)}
@@ -77,9 +75,7 @@ export default function Social({ style }) {
               display: 'flex',
               alignItems: 'center',
               flexDirection: 'row',
-              gap: {
-                xs: '0.3rem',
-              },
+              gap: '0.3rem',
               justifyItems: 'center',
               flexWrap: {
                 xs: '',

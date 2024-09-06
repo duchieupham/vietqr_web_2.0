@@ -17,7 +17,6 @@ import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
-import { useRouter } from 'next/navigation';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
 import Contact_LangButton from '../Contact_LangButton';
