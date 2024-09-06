@@ -92,6 +92,7 @@ export default function CreateQR() {
         >
           {list.map((item) => (
             <OptionButton
+              key={item.id}
               handleClick={handleClick}
               qrState={qrState}
               item={item}
