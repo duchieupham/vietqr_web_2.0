@@ -1,4 +1,5 @@
 // mui
+import { BorderBottom } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -121,7 +122,7 @@ export default function CreateQR() {
                 whiteSpace: 'nowrap',
               }}
             >
-              {t('scanQR')}
+              {qrState === 'downloadQR' ? t('scanQR2') : t('scanQR')}
             </Typography>
             <Typography
               sx={{
@@ -134,14 +135,15 @@ export default function CreateQR() {
                 margin: '1rem 0',
               }}
             >
-              {t('scanQRDescription')}
+              {qrState === 'downloadQR'
+                ? t('scanQRDescription2')
+                : t('scanQRDescription')}
             </Typography>
             <Link
               href="https://onelink.to/q7zwpe"
               target="_blank"
               style={{
-                textDecorationColor:
-                  'linear-gradient(to right, #458BF8, #FF8021, #FF3751, #C958DB)',
+                textDecoration: 'none',
               }}
             >
               <TextGradient
@@ -150,6 +152,20 @@ export default function CreateQR() {
                     'linear-gradient(to right, #458BF8, #FF8021, #FF3751, #C958DB)',
                   fontWeight: 'bold',
                   fontSize: '15px',
+                  position: 'relative',
+                  width: 'fit-content',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '2px', // Adjust height as needed for the underline
+                    background:
+                      'linear-gradient(to right, #458BF8, #FF8021, #FF3751, #C958DB)',
+                    zIndex: -1, // Ensure the gradient underline is behind the text
+                    borderRadius: '2px', // Optional: Adds rounded corners to the underline
+                  },
                 }}
               >
                 {t('downloadApp')}
