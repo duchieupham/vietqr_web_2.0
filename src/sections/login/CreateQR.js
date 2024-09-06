@@ -2,11 +2,10 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
 import { useAppSelector } from '~/redux/hook';
-import { getOS } from '~/utils/getOS';
 import styles from '~styles/Header.module.scss';
 
 const list = [
@@ -22,40 +21,12 @@ const list = [
 
 export default function CreateQR() {
   const t = useTranslations();
-  const [qrUrl, setQrUrl] = useState('');
   const { qr } = useAppSelector((store) => store.qr);
-  const { qrValue } = qr;
   const [qrState, setQrState] = useState('loginQR');
 
   const handleClick = (option) => {
     setQrState(option.name);
   };
-
-  useEffect(() => {
-    const userAgent = window?.navigator.userAgent;
-    const os = getOS(userAgent);
-    switch (os) {
-      case 'Android':
-        setQrUrl(
-          'https://play.google.com/store/apps/details?id=com.vietqr.product&referrer=utm_source%3Dgoogle%26utm_medium%3Dcpc%26anid%3Dadmob',
-        );
-        break;
-      case 'iOS':
-        setQrUrl('https://apps.apple.com/vn/app/vietqr-vn/id6447118484');
-        break;
-      case 'Macintosh':
-        setQrUrl('https://apps.apple.com/vn/app/vietqr-vn/id6447118484');
-        break;
-      case 'Windows NT':
-        setQrUrl(
-          'https://play.google.com/store/apps/details?id=com.vietqr.product&referrer=utm_source%3Dgoogle%26utm_medium%3Dcpc%26anid%3Dadmob',
-        );
-        break;
-      default:
-        setQrUrl('/');
-        break;
-    }
-  }, []);
 
   return (
     <Box
@@ -131,7 +102,7 @@ export default function CreateQR() {
               value={
                 qrState === 'downloadQR'
                   ? 'https://onelink.to/q7zwpe'
-                  : qrValue || ''
+                  : qr.qrValue || ''
               }
             />
           </Box>
