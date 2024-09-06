@@ -20,9 +20,9 @@ import Hamburger from 'hamburger-react';
 import { useRouter } from 'next/navigation';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
+import Contact_LangButton from '../Contact_LangButton';
 import USIcon from '../icon/USIcon';
 import VNIcon from '../icon/VNIcon';
-import SysFuncButton from '../SysFuncButton';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
@@ -30,7 +30,6 @@ const languageOptions = [
 ];
 
 export default function Navbar() {
-  const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -171,10 +170,8 @@ export default function Navbar() {
             </Link>
           </Button>
           {/* System Func xs screen sizes */}
-          <SysFuncButton
+          <Contact_LangButton
             languageOptions={languageOptions}
-            router={router}
-            mobile
             style={{
               display: {
                 xs: 'flex',
@@ -252,10 +249,7 @@ export default function Navbar() {
                 </Button>
               </Grid>
               <Grid item xs={6} md={3}>
-                <SysFuncButton
-                  languageOptions={languageOptions}
-                  router={router}
-                />
+                <Contact_LangButton languageOptions={languageOptions} />
               </Grid>
             </Grid>
           </Box>

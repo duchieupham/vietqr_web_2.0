@@ -20,7 +20,7 @@ const list = [
   },
 ];
 
-export default function CreateQR({ ...props }) {
+export default function CreateQR() {
   const t = useTranslations();
   const selectedOption = useRef(null);
   const [qrUrl, setQrUrl] = useState('');

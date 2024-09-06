@@ -3,17 +3,17 @@ import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 import theme from '~/theme';
 
-export default function SysFuncButton({
-  mobile = true,
+export default function Contact_LangButton({
   languageOptions,
-  router,
   style,
 }) {
   const t = useTranslations();
+  const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const { language, setLanguage } = useAppContext();
