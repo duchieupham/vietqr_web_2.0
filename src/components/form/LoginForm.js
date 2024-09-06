@@ -25,7 +25,7 @@ import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useCallback, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -147,75 +147,69 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const { authenticate } = useAuthContext();
   const [storedValue, setStoredValue] = useLocalStorage('session', '');
   const [isCompleted, setIsCompleted] = useState({});
-  const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
-  const passwordRef = watch('password', '');
+  const passwordValue = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
   const { qr } = useAppSelector((state) => state.qr);
 
-  const handleComplete = useCallback((field, value) => {
+  const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
       ...prevState,
       [field]: value,
     }));
-  }, []);
+  };
 
-  const handleInputChange = useCallback(
-    (event) => {
-      // Remove any non-digit characters
-      event.target.value = event.target.value.replace(/\D/g, '');
-      // Limit the input to 10 characters
-      if (event.target.value.length > 10) {
-        event.target.value = event.target.value.slice(0, 10);
-      }
-      if (!event.target.value) {
-        clearErrors('phoneNo');
-        handleComplete('phoneNo', false);
-      }
-      if (
-        event.target.value.length === 10 &&
-        event.target.value.match(phoneRegex)
-      ) {
-        handleComplete('phoneNo', true);
-      }
-      if (event.target.value.length < 10) {
-        handleComplete('phoneNo', false);
-      }
-      phoneNoRef.current.value = event.target.value;
-    },
-    [handleComplete],
-  );
+  const handleInputChange = (event) => {
+    // Remove any non-digit characters
+    event.target.value = event.target.value.replace(/\D/g, '');
+    // Limit the input to 10 characters
+    if (event.target.value.length > 10) {
+      event.target.value = event.target.value.slice(0, 10);
+    }
+    if (!event.target.value) {
+      clearErrors('phoneNo');
+      handleComplete('phoneNo', false);
+    }
+    if (
+      event.target.value.length === 10 &&
+      event.target.value.match(phoneRegex)
+    ) {
+      handleComplete('phoneNo', true);
+    }
+    if (event.target.value.length < 10) {
+      handleComplete('phoneNo', false);
+    }
+    if (phoneNoValue.current) {
+      phoneNoValue.current.value = event.target.value;
+    }
+  };
 
-  const handlePasswordChange = useCallback(
-    (event) => {
-      event.target.value = event.target.value.replace(/\D/g, '');
-      if (event.target.value.length > 6) {
-        event.target.value = event.target.value.slice(0, 6);
-      }
-      if (event.target.value.length === 6) {
-        handleComplete('password', true);
-      }
-      if (event.target.value.length < 6) {
-        handleComplete('password', false);
-      }
-      if (passwordRef.current) {
-        passwordRef.current.value = event.target.value;
-      }
-    },
-    [handleComplete],
-  );
+  const handlePasswordChange = (event) => {
+    event.target.value = event.target.value.replace(/\D/g, '');
+    if (event.target.value.length > 6) {
+      event.target.value = event.target.value.slice(0, 6);
+    }
+    if (event.target.value.length === 6) {
+      handleComplete('password', true);
+    }
+    if (event.target.value.length < 6) {
+      handleComplete('password', false);
+    }
+    if (passwordValue.current) {
+      passwordValue.current.value = event.target.value;
+    }
+  };
 
-  const handleClearInput = useCallback(() => {
+  const handleClearInput = () => {
     setValue('phoneNo', '');
     setValue('password', '');
     handleComplete('phoneNo', false);
     clearErrors('phoneNo');
     clearErrors('password');
-    phoneNoRef.current.focus();
-  }, [setValue, handleComplete, clearErrors]);
+  };
 
   const phoneNoError =
-    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
+    phoneNoValue.current?.value.length !== 0 && !!errors?.phoneNo;
 
   const onSubmit = async (formData) => {
     if (!formData.phoneNo || !formData.password) {
@@ -337,7 +331,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                 />
                 <TextField
                   {...field}
-                  inputRef={phoneNoRef}
                   label={t('phoneNo')}
                   variant="outlined"
                   error={!!errors?.phoneNo || phoneNoError}
@@ -473,14 +466,14 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     <Box
                       key={index}
                       className={`${styles.circle} ${
-                        passwordRef.length > index ? styles.filled : ''
+                        passwordValue.length > index ? styles.filled : ''
                       }`}
                       sx={{
                         width: '10px',
                         height: '10px',
                         borderRadius: '50%',
                         backgroundColor:
-                          passwordRef.length > index ? 'blue' : 'lightgray',
+                          passwordValue.length > index ? 'blue' : 'lightgray',
                         margin: '2px',
                       }}
                     />
