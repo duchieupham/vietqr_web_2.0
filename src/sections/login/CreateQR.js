@@ -74,7 +74,7 @@ export default function CreateQR({ ...props }) {
           display: 'flex',
           flexDirection: 'column',
           mb: {
-            xs: '4.5rem',
+            xs: '5.5rem',
             lg: 0,
           },
         }}
