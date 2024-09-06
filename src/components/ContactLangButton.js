@@ -8,10 +8,7 @@ import { LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 import theme from '~/theme';
 
-export default function Contact_LangButton({
-  languageOptions,
-  style,
-}) {
+export default function ContactLangButton({ languageOptions, style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -40,9 +37,6 @@ export default function Contact_LangButton({
             xs: '10px',
             md: '12px',
           },
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          fontWeight: 'normal',
           textTransform: 'none',
           gap: {
             xs: 0,
@@ -55,7 +49,7 @@ export default function Contact_LangButton({
         }}
         disableRipple
       >
-        <HeadphonesOutlinedIcon width={20} />
+        <HeadphonesOutlinedIcon />
         {isMdUp && t('contact')}
       </Button>
       <Select

@@ -19,7 +19,7 @@ import useResponsive from '~/hooks/useResponsive';
 import Hamburger from 'hamburger-react';
 import LoginHeaderBar from '../header/LoginHeaderBar';
 
-import Contact_LangButton from '../Contact_LangButton';
+import ContactLangButton from '../ContactLangButton';
 import USIcon from '../icon/USIcon';
 import VNIcon from '../icon/VNIcon';
 
@@ -169,7 +169,7 @@ export default function Navbar() {
             </Link>
           </Button>
           {/* System Func xs screen sizes */}
-          <Contact_LangButton
+          <ContactLangButton
             languageOptions={languageOptions}
             style={{
               display: {
@@ -192,13 +192,12 @@ export default function Navbar() {
             }}
           >
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <LoginHeaderBar
                   styles={styles}
                   style={{
                     whiteSpace: 'nowrap',
                     '& .active': {
-                      width: '100%',
                       justifyContent: 'center',
                       alignItems: 'center',
                       flexWrap: 'wrap',
@@ -208,6 +207,7 @@ export default function Navbar() {
                       width: {
                         xs: '100%',
                         md: '90%',
+                        lg: '80%',
                       },
                     },
                   }}
@@ -231,7 +231,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: '0', xl: '5rem' },
+                    marginLeft: { xs: 'auto', md: '0', lg: 12 },
                   }}
                   disableRipple
                 >
@@ -247,8 +247,8 @@ export default function Navbar() {
                   </Link>
                 </Button>
               </Grid>
-              <Grid item xs={6} md={3}>
-                <Contact_LangButton languageOptions={languageOptions} />
+              <Grid item xs={6} md={4}>
+                <ContactLangButton languageOptions={languageOptions} />
               </Grid>
             </Grid>
           </Box>

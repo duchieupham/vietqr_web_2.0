@@ -2,7 +2,7 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
 import { TextGradient } from '~/components/text';
 import { useAppSelector } from '~/redux/hook';
@@ -22,14 +22,12 @@ const list = [
 
 export default function CreateQR() {
   const t = useTranslations();
-  const selectedOption = useRef(null);
   const [qrUrl, setQrUrl] = useState('');
   const { qr } = useAppSelector((store) => store.qr);
   const { qrValue } = qr;
   const [qrState, setQrState] = useState('loginQR');
 
   const handleClick = (option) => {
-    selectedOption.current = option;
     setQrState(option.name);
   };
 
@@ -94,7 +92,6 @@ export default function CreateQR() {
         >
           {list.map((item) => (
             <OptionButton
-              t={t}
               handleClick={handleClick}
               qrState={qrState}
               item={item}
@@ -131,7 +128,7 @@ export default function CreateQR() {
           >
             <QRCodeComponent
               value={
-                selectedOption.current === 2
+                qrState === 'downloadQR'
                   ? 'https://onelink.to/q7zwpe'
                   : qrValue || ''
               }
@@ -193,7 +190,8 @@ export default function CreateQR() {
   );
 }
 
-function OptionButton({ t, qrState, handleClick, item }) {
+function OptionButton({ qrState, handleClick, item }) {
+  const t = useTranslations();
   return (
     <Button
       key={item.id}
