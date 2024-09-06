@@ -1,10 +1,11 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import { Box, Button, MenuItem, Select } from '@mui/material';
+import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
+import theme from '~/theme';
 
 export default function SysFuncButton({
   mobile = true,
@@ -13,6 +14,7 @@ export default function SysFuncButton({
   style,
 }) {
   const t = useTranslations();
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const { language, setLanguage } = useAppContext();
   const onChangeLanguage = (e) => {
@@ -42,7 +44,10 @@ export default function SysFuncButton({
           flexWrap: 'wrap',
           fontWeight: 'normal',
           textTransform: 'none',
-          gap: '0.5rem',
+          gap: {
+            xs: 0,
+            lg: '0.5rem',
+          },
           '&:hover': {
             backgroundColor: 'transparent',
             textDecoration: 'none',
@@ -51,7 +56,7 @@ export default function SysFuncButton({
         disableRipple
       >
         <HeadphonesOutlinedIcon width={20} />
-        {t('contact')}
+        {isMdUp && t('contact')}
       </Button>
       <Select
         value={language}

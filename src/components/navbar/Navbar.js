@@ -51,7 +51,6 @@ export default function Navbar() {
   const { language, setLanguage } = useAppContext();
   const router = useRouter();
   const imageUri = useImage(AppImages.logoVietQr);
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
