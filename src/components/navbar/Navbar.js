@@ -62,6 +62,8 @@ export default function Navbar() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              '&:hover': { backgroundColor: 'transparent' },
+              width: 'fit-content',
             }}
             disableRipple
           >
@@ -148,6 +150,8 @@ export default function Navbar() {
               },
               m: '0 auto',
               pl: 12,
+              '&:hover': { backgroundColor: 'transparent' },
+              width: 'fit-content',
             }}
             disableRipple
             disableTouchRipple
@@ -230,6 +234,7 @@ export default function Navbar() {
                       backgroundColor: 'transparent',
                       textDecoration: 'none',
                     },
+                    width: 'fit-content',
                     mt: 1.5,
                     marginLeft: { xs: 'auto', md: -4, lg: 10, xl: '5rem' },
                   }}

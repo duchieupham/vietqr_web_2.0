@@ -4,6 +4,7 @@ import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 import theme from '~/theme';
@@ -12,8 +13,19 @@ export default function ContactLangButton({ languageOptions, style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
-
   const { language, setLanguage } = useAppContext();
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  useEffect(() => {
+    // Khi component mount, đảm bảo giá trị mặc định được set
+    if (languageOptions.length > 0) {
+      const defaultLanguage =
+        languageOptions.find((option) => option.value === language)?.value ||
+        languageOptions[0].value;
+      setSelectedLanguage(defaultLanguage);
+    }
+  }, [language, languageOptions]);
+
   const onChangeLanguage = (e) => {
     const locale = e.target.value;
     setCookie(LOCALE_COOKIE, locale);
@@ -53,8 +65,11 @@ export default function ContactLangButton({ languageOptions, style }) {
         {isMdUp && t('contact')}
       </Button>
       <Select
-        value={language}
-        onChange={onChangeLanguage}
+        value={selectedLanguage}
+        onChange={(e) => {
+          setSelectedLanguage(e.target.value);
+          onChangeLanguage(e);
+        }}
         IconComponent={ExpandMoreIcon}
         renderValue={(selected) => {
           const selectedOption = languageOptions.find(
