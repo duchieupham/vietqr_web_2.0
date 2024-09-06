@@ -98,6 +98,10 @@ export default function ContactLangButton({ languageOptions, style }) {
             alignItems: 'center',
             gap: 1,
           },
+          '& .MuiList-root-MuiMenu-list': {
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
         }}
       >
         {languageOptions.map((option) => (
