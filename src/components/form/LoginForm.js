@@ -428,7 +428,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '37%',
+                    top: '42%',
                     transform: 'translateY(-50%)',
                   }}
                 >
