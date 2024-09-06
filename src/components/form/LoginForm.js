@@ -25,7 +25,7 @@ import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useCallback, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -34,7 +34,6 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
-import { phoneRegex } from '~/constants';
 import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient, ButtonSolid } from '../button';
 import { TextGradient } from '../text';
@@ -147,126 +146,74 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const { authenticate } = useAuthContext();
   const [storedValue, setStoredValue] = useLocalStorage('session', '');
   const [isCompleted, setIsCompleted] = useState({});
-  const phoneNoRef = useRef(null);
   const phoneNoValue = watch('phoneNo', '');
-  const passwordRef = watch('password', '');
+  const passwordValue = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
   const { qr } = useAppSelector((state) => state.qr);
 
-  const handleComplete = useCallback((field, value) => {
+  const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
       ...prevState,
       [field]: value,
     }));
-  }, []);
+  };
 
-  const handleInputChange = useCallback(
-    (event) => {
-      // Remove any non-digit characters
-      event.target.value = event.target.value.replace(/\D/g, '');
-      // Limit the input to 10 characters
-      if (event.target.value.length > 10) {
-        event.target.value = event.target.value.slice(0, 10);
-      }
-      if (!event.target.value) {
-        clearErrors('phoneNo');
-        handleComplete('phoneNo', false);
-      }
-      if (
-        event.target.value.length === 10 &&
-        event.target.value.match(phoneRegex)
-      ) {
-        handleComplete('phoneNo', true);
-      }
-      if (event.target.value.length < 10) {
-        handleComplete('phoneNo', false);
-      }
-      phoneNoRef.current.value = event.target.value;
-    },
-    [handleComplete],
-  );
-
-  const handlePasswordChange = useCallback(
-    (event) => {
-      event.target.value = event.target.value.replace(/\D/g, '');
-      if (event.target.value.length > 6) {
-        event.target.value = event.target.value.slice(0, 6);
-      }
-      if (event.target.value.length === 6) {
-        handleComplete('password', true);
-      }
-      if (event.target.value.length < 6) {
-        handleComplete('password', false);
-      }
-      if (passwordRef.current) {
-        passwordRef.current.value = event.target.value;
-      }
-    },
-    [handleComplete],
-  );
-
-  const handleClearInput = useCallback(() => {
+  const handleClearInput = () => {
     setValue('phoneNo', '');
     setValue('password', '');
     handleComplete('phoneNo', false);
     clearErrors('phoneNo');
     clearErrors('password');
-    phoneNoRef.current.focus();
-  }, [setValue, handleComplete, clearErrors]);
+  };
 
   const phoneNoError =
-    phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
+    phoneNoValue.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const onSubmit = useCallback(
-    async (formData) => {
-      if (!formData.phoneNo || !formData.password) {
-        if (!formData.phoneNo) {
-          setError('phoneNo', {
-            type: 'manual',
-            message: t('phoneNoRequired'),
-          });
-        }
-
-        if (!formData.password) {
-          setError('password', {
-            type: 'manual',
-            message: t('passwordRequired'),
-          });
-        }
-
-        return;
-      }
-      try {
-        // Call API to login
-        await loginAPI
-          .login(formData.phoneNo, formData.password)
-          .then((res) => {
-            // console.log(res);
-            const { status, data } = res;
-            if (status === 200) {
-              authenticate(data);
-              const info = decodeJwt(data);
-              if (info) setStoredValue(info);
-            }
-            if (status === 400) {
-              setError('phoneNo', {
-                type: 'manual',
-                message: t('invalidPhone&Password'),
-              });
-              setValue('password', '');
-            }
-          });
-      } catch (error) {
+  const onSubmit = async (formData) => {
+    if (!formData.phoneNo || !formData.password) {
+      if (!formData.phoneNo) {
         setError('phoneNo', {
           type: 'manual',
-          message: t('invalidPhone&Password'),
+          message: t('phoneNoRequired'),
         });
       }
-    },
-    [isCompleted, authenticate, setStoredValue, setValue, t],
-  );
 
-  const onSubmitQR = useCallback(async (data) => {
+      if (!formData.password) {
+        setError('password', {
+          type: 'manual',
+          message: t('passwordRequired'),
+        });
+      }
+
+      return;
+    }
+    try {
+      // Call API to login
+      await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
+        // console.log(res);
+        const { status, data } = res;
+        if (status === 200) {
+          authenticate(data);
+          const info = decodeJwt(data);
+          if (info) setStoredValue(info);
+        }
+        if (status === 400) {
+          setError('phoneNo', {
+            type: 'manual',
+            message: t('invalidPhone&Password'),
+          });
+          setValue('password', '');
+        }
+      });
+    } catch (error) {
+      setError('phoneNo', {
+        type: 'manual',
+        message: t('invalidPhone&Password'),
+      });
+    }
+  };
+
+  const onSubmitQR = async (data) => {
     try {
       // console.log(data);
       await loginAPI.loginQR(data.userId).then((res) => {
@@ -282,9 +229,15 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     } catch (error) {
       setError(error);
     }
-  }, []);
+  };
 
   useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
+
+  useEffect(() => {
+    if (passwordValue.length === 6) {
+      handleSubmit(onSubmit)(); // Automatically submit the form
+    }
+  }, [passwordValue, handleSubmit]);
 
   return (
     <Box
@@ -293,7 +246,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         justifyContent: 'center',
         width: {
           xs: '100%',
-          md: '100%',
           lg: '47%',
         },
         ...containerStyle,
@@ -323,6 +275,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               <Box
                 sx={{
                   position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <PhoneOutlinedIcon
@@ -336,13 +290,13 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     position: 'absolute',
                     zIndex: 1,
                     left: '10px',
-                    top: errors?.phoneNo ? '40%' : '50%',
+                    top: errors?.phoneNo ? '45%' : '50%',
                     transform: 'translateY(-50%)',
+                    justifyContent: 'center',
                   }}
                 />
                 <TextField
                   {...field}
-                  inputRef={phoneNoRef}
                   label={t('phoneNo')}
                   variant="outlined"
                   error={!!errors?.phoneNo || phoneNoError}
@@ -351,7 +305,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       ? errors.phoneNo?.message || ''
                       : ''
                   }
-                  onInput={handleInputChange}
                   required
                   sx={{
                     ...inputStyle,
@@ -382,7 +335,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       opacity: errors?.phoneNo ? 1 : 0,
                       visibility: errors?.phoneNo ? 'visible' : 'hidden',
                       transform: 'translateY(50%)',
-                      mt: -1.7,
+                      mt: -1,
+                      whiteSpace: 'nowrap',
                     },
                   }}
                   InputProps={{
@@ -431,7 +385,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   error={!!errors?.password}
                   helperText={errors?.password?.message}
                   required
-                  onInput={handlePasswordChange}
                   sx={{
                     ...passwordStyle,
                     '& .MuiInputLabel-shrink': {
@@ -442,8 +395,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       transition: 'all 0.2s ease-in-out',
                       opacity: errors?.password ? 1 : 0,
                       visibility: errors?.password ? 'visible' : 'hidden',
-                      position: 'absolute',
-                      bottom: '-25px',
+                      transform: 'translateY(50%)',
+                      mt: -1,
                     },
                   }}
                   InputProps={{
@@ -463,14 +416,19 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     ),
                   }}
                   autoComplete="current-password"
-                  // {...{ disabled: !isCompleted.phoneNo }}
+                  onChange={(e) => {
+                    if (e.target.value.length > 6) {
+                      e.target.value = e.target.value.slice(0, 6);
+                    }
+                    field.onChange(e);
+                  }}
                 />
                 <Box
                   className={styles.circles}
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '45%',
+                    top: '37%',
                     transform: 'translateY(-50%)',
                   }}
                 >
@@ -478,14 +436,14 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     <Box
                       key={index}
                       className={`${styles.circle} ${
-                        passwordRef.length > index ? styles.filled : ''
+                        passwordValue.length > index ? styles.filled : ''
                       }`}
                       sx={{
                         width: '10px',
                         height: '10px',
                         borderRadius: '50%',
                         backgroundColor:
-                          passwordRef.length > index ? 'blue' : 'lightgray',
+                          passwordValue.length > index ? 'blue' : 'lightgray',
                         margin: '2px',
                       }}
                     />

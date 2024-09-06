@@ -192,7 +192,7 @@ export default function Navbar() {
             }}
           >
             <Grid container>
-              <Grid item xs={5}>
+              <Grid item xs={6} lg={5}>
                 <LoginHeaderBar
                   styles={styles}
                   style={{
@@ -231,7 +231,7 @@ export default function Navbar() {
                       textDecoration: 'none',
                     },
                     mt: 1.5,
-                    marginLeft: { xs: 'auto', md: '0', lg: 12 },
+                    marginLeft: { xs: 'auto', md: -4, lg: 0 },
                   }}
                   disableRipple
                 >
@@ -247,7 +247,7 @@ export default function Navbar() {
                   </Link>
                 </Button>
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={6} md={3}>
                 <ContactLangButton languageOptions={languageOptions} />
               </Grid>
             </Grid>
