@@ -39,6 +39,7 @@ import LoginHeaderBar from '../header/LoginHeaderBar';
 
 import VNIcon from '../icon/VNIcon';
 import USIcon from '../icon/USIcon';
+import SysFuncButton from '../SysFuncButton';
 
 const languageOptions = [
   { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
@@ -197,91 +198,18 @@ export default function Navbar() {
             </Link>
           </Button>
           {/* System Func xs screen sizes */}
-          <Box
-            sx={{
+          <SysFuncButton
+            languageOptions={languageOptions}
+            router={router}
+            mobile
+            style={{
               display: {
                 xs: 'flex',
                 md: 'none',
               },
-              gap: {
-                xs: 0,
-                lg: 2,
-              },
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
             }}
-          >
-            <Button
-              sx={{
-                color: 'black',
-                fontSize: {
-                  xs: '10px',
-                  md: '12px',
-                },
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                fontWeight: 'normal',
-                textTransform: 'none',
-                gap: {
-                  xs: 0,
-                  lg: '0.5rem',
-                },
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  textDecoration: 'none',
-                },
-                p: 0,
-                justifyContent: 'flex-end',
-              }}
-              disableRipple
-            >
-              <HeadphonesOutlinedIcon width={20} />
-              {isMdUp && t('contact')}
-            </Button>
-            <Select
-              value={language}
-              onChange={onChangeLanguage}
-              IconComponent={ExpandMoreIcon}
-              renderValue={(selected) => {
-                if (!selected) return null;
-                const selectedOption = languageOptions.find(
-                  (option) => option.value === selected,
-                );
-                return selectedOption ? selectedOption.icon : null;
-              }}
-              sx={{
-                '.MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-                '.MuiSelect-icon': {
-                  color: 'inherit',
-                },
-                fontSize: {
-                  xs: '12px',
-                  md: '15px',
-                },
-                '.MuiSelect-select': {
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                },
-              }}
-            >
-              {languageOptions.map((option) => (
-                <MenuItem
-                  key={option.id}
-                  value={option.value}
-                  sx={{
-                    justifyContent: 'center',
-                    display: 'flex',
-                    gap: 1,
-                  }}
-                >
-                  {option.icon}
-                  {t(option.label)}
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
+          />
           {/* Full Navbar for larger screens */}
           <Box
             sx={{
@@ -351,84 +279,10 @@ export default function Navbar() {
                 </Button>
               </Grid>
               <Grid item xs={6} md={3}>
-                <Box
-                  sx={{
-                    alignContent: 'center',
-                    justifyContent: 'flex-end',
-                    display: 'flex',
-                  }}
-                >
-                  <Button
-                    sx={{
-                      color: 'black',
-                      fontSize: {
-                        xs: '10px',
-                        md: '12px',
-                      },
-                      flexDirection: 'row',
-                      flexWrap: 'wrap',
-                      fontWeight: 'normal',
-                      textTransform: 'none',
-                      gap: '0.5rem',
-                      '&:hover': {
-                        backgroundColor: 'transparent',
-                        textDecoration: 'none',
-                      },
-                    }}
-                    disableRipple
-                  >
-                    <HeadphonesOutlinedIcon width={20} />
-                    {t('contact')}
-                  </Button>
-                  <Select
-                    value={language}
-                    onChange={onChangeLanguage}
-                    IconComponent={ExpandMoreIcon}
-                    renderValue={(selected) => {
-                      const selectedOption = languageOptions.find(
-                        (option) => option.value === selected,
-                      );
-                      return selectedOption ? (
-                        <>
-                          {selectedOption.icon}
-                          {t(selectedOption.label)}
-                        </>
-                      ) : null;
-                    }}
-                    sx={{
-                      '.MuiOutlinedInput-notchedOutline': {
-                        border: 'none',
-                      },
-                      '.MuiSelect-icon': {
-                        color: 'inherit',
-                      },
-                      fontSize: {
-                        xs: '12px',
-                        md: '15px',
-                      },
-                      '.MuiSelect-select': {
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 1,
-                      },
-                    }}
-                  >
-                    {languageOptions.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.value}
-                        sx={{
-                          justifyContent: 'center',
-                          display: 'flex',
-                          gap: 1,
-                        }}
-                      >
-                        {option.icon}
-                        {t(option.label)}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
+                <SysFuncButton
+                  languageOptions={languageOptions}
+                  router={router}
+                />
               </Grid>
             </Grid>
           </Box>
