@@ -217,56 +217,51 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoError =
     phoneNoRef.current?.value.length !== 0 && !!errors?.phoneNo;
 
-  const onSubmit = useCallback(
-    async (formData) => {
-      if (!formData.phoneNo || !formData.password) {
-        if (!formData.phoneNo) {
-          setError('phoneNo', {
-            type: 'manual',
-            message: t('phoneNoRequired'),
-          });
-        }
-
-        if (!formData.password) {
-          setError('password', {
-            type: 'manual',
-            message: t('passwordRequired'),
-          });
-        }
-
-        return;
-      }
-      try {
-        // Call API to login
-        await loginAPI
-          .login(formData.phoneNo, formData.password)
-          .then((res) => {
-            // console.log(res);
-            const { status, data } = res;
-            if (status === 200) {
-              authenticate(data);
-              const info = decodeJwt(data);
-              if (info) setStoredValue(info);
-            }
-            if (status === 400) {
-              setError('phoneNo', {
-                type: 'manual',
-                message: t('invalidPhone&Password'),
-              });
-              setValue('password', '');
-            }
-          });
-      } catch (error) {
+  const onSubmit = async (formData) => {
+    if (!formData.phoneNo || !formData.password) {
+      if (!formData.phoneNo) {
         setError('phoneNo', {
           type: 'manual',
-          message: t('invalidPhone&Password'),
+          message: t('phoneNoRequired'),
         });
       }
-    },
-    [isCompleted, authenticate, setStoredValue, setValue, t],
-  );
 
-  const onSubmitQR = useCallback(async (data) => {
+      if (!formData.password) {
+        setError('password', {
+          type: 'manual',
+          message: t('passwordRequired'),
+        });
+      }
+
+      return;
+    }
+    try {
+      // Call API to login
+      await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
+        // console.log(res);
+        const { status, data } = res;
+        if (status === 200) {
+          authenticate(data);
+          const info = decodeJwt(data);
+          if (info) setStoredValue(info);
+        }
+        if (status === 400) {
+          setError('phoneNo', {
+            type: 'manual',
+            message: t('invalidPhone&Password'),
+          });
+          setValue('password', '');
+        }
+      });
+    } catch (error) {
+      setError('phoneNo', {
+        type: 'manual',
+        message: t('invalidPhone&Password'),
+      });
+    }
+  };
+
+  const onSubmitQR = async (data) => {
     try {
       // console.log(data);
       await loginAPI.loginQR(data.userId).then((res) => {
@@ -282,7 +277,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     } catch (error) {
       setError(error);
     }
-  }, []);
+  };
 
   useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
 
