@@ -149,7 +149,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
   const phoneNoBorder = '1px solid #E0E0E0';
-  const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
@@ -215,15 +214,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmitQR = async (data) => {
     try {
-      // console.log(data);
       await loginAPI.loginQR(data.userId).then((res) => {
-        // console.log(res);
         const { status, data: qrData } = res;
         if (status === 200) {
           authenticate(qrData);
           const info = decodeJwt(qrData);
           if (info) setStoredValue(info);
-          // console.log(qrData);
         }
       });
     } catch (error) {
@@ -231,7 +227,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
   };
 
-  useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
+  useLoginSocket({
+    onSuccess: onSubmitQR,
+  });
 
   useEffect(() => {
     if (passwordValue.length === 6) {
