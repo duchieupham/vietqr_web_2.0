@@ -1,4 +1,5 @@
 import {
+  Button,
   IconButton,
   ListItemIcon,
   Menu,
@@ -6,15 +7,23 @@ import {
   Popover,
 } from '@mui/material';
 import { useState } from 'react';
+import MenuPopover from '~/components/MenuPopover';
 import Profile from '~/components/Profile';
+import { useAuthContext } from '~/contexts/AuthContext';
 
 export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { session, clear } = useAuthContext();
+
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    clear();
   };
 
   return (
@@ -23,21 +32,30 @@ export default function AccountPopover() {
         <Profile />
       </IconButton>
       {/* //TODO: MenuPopover */}
-      <Menu
+      <MenuPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
       >
         {/* //TODO: Additional the content */}
-      </Menu>
+        <MenuItem>
+          <ListItemIcon>
+            <Button
+              onClick={logout}
+              disableRipple
+              sx={{
+                width: 'fit-content',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  textDecoration: 'none',
+                },
+              }}
+            >
+              Logout
+            </Button>
+          </ListItemIcon>
+        </MenuItem>
+      </MenuPopover>
     </>
   );
 }

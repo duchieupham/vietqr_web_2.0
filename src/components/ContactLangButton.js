@@ -82,6 +82,16 @@ export default function ContactLangButton({ style }) {
             </>
           ) : null;
         }}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              '& .MuiMenu-list': {
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+            },
+          },
+        }}
         sx={{
           '.MuiOutlinedInput-notchedOutline': {
             border: 'none',

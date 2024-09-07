@@ -3,7 +3,7 @@
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import Footer from '~/components/footer/login';
-import { LoginForm } from '~/components/form';
+import LoginForm from '~/components/form/login';
 import Navbar from '~/components/navbar/login';
 import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';

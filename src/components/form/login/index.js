@@ -34,9 +34,9 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
+import { ButtonGradient, ButtonSolid } from '~/components/button';
+import { TextGradient } from '~/components/text';
 import { useAppSelector } from '~/redux/hook';
-import { ButtonGradient, ButtonSolid } from '../button';
-import { TextGradient } from '../text';
 
 const inputStyle = {
   width: '360px',
@@ -329,6 +329,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                     '& .MuiInputLabel-shrink': {
                       paddingLeft: '0px',
                       transition: 'all 0.2s ease-in-out',
+                      borderRadius: '10px',
+                      backgroundClip: 'transparent',
                     },
                     '& .MuiFormHelperText-root': {
                       transition: 'all 0.2s ease-in-out',
@@ -428,7 +430,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '42%',
+                    top: errors?.password ? '38%' : '43.5%',
                     transform: 'translateY(-50%)',
                   }}
                 >
