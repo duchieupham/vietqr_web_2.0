@@ -172,6 +172,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmit = async (formData) => {
     if (!formData.phoneNo || !formData.password) {
+      // TODO: Use yup error. No need set error manually
       if (!formData.phoneNo) {
         setError('phoneNo', {
           type: 'manual',
