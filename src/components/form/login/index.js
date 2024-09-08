@@ -46,21 +46,6 @@ const inputStyle = {
   '& .MuiInputBase-input': {
     borderRadius: '10px',
   },
-  '& .MuiOutlinedInput-root': {
-    height: '50px', // Set the height of the TextField
-    borderRadius: '10px',
-    '& fieldset': {
-      border: '1px solid #E0E0E0',
-      borderRadius: '10px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0072ff', // Border color on hover
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#0072ff', // Border color when focused
-      borderRadius: '10px',
-    },
-  },
   '& .MuiOutlinedInput-input': {
     height: '100%', // Ensure the input field takes up the full height
     padding: 'auto 16px', // Adjust padding to center the text vertically
@@ -69,13 +54,32 @@ const inputStyle = {
     width: '360px',
     marginRight: '-22px',
   },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderRadius: '10px',
+    },
+    '&:hover fieldset': {
+      borderColor: '#0072ff',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#0072ff',
+    },
+    '& .MuiOutlinedInput-input': {
+      paddingLeft: '50px',
+    },
+  },
   '& .MuiInputLabel-root': {
-    top: '-5px',
-    alignItems: 'center', // Align the label text with the input
-    justifyContent: 'center', // Align the label text with the input
-    display: 'flex', // Align the label text with the input
-    fontSize: '1rem', // Adjust the label font size
-    lineHeight: '30px', // Ensure the label aligns with the input height
+    paddingLeft: '40px',
+  },
+  '& .MuiInputLabel-shrink': {
+    paddingLeft: '0px',
+    transition: 'all 0.2s ease-in-out',
+  },
+  '& .MuiFormHelperText-root': {
+    transition: 'all 0.2s ease-in-out',
+    transform: 'translateY(50%)',
+    mt: -1,
+    whiteSpace: 'nowrap',
   },
 };
 
@@ -145,8 +149,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
-  const phoneNoBorder = '1px solid #E0E0E0';
-  const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
@@ -168,6 +170,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmit = async (formData) => {
     if (!formData.phoneNo || !formData.password) {
+      // TODO: Use yup error. No need set error manually
       if (!formData.phoneNo) {
         setError('phoneNo', {
           type: 'manual',
@@ -210,9 +213,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmitQR = async (data) => {
     try {
-      // console.log(data);
       await loginAPI.loginQR(data.userId).then((res) => {
-        // console.log(res);
         const { status, data: qrData } = res;
         if (status === 200) {
           authenticate(qrData);
@@ -224,7 +225,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
   };
 
-  useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
+  useLoginSocket({
+    onSuccess: onSubmitQR,
+  });
 
   // useEffect(() => {
   //   if (phoneNoValue === 10 && passwordValue.length === 6) {
@@ -457,6 +460,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                 lg: 'flex-start',
               },
               marginBottom: '1rem',
+              cursor: 'pointer',
+              ':hover': {
+                opacity: 0.8,
+              },
             }}
           >
             {t('forgotPassword')}
