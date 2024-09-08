@@ -3,6 +3,7 @@ import { setCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import MenuPopover from '~/components/MenuPopover';
 import { DEFAULT_IMAGE, LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 
@@ -46,12 +47,10 @@ export default function LanguagePopover() {
       </IconButton>
 
       {/* // TODO: MenuPopover */}
-      <Menu
+      <MenuPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         {LANGUAGE_OPTIONS.map((option) => (
           <MenuItem
@@ -76,7 +75,7 @@ export default function LanguagePopover() {
             {option.label}
           </MenuItem>
         ))}
-      </Menu>
+      </MenuPopover>
     </>
   );
 }
