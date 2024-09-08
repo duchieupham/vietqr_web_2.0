@@ -17,9 +17,11 @@ import loginAPI from '~/api/login/loginService';
 
 // hooks
 import { Controller, useForm } from 'react-hook-form';
+import { useLocalStorage } from '~/hooks/useLocalStorage';
 import useLoginSocket from '~/hooks/useLoginSocket';
 
 // utils
+import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
@@ -146,6 +148,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate } = useAuthContext();
+  const [storedValue, setStoredValue] = useLocalStorage('session', '');
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
@@ -194,6 +197,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         const { status, data } = res;
         if (status === 200) {
           authenticate(data);
+          const info = decodeJwt(data);
+          if (info) setStoredValue(info);
         }
         if (status === 400) {
           setError('phoneNo', {
@@ -217,6 +222,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         const { status, data: qrData } = res;
         if (status === 200) {
           authenticate(qrData);
+          const info = decodeJwt(qrData);
+          if (info) setStoredValue(info);
           // console.log(qrData);
         }
       });
@@ -229,11 +236,11 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     onSuccess: onSubmitQR,
   });
 
-  // useEffect(() => {
-  //   if (phoneNoValue === 10 && passwordValue.length === 6) {
-  //     handleSubmit(onSubmit)();
-  //   }
-  // }, [passwordValue, handleSubmit]);
+  useEffect(() => {
+    if (passwordValue.length === 6) {
+      handleSubmit(onSubmit)(); // Automatically submit the form
+    }
+  }, [passwordValue, handleSubmit]);
 
   return (
     <Box
@@ -475,12 +482,15 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              backgroundImage:
-                errors.phoneNo || errors.password
-                  ? 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)'
-                  : 'linear-gradient(to right, #0072ff, #00c6ff)',
-              color: errors.phoneNo || errors.password ? '#000' : '#fff',
+              ...(isCompleted.phoneNo && isCompleted.password
+                ? {}
+                : {
+                    backgroundImage:
+                      'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
+                    color: '#000',
+                  }),
             }}
+            // {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>
