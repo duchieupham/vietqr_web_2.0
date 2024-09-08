@@ -2,14 +2,16 @@ import { AppBar, Box, Stack, styled, Toolbar } from '@mui/material';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
+import SearchBar from './SearchBar';
 
 export default function DashboardHeader() {
   return (
     <AppBarStyled>
       <ToolbarStyled>
         {/* Animated Logo VietQR */}
-        <Box sx={{ flexGrow: 1 }} />
         {/* SearchBar */}
+        {/* <SearchBar /> */}
+        <Box sx={{ flexGrow: 1 }} />
         <Stack
           direction="row"
           alignItems="center"
