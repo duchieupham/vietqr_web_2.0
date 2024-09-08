@@ -441,11 +441,13 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               width: '360px',
               height: '50px',
               backgroundImage:
-                errors.phoneNo || passwordValue.length === 6
+                phoneNoValue === 10 && passwordValue.length === 6
                   ? 'linear-gradient(to right, #0072ff, #00c6ff)'
                   : 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
               color:
-                errors.phoneNo || passwordValue.length === 6 ? '#fff' : '#000',
+                phoneNoValue === 10 && passwordValue.length === 6
+                  ? '#fff'
+                  : '#000',
             }}
           >
             {t('login')}
