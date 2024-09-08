@@ -17,11 +17,9 @@ import loginAPI from '~/api/login/loginService';
 
 // hooks
 import { Controller, useForm } from 'react-hook-form';
-import { useLocalStorage } from '~/hooks/useLocalStorage';
 import useLoginSocket from '~/hooks/useLoginSocket';
 
 // utils
-import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
@@ -36,7 +34,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '~/components/button';
 import { TextGradient } from '~/components/text';
-import { useAppSelector } from '~/redux/hook';
 
 const inputStyle = {
   width: '360px',
@@ -148,7 +145,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate } = useAuthContext();
-  const [storedValue, setStoredValue] = useLocalStorage('session', '');
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
@@ -197,8 +193,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         const { status, data } = res;
         if (status === 200) {
           authenticate(data);
-          const info = decodeJwt(data);
-          if (info) setStoredValue(info);
         }
         if (status === 400) {
           setError('phoneNo', {
@@ -222,8 +216,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         const { status, data: qrData } = res;
         if (status === 200) {
           authenticate(qrData);
-          const info = decodeJwt(qrData);
-          if (info) setStoredValue(info);
           // console.log(qrData);
         }
       });
@@ -238,7 +230,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   useEffect(() => {
     if (passwordValue.length === 6) {
-      handleSubmit(onSubmit)(); // Automatically submit the form
+      handleSubmit(onSubmit)();
     }
   }, [passwordValue, handleSubmit]);
 
@@ -309,41 +301,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       : ''
                   }
                   required
-                  sx={{
-                    ...inputStyle,
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        border: phoneNoBorder,
-                        borderRadius: '10px',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: phoneNoBorder,
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: phoneNoBorder,
-                      },
-                      '& .MuiOutlinedInput-input': {
-                        paddingLeft: '50px',
-                      },
-                    },
-                    '& .MuiInputLabel-root': {
-                      paddingLeft: '40px',
-                    },
-                    '& .MuiInputLabel-shrink': {
-                      paddingLeft: '0px',
-                      transition: 'all 0.2s ease-in-out',
-                      borderRadius: '10px',
-                      backgroundClip: 'transparent',
-                    },
-                    '& .MuiFormHelperText-root': {
-                      transition: 'all 0.2s ease-in-out',
-                      opacity: errors?.phoneNo ? 1 : 0,
-                      visibility: errors?.phoneNo ? 'visible' : 'hidden',
-                      transform: 'translateY(50%)',
-                      mt: -1,
-                      whiteSpace: 'nowrap',
-                    },
-                  }}
+                  sx={inputStyle}
                   InputProps={{
                     maxLength: 10,
                     endAdornment: phoneNoValue ? (
@@ -482,15 +440,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              ...(isCompleted.phoneNo && isCompleted.password
-                ? {}
-                : {
-                    backgroundImage:
-                      'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
-                    color: '#000',
-                  }),
+              backgroundImage:
+                errors.phoneNo || errors.password
+                  ? 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)'
+                  : 'linear-gradient(to right, #0072ff, #00c6ff)',
+              color: errors.phoneNo || errors.password ? '#000' : '#fff',
             }}
-            // {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>
