@@ -1,9 +1,20 @@
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Popover,
+} from '@mui/material';
 import { useState } from 'react';
-import MyAvatar from '~/components/MyAvatar';
+import MenuPopover from '~/components/MenuPopover';
+import Profile from '~/components/Profile';
+import { useAuthContext } from '~/contexts/AuthContext';
 
 export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { session, clear } = useAuthContext();
+
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -11,30 +22,40 @@ export default function AccountPopover() {
     setAnchorEl(null);
   };
 
+  const logout = () => {
+    clear();
+  };
+
   return (
     <>
-      <IconButton>{/* lang */}</IconButton>
-      <IconButton>{/* noti */}</IconButton>
       <IconButton onClick={handleOpen} sx={{ p: 0 }}>
-        <MyAvatar />
+        <Profile />
       </IconButton>
-      <Menu
+      {/* //TODO: MenuPopover */}
+      <MenuPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+        {/* //TODO: Additional the content */}
+        <MenuItem>
+          <ListItemIcon>
+            <Button
+              onClick={logout}
+              disableRipple
+              sx={{
+                width: 'fit-content',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  textDecoration: 'none',
+                },
+              }}
+            >
+              Logout
+            </Button>
+          </ListItemIcon>
+        </MenuItem>
+      </MenuPopover>
     </>
   );
 }

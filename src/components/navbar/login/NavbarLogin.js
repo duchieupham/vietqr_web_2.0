@@ -17,16 +17,8 @@ import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
-import LoginHeaderBar from '../header/LoginHeaderBar';
-
-import ContactLangButton from '../ContactLangButton';
-import USIcon from '../icon/USIcon';
-import VNIcon from '../icon/VNIcon';
-
-const languageOptions = [
-  { id: 1, label: 'vietnamese', value: 'vi', icon: <VNIcon /> },
-  { id: 2, label: 'english', value: 'en', icon: <USIcon /> },
-];
+import LoginHeaderBar from '~/components/header/LoginHeaderBar';
+import ContactLangButton from '~/components/ContactLangButton';
 
 export default function Navbar() {
   const imageUri = useImage(AppImages.logoVietQr);
@@ -174,7 +166,6 @@ export default function Navbar() {
           </Button>
           {/* System Func xs screen sizes */}
           <ContactLangButton
-            languageOptions={languageOptions}
             style={{
               display: {
                 xs: 'flex',
@@ -253,7 +244,7 @@ export default function Navbar() {
                 </Button>
               </Grid>
               <Grid item xs={6} md={3} lg={4}>
-                <ContactLangButton languageOptions={languageOptions} />
+                <ContactLangButton />
               </Grid>
             </Grid>
           </Box>

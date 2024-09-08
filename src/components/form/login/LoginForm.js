@@ -17,11 +17,9 @@ import loginAPI from '~/api/login/loginService';
 
 // hooks
 import { Controller, useForm } from 'react-hook-form';
-import { useLocalStorage } from '~/hooks/useLocalStorage';
 import useLoginSocket from '~/hooks/useLoginSocket';
 
 // utils
-import decodeJwt from '~/utils/decodeJwt';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
@@ -34,9 +32,8 @@ import styles from '~styles/Input.module.scss';
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from '~/redux/hook';
-import { ButtonGradient, ButtonSolid } from '../button';
-import { TextGradient } from '../text';
+import { ButtonGradient, ButtonSolid } from '~/components/button';
+import { TextGradient } from '~/components/text';
 
 const inputStyle = {
   width: '360px',
@@ -48,21 +45,6 @@ const inputStyle = {
   '& .MuiInputBase-input': {
     borderRadius: '10px',
   },
-  '& .MuiOutlinedInput-root': {
-    height: '50px', // Set the height of the TextField
-    borderRadius: '10px',
-    '& fieldset': {
-      border: '1px solid #E0E0E0',
-      borderRadius: '10px',
-    },
-    '&:hover fieldset': {
-      borderColor: '#0072ff', // Border color on hover
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#0072ff', // Border color when focused
-      borderRadius: '10px',
-    },
-  },
   '& .MuiOutlinedInput-input': {
     height: '100%', // Ensure the input field takes up the full height
     padding: 'auto 16px', // Adjust padding to center the text vertically
@@ -71,13 +53,32 @@ const inputStyle = {
     width: '360px',
     marginRight: '-22px',
   },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderRadius: '10px',
+    },
+    '&:hover fieldset': {
+      borderColor: '#0072ff',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#0072ff',
+    },
+    '& .MuiOutlinedInput-input': {
+      paddingLeft: '50px',
+    },
+  },
   '& .MuiInputLabel-root': {
-    top: '-5px',
-    alignItems: 'center', // Align the label text with the input
-    justifyContent: 'center', // Align the label text with the input
-    display: 'flex', // Align the label text with the input
-    fontSize: '1rem', // Adjust the label font size
-    lineHeight: '30px', // Ensure the label aligns with the input height
+    paddingLeft: '40px',
+  },
+  '& .MuiInputLabel-shrink': {
+    paddingLeft: '0px',
+    transition: 'all 0.2s ease-in-out',
+  },
+  '& .MuiFormHelperText-root': {
+    transition: 'all 0.2s ease-in-out',
+    transform: 'translateY(50%)',
+    mt: -1,
+    whiteSpace: 'nowrap',
   },
 };
 
@@ -144,12 +145,9 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate } = useAuthContext();
-  const [storedValue, setStoredValue] = useLocalStorage('session', '');
   const [isCompleted, setIsCompleted] = useState({});
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
-  const phoneNoBorder = '1px solid #E0E0E0';
-  const { qr } = useAppSelector((state) => state.qr);
 
   const handleComplete = (field, value) => {
     setIsCompleted((prevState) => ({
@@ -171,6 +169,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmit = async (formData) => {
     if (!formData.phoneNo || !formData.password) {
+      // TODO: Use yup error. No need set error manually
       if (!formData.phoneNo) {
         setError('phoneNo', {
           type: 'manual',
@@ -194,8 +193,6 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         const { status, data } = res;
         if (status === 200) {
           authenticate(data);
-          const info = decodeJwt(data);
-          if (info) setStoredValue(info);
         }
         if (status === 400) {
           setError('phoneNo', {
@@ -215,14 +212,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmitQR = async (data) => {
     try {
-      // console.log(data);
       await loginAPI.loginQR(data.userId).then((res) => {
-        // console.log(res);
         const { status, data: qrData } = res;
         if (status === 200) {
           authenticate(qrData);
-          const info = decodeJwt(qrData);
-          if (info) setStoredValue(info);
           // console.log(qrData);
         }
       });
@@ -231,11 +224,13 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
   };
 
-  useLoginSocket(qr.loginID, qr.randomKey, onSubmitQR);
+  useLoginSocket({
+    onSuccess: onSubmitQR,
+  });
 
   useEffect(() => {
     if (passwordValue.length === 6) {
-      handleSubmit(onSubmit)(); // Automatically submit the form
+      handleSubmit(onSubmit)();
     }
   }, [passwordValue, handleSubmit]);
 
@@ -306,39 +301,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                       : ''
                   }
                   required
-                  sx={{
-                    ...inputStyle,
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        border: phoneNoBorder,
-                        borderRadius: '10px',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: phoneNoBorder,
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: phoneNoBorder,
-                      },
-                      '& .MuiOutlinedInput-input': {
-                        paddingLeft: '50px',
-                      },
-                    },
-                    '& .MuiInputLabel-root': {
-                      paddingLeft: '40px',
-                    },
-                    '& .MuiInputLabel-shrink': {
-                      paddingLeft: '0px',
-                      transition: 'all 0.2s ease-in-out',
-                    },
-                    '& .MuiFormHelperText-root': {
-                      transition: 'all 0.2s ease-in-out',
-                      opacity: errors?.phoneNo ? 1 : 0,
-                      visibility: errors?.phoneNo ? 'visible' : 'hidden',
-                      transform: 'translateY(50%)',
-                      mt: -1,
-                      whiteSpace: 'nowrap',
-                    },
-                  }}
+                  sx={inputStyle}
                   InputProps={{
                     maxLength: 10,
                     endAdornment: phoneNoValue ? (
@@ -428,7 +391,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                   sx={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '42%',
+                    top: errors?.password ? '38%' : '43.5%',
                     transform: 'translateY(-50%)',
                   }}
                 >
@@ -462,6 +425,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
                 lg: 'flex-start',
               },
               marginBottom: '1rem',
+              cursor: 'pointer',
+              ':hover': {
+                opacity: 0.8,
+              },
             }}
           >
             {t('forgotPassword')}
@@ -473,15 +440,15 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              ...(isCompleted.phoneNo && isCompleted.password
-                ? {}
-                : {
-                    backgroundImage:
-                      'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
-                    color: '#000',
-                  }),
+              backgroundImage:
+                phoneNoValue.length === 10 && passwordValue.length === 6
+                  ? 'linear-gradient(to right, #0072ff, #00c6ff)'
+                  : 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
+              color:
+                phoneNoValue.length === 10 && passwordValue.length === 6
+                  ? '#fff'
+                  : '#000',
             }}
-            // {...{ disabled: isButtonDisabled() }}
           >
             {t('login')}
           </ButtonGradient>

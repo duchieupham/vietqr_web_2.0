@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import imagesAPI from '~/api/images/imagesService';
 import { CarouselSlider, Contact, Social } from '~/sections/login/footer';
 
-function FooterLogin() {
+function Footer() {
   const [bankType, setBankType] = useState([]);
 
   const bankTypeList = async () => {
@@ -87,4 +87,4 @@ function FooterLogin() {
     </Box>
   );
 }
-export default FooterLogin;
+export default Footer;

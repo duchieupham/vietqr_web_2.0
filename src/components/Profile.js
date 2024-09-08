@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import { useAuthContext } from '~/contexts/AuthContext';
 import useImage from '~/hooks/useImage';
 
-export default function MyAvatar(props) {
+export default function Profile(props) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imageId);
   const defaultImageUrl = '/images/logo.png';

@@ -5,11 +5,11 @@ import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { LOCALE_COOKIE } from '~/constants';
+import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 import theme from '~/theme';
 
-export default function ContactLangButton({ languageOptions, style }) {
+export default function ContactLangButton({ style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -18,13 +18,13 @@ export default function ContactLangButton({ languageOptions, style }) {
 
   useEffect(() => {
     // Khi component mount, đảm bảo giá trị mặc định được set
-    if (languageOptions.length > 0) {
+    if (LANGUAGE_OPTIONS.length > 0) {
       const defaultLanguage =
-        languageOptions.find((option) => option.value === language)?.value ||
-        languageOptions[0].value;
+        LANGUAGE_OPTIONS.find((option) => option.value === language)?.value ||
+        LANGUAGE_OPTIONS[0].value;
       setSelectedLanguage(defaultLanguage);
     }
-  }, [language, languageOptions]);
+  }, [language, LANGUAGE_OPTIONS]);
 
   const onChangeLanguage = (e) => {
     const locale = e.target.value;
@@ -72,7 +72,7 @@ export default function ContactLangButton({ languageOptions, style }) {
         }}
         IconComponent={ExpandMoreIcon}
         renderValue={(selected) => {
-          const selectedOption = languageOptions.find(
+          const selectedOption = LANGUAGE_OPTIONS.find(
             (option) => option.value === selected,
           );
           return selectedOption ? (
@@ -81,6 +81,16 @@ export default function ContactLangButton({ languageOptions, style }) {
               {isMdUp && t(selectedOption.label)}
             </>
           ) : null;
+        }}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              '& .MuiMenu-list': {
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+            },
+          },
         }}
         sx={{
           '.MuiOutlinedInput-notchedOutline': {
@@ -104,7 +114,7 @@ export default function ContactLangButton({ languageOptions, style }) {
           },
         }}
       >
-        {languageOptions.map((option) => (
+        {LANGUAGE_OPTIONS.map((option) => (
           <MenuItem
             key={option.id}
             value={option.value}
