@@ -101,9 +101,9 @@ export default function CreateQR() {
           >
             <QRCodeComponent
               value={
-                qrState === 'downloadQR'
-                  ? 'https://onelink.to/q7zwpe'
-                  : qr.qrValue || ''
+                qrState === 'loginQR'
+                  ? qr.qrValue || ''
+                  : 'https://onelink.to/q7zwpe'
               }
             />
           </Box>
