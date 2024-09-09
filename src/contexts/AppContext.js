@@ -6,12 +6,16 @@ import { DEFAULT_LANG, LOCALE_COOKIE } from '~/constants';
 
 const initialContext = {
   language: DEFAULT_LANG,
+  loading: false,
+  isDisabled: false,
 };
 
 const AppContext = createContext(initialContext);
 
 export function AppContextProvider({ children }) {
   const [language, setLanguage] = useState(initialContext.language);
+  const [loading, setLoading] = useState(initialContext.loading);
+  const [isDisabled, setIsDisabled] = useState(initialContext.isDisabled);
 
   useEffect(() => {
     const locale = getCookie(LOCALE_COOKIE);
@@ -19,7 +23,16 @@ export function AppContextProvider({ children }) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ language, setLanguage }}>
+    <AppContext.Provider
+      value={{
+        language,
+        loading,
+        isDisabled,
+        setLanguage,
+        setLoading,
+        setIsDisabled,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

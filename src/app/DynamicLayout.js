@@ -4,11 +4,14 @@ import MainLayout from '~/layout/MainLayout';
 import { lazy, useMemo } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 import _upperFirst from 'lodash-es/upperFirst';
+import { Backdrop, CircularProgress } from '@mui/material';
+import { useAppContext } from '~/contexts/AppContext';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
   const { auth } = useAuthContext();
+  const { loading } = useAppContext();
 
   const getLayout = (name) => {
     if (!Object.hasOwn(CACHE_LAYOUTS, name)) {
@@ -26,7 +29,14 @@ function DynamicLayout({ children }) {
     return getLayout(layoutName);
   }, [auth]);
 
-  return <MainLayout>{children}</MainLayout>;
+  return (
+    <>
+      <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
+        <CircularProgress />
+      </Backdrop>
+      <MainLayout>{children}</MainLayout>
+    </>
+  );
 }
 
 export default DynamicLayout;
