@@ -31,8 +31,8 @@ export const LANGUAGE_OPTIONS = [
     id: 1,
     label: 'vietnamese',
     value: 'vi',
-    icon: <VNIcon />,
-    icon2: '/images/VN.png',
+    icon: <VNIcon />, // circle flag
+    icon2: '/images/VN.png', // flag
   },
   {
     id: 2,
@@ -45,6 +45,3 @@ export const LANGUAGE_OPTIONS = [
 
 // image
 export const DEFAULT_IMAGE = '/images/logo.png';
-
-// navbar default active
-export const DEFAULT_ACTIVE = 4;
