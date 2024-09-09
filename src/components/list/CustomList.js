@@ -1,8 +1,7 @@
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import { DEFAULT_ACTIVE } from '~/constants';
+import { useState } from 'react';
 
 export default function CustomList({
   list,
@@ -11,12 +10,15 @@ export default function CustomList({
   typographyStyle,
   ...props
 }) {
-  const selectedTab = useRef(null);
+  const [selectedTab, setSelectedTab] = useState(null);
   const t = useTranslations();
-  const [activeLink, setActiveLink] = useState(DEFAULT_ACTIVE);
-  const handleLinkClick = (type) => {
-    setActiveLink(type);
+  const [activeLink, setActiveLink] = useState(4);
+  const handleLinkClick = (id) => {
+    setActiveLink(id);
+    setSelectedTab(id);
   };
+
+  console.log('activeLink', activeLink);
 
   return (
     <List className={styles.nav}>
@@ -28,8 +30,7 @@ export default function CustomList({
             borderRadius: '8px',
             transition:
               'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-            transform:
-              selectedTab.current === item.id ? 'scale(0.97)' : 'scale(1)',
+            transform: selectedTab === item.id ? 'scale(0.97)' : 'scale(1)',
             backgroundColor: activeLink === item.id ? 'transparent' : 'initial',
             '&:hover': {
               background:
@@ -72,7 +73,10 @@ export default function CustomList({
               primary={t(item.name)}
               className={`${activeLink === item.id ? styles.active : ''}`}
               primaryTypographyProps={{
-                ...typographyStyle,
+                fontSize: {
+                  xs: '12px',
+                  md: '15px',
+                },
               }}
             />
           </Link>
