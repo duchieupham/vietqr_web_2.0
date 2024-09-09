@@ -206,12 +206,6 @@ export default function Navbar() {
                       },
                     },
                   }}
-                  typographyStyle={{
-                    fontSize: {
-                      xs: '12px',
-                      md: '15px',
-                    },
-                  }}
                 />
               </Grid>
               <Grid item xs={6} md={3}>
