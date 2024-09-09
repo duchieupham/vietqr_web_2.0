@@ -1,5 +1,4 @@
 // mui
-import { BorderBottom } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -101,9 +100,9 @@ export default function CreateQR() {
           >
             <QRCodeComponent
               value={
-                qrState === 'loginQR'
-                  ? qr?.qrValue
-                  : 'https://onelink.to/q7zwpe'
+                qrState === 'downloadQR'
+                  ? 'https://onelink.to/q7zwpe'
+                  : qr.qrValue || ''
               }
             />
           </Box>
