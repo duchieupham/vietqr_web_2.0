@@ -59,11 +59,11 @@ export default function MenuContent() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [openTransaction, setOpenTransaction] = useState(null);
 
-  const handleListItemClick = (index) => {
+  const onClickListItem = (index) => {
     setSelectedIndex(index);
   };
 
-  const handleSubmenuToggle = (index) => {
+  const onClickSubmenuToggle = (index) => {
     setOpenTransaction(openTransaction === index ? null : index); // Toggle submenu
   };
 
@@ -81,8 +81,8 @@ export default function MenuContent() {
                 selectedIndex === item.id || openTransaction === item.id
               }
               onClick={() => {
-                handleListItemClick(item.id);
-                if (item.subItems.length > 0) handleSubmenuToggle(item.id);
+                onClickListItem(item.id);
+                if (item.subItems.length > 0) onClickSubmenuToggle(item.id);
               }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -107,7 +107,7 @@ export default function MenuContent() {
                     >
                       <ListItemButtonStyled
                         selected={selectedIndex === subItem.id} // Track sub-item selection
-                        onClick={() => handleListItemClick(subItem.id)}
+                        onClick={() => onClickListItem(subItem.id)}
                         sx={{ pl: 4, width: '70%' }}
                       >
                         <ListItemText primary={subItem.text} />
