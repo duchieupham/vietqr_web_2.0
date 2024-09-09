@@ -8,7 +8,7 @@ function ButtonGradient({
   ...props
 }) {
   const defaultStyles = {
-    backgroundImage: `linear-gradient(to right, ${gradientColors[0]}, ${gradientColors[1]})`,
+    backgroundImage: `linear-gradient(to right, ${gradientColors[0]} 0%, ${gradientColors[1]} 50%)`,
     color: 'white',
     width: '360px',
     height: '40px',
