@@ -1,5 +1,6 @@
-import { Badge, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Badge, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { setCookie } from 'cookies-next';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import { useAppContext } from '~/contexts/AppContext';
 export default function LanguagePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
   const router = useRouter();
+  const t = useTranslations();
   const { language, setLanguage } = useAppContext();
 
   const handleOpen = (event) => {
@@ -35,7 +37,7 @@ export default function LanguagePopover() {
             option.value === language && (
               <Image
                 key={option.id}
-                src={option.icon || DEFAULT_IMAGE}
+                src={option.icon2 || DEFAULT_IMAGE}
                 width={22}
                 height={15}
                 alt={option.value || 'DEFAULT IMAGE'}
@@ -59,20 +61,24 @@ export default function LanguagePopover() {
           >
             <ListItemIcon>
               <Badge
-                color="secondary"
+                color="primary"
                 variant={language === option.value ? 'dot' : 'standard'}
               >
                 <Image
                   quality={100}
                   priority
-                  src={option.icon}
+                  src={option.icon2}
                   alt={option.label}
                   width={22}
                   height={15}
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
                 />
               </Badge>
             </ListItemIcon>
-            {option.label}
+            {t(option.label)}
           </MenuItem>
         ))}
       </MenuPopover>

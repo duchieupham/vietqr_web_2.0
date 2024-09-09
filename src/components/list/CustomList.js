@@ -1,23 +1,21 @@
-import { Box, List, ListItemButton, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { DEFAULT_ACTIVE } from '~/constants';
 
 export default function CustomList({
   list,
   styles,
-  defaultActive,
   style,
   typographyStyle,
   ...props
 }) {
   const selectedTab = useRef(null);
   const t = useTranslations();
-  const [activeLink, setActiveLink] = useState(defaultActive);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState(DEFAULT_ACTIVE);
   const handleLinkClick = (type) => {
     setActiveLink(type);
-    setMenuOpen(false); // Close menu after clicking a link
   };
 
   return (

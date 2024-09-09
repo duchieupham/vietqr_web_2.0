@@ -23,7 +23,7 @@ import useLoginSocket from '~/hooks/useLoginSocket';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -145,21 +145,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate } = useAuthContext();
-  const [isCompleted, setIsCompleted] = useState({});
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
-
-  const handleComplete = (field, value) => {
-    setIsCompleted((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
 
   const handleClearInput = () => {
     setValue('phoneNo', '');
     setValue('password', '');
-    handleComplete('phoneNo', false);
     clearErrors('phoneNo');
     clearErrors('password');
   };

@@ -1,15 +1,19 @@
+'use client';
+
 import { Box } from '@mui/material';
-import { useState } from 'react';
+import DashboardHeader from './header';
+import DashboardSidebar from './sidebar';
 
 export default function DashboardLayout({ children }) {
-  const [open, setOpen] = useState(true);
   return (
     <Box
       sx={{
-        display: { lg: 'flex' },
-        minHeight: { lg: 1 },
+        display: 'flex',
+        minHeight: 1,
       }}
     >
+      <DashboardHeader />
+      <DashboardSidebar />
       {children}
     </Box>
   );

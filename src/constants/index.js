@@ -45,3 +45,6 @@ export const LANGUAGE_OPTIONS = [
 
 // image
 export const DEFAULT_IMAGE = '/images/logo.png';
+
+// navbar default active
+export const DEFAULT_ACTIVE = 4;

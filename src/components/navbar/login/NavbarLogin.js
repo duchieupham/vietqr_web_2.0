@@ -17,8 +17,8 @@ import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
-import LoginHeaderBar from '~/components/header/LoginHeaderBar';
 import ContactLangButton from '~/components/ContactLangButton';
+import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
 
 export default function Navbar() {
   const imageUri = useImage(AppImages.logoVietQr);

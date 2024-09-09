@@ -7,6 +7,7 @@ export default function DashboardHeader() {
   return (
     <AppBarStyled>
       <ToolbarStyled>
+        {/* Bread */}
         {/* Animated Logo VietQR */}
         <Box sx={{ flexGrow: 1 }} />
         {/* SearchBar */}

@@ -10,6 +10,10 @@ export default function Profile(props) {
     <Avatar
       src={session ? imageUrl : defaultImageUrl}
       alt={session ? `${session.firstName} ${session.lastName}` : 'logo'}
+      sx={{
+        objectFit: 'cover',
+        objectPosition: 'center',
+      }}
       {...props}
     />
   );

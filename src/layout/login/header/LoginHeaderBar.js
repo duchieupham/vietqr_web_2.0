@@ -1,7 +1,5 @@
-'use client';
-
 import { navConfig } from '~/layout/login/navbar/NavConfig';
-import CustomList from '../list/CustomList';
+import CustomList from '../../../components/list/CustomList';
 
 function LoginHeaderBar({ style, styles, typographyStyle }) {
   const navList = navConfig[0].items;
@@ -9,7 +7,6 @@ function LoginHeaderBar({ style, styles, typographyStyle }) {
   return (
     <CustomList
       list={navList}
-      defaultActive={4}
       styles={styles}
       style={style}
       typographyStyle={typographyStyle}
