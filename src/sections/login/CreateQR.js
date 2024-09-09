@@ -1,5 +1,4 @@
 // mui
-import { BorderBottom } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -28,6 +27,8 @@ export default function CreateQR() {
   const handleClick = (option) => {
     setQrState(option.name);
   };
+
+  console.log(qr.qrValue);
 
   return (
     <Box

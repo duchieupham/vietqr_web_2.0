@@ -24,6 +24,7 @@ const useLoginSocket = ({ onSuccess }) => {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
+
         if (data.loginId === loginID) {
           onSuccess(data);
         }
