@@ -102,7 +102,7 @@ export default function CreateQR() {
             <QRCodeComponent
               value={
                 qrState === 'loginQR'
-                  ? qr.qrValue || ''
+                  ? qr?.qrValue
                   : 'https://onelink.to/q7zwpe'
               }
             />
