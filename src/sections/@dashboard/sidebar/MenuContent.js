@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Collapse,
   List,
@@ -17,29 +17,47 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 
-const LinkIcon = () => (
-  <Image src="/images/link.png" width={14} height={14} alt="link_icon" />
-);
-
-const mainListItems = [
-  { text: 'general', icon: <HomeRoundedIcon />, subItems: [] },
+const MAIN_LIST_ITEMS = [
   {
+    id: 'general',
+    text: 'general',
+    icon: <HomeRoundedIcon />,
+    subItems: [],
+  },
+  {
+    id: 'transaction',
     text: 'transaction',
     icon: <AccountBalanceWalletIcon />,
-    subItems: [{ text: 'payment' }, { text: 'pending' }],
+    subItems: [
+      { id: 'payment', text: 'payment' },
+      { id: 'pending', text: 'pending' },
+    ],
   },
-  { text: 'extension', icon: <QrCodeScannerIcon />, subItems: [] },
-  { text: 'integrate', icon: <LinkIcon />, subItems: [] },
-  { text: 'contact', icon: <SupportAgentIcon />, subItems: [] },
+  {
+    id: 'extension',
+    text: 'extension',
+    icon: <QrCodeScannerIcon />,
+    subItems: [],
+  },
+  {
+    id: 'integrate',
+    text: 'integrate',
+    icon: (
+      <Image src="/images/link.png" width={14} height={14} alt="link_icon" />
+    ),
+    subItems: [],
+  },
+  {
+    id: 'contact',
+    text: 'contact',
+    icon: <SupportAgentIcon />,
+    subItems: [],
+  },
 ];
 
 export default function MenuContent() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedSubIndex, setSelectedSubIndex] = useState(null);
   const [openTransaction, setOpenTransaction] = useState(null);
-
-  console.log(selectedIndex);
-  console.log('openTransaction', openTransaction);
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
@@ -52,43 +70,50 @@ export default function MenuContent() {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: 'block', mb: 1 }}>
+        {MAIN_LIST_ITEMS.map((item) => (
+          <ListItem
+            key={item.id}
+            disablePadding
+            sx={{ display: 'block', mb: 1 }}
+          >
             <ListItemButtonStyled
-              selected={selectedIndex === index || openTransaction === index}
+              selected={
+                selectedIndex === item.id || openTransaction === item.id
+              }
               onClick={() => {
-                handleListItemClick(index);
-                if (item.subItems.length > 0) handleSubmenuToggle(index);
+                handleListItemClick(item.id);
+                if (item.subItems.length > 0) handleSubmenuToggle(item.id);
               }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
               {/* Add arrow icon for items with sub-items */}
               {item.subItems.length > 0 &&
-                (openTransaction === index ? <ExpandLess /> : <ExpandMore />)}
+                (openTransaction === item.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
             {/* Subitems menu */}
             {item.subItems.length > 0 && (
-              <Collapse in={openTransaction} timeout="auto" unmountOnExit>
+              <Collapse
+                in={openTransaction === item.id}
+                timeout="auto"
+                unmountOnExit
+              >
                 <List dense>
-                  {item.subItems.map((subItem, subIndex) => {
-                    const combinedIndex = `${index}-${subIndex}`;
-                    return (
-                      <ListItem
-                        key={combinedIndex}
-                        disablePadding
-                        sx={{ display: 'block', ml: 4 }}
+                  {item.subItems.map((subItem) => (
+                    <ListItem
+                      key={subItem.id}
+                      disablePadding
+                      sx={{ display: 'block', ml: 4 }}
+                    >
+                      <ListItemButtonStyled
+                        selected={selectedIndex === subItem.id} // Track sub-item selection
+                        onClick={() => handleListItemClick(subItem.id)}
+                        sx={{ pl: 4, width: '70%' }}
                       >
-                        <ListItemButtonStyled
-                          selected={selectedIndex === combinedIndex} // Track sub-item selection
-                          onClick={() => handleListItemClick(combinedIndex)}
-                          sx={{ pl: 4, width: '70%' }}
-                        >
-                          <ListItemText primary={subItem.text} />
-                        </ListItemButtonStyled>
-                      </ListItem>
-                    );
-                  })}
+                        <ListItemText primary={subItem.text} />
+                      </ListItemButtonStyled>
+                    </ListItem>
+                  ))}
                 </List>
               </Collapse>
             )}
