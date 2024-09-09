@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 
 function TextGradient({ children, style }) {
   const styled = {
-    backgroundImage: 'linear-gradient(to right, #00C6FF, #0072FF)',
+    backgroundImage: 'linear-gradient(to right, #00C6FF 0%, #0072FF 50%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     color: 'white',
