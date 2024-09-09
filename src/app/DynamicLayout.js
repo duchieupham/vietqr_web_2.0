@@ -24,7 +24,8 @@ function DynamicLayout({ children }) {
   };
 
   const Layout = useMemo(() => {
-    const layoutName = `${_upperFirst(pathname.replace('/', ''))}Layout`;
+    const firstRoute = pathname.split('/')[1];
+    const layoutName = `${_upperFirst(firstRoute)}Layout`;
 
     return getLayout(layoutName) || MainLayout;
   }, [pathname]);
