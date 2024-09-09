@@ -18,8 +18,6 @@ export default function CustomList({
     setSelectedTab(id);
   };
 
-  console.log('activeLink', activeLink);
-
   return (
     <List className={styles.nav}>
       {list.map((item) => (
