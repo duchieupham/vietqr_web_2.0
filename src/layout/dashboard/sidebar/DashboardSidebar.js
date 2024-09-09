@@ -20,7 +20,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Image from 'next/image';
 import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
 import { AppBar } from '@mui/material';
-import DashboardHeader from '../header';
+import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
 const toolBarHeight = '64px';

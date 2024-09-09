@@ -5,12 +5,13 @@ import { lazy, useMemo } from 'react';
 import _upperFirst from 'lodash-es/upperFirst';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useAppContext } from '~/contexts/AppContext';
+import { usePathname } from 'next/navigation';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
   const { loading } = useAppContext();
-
+  const pathname = usePathname();
   const getLayout = (name) => {
     if (!Object.hasOwn(CACHE_LAYOUTS, name)) {
       CACHE_LAYOUTS[name] = lazy(() =>
@@ -23,10 +24,10 @@ function DynamicLayout({ children }) {
   };
 
   const Layout = useMemo(() => {
-    const layoutName = `${_upperFirst(window.location.pathname.replace('/', ''))}Layout`;
+    const layoutName = `${_upperFirst(pathname.replace('/', ''))}Layout`;
 
     return getLayout(layoutName) || MainLayout;
-  }, []);
+  }, [pathname]);
 
   return (
     <>
