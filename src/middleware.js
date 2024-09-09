@@ -7,8 +7,6 @@ export function routingMiddleware(req) {
   if (path === '/') {
     return NextResponse.redirect(new URL(DEFAULT_PATH, req.url));
   }
-
-  // Define which paths are considered public
   const isPublicPath = PUBLIC_PATHS.includes(path);
 
   // Get the token from the cookies
@@ -20,9 +18,9 @@ export function routingMiddleware(req) {
   }
 
   // Redirect to home if accessing login/register while authenticated
-  // if (isPublicPath && token) {
-  //   return NextResponse.redirect(new URL('/', req.url));
-  // }
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL(DEFAULT_PATH, req.url));
+  }
 
   return NextResponse.next();
 }
