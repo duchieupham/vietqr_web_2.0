@@ -419,11 +419,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
             variant="body2"
             color="textSecondary"
             sx={{
-              alignSelf: {
-                xs: 'flex-start',
-                md: 'center',
-                lg: 'flex-start',
-              },
+              alignSelf: 'flex-start',
               marginBottom: '1rem',
               cursor: 'pointer',
               ':hover': {
