@@ -28,8 +28,6 @@ export default function CreateQR() {
     setQrState(option.name);
   };
 
-  console.log(qr.qrValue);
-
   return (
     <Box
       sx={{
