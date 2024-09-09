@@ -1,6 +1,3 @@
-import USIcon from '~/components/icon/USIcon';
-import VNIcon from '~/components/icon/VNIcon';
-
 // cookie
 export const LOCALE_COOKIE = 'LOCALE';
 export const AUTH_COOKIE = 'AUTH_TOKEN';
@@ -31,14 +28,14 @@ export const LANGUAGE_OPTIONS = [
     id: 1,
     label: 'vietnamese',
     value: 'vi',
-    icon: <VNIcon />, // circle flag
+    icon: '/images/vietnam_circle_flag.svg', // circle flag
     icon2: '/images/VN.png', // flag
   },
   {
     id: 2,
     label: 'english',
     value: 'en',
-    icon: <USIcon />,
+    icon: '/images/us_circle_flag.svg',
     icon2: '/images/GB.png',
   },
 ];
