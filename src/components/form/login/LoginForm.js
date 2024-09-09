@@ -229,11 +229,11 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     onSuccess: onSubmitQR,
   });
 
-  // useEffect(() => {
-  //   if (passwordValue.length === 6) {
-  //     handleSubmit(onSubmit)();
-  //   }
-  // }, [passwordValue, handleSubmit]);
+  useEffect(() => {
+    if (passwordValue.length === 6) {
+      handleSubmit(onSubmit)();
+    }
+  }, [passwordValue, handleSubmit]);
 
   return (
     <Box
