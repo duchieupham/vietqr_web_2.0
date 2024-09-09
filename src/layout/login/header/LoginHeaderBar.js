@@ -1,16 +1,9 @@
-import { navConfig } from '~/layout/login/navbar/NavConfig';
-import CustomList from '../../../components/list/CustomList';
+import CustomList from '~/components/list/CustomList';
+import { NAVBAR_CONFIG } from '~/layout/login/navbar/NavConfig';
 
-function LoginHeaderBar({ style, styles, typographyStyle }) {
-  const navList = navConfig[0].items;
+function LoginHeaderBar({ style, styles }) {
+  const navList = NAVBAR_CONFIG.login.items;
 
-  return (
-    <CustomList
-      list={navList}
-      styles={styles}
-      style={style}
-      typographyStyle={typographyStyle}
-    />
-  );
+  return <CustomList list={navList} styles={styles} style={style} />;
 }
 export default LoginHeaderBar;
