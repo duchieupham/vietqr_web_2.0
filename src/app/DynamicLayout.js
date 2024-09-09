@@ -2,7 +2,6 @@
 
 import MainLayout from '~/layout/MainLayout';
 import { lazy, useMemo } from 'react';
-import { useAuthContext } from '~/contexts/AuthContext';
 import _upperFirst from 'lodash-es/upperFirst';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useAppContext } from '~/contexts/AppContext';
@@ -10,7 +9,6 @@ import { useAppContext } from '~/contexts/AppContext';
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
-  const { auth } = useAuthContext();
   const { loading } = useAppContext();
 
   const getLayout = (name) => {
@@ -25,16 +23,17 @@ function DynamicLayout({ children }) {
   };
 
   const Layout = useMemo(() => {
-    const layoutName = `${_upperFirst(auth?.role || 'main')}Layout`;
-    return getLayout(layoutName);
-  }, [auth]);
+    const layoutName = `${_upperFirst(window.location.pathname.replace('/', ''))}Layout`;
+
+    return getLayout(layoutName) || MainLayout;
+  }, []);
 
   return (
     <>
       <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
         <CircularProgress />
       </Backdrop>
-      <MainLayout>{children}</MainLayout>
+      <Layout>{children}</Layout>
     </>
   );
 }

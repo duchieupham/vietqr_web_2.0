@@ -1,34 +1,98 @@
-/* eslint-disable no-shadow */
-import {
-  Box,
-  Container,
-  Drawer,
-  drawerClasses,
-  ListItemButton,
-  styled,
-  useMediaQuery,
-} from '@mui/material';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 import Image from 'next/image';
-import { useState } from 'react';
 import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
-import theme from '~/theme';
+import { AppBar } from '@mui/material';
+import DashboardHeader from '../header';
 
-export default function DashboardSidebar() {
-  const [isOpen, setIsOpen] = useState(true);
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+const drawerWidth = 240;
+const toolBarHeight = '64px';
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    variants: [
+      {
+        props: ({ open }) => open,
+        style: {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginLeft: 0,
+        },
+      },
+    ],
+  }),
+);
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  justifyContent: 'flex-end',
+  height: 'fit-content',
+}));
+
+export default function DashboardSidebar({ children }) {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
   const handleDrawerClose = () => {
-    setIsOpen(false);
+    setOpen(false);
   };
 
   return (
-    <Container>
-      <DrawerStyled
-        variant={isSmallScreen ? 'temporary' : 'permanent'}
+    <Box sx={{ display: 'flex' }}>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
         anchor="left"
-        open={isOpen}
-        onClose={handleDrawerClose}
+        open={open}
       >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           {/* LOGO */}
           <Box sx={{ padding: '16px', textAlign: 'center' }}>
@@ -110,20 +174,36 @@ export default function DashboardSidebar() {
           </List> */}
           <MenuContent />
         </Box>
-      </DrawerStyled>
-    </Container>
+      </Drawer>
+      <Main open={open}>
+        <AppBar
+          open={open}
+          sx={{
+            backgroundColor: 'white',
+            position: 'relative',
+          }}
+        >
+          <Toolbar sx={{ height: toolBarHeight }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={[
+                {
+                  mr: 2,
+                  color: '#000',
+                },
+                open && { display: 'none' },
+              ]}
+            >
+              <MenuIcon />
+            </IconButton>
+            <DashboardHeader />
+          </Toolbar>
+        </AppBar>
+        <Box>{children}</Box>
+      </Main>
+    </Box>
   );
 }
-
-const drawerWidth = 240;
-
-const DrawerStyled = styled(Drawer)(({ theme }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  boxSizing: 'border-box',
-  mt: 10,
-  [`& .${drawerClasses.paper}`]: {
-    width: drawerWidth,
-    boxSizing: 'border-box',
-  },
-}));
