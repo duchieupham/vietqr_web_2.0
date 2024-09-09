@@ -13,7 +13,8 @@
       "~constants/*": ["src/constants/*"],
       "~layout/*": ["src/layout/*"],
       "~sections/*": ["src/sections/*"],
-      "~routes/*": ["src/routes/*"]
+      "~routes/*": ["src/routes/*"],
+      "~public/*": ["public/*"]
     }
   }
 }
