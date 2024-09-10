@@ -63,7 +63,7 @@ const MAIN_LIST_ITEMS = [
   },
 ];
 
-export default function MenuContent({ popover, ...props }) {
+export default function MenuContent({ drawerOpen, ...props }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [openTransaction, setOpenTransaction] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -76,18 +76,20 @@ export default function MenuContent({ popover, ...props }) {
     setOpenTransaction(openTransaction === index ? null : index); // Toggle submenu
   };
 
-  const handleOnClickOpenPopover = (event) => {
+  const onClickOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  console.log('anchorEl', anchorEl);
 
-  const handleOnClosePopover = () => {
+  const onClosePopover = () => {
     setAnchorEl(null);
   };
+
   useEffect(() => {
-    if (popover) {
-      setAnchorEl(popover);
+    if (drawerOpen) {
+      setAnchorEl(!drawerOpen);
     }
-  }, [popover]);
+  }, [drawerOpen]);
 
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
@@ -111,7 +113,7 @@ export default function MenuContent({ popover, ...props }) {
               }}
             >
               <ListItemIcon
-                onClick={popover ? handleOnClickOpenPopover : undefined}
+                onClick={drawerOpen ? undefined : onClickOpenPopover}
               >
                 {item.icon}
               </ListItemIcon>
@@ -120,62 +122,61 @@ export default function MenuContent({ popover, ...props }) {
               {item.subItems.length > 0 &&
                 (openTransaction === item.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
-            {/* Subitems menu */}
-            {!anchorEl && item.subItems.length > 0 && (
-              <Collapse
-                in={openTransaction === item.id}
-                timeout="auto"
-                unmountOnExit
-              >
-                <List dense>
+            {item.subItems.length > 0 &&
+              (drawerOpen ? (
+                <Collapse
+                  in={openTransaction === item.id}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List dense>
+                    {item.subItems.map((subItem) => (
+                      <ListItem
+                        key={subItem.id}
+                        disablePadding
+                        sx={{ display: 'block', ml: 4 }}
+                      >
+                        <ListItemButtonStyled
+                          selected={selectedIndex === subItem.id}
+                          onClick={() => onClickListItem(subItem.id)}
+                          sx={{ pl: 4, width: '70%' }}
+                        >
+                          <ListItemText primary={subItem.text} />
+                        </ListItemButtonStyled>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              ) : (
+                <MenuPopover
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={onClosePopover}
+                  anchorOrigin={{
+                    vertical: 'center',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'center',
+                    horizontal: 'left',
+                  }}
+                >
                   {item.subItems.map((subItem) => (
-                    <ListItem
-                      key={subItem.id}
-                      disablePadding
-                      sx={{ display: 'block', ml: 4 }}
-                    >
+                    <MenuItem key={subItem.id} sx={{ display: 'block' }}>
                       <ListItemButtonStyled
-                        selected={selectedIndex === subItem.id} // Track sub-item selection
-                        onClick={() => onClickListItem(subItem.id)}
-                        sx={{ pl: 4, width: '70%' }}
+                        selected={selectedIndex === subItem.id}
+                        onClick={() => {
+                          onClickListItem(subItem.id);
+                          onClosePopover();
+                        }}
+                        sx={{ width: '100%', whiteSpace: 'nowrap' }}
                       >
                         <ListItemText primary={subItem.text} />
                       </ListItemButtonStyled>
-                    </ListItem>
+                    </MenuItem>
                   ))}
-                </List>
-              </Collapse>
-            )}
-            {anchorEl && item.subItems.length > 0 && (
-              <MenuPopover
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleOnClosePopover}
-                anchorOrigin={{
-                  vertical: 'center',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'center',
-                  horizontal: 'left',
-                }}
-              >
-                {item.subItems.map((subItem) => (
-                  <MenuItem key={subItem.id} sx={{ display: 'block' }}>
-                    <ListItemButtonStyled
-                      selected={selectedIndex === subItem.id}
-                      onClick={() => {
-                        onClickListItem(subItem.id);
-                        handleOnClosePopover();
-                      }}
-                      sx={{ width: '100%', whiteSpace: 'nowrap' }}
-                    >
-                      <ListItemText primary={subItem.text} />
-                    </ListItemButtonStyled>
-                  </MenuItem>
-                ))}
-              </MenuPopover>
-            )}
+                </MenuPopover>
+              ))}
           </ListItem>
         ))}
       </List>

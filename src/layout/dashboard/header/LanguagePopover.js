@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
-import { DEFAULT_IMAGE, LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
+import { VIETQR_IMAGE, LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 
 export default function LanguagePopover() {
@@ -37,10 +37,10 @@ export default function LanguagePopover() {
             option.value === language && (
               <Image
                 key={option.id}
-                src={option.icon2 || DEFAULT_IMAGE}
+                src={option.icon2 || VIETQR_IMAGE}
                 width={22}
                 height={15}
-                alt={option.value || 'DEFAULT IMAGE'}
+                alt={option.label || 'VIETQR_IMAGE'}
                 priority
                 quality={100}
               />
