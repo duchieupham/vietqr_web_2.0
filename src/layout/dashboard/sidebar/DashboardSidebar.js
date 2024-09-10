@@ -61,7 +61,6 @@ export default function DashboardSidebar({ children }) {
     setIsOpen((prev) => !prev);
   };
 
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Drawer

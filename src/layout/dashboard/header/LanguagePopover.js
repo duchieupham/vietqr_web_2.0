@@ -37,7 +37,7 @@ export default function LanguagePopover() {
             option.value === language && (
               <Image
                 key={option.id}
-                src={option.icon2 || VIETQR_IMAGE}
+                src={option.flagIcon || VIETQR_IMAGE}
                 width={22}
                 height={15}
                 alt={option.label || 'VIETQR_IMAGE'}
@@ -67,7 +67,7 @@ export default function LanguagePopover() {
                 <Image
                   quality={100}
                   priority
-                  src={option.icon2}
+                  src={option.flagIcon}
                   alt={option.label}
                   width={22}
                   height={15}

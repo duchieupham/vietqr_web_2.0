@@ -80,7 +80,7 @@ export default function ContactLangButton({ style }) {
             <>
               <Image
                 alt={selectedOption.label}
-                src={selectedOption.icon}
+                src={selectedOption.circleIcon}
                 width={20}
                 height={20}
               />
@@ -132,7 +132,7 @@ export default function ContactLangButton({ style }) {
           >
             <Image
               alt={option.label}
-              src={option.icon}
+              src={option.circleIcon}
               width={20}
               height={20}
             />

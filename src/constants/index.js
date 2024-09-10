@@ -28,15 +28,15 @@ export const LANGUAGE_OPTIONS = [
     id: 1,
     label: 'vietnamese',
     value: 'vi',
-    icon: '/images/vietnam_circle_flag.svg', // circle flag
-    icon2: '/images/VN.png', // flag
+    circleIcon: '/images/vietnam_circle_flag.svg', // circle flag
+    flagIcon: '/images/VN.png', // flag
   },
   {
     id: 2,
     label: 'english',
     value: 'en',
-    icon: '/images/us_circle_flag.svg',
-    icon2: '/images/GB.png',
+    circleIcon: '/images/us_circle_flag.svg',
+    flagIcon: '/images/GB.png',
   },
 ];
 
