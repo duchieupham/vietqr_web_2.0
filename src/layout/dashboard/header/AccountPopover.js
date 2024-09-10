@@ -8,10 +8,10 @@ export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { session, clear } = useAuthContext();
 
-  const handleOpenProfile = (event) => {
+  const onClickOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const onClose = () => {
     setAnchorEl(null);
   };
 
@@ -22,7 +22,7 @@ export default function AccountPopover() {
   return (
     <>
       <IconButton
-        onClick={handleOpenProfile}
+        onClick={onClickOpen}
         sx={{ p: '2px', border: '1px solid #c2c2c2' }}
       >
         <Profile />
@@ -31,7 +31,7 @@ export default function AccountPopover() {
       <MenuPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={onClose}
       >
         {/* //TODO: Additional the content */}
         <MenuItem>
