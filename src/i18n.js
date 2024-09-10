@@ -3,7 +3,6 @@ import { getLocale } from './utils/localeCookie';
 
 export default getRequestConfig(async () => {
   const locale = await getLocale();
-  console.log('locale', locale);
 
   return {
     locale,

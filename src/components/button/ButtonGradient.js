@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import styles from '~styles/Button.module.css';
 
 function ButtonGradient({
   children,
@@ -8,19 +7,21 @@ function ButtonGradient({
   ...props
 }) {
   const defaultStyles = {
-    backgroundImage: `linear-gradient(to right, ${gradientColors[0]} 0%, ${gradientColors[1]} 50%)`,
-    color: 'white',
     width: '360px',
     height: '40px',
     borderRadius: '40px',
+    margin: '10px 0',
+    ':hover': {
+      opacity: 0.8,
+    },
     ...style,
   };
 
   return (
     <Button
       type={props.type}
-      style={defaultStyles}
-      className={`${styles.linearGradient} ${props.className}`}
+      sx={defaultStyles}
+      className={props.className}
       {...props}
     >
       {children}

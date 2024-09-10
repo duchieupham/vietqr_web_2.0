@@ -1,23 +1,22 @@
-import { Box, List, ListItemButton, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export default function CustomList({
   list,
   styles,
-  defaultActive,
   style,
   typographyStyle,
   ...props
 }) {
-  const selectedTab = useRef(null);
+  const [selectedTab, setSelectedTab] = useState(null);
   const t = useTranslations();
-  const [activeLink, setActiveLink] = useState(defaultActive);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const handleLinkClick = (type) => {
-    setActiveLink(type);
-    setMenuOpen(false); // Close menu after clicking a link
+  const [activeLink, setActiveLink] = useState(4);
+
+  const onClickLink = (id) => {
+    setActiveLink(id);
+    setSelectedTab(id);
   };
 
   return (
@@ -30,8 +29,7 @@ export default function CustomList({
             borderRadius: '8px',
             transition:
               'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-            transform:
-              selectedTab.current === item.id ? 'scale(0.97)' : 'scale(1)',
+            transform: selectedTab === item.id ? 'scale(0.97)' : 'scale(1)',
             backgroundColor: activeLink === item.id ? 'transparent' : 'initial',
             '&:hover': {
               background:
@@ -55,7 +53,7 @@ export default function CustomList({
           }}
           disableRipple
           disableGutters
-          onClick={() => handleLinkClick(item.id)}
+          onClick={() => onClickLink(item.id)}
           {...props}
         >
           <Link
@@ -74,7 +72,10 @@ export default function CustomList({
               primary={t(item.name)}
               className={`${activeLink === item.id ? styles.active : ''}`}
               primaryTypographyProps={{
-                ...typographyStyle,
+                fontSize: {
+                  xs: '12px',
+                  md: '15px',
+                },
               }}
             />
           </Link>

@@ -1,7 +1,7 @@
 import { PATH_PAGE } from '~/constants';
 
-export const navConfig = [
-  {
+export const NAVBAR_CONFIG = {
+  login: {
     id: 1,
     name: 'login',
     items: [
@@ -23,7 +23,6 @@ export const navConfig = [
       {
         id: 4,
         name: 'headerLogin',
-        style: 'nav__links_login',
         path: PATH_PAGE.login.login,
       },
       {
@@ -33,4 +32,4 @@ export const navConfig = [
       },
     ],
   },
-];
+};

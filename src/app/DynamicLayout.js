@@ -2,14 +2,16 @@
 
 import MainLayout from '~/layout/MainLayout';
 import { lazy, useMemo } from 'react';
-import { useAuthContext } from '~/contexts/AuthContext';
 import _upperFirst from 'lodash-es/upperFirst';
+import { Backdrop, CircularProgress } from '@mui/material';
+import { useAppContext } from '~/contexts/AppContext';
+import { usePathname } from 'next/navigation';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
-  const { auth } = useAuthContext();
-
+  const { loading } = useAppContext();
+  const pathname = usePathname();
   const getLayout = (name) => {
     if (!Object.hasOwn(CACHE_LAYOUTS, name)) {
       CACHE_LAYOUTS[name] = lazy(() =>
@@ -22,11 +24,20 @@ function DynamicLayout({ children }) {
   };
 
   const Layout = useMemo(() => {
-    const layoutName = `${_upperFirst(auth?.role || 'main')}Layout`;
-    return getLayout(layoutName);
-  }, [auth]);
+    const firstRoute = pathname.split('/')[1];
+    const layoutName = `${_upperFirst(firstRoute)}Layout`;
 
-  return <MainLayout>{children}</MainLayout>;
+    return getLayout(layoutName) || MainLayout;
+  }, [pathname]);
+
+  return (
+    <>
+      <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
+        <CircularProgress />
+      </Backdrop>
+      <Layout>{children}</Layout>
+    </>
+  );
 }
 
 export default DynamicLayout;

@@ -12,14 +12,12 @@ export function routingMiddleware(req) {
   // Get the token from the cookies
   const token = req.cookies.get(AUTH_COOKIE)?.value;
 
+  if (isPublicPath) {
+    return NextResponse.next();
+  }
   // Redirect to login if accessing a protected route without a token
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL('/login', req.url));
-  }
-
-  // Redirect to home if accessing login/register while authenticated
-  if (isPublicPath && token) {
-    return NextResponse.redirect(new URL(DEFAULT_PATH, req.url));
   }
 
   return NextResponse.next();
