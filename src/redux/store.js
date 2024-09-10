@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import loggerMiddleware from './middlewares/logger';
-import listSlice from './slices/listSlice';
+import appSlice from './slices/appSlice';
 import qrSlice from './slices/qrSlice';
 // ...
 
 export default function configureAppStore(preloadedState) {
   const store = configureStore({
     reducer: {
-      list: listSlice,
+      app: appSlice,
       qr: qrSlice,
     },
     middleware: (getDefaultMiddleware) =>
