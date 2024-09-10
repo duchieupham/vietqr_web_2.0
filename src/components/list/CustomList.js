@@ -13,7 +13,8 @@ export default function CustomList({
   const [selectedTab, setSelectedTab] = useState(null);
   const t = useTranslations();
   const [activeLink, setActiveLink] = useState(4);
-  const handleLinkClick = (id) => {
+
+  const onClickLink = (id) => {
     setActiveLink(id);
     setSelectedTab(id);
   };
@@ -52,7 +53,7 @@ export default function CustomList({
           }}
           disableRipple
           disableGutters
-          onClick={() => handleLinkClick(item.id)}
+          onClick={() => onClickLink(item.id)}
           {...props}
         >
           <Link
