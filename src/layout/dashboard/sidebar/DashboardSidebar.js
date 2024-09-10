@@ -57,7 +57,7 @@ export default function DashboardSidebar({ children }) {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(true);
 
-  const toggleDrawer = () => {
+  const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);
   };
 
@@ -110,7 +110,7 @@ export default function DashboardSidebar({ children }) {
       </Drawer>
       {/* DRAWER CLOSE BUTTON */}
       <CloseButton
-        onClick={toggleDrawer}
+        onClick={clickToggleDrawer}
         sx={{
           left: isOpen
             ? `${drawerWidth - 12}px`
