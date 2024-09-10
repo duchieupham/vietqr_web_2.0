@@ -11,22 +11,22 @@ export default function Breadcrumbs({
   activeLast = false,
   ...otherProps
 }) {
-  const currentLink = links[links.length - 1].name;
-  const listDefault = links.map((link, index) => {
-    const isLast = index === links.length - 1;
-    return (
-      <Typography
-        key={link.name}
-        variant="body1"
-        sx={{
-          color: isLast ? 'text.primary' : 'text.secondary',
-          fontWeight: isLast ? 600 : 400,
-        }}
-      >
-        {link.name}
-      </Typography>
-    );
-  });
+  // const currentLink = links[links.length - 1].name;
+  // const listDefault = links.map((link, index) => {
+  //   const isLast = index === links.length - 1;
+  //   return (
+  //     <Typography
+  //       key={link.name}
+  //       variant="body1"
+  //       sx={{
+  //         color: isLast ? 'text.primary' : 'text.secondary',
+  //         fontWeight: isLast ? 600 : 400,
+  //       }}
+  //     >
+  //       {link.name}
+  //     </Typography>
+  //   );
+  // });
 
   return (
     <BreadcrumbsStyled
@@ -45,6 +45,9 @@ export default function Breadcrumbs({
 }
 
 const BreadcrumbsStyled = styled(MUIBreadcrumbs)(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  width: '100%',
   margin: theme.spacing(1, 0),
   [`& .${breadcrumbsClasses.separator}`]: {
     color: theme.palette.action.disabled,

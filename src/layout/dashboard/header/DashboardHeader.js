@@ -1,4 +1,5 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import Breadcrumbs from '~/components/Breadcrumbs';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';

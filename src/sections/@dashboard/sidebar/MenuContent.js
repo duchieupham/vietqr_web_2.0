@@ -11,11 +11,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  MenuItem,
   Stack,
   styled,
 } from '@mui/material';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import MenuPopover from '~/components/MenuPopover';
 
 const MAIN_LIST_ITEMS = [
   {
@@ -55,9 +57,10 @@ const MAIN_LIST_ITEMS = [
   },
 ];
 
-export default function MenuContent() {
+export default function MenuContent({ popover, ...props }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [openTransaction, setOpenTransaction] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const onClickListItem = (index) => {
     setSelectedIndex(index);
@@ -67,6 +70,19 @@ export default function MenuContent() {
     setOpenTransaction(openTransaction === index ? null : index); // Toggle submenu
   };
 
+  const handleOnClickOpenPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleOnClosePopover = () => {
+    setAnchorEl(null);
+  };
+  useEffect(() => {
+    if (popover) {
+      setAnchorEl(popover);
+    }
+  }, [popover]);
+
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
@@ -74,7 +90,10 @@ export default function MenuContent() {
           <ListItem
             key={item.id}
             disablePadding
-            sx={{ display: 'block', mb: 1 }}
+            sx={{
+              display: 'block',
+              mb: 1,
+            }}
           >
             <ListItemButtonStyled
               selected={
@@ -85,14 +104,18 @@ export default function MenuContent() {
                 if (item.subItems.length > 0) onClickSubmenuToggle(item.id);
               }}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemIcon
+                onClick={popover ? handleOnClickOpenPopover : undefined}
+              >
+                {item.icon}
+              </ListItemIcon>
               <ListItemText primary={item.text} />
               {/* Add arrow icon for items with sub-items */}
               {item.subItems.length > 0 &&
                 (openTransaction === item.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
             {/* Subitems menu */}
-            {item.subItems.length > 0 && (
+            {!anchorEl && item.subItems.length > 0 && (
               <Collapse
                 in={openTransaction === item.id}
                 timeout="auto"
@@ -117,6 +140,36 @@ export default function MenuContent() {
                 </List>
               </Collapse>
             )}
+            {anchorEl && item.subItems.length > 0 && (
+              <MenuPopover
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleOnClosePopover}
+                anchorOrigin={{
+                  vertical: 'center',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'center',
+                  horizontal: 'left',
+                }}
+              >
+                {item.subItems.map((subItem) => (
+                  <MenuItem key={subItem.id} sx={{ display: 'block' }}>
+                    <ListItemButtonStyled
+                      selected={selectedIndex === subItem.id}
+                      onClick={() => {
+                        onClickListItem(subItem.id);
+                        handleOnClosePopover();
+                      }}
+                      sx={{ width: '100%', whiteSpace: 'nowrap' }}
+                    >
+                      <ListItemText primary={subItem.text} />
+                    </ListItemButtonStyled>
+                  </MenuItem>
+                ))}
+              </MenuPopover>
+            )}
           </ListItem>
         ))}
       </List>
@@ -127,6 +180,7 @@ export default function MenuContent() {
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   borderRadius: '8px',
   height: '40px',
+  padding: '0 10px',
   '&.Mui-selected': {
     background: 'linear-gradient(to right, #E1EFFF 0%, #E1EFFF 100%)',
     color: '#0072FF',
