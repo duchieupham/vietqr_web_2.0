@@ -1,11 +1,4 @@
-import {
-  Button,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Popover,
-} from '@mui/material';
+import { Button, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import Profile from '~/components/Profile';
