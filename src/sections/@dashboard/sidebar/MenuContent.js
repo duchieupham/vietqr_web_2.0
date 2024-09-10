@@ -45,7 +45,13 @@ const MAIN_LIST_ITEMS = [
     id: 'integrate',
     text: 'integrate',
     icon: (
-      <Image src="/images/link.png" width={14} height={14} alt="link_icon" />
+      <Image
+        src="/images/interface-link--create-hyperlink-link-make-unlink.svg"
+        width={20}
+        height={20}
+        alt="link_icon"
+        style={{ color: '#666A72' }}
+      />
     ),
     subItems: [],
   },
