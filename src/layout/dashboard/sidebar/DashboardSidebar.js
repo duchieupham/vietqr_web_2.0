@@ -55,25 +55,22 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
 
 export default function DashboardSidebar({ children }) {
   const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const toggleDrawer = () => {
+    setIsOpen((prev) => !prev);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <Drawer
         sx={{
-          width: open ? drawerWidth : drawerWidthCollapsed,
+          width: isOpen ? drawerWidth : drawerWidthCollapsed,
           flexShrink: 0,
           position: 'relative',
           '& .MuiDrawer-paper': {
-            width: open ? drawerWidth : drawerWidthCollapsed,
+            width: isOpen ? drawerWidth : drawerWidthCollapsed,
             boxSizing: 'border-box',
             overflowX: 'hidden',
             transition: theme.transitions.create('width', {
@@ -84,7 +81,7 @@ export default function DashboardSidebar({ children }) {
         }}
         variant="permanent"
         anchor="left"
-        open={open}
+        open={isOpen}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           {/* LOGO */}
@@ -92,31 +89,31 @@ export default function DashboardSidebar({ children }) {
             sx={{
               padding: '16px',
               textAlign: 'center',
-              px: open ? '16px' : '8px',
+              px: isOpen ? '16px' : '8px',
             }}
           >
             <Image
               src={
-                open
+                isOpen
                   ? '/images/VietQRLogo.png'
                   : '/images/ic-viet-qr-small-trans.svg'
               }
-              width={open ? 97 : 40}
-              height={open ? 47 : 39}
+              width={isOpen ? 97 : 40}
+              height={isOpen ? 47 : 39}
               alt="VietQR Logo"
               quality={100}
               priority
             />
           </Box>
           {/* MENU LIST */}
-          <MenuContent popover={!open} />
+          <MenuContent popover={!isOpen} />
         </Box>
       </Drawer>
       {/* DRAWER CLOSE BUTTON */}
       <CloseButton
-        onClick={open ? handleDrawerClose : handleDrawerOpen}
+        onClick={toggleDrawer}
         sx={{
-          left: open
+          left: isOpen
             ? `${drawerWidth - 12}px`
             : `${drawerWidthCollapsed - 12}px`,
           transition: theme.transitions.create('left', {
@@ -125,11 +122,11 @@ export default function DashboardSidebar({ children }) {
           }),
         }}
       >
-        {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </CloseButton>
       <Main open>
         <AppBar
-          open={open}
+          open={isOpen}
           sx={{
             backgroundColor: 'white',
             position: 'relative',
