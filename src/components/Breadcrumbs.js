@@ -1,59 +1,68 @@
-import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {
+  Box,
   Breadcrumbs as MUIBreadcrumbs,
-  breadcrumbsClasses,
-  styled,
-  Typography,
+  Link as MUILink,
 } from '@mui/material';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default function Breadcrumbs({
-  links,
-  activeLast = false,
-  ...otherProps
-}) {
-  // const currentLink = links[links.length - 1].name;
-  // const listDefault = links.map((link, index) => {
-  //   const isLast = index === links.length - 1;
-  //   return (
-  //     <Typography
-  //       key={link.name}
-  //       variant="body1"
-  //       sx={{
-  //         color: isLast ? 'text.primary' : 'text.secondary',
-  //         fontWeight: isLast ? 600 : 400,
-  //       }}
-  //     >
-  //       {link.name}
-  //     </Typography>
-  //   );
-  // });
+export default function Breadcrumbs({ ...otherProps }) {
+  const [crumbs, setCrumbs] = useState([]);
+  const pathname = usePathname();
+
+  // TODO:  Slit the pathname and set the crumbs array
+  useEffect(() => {
+    // Split the pathname and filter out any empty strings
+    const crumbsArray = pathname.split('/').filter(Boolean);
+    // Create the crumbs array
+    const _crumbs = crumbsArray.map((crumb, index) => ({
+      href: `/${crumbsArray.slice(0, index + 1).join('/')}`,
+      label: crumb,
+    }));
+    setCrumbs(_crumbs);
+  }, [pathname]);
 
   return (
-    <BreadcrumbsStyled
-      aria-label="breadcrumb"
-      separator={<NavigateNextRoundedIcon fontSize="small" />}
+    <MUIBreadcrumbs
+      separator={
+        <FiberManualRecordIcon sx={{ fontSize: 5, m: 1 }} fontSize="small" />
+      }
     >
-      <Typography variant="body1">Dashboard</Typography>
-      <Typography
-        variant="body1"
-        sx={{ color: 'text.primary', fontWeight: 600 }}
-      >
-        Home
-      </Typography>
-    </BreadcrumbsStyled>
+      {crumbs.map((crumb) => (
+        <LinkItem key={crumb.href} href={crumb.href} label={crumb.label} />
+      ))}
+    </MUIBreadcrumbs>
   );
 }
 
-const BreadcrumbsStyled = styled(MUIBreadcrumbs)(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  width: '100%',
-  margin: theme.spacing(1, 0),
-  [`& .${breadcrumbsClasses.separator}`]: {
-    color: theme.palette.action.disabled,
-    margin: 1,
-  },
-  [`& .${breadcrumbsClasses.ol}`]: {
-    alignItems: 'center',
-  },
-}));
+function LinkItem({ href, label, icon, ...otherProps }) {
+  return (
+    <Link
+      href={href}
+      passHref
+      style={{
+        textDecoration: 'none',
+      }}
+    >
+      <MUILink
+        component="span"
+        variant="body2"
+        sx={{
+          lineHeight: 2,
+          display: 'flex',
+          alignItems: 'center',
+          color: 'text.primary',
+          textDecoration: 'none',
+          '& > div': { display: 'inherit' },
+        }}
+      >
+        {icon && (
+          <Box sx={{ mr: 1, '& svg': { width: 20, height: 20 } }}>{icon}</Box>
+        )}
+        {label}
+      </MUILink>
+    </Link>
+  );
+}
