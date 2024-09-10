@@ -138,7 +138,7 @@ export default function DashboardSidebar({ children }) {
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        <Box>{children}</Box>
+        {children}
       </Main>
     </Box>
   );
