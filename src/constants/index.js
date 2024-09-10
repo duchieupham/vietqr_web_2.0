@@ -41,4 +41,4 @@ export const LANGUAGE_OPTIONS = [
 ];
 
 // image
-export const DEFAULT_IMAGE = '/images/logo.png';
+export const VIETQR_IMAGE = '/images/logo.png';
