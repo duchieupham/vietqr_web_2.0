@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
@@ -26,11 +27,12 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
   );
-  
+  const router = useRouter();
 
-  const onClickListItem = (id) => {
+  const onClickListItem = (id, path) => {
     setSelectedIndex(id);
     setOpenSubMenu(openSubMenu === id ? null : id);
+    router.push(path);
   };
 
   const onClickOpenMenuPopover = (event, id) => {
@@ -64,7 +66,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
             <ListItemButtonStyled
               selected={selectedIndex === child.id}
               onClick={() => {
-                onClickListItem(child.id);
+                onClickListItem(child.id, child.path);
                 onClickOpenMenuPopover(event, child.id);
               }}
               sx={{

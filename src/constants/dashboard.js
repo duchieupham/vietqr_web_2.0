@@ -3,13 +3,13 @@ export const DASHBOARD_TYPE = [
   {
     id: 'home',
     label: 'home-dashboard',
-    path: '/dashboard/home',
+    path: '/dashboard',
     children: [
       {
         id: 'general',
         label: 'General',
         shortLabel: 'General',
-        path: '/',
+        path: '/dashboard/general',
         icon: '/images/dashboard-home.svg',
         iconActive: '/images/dashboard-home-active.svg',
         children: [
@@ -34,7 +34,7 @@ export const DASHBOARD_TYPE = [
         id: 'transaction',
         label: 'Transaction Management',
         shortLabel: 'Transaction',
-        path: '/transaction',
+        path: '/dashboard/transaction',
         icon: '/images/clipboard-list.svg',
         iconActive: '/images/clipboard-list-active.svg',
       },
@@ -49,14 +49,14 @@ export const DASHBOARD_TYPE = [
       {
         id: 'extensions',
         label: 'Extensions',
-        path: '/extensions',
+        path: '/dashboard/extensions',
         icon: '/images/codes-tags-code-qr.svg',
         iconActive: '/images/codes-tags-code-qr-active.svg',
       },
       {
         id: 'setting',
         label: 'Setting',
-        path: '/setting',
+        path: '/dashboard/setting',
         icon: '/images/settings-machine.svg',
         iconActive: '/images/settings-machine-active.svg',
       },
