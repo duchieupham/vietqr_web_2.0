@@ -97,7 +97,11 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                   <>
                     {child.children?.length > 0 && (
                       <Image
-                        src={`/images/${selectedIndex === child.id ? 'arrow-down-active' : 'arrow-down'}.svg`}
+                        src={
+                          selectedIndex === child.id
+                            ? '/images/arrow-down-active.svg'
+                            : '/images/arrow-down.svg'
+                        }
                         alt="arrow-right"
                         width={12}
                         height={12}
@@ -117,9 +121,9 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                 isDrawerOpen &&
                 (openSubMenu === child.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
-            {child.children?.length > 0 && isDrawerOpen ? (
+            {child.children?.length > 0 && isDrawerOpen && (
               <Collapse
-                in={openSubMenu === child.id}
+                in={openSubMenu === child.id && isDrawerOpen}
                 timeout="auto"
                 unmountOnExit
               >
@@ -155,7 +159,8 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                   ))}
                 </List>
               </Collapse>
-            ) : (
+            )}
+            {child.children?.length > 0 && !isDrawerOpen && (
               <MenuPopover
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl) && openSubMenu === child.id}
