@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
+const defaultDashboardType = DASHBOARD_TYPE.find((type) => type.id === 'home');
 const initialState = {
-  dashboardType: DASHBOARD_TYPE.home,
+  dashboardType: defaultDashboardType || null,
 };
 
 export const appSlice = createSlice({

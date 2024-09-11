@@ -4,12 +4,12 @@ export const DASHBOARD_TYPE = [
     id: 'home',
     label: 'home-dashboard',
     path: '/dashboard/home',
-    routes: [
+    children: [
       {
         id: 'general',
         label: 'General',
         path: '/',
-        subRoutes: [
+        children: [
           {
             id: 'qrNewFeeds',
             label: 'QR New Feeds',
@@ -53,12 +53,12 @@ export const DASHBOARD_TYPE = [
     id: 'agent',
     label: 'agent-dashboard',
     path: '/dashboard/agent',
-    routes: [
+    children: [
       {
         id: 'businessInformation',
         label: 'Business Information',
         path: '/businessInformation',
-        subRoutes: [
+        children: [
           {
             id: 'agentInformation',
             label: 'Agent Information',
@@ -80,7 +80,7 @@ export const DASHBOARD_TYPE = [
         id: 'sales',
         label: 'Sales Management',
         path: '/sales',
-        subRoutes: [
+        children: [
           {
             id: 'managementSales',
             label: 'Sales Management',
@@ -102,7 +102,7 @@ export const DASHBOARD_TYPE = [
         id: 'statisticalReport',
         label: 'Statistical Report',
         path: '/statistical-report',
-        subRoutes: [
+        children: [
           {
             id: 'salesStatistics',
             label: 'Sales Statistics',
@@ -124,7 +124,7 @@ export const DASHBOARD_TYPE = [
         id: 'storeAndPointOfSale',
         label: 'Store & Point of Sale',
         path: '/store-pos',
-        subRoutes: [
+        children: [
           {
             id: 'storeList',
             label: 'Store List',
@@ -141,7 +141,7 @@ export const DASHBOARD_TYPE = [
         id: 'employees',
         label: 'Employees',
         path: '/employees',
-        subRoutes: [
+        children: [
           {
             id: 'employeeList',
             label: 'Employee List',
@@ -158,7 +158,7 @@ export const DASHBOARD_TYPE = [
         id: 'customers',
         label: 'Customers',
         path: '/customers',
-        subRoutes: [
+        children: [
           {
             id: 'customerList',
             label: 'Customer List',
@@ -175,7 +175,7 @@ export const DASHBOARD_TYPE = [
         id: 'products',
         label: 'Products',
         path: '/products',
-        subRoutes: [
+        children: [
           {
             id: 'productList',
             label: 'Product List',

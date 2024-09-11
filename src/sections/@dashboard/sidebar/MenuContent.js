@@ -1,9 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import {
   Collapse,
   List,
@@ -11,76 +7,40 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  MenuItem,
   Stack,
   styled,
 } from '@mui/material';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
-
-const MAIN_LIST_ITEMS = [
-  {
-    id: 'general',
-    text: 'general',
-    icon: <HomeRoundedIcon />,
-    subItems: [],
-  },
-  {
-    id: 'transaction',
-    text: 'transaction',
-    icon: <AccountBalanceWalletIcon />,
-    subItems: [
-      { id: 'payment', text: 'payment' },
-      { id: 'pending', text: 'pending' },
-    ],
-  },
-  {
-    id: 'extension',
-    text: 'extension',
-    icon: <QrCodeScannerIcon />,
-    subItems: [],
-  },
-  {
-    id: 'integrate',
-    text: 'integrate',
-    icon: (
-      <Image
-        src="/images/interface-link--create-hyperlink-link-make-unlink.svg"
-        width={20}
-        height={20}
-        alt="link_icon"
-        style={{ color: '#666A72' }}
-      />
-    ),
-    subItems: [],
-  },
-  {
-    id: 'contact',
-    text: 'contact',
-    icon: <SupportAgentIcon />,
-    subItems: [],
-  },
-];
+import { useAppSelector } from '~/redux/hook';
 
 export default function MenuContent({ drawerOpen, ...props }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndexSub, setSelectedIndexSub] = useState(0);
   const [openTransaction, setOpenTransaction] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const { dashboardType } = useAppSelector((store) => store.app);
+
+  console.log(dashboardType);
 
   const onClickListItem = (index) => {
-    setSelectedIndex(index);
+    setSelectedIndex(index); // set selected index for main menu
+    if (openTransaction === index) {
+      setOpenTransaction(null); // Close if already open
+    } else {
+      setOpenTransaction(index); // Open new submenu
+    }
   };
 
   const onClickSubmenuToggle = (index) => {
     setOpenTransaction(openTransaction === index ? null : index); // Toggle submenu
   };
 
-  const onClickOpenPopover = (event) => {
+  const onClickOpenMenuPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const onClosePopover = () => {
+  const onCloseMenuPopover = () => {
     setAnchorEl(null);
   };
 
@@ -93,9 +53,9 @@ export default function MenuContent({ drawerOpen, ...props }) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {MAIN_LIST_ITEMS.map((item) => (
+        {dashboardType.children.map((route) => (
           <ListItem
-            key={item.id}
+            key={route.id}
             disablePadding
             sx={{
               display: 'block',
@@ -103,79 +63,93 @@ export default function MenuContent({ drawerOpen, ...props }) {
             }}
           >
             <ListItemButtonStyled
-              selected={
-                selectedIndex === item.id || openTransaction === item.id
-              }
+              selected={selectedIndex === route.id}
               onClick={() => {
-                onClickListItem(item.id);
-                if (item.subItems.length > 0) onClickSubmenuToggle(item.id);
+                onClickListItem(route.id);
               }}
             >
               <ListItemIcon
-                onClick={drawerOpen ? undefined : onClickOpenPopover}
+                onClick={drawerOpen ? undefined : onClickOpenMenuPopover}
               >
-                {item.icon}
+                {route.icon}
               </ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText primary={route.id} />
               {/* Add arrow icon for items with sub-items */}
-              {item.subItems.length > 0 &&
-                (openTransaction === item.id ? <ExpandLess /> : <ExpandMore />)}
+              {route.children?.length > 0 &&
+                (openTransaction === route.id ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                ))}
             </ListItemButtonStyled>
-            {item.subItems.length > 0 &&
-              (drawerOpen ? (
-                <Collapse
-                  in={openTransaction === item.id}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <List dense>
-                    {item.subItems.map((subItem) => (
+            {route.children?.length > 0 && drawerOpen ? (
+              <Collapse
+                in={openTransaction === route.id}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List dense>
+                  {route.children.map((subRoute) => (
+                    <ListItem
+                      key={subRoute.id}
+                      disablePadding
+                      sx={{
+                        display: 'block',
+                        mb: 1,
+                      }}
+                    >
+                      <ListItemButtonStyled
+                        selected={selectedIndexSub === subRoute.id}
+                        onClick={() => {
+                          setSelectedIndexSub(subRoute.id);
+                        }}
+                      >
+                        <ListItemIcon>{subRoute.icon}</ListItemIcon>
+                        <ListItemText primary={subRoute.id} />
+                      </ListItemButtonStyled>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            ) : (
+              <MenuPopover
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={onCloseMenuPopover}
+                anchorOrigin={{
+                  vertical: 'center',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'center',
+                  horizontal: 'left',
+                }}
+              >
+                <List dense>
+                  {route.children?.length > 0 &&
+                    route.children.map((subRoute) => (
                       <ListItem
-                        key={subItem.id}
+                        key={subRoute.id}
                         disablePadding
-                        sx={{ display: 'block', ml: 4 }}
+                        sx={{
+                          display: 'block',
+                          mb: 1,
+                        }}
                       >
                         <ListItemButtonStyled
-                          selected={selectedIndex === subItem.id}
-                          onClick={() => onClickListItem(subItem.id)}
-                          sx={{ pl: 4, width: '70%' }}
+                          selected={selectedIndexSub === subRoute.id}
+                          onClick={() => {
+                            setSelectedIndexSub(subRoute.id);
+                          }}
                         >
-                          <ListItemText primary={subItem.text} />
+                          <ListItemIcon>{subRoute.icon}</ListItemIcon>
+                          <ListItemText primary={subRoute.id} />
                         </ListItemButtonStyled>
                       </ListItem>
                     ))}
-                  </List>
-                </Collapse>
-              ) : (
-                <MenuPopover
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={onClosePopover}
-                  anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
-                  }}
-                >
-                  {item.subItems.map((subItem) => (
-                    <MenuItem key={subItem.id} sx={{ display: 'block' }}>
-                      <ListItemButtonStyled
-                        selected={selectedIndex === subItem.id}
-                        onClick={() => {
-                          onClickListItem(subItem.id);
-                          onClosePopover();
-                        }}
-                        sx={{ width: '100%', whiteSpace: 'nowrap' }}
-                      >
-                        <ListItemText primary={subItem.text} />
-                      </ListItemButtonStyled>
-                    </MenuItem>
-                  ))}
-                </MenuPopover>
-              ))}
+                </List>
+              </MenuPopover>
+            )}
           </ListItem>
         ))}
       </List>

@@ -1,12 +1,19 @@
 import { Box, MenuItem, Select, Stack } from '@mui/material';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppSelector } from '~/redux/hook';
+import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { setDashboardType } from '~/redux/slices/appSlice';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
 
 export default function DashboardHeader() {
   const { dashboardType } = useAppSelector((store) => store.app);
+  const dispatch = useAppDispatch();
+
+  const onChangeDashboardType = (event) => {
+    const type = DASHBOARD_TYPE.find((item) => item.id === event.target.value);
+    dispatch(setDashboardType(type));
+  };
 
   return (
     <Stack
@@ -18,6 +25,7 @@ export default function DashboardHeader() {
     >
       <Select
         value={dashboardType.id}
+        onChange={onChangeDashboardType}
         MenuProps={{
           PaperProps: {
             sx: {
