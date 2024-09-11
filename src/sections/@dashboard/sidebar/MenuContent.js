@@ -21,8 +21,6 @@ export default function MenuContent({ drawerOpen, ...props }) {
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  console.log(drawerOpen);
-
   const onClickListItem = (index) => {
     setSelectedIndex(index); // set selected index for main menu
     setOpenSubMenu(openSubMenu === index ? null : index); // set open sub menu
