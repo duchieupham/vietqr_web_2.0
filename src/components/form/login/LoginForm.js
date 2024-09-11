@@ -6,6 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import {
   Box,
+  CircularProgress,
   InputAdornment,
   Stack,
   TextField,
@@ -444,6 +445,12 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               color: !isDisabledButton ? '#fff' : '#000',
             }}
           >
+            {isDisabled && (
+              <CircularProgress
+                size={20}
+                sx={{ margin: 1, color: '#c2c2c2' }}
+              />
+            )}
             {t('login')}
           </ButtonGradient>
           <ButtonSolid
