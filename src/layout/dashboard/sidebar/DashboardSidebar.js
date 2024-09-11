@@ -13,6 +13,7 @@ import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
+import { usePathname, useRouter } from 'next/navigation';
 
 const drawerWidth = 240;
 const drawerWidthCollapsed = 80;
@@ -59,6 +60,9 @@ export default function DashboardSidebar({ children }) {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(true);
   const { dashboardType } = useAppSelector((store) => store.app);
+  const pathname = usePathname();
+
+  console.log(pathname);
 
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
@@ -144,7 +148,7 @@ export default function DashboardSidebar({ children }) {
           </Toolbar>
         </AppBar>
         <Container>
-          <Breadcrumbs links={displayedType.path} />
+          <Breadcrumbs links={pathname} />
           {children}
         </Container>
       </Main>
