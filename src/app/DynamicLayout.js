@@ -3,6 +3,7 @@
 import MainLayout from '~/layout/MainLayout';
 import { lazy, useMemo } from 'react';
 import _upperFirst from 'lodash-es/upperFirst';
+import _camelCase from 'lodash-es/camelCase';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useAppContext } from '~/contexts/AppContext';
 import { usePathname } from 'next/navigation';
@@ -28,7 +29,7 @@ function DynamicLayout({ children }) {
 
   const Layout = useMemo(() => {
     const firstRoute = pathname.split('/')[1];
-    const layoutName = `${_upperFirst(firstRoute)}Layout`;
+    const layoutName = `${_upperFirst(_camelCase(firstRoute))}Layout`;
 
     return getLayout(layoutName) || MainLayout;
   }, [pathname]);

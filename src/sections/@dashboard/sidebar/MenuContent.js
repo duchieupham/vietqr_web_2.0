@@ -11,33 +11,41 @@ import {
   Stack,
   styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 
 export default function MenuContent({ isDrawerOpen, ...props }) {
+  const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.up('md'));
   const { dashboardType } = useAppSelector((store) => store.app);
-  const [selectedIndex, setSelectedIndex] = useState('general');
-  const [selectedIndexSub, setSelectedIndexSub] = useState(0);
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
   );
-  const router = useRouter();
 
-  const onClickListItem = (id, path) => {
-    setSelectedIndex(id);
-    setOpenSubMenu(openSubMenu === id ? null : id);
-    router.push(path);
+  const onClickListItem = (child) => {
+    const { id, path, children } = child;
+
+    if (children.length > 0) {
+      setOpenSubMenu(openSubMenu === id ? null : id);
+    } else {
+      router.push(path);
+    }
   };
 
   const onClickOpenMenuPopover = (event, id) => {
-    setSelectedIndex(id);
     setAnchorEl(event.currentTarget);
   };
 
@@ -65,10 +73,10 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
             }}
           >
             <ListItemButtonStyled
-              selected={selectedIndex === child.id}
+              selected={pathname.includes(child.path)}
               onClick={(e) => {
-                onClickListItem(child.id, child.path);
-                onClickOpenMenuPopover(e, child.id);
+                onClickListItem(child);
+                if (isMobile) onClickOpenMenuPopover(e, child.id);
               }}
               sx={
                 isDrawerOpen
@@ -99,7 +107,9 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
               >
                 <Image
                   src={
-                    selectedIndex === child.id ? child.iconActive : child.icon
+                    pathname.includes(child.path)
+                      ? child.iconActive
+                      : child.icon
                   }
                   alt="icon"
                   width={20}
@@ -110,7 +120,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                 {!isDrawerOpen && child.children?.length > 0 && (
                   <Image
                     src={
-                      selectedIndex === child.id
+                      pathname.includes(child.path)
                         ? '/images/arrow-down-active.svg'
                         : '/images/arrow-down.svg'
                     }
@@ -123,9 +133,9 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                 )}
               </ListItemIcon>
               {!isDrawerOpen && (
-                <ShortLabel>{child.shortLabel || child.label}</ShortLabel>
+                <ShortLabel>{t(child.shortLabel) || t(child.label)}</ShortLabel>
               )}
-              {isDrawerOpen && <ListItemText primary={child?.id} />}
+              {isDrawerOpen && <ListItemText primary={t(child.label)} />}
               {/* Add arrow icon for items with sub-items */}
               {child.children?.length > 0 &&
                 isDrawerOpen &&
@@ -149,10 +159,8 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                       }}
                     >
                       <ListItemButtonStyled
-                        selected={selectedIndexSub === subChild.id}
-                        onClick={() => {
-                          setSelectedIndexSub(subChild.id);
-                        }}
+                        selected={pathname.includes(subChild.path)}
+                        onClick={() => onClickListItem(subChild)}
                         sx={{
                           width: '80%',
                           '&.Mui-selected': {
@@ -163,7 +171,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                           mb: 0,
                         }}
                       >
-                        <ListItemText primary={subChild.id} />
+                        <ListItemText primary={t(subChild.label)} />
                       </ListItemButtonStyled>
                     </ListItem>
                   ))}
@@ -200,14 +208,14 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                         }}
                       >
                         <ListItemButtonStyled
-                          selected={selectedIndexSub === subChild.id}
-                          onClick={() => setSelectedIndexSub(subChild.id)}
+                          selected={pathname.includes(subChild.path)}
+                          onClick={() => onClickListItem(subChild)}
                           sx={{
                             borderRadius: 0,
                           }}
                         >
                           <ListItemIcon>{subChild.icon}</ListItemIcon>
-                          <ListItemText primary={subChild.id} />
+                          <ListItemText primary={t(subChild.label)} />
                         </ListItemButtonStyled>
                       </ListItem>
                     ))}

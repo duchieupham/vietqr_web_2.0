@@ -1,18 +1,40 @@
-import { Box, MenuItem, Select, Stack } from '@mui/material';
+import { Box, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
 
 export default function DashboardHeader() {
+  const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
   const { dashboardType } = useAppSelector((store) => store.app);
+
   const dispatch = useAppDispatch();
 
   const onChangeDashboardType = (event) => {
-    dispatch(setDashboardType(event.target.value));
+    const foundType = DASHBOARD_TYPE.find(
+      (type) => type.id === event.target.value,
+    );
+    const { id, children } = foundType;
+
+    // dispatch(setDashboardType(id));
+    router.push(children[0].path); // TO BE IMPROVED
   };
+
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      dispatch(setDashboardType(foundType?.id));
+    }
+  }, [pathname]);
 
   return (
     <Stack
@@ -59,7 +81,7 @@ export default function DashboardHeader() {
       >
         {DASHBOARD_TYPE.map((type) => (
           <MenuItem key={type.id} value={type.id}>
-            {type.label}
+            <Typography sx={{ fontWeight: 'bold' }}>{t(type.label)}</Typography>
           </MenuItem>
         ))}
       </Select>
