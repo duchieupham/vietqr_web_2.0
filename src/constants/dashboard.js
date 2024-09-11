@@ -42,7 +42,7 @@ export const DASHBOARD_TYPE = [
         id: 'bankAccount',
         label: 'Bank Account',
         shortLabel: 'Account',
-        path: '/bank-account',
+        path: '/dashboard/bank-account',
         icon: '/images/money-bank.svg',
         iconActive: '/images/money-bank-active.svg',
       },
@@ -121,7 +121,7 @@ export const DASHBOARD_TYPE = [
         id: 'statisticalReport',
         label: 'Statistical Report',
         shortLabel: 'Statistical',
-        path: '/agent/statistical-report',
+        path: '/dashboard/agent/statistical-report',
         icon: '/images/money-graph-pie-chart.svg',
         iconActive: '/images/money-graph-pie-chart-active.svg',
         children: [
@@ -165,8 +165,8 @@ export const DASHBOARD_TYPE = [
       {
         id: 'employees',
         label: 'Employees',
-        path: '/dashboard/agent/employees',
         shortLabel: 'Employees',
+        path: '/dashboard/agent/employees',
         icon: '/images/user-multiple.svg',
         iconActive: '/images/user-multiple-active.svg',
         children: [
