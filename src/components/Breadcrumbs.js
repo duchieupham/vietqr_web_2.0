@@ -1,51 +1,65 @@
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {
-  Box,
   Breadcrumbs as MUIBreadcrumbs,
   Link as MUILink,
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-export default function Breadcrumbs({ ...otherProps }) {
-  const [crumbs, setCrumbs] = useState([]);
-  const pathname = usePathname();
+export default function Breadcrumbs({
+  links,
+  activeLast = false,
+  ...otherProps
+}) {
+  const path = links.startsWith('/') ? links : `/${links}`;
 
-  // TODO:  Slit the pathname and set the crumbs array
-  useEffect(() => {
-    // Split the pathname and filter out any empty strings
-    const crumbsArray = pathname.split('/').filter(Boolean);
-    // Create the crumbs array
-    const _crumbs = crumbsArray.map((crumb, index) => ({
-      href: `/${crumbsArray.slice(0, index + 1).join('/')}`,
-      label: crumb,
-    }));
-    setCrumbs(_crumbs);
-  }, [pathname]);
+  const pathArray = path.split('/').filter(Boolean);
+
+  const listDefault = pathArray.map((segment, index) => {
+    const href = `/${pathArray.slice(0, index + 1).join('/')}`;
+    return <LinkItem key={href} href={href} label={segment} />;
+  });
+
+  const listActiveLast = pathArray.map((segment, index) => {
+    const href = `/${pathArray.slice(0, index + 1).join('/')}`;
+    return (
+      <div key={href}>
+        {index !== pathArray.length - 1 ? (
+          <LinkItem href={href} label={segment} />
+        ) : (
+          <Typography
+            variant="body2"
+            sx={{
+              maxWidth: 260,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              color: 'text.disabled',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {segment}
+          </Typography>
+        )}
+      </div>
+    );
+  });
 
   return (
     <MUIBreadcrumbs
       separator={
-        <FiberManualRecordIcon sx={{ fontSize: 5, m: 1 }} fontSize="small" />
+        <FiberManualRecordIcon sx={{ fontSize: 5, m: 0.5 }} fontSize="small" />
       }
+      {...otherProps}
     >
-      {crumbs.map((crumb) => (
-        <LinkItem key={crumb.href} href={crumb.href} label={crumb.label} />
-      ))}
+      {activeLast ? listDefault : listActiveLast}
     </MUIBreadcrumbs>
   );
 }
 
-function LinkItem({ href, label, icon, ...otherProps }) {
+// LinkItem component for rendering individual breadcrumb links
+function LinkItem({ href, label, ...otherProps }) {
   return (
-    <Link
-      href={href}
-      passHref
-      style={{
-        textDecoration: 'none',
-      }}
-    >
+    <Link href={href} passHref style={{ textDecoration: 'none' }}>
       <MUILink
         component="span"
         variant="body2"
@@ -58,9 +72,6 @@ function LinkItem({ href, label, icon, ...otherProps }) {
           '& > div': { display: 'inherit' },
         }}
       >
-        {icon && (
-          <Box sx={{ mr: 1, '& svg': { width: 20, height: 20 } }}>{icon}</Box>
-        )}
         {label}
       </MUILink>
     </Link>
