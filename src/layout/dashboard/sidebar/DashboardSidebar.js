@@ -63,10 +63,6 @@ export default function DashboardSidebar({ children }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const displayedType = DASHBOARD_TYPE.find(
-    (item) => item.id === dashboardType,
-  );
-
   const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);
   };

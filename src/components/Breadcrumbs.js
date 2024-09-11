@@ -11,8 +11,6 @@ export default function Breadcrumbs({
   activeLast = false,
   ...otherProps
 }) {
-  console.log(links);
-  
   const path = links.startsWith('/') ? links : `/${links}`;
 
   const pathArray = path.split('/').filter(Boolean);
