@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { AppBar } from '@mui/material';
+import { AppBar, Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -133,11 +133,13 @@ export default function DashboardSidebar({ children }) {
           }}
         >
           <Toolbar sx={{ height: toolBarHeight }}>
-            <Breadcrumbs />
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        {children}
+        <Container>
+          <Breadcrumbs />
+          {children}
+        </Container>
       </Main>
     </Box>
   );

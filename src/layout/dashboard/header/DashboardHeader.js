@@ -1,5 +1,4 @@
 import { Box, MenuItem, Select, Stack } from '@mui/material';
-import Breadcrumbs from '~/components/Breadcrumbs';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 import AccountPopover from './AccountPopover';
@@ -19,6 +18,16 @@ export default function DashboardHeader() {
     >
       <Select
         value={dashboardType.id}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              '& .MuiMenu-list': {
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+            },
+          },
+        }}
         sx={{
           '.MuiOutlinedInput-notchedOutline': {
             border: 'none',
