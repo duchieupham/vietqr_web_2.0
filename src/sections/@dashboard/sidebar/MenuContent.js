@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/no-array-index-key */
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
@@ -69,13 +70,23 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                 onClickListItem(child.id, child.path);
                 onClickOpenMenuPopover(e, child.id);
               }}
-              sx={{
-                height: isDrawerOpen ? '40px' : '50px',
-                p: isDrawerOpen ? '0 10px' : 0,
-                flexDirection: isDrawerOpen ? 'row' : 'column',
-                justifyContent: isDrawerOpen ? 'flex-start' : 'center',
-                gap: isDrawerOpen ? 1 : 0.5,
-              }}
+              sx={
+                isDrawerOpen
+                  ? {
+                      height: '40px',
+                      p: '0 10px',
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      gap: 1,
+                    }
+                  : {
+                      height: '50px',
+                      p: '0',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      gap: 0.5,
+                    }
+              }
             >
               <ListItemIcon
                 sx={{

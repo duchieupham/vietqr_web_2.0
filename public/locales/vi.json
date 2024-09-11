@@ -72,5 +72,8 @@
   "noticeUpdateServiceFee": "THÔNG BÁO CẬP NHẬT PHÍ DỊCH VỤ PHẦN MỀM VIETQR",
   "noticeUpdateServiceFeeContent": "VietQR thông báo về việc áp dụng thu phí dịch vụ đối với các tính năng nhận Biến động số dư. Áp dụng cho các tài khoản ngân hàng đã tích hợp liên kết.",
   "noticeUpdateServiceFeeContent2": "Phí dịch vụ sẽ được áp dụng từ ngày 02/05/2024. Chúng tôi hy vọng Quý khách hàng có những trải nghiệm dịch vụ tốt nhất mà VietQR mang lại.",
-  "noticeFeesApply": "Mức phí áp dụng"
+  "noticeFeesApply": "Mức phí áp dụng",
+
+  "backToHome": "Về trang chủ",
+  "404": "Không tìm thấy trang"
 }

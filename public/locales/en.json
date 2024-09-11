@@ -69,5 +69,8 @@
   "errorOccurred": "An error occurred!",
 
   "notice": "Notice",
-  "noticeUpdateServiceFee": "NOTICE OF VIETQR SOFTWARE SERVICE FEE UPDATE"
+  "noticeUpdateServiceFee": "NOTICE OF VIETQR SOFTWARE SERVICE FEE UPDATE",
+
+  "backToHome": "Back to home",
+  "404": "Page not found"
 }
