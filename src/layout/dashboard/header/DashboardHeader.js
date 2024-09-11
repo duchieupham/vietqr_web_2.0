@@ -11,8 +11,7 @@ export default function DashboardHeader() {
   const dispatch = useAppDispatch();
 
   const onChangeDashboardType = (event) => {
-    const type = DASHBOARD_TYPE.find((item) => item.id === event.target.value);
-    dispatch(setDashboardType(type));
+    dispatch(setDashboardType(event.target.value));
   };
 
   return (
@@ -24,7 +23,7 @@ export default function DashboardHeader() {
       spacing={{ xs: 0.5, SmartButton: 1.5 }}
     >
       <Select
-        value={dashboardType.id}
+        value={dashboardType}
         onChange={onChangeDashboardType}
         MenuProps={{
           PaperProps: {

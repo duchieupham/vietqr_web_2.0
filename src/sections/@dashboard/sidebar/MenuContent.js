@@ -9,26 +9,33 @@ import {
   ListItemText,
   Stack,
   styled,
+  Typography,
 } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
+import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 
-export default function MenuContent({ drawerOpen, ...props }) {
+export default function MenuContent({ isDrawerOpen, ...props }) {
   const { dashboardType } = useAppSelector((store) => store.app);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState('general');
   const [selectedIndexSub, setSelectedIndexSub] = useState(0);
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const displayedType = DASHBOARD_TYPE.find(
+    (item) => item.id === dashboardType,
+  );
 
-  const onClickListItem = (index) => {
-    setSelectedIndex(index); // set selected index for main menu
-    setOpenSubMenu(openSubMenu === index ? null : index); // set open sub menu
+  const onClickListItem = (id) => {
+    setSelectedIndex(id);
+    setOpenSubMenu(openSubMenu === id ? null : id);
   };
 
-  const onClickOpenMenuPopover = (event) => {
-    setAnchorEl(event.currentTarget);
+  const onClickOpenMenuPopover = (event, id) => {
+    console.log('Click event:', event);
+    console.log('MenuPopover id:', id);
+    setAnchorEl(anchorEl?.id === id ? null : event.currentTarget);
   };
 
   const onCloseMenuPopover = () => {
@@ -36,15 +43,15 @@ export default function MenuContent({ drawerOpen, ...props }) {
   };
 
   useEffect(() => {
-    if (drawerOpen) {
-      setAnchorEl(!drawerOpen);
+    if (!isDrawerOpen) {
+      setAnchorEl(null);
     }
-  }, [drawerOpen]);
+  }, [isDrawerOpen]);
 
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {dashboardType.children.map((child) => (
+        {displayedType.children.map((child) => (
           <ListItem
             key={child.id}
             disablePadding
@@ -57,10 +64,22 @@ export default function MenuContent({ drawerOpen, ...props }) {
               selected={selectedIndex === child.id}
               onClick={() => {
                 onClickListItem(child.id);
+                onClickOpenMenuPopover(event, child.id);
+              }}
+              sx={{
+                height: isDrawerOpen ? '40px' : '50px',
+                p: isDrawerOpen ? '0 10px' : 0,
+                flexDirection: isDrawerOpen ? 'row' : 'column',
+                justifyContent: isDrawerOpen ? 'flex-start' : 'center',
+                gap: isDrawerOpen ? 1 : 0.5,
               }}
             >
               <ListItemIcon
                 sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 0.5,
                   justifyContent: 'center',
                 }}
               >
@@ -74,13 +93,31 @@ export default function MenuContent({ drawerOpen, ...props }) {
                   quality={100}
                   priority
                 />
+                {!isDrawerOpen && (
+                  <>
+                    {child.children?.length > 0 && (
+                      <Image
+                        src={`/images/${selectedIndex === child.id ? 'arrow-down-active' : 'arrow-down'}.svg`}
+                        alt="arrow-right"
+                        width={12}
+                        height={12}
+                        quality={100}
+                        priority
+                      />
+                    )}
+                  </>
+                )}
               </ListItemIcon>
-              <ListItemText primary={child?.id} />
+              {!isDrawerOpen && (
+                <ShortLabel>{child.shortLabel || child.label}</ShortLabel>
+              )}
+              {isDrawerOpen && <ListItemText primary={child?.id} />}
               {/* Add arrow icon for items with sub-items */}
               {child.children?.length > 0 &&
+                isDrawerOpen &&
                 (openSubMenu === child.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
-            {child.children?.length > 0 && drawerOpen ? (
+            {child.children?.length > 0 && isDrawerOpen ? (
               <Collapse
                 in={openSubMenu === child.id}
                 timeout="auto"
@@ -121,7 +158,7 @@ export default function MenuContent({ drawerOpen, ...props }) {
             ) : (
               <MenuPopover
                 anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
+                open={Boolean(anchorEl) && openSubMenu === child.id}
                 onClose={onCloseMenuPopover}
                 anchorOrigin={{
                   vertical: 'center',
@@ -132,7 +169,7 @@ export default function MenuContent({ drawerOpen, ...props }) {
                   horizontal: 'left',
                 }}
               >
-                <List dense>
+                <List dense disablePadding>
                   {child.children?.length > 0 &&
                     child.children.map((subChild) => (
                       <ListItem
@@ -147,6 +184,9 @@ export default function MenuContent({ drawerOpen, ...props }) {
                           selected={selectedIndexSub === subChild.id}
                           onClick={() => {
                             setSelectedIndexSub(subChild.id);
+                          }}
+                          sx={{
+                            borderRadius: 0,
                           }}
                         >
                           <ListItemIcon>{subChild.icon}</ListItemIcon>
@@ -182,4 +222,9 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
     background: '#DADADA',
     opacity: 1,
   },
+}));
+
+const ShortLabel = styled(Typography)(({ theme }) => ({
+  fontSize: 10,
+  fontWeight: 'semiBold',
 }));

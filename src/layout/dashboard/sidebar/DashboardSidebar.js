@@ -13,7 +13,7 @@ import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
-const drawerWidthCollapsed = 70;
+const drawerWidthCollapsed = 80;
 const toolBarHeight = '64px';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -105,7 +105,7 @@ export default function DashboardSidebar({ children }) {
             />
           </Box>
           {/* MENU LIST */}
-          <MenuContent drawerOpen={isOpen} />
+          <MenuContent isDrawerOpen={isOpen} />
         </Box>
       </Drawer>
       {/* DRAWER CLOSE BUTTON */}

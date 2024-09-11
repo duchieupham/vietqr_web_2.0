@@ -1,9 +1,3 @@
-import Image from 'next/image';
-
-const ImageIcon = ({ src, alt }) => (
-  <Image alt={alt} src={src} width={22} height={22} />
-);
-
 // dashboard
 export const DASHBOARD_TYPE = [
   {
@@ -14,6 +8,7 @@ export const DASHBOARD_TYPE = [
       {
         id: 'general',
         label: 'General',
+        shortLabel: 'General',
         path: '/',
         icon: '/images/dashboard-home.svg',
         iconActive: '/images/dashboard-home-active.svg',
@@ -38,6 +33,7 @@ export const DASHBOARD_TYPE = [
       {
         id: 'transaction',
         label: 'Transaction Management',
+        shortLabel: 'Transaction',
         path: '/transaction',
         icon: '/images/clipboard-list.svg',
         iconActive: '/images/clipboard-list-active.svg',
@@ -45,6 +41,7 @@ export const DASHBOARD_TYPE = [
       {
         id: 'bankAccount',
         label: 'Bank Account',
+        shortLabel: 'Account',
         path: '/bank-account',
         icon: '/images/money-bank.svg',
         iconActive: '/images/money-bank-active.svg',
