@@ -79,7 +79,6 @@ export default function MenuContent({ drawerOpen, ...props }) {
   const onClickOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  console.log('anchorEl', anchorEl);
 
   const onClosePopover = () => {
     setAnchorEl(null);
