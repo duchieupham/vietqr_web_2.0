@@ -9,7 +9,7 @@ import {
   ListItemText,
   Stack,
   styled,
-  Typography
+  Typography,
 } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -26,6 +26,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
   );
+  
 
   const onClickListItem = (id) => {
     setSelectedIndex(id);

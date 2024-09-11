@@ -11,6 +11,8 @@ import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
+import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { useAppSelector } from '~/redux/hook';
 
 const drawerWidth = 240;
 const drawerWidthCollapsed = 80;
@@ -56,6 +58,11 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
 export default function DashboardSidebar({ children }) {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(true);
+  const { dashboardType } = useAppSelector((store) => store.app);
+
+  const displayedType = DASHBOARD_TYPE.find(
+    (item) => item.id === dashboardType,
+  );
 
   const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);
@@ -137,7 +144,7 @@ export default function DashboardSidebar({ children }) {
           </Toolbar>
         </AppBar>
         <Container>
-          <Breadcrumbs />
+          <Breadcrumbs links={displayedType.path} />
           {children}
         </Container>
       </Main>
