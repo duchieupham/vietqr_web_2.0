@@ -1,5 +1,3 @@
-import { set } from 'lodash-es';
-
 // cookie
 export const LOCALE_COOKIE = 'LOCALE';
 export const AUTH_COOKIE = 'AUTH_TOKEN';

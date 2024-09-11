@@ -9,7 +9,7 @@ import {
   ListItemText,
   Stack,
   styled,
-  Typography,
+  Typography
 } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -33,9 +33,8 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   };
 
   const onClickOpenMenuPopover = (event, id) => {
-    console.log('Click event:', event);
-    console.log('MenuPopover id:', id);
-    setAnchorEl(anchorEl?.id === id ? null : event.currentTarget);
+    setSelectedIndex(id);
+    setAnchorEl(event.currentTarget);
   };
 
   const onCloseMenuPopover = () => {
@@ -45,6 +44,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   useEffect(() => {
     if (!isDrawerOpen) {
       setAnchorEl(null);
+      setOpenSubMenu(null);
     }
   }, [isDrawerOpen]);
 
@@ -93,23 +93,19 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                   quality={100}
                   priority
                 />
-                {!isDrawerOpen && (
-                  <>
-                    {child.children?.length > 0 && (
-                      <Image
-                        src={
-                          selectedIndex === child.id
-                            ? '/images/arrow-down-active.svg'
-                            : '/images/arrow-down.svg'
-                        }
-                        alt="arrow-right"
-                        width={12}
-                        height={12}
-                        quality={100}
-                        priority
-                      />
-                    )}
-                  </>
+                {!isDrawerOpen && child.children?.length > 0 && (
+                  <Image
+                    src={
+                      selectedIndex === child.id
+                        ? '/images/arrow-down-active.svg'
+                        : '/images/arrow-down.svg'
+                    }
+                    alt="arrow-right"
+                    width={12}
+                    height={12}
+                    quality={100}
+                    priority
+                  />
                 )}
               </ListItemIcon>
               {!isDrawerOpen && (
@@ -167,11 +163,15 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                 onClose={onCloseMenuPopover}
                 anchorOrigin={{
                   vertical: 'center',
-                  horizontal: 'right',
                 }}
                 transformOrigin={{
-                  vertical: 'center',
+                  vertical: 'top',
                   horizontal: 'left',
+                }}
+                sx={{
+                  '& .MuiPaper-root': {
+                    left: '80px !important',
+                  },
                 }}
               >
                 <List dense disablePadding>
@@ -187,9 +187,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                       >
                         <ListItemButtonStyled
                           selected={selectedIndexSub === subChild.id}
-                          onClick={() => {
-                            setSelectedIndexSub(subChild.id);
-                          }}
+                          onClick={() => setSelectedIndexSub(subChild.id)}
                           sx={{
                             borderRadius: 0,
                           }}
