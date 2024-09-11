@@ -70,7 +70,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'businessInformation',
         label: 'Business Information',
-        path: '/businessInformation',
+        shortLabel: 'Business',
+        path: '/dashboard/agent/business-information',
+        icon: '/images/contact-notebook-note.svg',
+        iconActive: '/images/contact-notebook-note-active.svg',
         children: [
           {
             id: 'agentInformation',
@@ -92,7 +95,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'sales',
         label: 'Sales Management',
-        path: '/sales',
+        shortLabel: 'Sales',
+        path: '/dashboard/agent/sales',
+        icon: '/images/shopping-basket.svg',
+        iconActive: '/images/shopping-basket-active.svg',
         children: [
           {
             id: 'managementSales',
@@ -114,29 +120,35 @@ export const DASHBOARD_TYPE = [
       {
         id: 'statisticalReport',
         label: 'Statistical Report',
-        path: '/statistical-report',
+        shortLabel: 'Statistical',
+        path: '/agent/statistical-report',
+        icon: '/images/money-graph-pie-chart.svg',
+        iconActive: '/images/money-graph-pie-chart-active.svg',
         children: [
           {
             id: 'salesStatistics',
             label: 'Sales Statistics',
-            path: '/report-statistics/sales-statistics',
+            path: '/statistical-report/sales-statistics',
           },
           {
             id: 'commodityStatistics',
             label: 'Commodity Statistics',
-            path: '/report-statistics/commodity-statistics',
+            path: '/statistical-report/commodity-statistics',
           },
           {
             id: 'customerStatistics',
             label: 'Customer Statistics',
-            path: '/report-statistics/customer-statistics',
+            path: '/statistical-report/customer-statistics',
           },
         ],
       },
       {
         id: 'storeAndPointOfSale',
         label: 'Store & Point of Sale',
-        path: '/store-pos',
+        shortLabel: 'Store&Point',
+        path: '/dashboard/agent/store-pos',
+        icon: '/images/shopping-store-factory-building.svg',
+        iconActive: '/images/shopping-store-factory-building-active.svg',
         children: [
           {
             id: 'storeList',
@@ -153,7 +165,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'employees',
         label: 'Employees',
-        path: '/employees',
+        path: '/dashboard/agent/employees',
+        shortLabel: 'Employees',
+        icon: '/images/user-multiple.svg',
+        iconActive: '/images/user-multiple-active.svg',
         children: [
           {
             id: 'employeeList',
@@ -170,7 +185,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'customers',
         label: 'Customers',
-        path: '/customers',
+        shortLabel: 'Customers',
+        path: '/dashboard/agent/customers',
+        icon: '/images/user-full-body.svg',
+        iconActive: '/images/user-full-body-active.svg',
         children: [
           {
             id: 'customerList',
@@ -187,7 +205,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'products',
         label: 'Products',
-        path: '/products',
+        shortLabel: 'Products',
+        path: '/dashboard/agent/products',
+        icon: '/images/shopping-bag-hand-bag.svg',
+        iconActive: '/images/shopping-bag-hand-bag-active.svg',
         children: [
           {
             id: 'productList',
@@ -209,7 +230,10 @@ export const DASHBOARD_TYPE = [
       {
         id: 'support',
         label: 'Support',
-        path: '/support',
+        shortLabel: 'Support',
+        path: '/dashboard/agent/support',
+        icon: '/images/help-customer-support.svg',
+        iconActive: '/images/help-customer-support-active.svg',
       },
     ],
   },
