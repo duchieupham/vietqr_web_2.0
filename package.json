@@ -19,6 +19,7 @@
     "@mui/material-nextjs": "^5.16.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.7",
+    "@svgr/webpack": "^8.1.0",
     "axios": "^1.7.3",
     "cookies-next": "^4.2.1",
     "crypto-js": "^4.2.0",
