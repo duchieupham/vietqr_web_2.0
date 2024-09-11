@@ -13,7 +13,7 @@ import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
-const drawerWidthCollapsed = 60;
+const drawerWidthCollapsed = 70;
 const toolBarHeight = '64px';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(

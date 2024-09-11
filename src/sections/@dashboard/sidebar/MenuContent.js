@@ -10,6 +10,7 @@ import {
   Stack,
   styled,
 } from '@mui/material';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { useAppSelector } from '~/redux/hook';
@@ -43,9 +44,9 @@ export default function MenuContent({ drawerOpen, ...props }) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {dashboardType.children.map((children) => (
+        {dashboardType.children.map((child) => (
           <ListItem
-            key={children.id}
+            key={child.id}
             disablePadding
             sx={{
               display: 'block',
@@ -53,27 +54,42 @@ export default function MenuContent({ drawerOpen, ...props }) {
             }}
           >
             <ListItemButtonStyled
-              selected={selectedIndex === children.id}
+              selected={selectedIndex === child.id}
               onClick={() => {
-                onClickListItem(children.id);
+                onClickListItem(child.id);
               }}
             >
-              <ListItemIcon>{children.icon}</ListItemIcon>
-              <ListItemText primary={children.id} />
+              <ListItemIcon
+                sx={{
+                  justifyContent: 'center',
+                }}
+              >
+                <Image
+                  src={
+                    selectedIndex === child.id ? child.iconActive : child.icon
+                  }
+                  alt="icon"
+                  width={20}
+                  height={20}
+                  quality={100}
+                  priority
+                />
+              </ListItemIcon>
+              <ListItemText primary={child?.id} />
               {/* Add arrow icon for items with sub-items */}
-              {children.children?.length > 0 &&
-                (openSubMenu === children.id ? <ExpandLess /> : <ExpandMore />)}
+              {child.children?.length > 0 &&
+                (openSubMenu === child.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
-            {children.children?.length > 0 && drawerOpen ? (
+            {child.children?.length > 0 && drawerOpen ? (
               <Collapse
-                in={openSubMenu === children.id}
+                in={openSubMenu === child.id}
                 timeout="auto"
                 unmountOnExit
               >
                 <List dense sx={{ paddingTop: '4px', paddingBottom: '0px' }}>
-                  {children.children.map((subChildren) => (
+                  {child.children.map((subChild) => (
                     <ListItem
-                      key={subChildren.id}
+                      key={subChild.id}
                       disablePadding
                       sx={{
                         display: 'block',
@@ -82,9 +98,9 @@ export default function MenuContent({ drawerOpen, ...props }) {
                       }}
                     >
                       <ListItemButtonStyled
-                        selected={selectedIndexSub === subChildren.id}
+                        selected={selectedIndexSub === subChild.id}
                         onClick={() => {
-                          setSelectedIndexSub(subChildren.id);
+                          setSelectedIndexSub(subChild.id);
                         }}
                         sx={{
                           width: '80%',
@@ -92,12 +108,11 @@ export default function MenuContent({ drawerOpen, ...props }) {
                             background: '#DADADA',
                             color: '#000000',
                           },
-                          p: 0,
+                          pl: 3,
                           mb: 0,
                         }}
                       >
-                        <ListItemIcon>{subChildren.icon}</ListItemIcon>
-                        <ListItemText primary={subChildren.id} />
+                        <ListItemText primary={subChild.id} />
                       </ListItemButtonStyled>
                     </ListItem>
                   ))}
@@ -118,10 +133,10 @@ export default function MenuContent({ drawerOpen, ...props }) {
                 }}
               >
                 <List dense>
-                  {children.children?.length > 0 &&
-                    children.children.map((subChildren) => (
+                  {child.children?.length > 0 &&
+                    child.children.map((subChild) => (
                       <ListItem
-                        key={subChildren.id}
+                        key={subChild.id}
                         disablePadding
                         sx={{
                           display: 'block',
@@ -129,13 +144,13 @@ export default function MenuContent({ drawerOpen, ...props }) {
                         }}
                       >
                         <ListItemButtonStyled
-                          selected={selectedIndexSub === subChildren.id}
+                          selected={selectedIndexSub === subChild.id}
                           onClick={() => {
-                            setSelectedIndexSub(subChildren.id);
+                            setSelectedIndexSub(subChild.id);
                           }}
                         >
-                          <ListItemIcon>{subChildren.icon}</ListItemIcon>
-                          <ListItemText primary={subChildren.id} />
+                          <ListItemIcon>{subChild.icon}</ListItemIcon>
+                          <ListItemText primary={subChild.id} />
                         </ListItemButtonStyled>
                       </ListItem>
                     ))}
@@ -153,6 +168,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   borderRadius: '8px',
   height: '40px',
   padding: '0 10px',
+  alignItems: 'center',
   '&.Mui-selected': {
     background: 'linear-gradient(to right, #E1EFFF 0%, #E1EFFF 100%)',
     color: '#0072FF',
@@ -164,6 +180,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   },
   '&:hover': {
     background: '#DADADA',
-    opacity: 0.75,
+    opacity: 1,
   },
 }));

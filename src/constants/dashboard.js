@@ -1,3 +1,9 @@
+import Image from 'next/image';
+
+const ImageIcon = ({ src, alt }) => (
+  <Image alt={alt} src={src} width={22} height={22} />
+);
+
 // dashboard
 export const DASHBOARD_TYPE = [
   {
@@ -9,6 +15,8 @@ export const DASHBOARD_TYPE = [
         id: 'general',
         label: 'General',
         path: '/',
+        icon: '/images/dashboard-home.svg',
+        iconActive: '/images/dashboard-home-active.svg',
         children: [
           {
             id: 'qrNewFeeds',
@@ -31,21 +39,29 @@ export const DASHBOARD_TYPE = [
         id: 'transaction',
         label: 'Transaction Management',
         path: '/transaction',
+        icon: '/images/clipboard-list.svg',
+        iconActive: '/images/clipboard-list-active.svg',
       },
       {
         id: 'bankAccount',
         label: 'Bank Account',
         path: '/bank-account',
+        icon: '/images/money-bank.svg',
+        iconActive: '/images/money-bank-active.svg',
       },
       {
         id: 'extensions',
         label: 'Extensions',
         path: '/extensions',
+        icon: '/images/codes-tags-code-qr.svg',
+        iconActive: '/images/codes-tags-code-qr-active.svg',
       },
       {
         id: 'setting',
         label: 'Setting',
         path: '/setting',
+        icon: '/images/settings-machine.svg',
+        iconActive: '/images/settings-machine-active.svg',
       },
     ],
   },
