@@ -6,10 +6,13 @@ import _upperFirst from 'lodash-es/upperFirst';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useAppContext } from '~/contexts/AppContext';
 import { usePathname } from 'next/navigation';
+import { useAuthContext } from '~/contexts/AuthContext';
+import LoadingContainer from '~/components/feedback/LoadingContainer';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
+  const { loading: authLoading } = useAuthContext();
   const { loading } = useAppContext();
   const pathname = usePathname();
   const getLayout = (name) => {
@@ -29,6 +32,8 @@ function DynamicLayout({ children }) {
 
     return getLayout(layoutName) || MainLayout;
   }, [pathname]);
+
+  if (authLoading) return <LoadingContainer />;
 
   return (
     <>

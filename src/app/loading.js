@@ -1,4 +1,4 @@
-import LoadingContainer from '~/components/LoadingContainer';
+import LoadingContainer from '~/components/feedback/LoadingContainer';
 
 export default function Loading() {
   return <LoadingContainer />;

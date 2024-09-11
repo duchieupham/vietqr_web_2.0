@@ -24,7 +24,7 @@ import useLoginSocket from '~/hooks/useLoginSocket';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
