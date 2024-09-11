@@ -15,25 +15,17 @@ import MenuPopover from '~/components/MenuPopover';
 import { useAppSelector } from '~/redux/hook';
 
 export default function MenuContent({ drawerOpen, ...props }) {
+  const { dashboardType } = useAppSelector((store) => store.app);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndexSub, setSelectedIndexSub] = useState(0);
-  const [openTransaction, setOpenTransaction] = useState(null);
+  const [openSubMenu, setOpenSubMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { dashboardType } = useAppSelector((store) => store.app);
 
-  console.log(dashboardType);
+  console.log(drawerOpen);
 
   const onClickListItem = (index) => {
     setSelectedIndex(index); // set selected index for main menu
-    if (openTransaction === index) {
-      setOpenTransaction(null); // Close if already open
-    } else {
-      setOpenTransaction(index); // Open new submenu
-    }
-  };
-
-  const onClickSubmenuToggle = (index) => {
-    setOpenTransaction(openTransaction === index ? null : index); // Toggle submenu
+    setOpenSubMenu(openSubMenu === index ? null : index); // set open sub menu
   };
 
   const onClickOpenMenuPopover = (event) => {
@@ -53,9 +45,9 @@ export default function MenuContent({ drawerOpen, ...props }) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {dashboardType.children.map((route) => (
+        {dashboardType.children.map((children) => (
           <ListItem
-            key={route.id}
+            key={children.id}
             disablePadding
             sx={{
               display: 'block',
@@ -63,49 +55,51 @@ export default function MenuContent({ drawerOpen, ...props }) {
             }}
           >
             <ListItemButtonStyled
-              selected={selectedIndex === route.id}
+              selected={selectedIndex === children.id}
               onClick={() => {
-                onClickListItem(route.id);
+                onClickListItem(children.id);
               }}
             >
-              <ListItemIcon
-                onClick={drawerOpen ? undefined : onClickOpenMenuPopover}
-              >
-                {route.icon}
-              </ListItemIcon>
-              <ListItemText primary={route.id} />
+              <ListItemIcon>{children.icon}</ListItemIcon>
+              <ListItemText primary={children.id} />
               {/* Add arrow icon for items with sub-items */}
-              {route.children?.length > 0 &&
-                (openTransaction === route.id ? (
-                  <ExpandLess />
-                ) : (
-                  <ExpandMore />
-                ))}
+              {children.children?.length > 0 &&
+                (openSubMenu === children.id ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButtonStyled>
-            {route.children?.length > 0 && drawerOpen ? (
+            {children.children?.length > 0 && drawerOpen ? (
               <Collapse
-                in={openTransaction === route.id}
+                in={openSubMenu === children.id}
                 timeout="auto"
                 unmountOnExit
               >
-                <List dense>
-                  {route.children.map((subRoute) => (
+                <List dense sx={{ paddingTop: '4px', paddingBottom: '0px' }}>
+                  {children.children.map((subChildren) => (
                     <ListItem
-                      key={subRoute.id}
+                      key={subChildren.id}
                       disablePadding
                       sx={{
                         display: 'block',
                         mb: 1,
+                        ml: 3,
                       }}
                     >
                       <ListItemButtonStyled
-                        selected={selectedIndexSub === subRoute.id}
+                        selected={selectedIndexSub === subChildren.id}
                         onClick={() => {
-                          setSelectedIndexSub(subRoute.id);
+                          setSelectedIndexSub(subChildren.id);
+                        }}
+                        sx={{
+                          width: '80%',
+                          '&.Mui-selected': {
+                            background: '#DADADA',
+                            color: '#000000',
+                          },
+                          p: 0,
+                          mb: 0,
                         }}
                       >
-                        <ListItemIcon>{subRoute.icon}</ListItemIcon>
-                        <ListItemText primary={subRoute.id} />
+                        <ListItemIcon>{subChildren.icon}</ListItemIcon>
+                        <ListItemText primary={subChildren.id} />
                       </ListItemButtonStyled>
                     </ListItem>
                   ))}
@@ -126,10 +120,10 @@ export default function MenuContent({ drawerOpen, ...props }) {
                 }}
               >
                 <List dense>
-                  {route.children?.length > 0 &&
-                    route.children.map((subRoute) => (
+                  {children.children?.length > 0 &&
+                    children.children.map((subChildren) => (
                       <ListItem
-                        key={subRoute.id}
+                        key={subChildren.id}
                         disablePadding
                         sx={{
                           display: 'block',
@@ -137,13 +131,13 @@ export default function MenuContent({ drawerOpen, ...props }) {
                         }}
                       >
                         <ListItemButtonStyled
-                          selected={selectedIndexSub === subRoute.id}
+                          selected={selectedIndexSub === subChildren.id}
                           onClick={() => {
-                            setSelectedIndexSub(subRoute.id);
+                            setSelectedIndexSub(subChildren.id);
                           }}
                         >
-                          <ListItemIcon>{subRoute.icon}</ListItemIcon>
-                          <ListItemText primary={subRoute.id} />
+                          <ListItemIcon>{subChildren.icon}</ListItemIcon>
+                          <ListItemText primary={subChildren.id} />
                         </ListItemButtonStyled>
                       </ListItem>
                     ))}

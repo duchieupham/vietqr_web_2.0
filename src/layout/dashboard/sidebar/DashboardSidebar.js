@@ -105,7 +105,7 @@ export default function DashboardSidebar({ children }) {
             />
           </Box>
           {/* MENU LIST */}
-          <MenuContent popover={!isOpen} />
+          <MenuContent drawerOpen={isOpen} />
         </Box>
       </Drawer>
       {/* DRAWER CLOSE BUTTON */}
