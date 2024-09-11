@@ -7,13 +7,13 @@ import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
-import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
-import DashboardHeader from '../header/DashboardHeader';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
-import { usePathname, useRouter } from 'next/navigation';
+import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
+import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
 const drawerWidthCollapsed = 80;
@@ -61,8 +61,7 @@ export default function DashboardSidebar({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   const { dashboardType } = useAppSelector((store) => store.app);
   const pathname = usePathname();
-
-  console.log(pathname);
+  const router = useRouter();
 
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
@@ -101,6 +100,7 @@ export default function DashboardSidebar({ children }) {
               textAlign: 'center',
               px: isOpen ? '16px' : '8px',
             }}
+            onClick={() => router.push('/')}
           >
             <Image
               src={
