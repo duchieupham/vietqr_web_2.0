@@ -5,13 +5,12 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-export default function Breadcrumbs({
-  links,
-  activeLast = false,
-  ...otherProps
-}) {
-  const path = links.startsWith('/') ? links : `/${links}`;
+export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
+  const pathname = usePathname();
+
+  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
 
   const pathArray = path.split('/').filter(Boolean);
 

@@ -65,9 +65,9 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
           >
             <ListItemButtonStyled
               selected={selectedIndex === child.id}
-              onClick={() => {
+              onClick={(e) => {
                 onClickListItem(child.id, child.path);
-                onClickOpenMenuPopover(event, child.id);
+                onClickOpenMenuPopover(e, child.id);
               }}
               sx={{
                 height: isDrawerOpen ? '40px' : '50px',
