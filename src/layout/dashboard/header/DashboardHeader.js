@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   ButtonGroup,
@@ -16,7 +18,7 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { ButtonGradient } from '~/components/button';
 import Profile from '~/components/Profile';
@@ -139,7 +141,6 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
 export default function DashboardHeader() {
   const t = useTranslations();
   const router = useRouter();
-  const pathname = usePathname();
   const { dashboardType } = useAppSelector((store) => store.app);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useAppDispatch();
@@ -161,18 +162,9 @@ export default function DashboardHeader() {
     );
     const { id, children } = foundType;
 
-    // dispatch(setDashboardType(id));
+    dispatch(setDashboardType(id));
     router.push(children[0].path); // TO BE IMPROVED
   };
-
-  useEffect(() => {
-    const foundType = DASHBOARD_TYPE.find((type) =>
-      pathname.includes(type.path),
-    );
-    if (foundType) {
-      dispatch(setDashboardType(foundType?.id));
-    }
-  }, [pathname]);
 
   return (
     <Stack

@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable indent */
 /* eslint-disable react/no-array-index-key */
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
@@ -143,7 +145,10 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
             </ListItemButtonStyled>
             {child.children?.length > 0 && isDrawerOpen && (
               <Collapse
-                in={openSubMenu === child.id && isDrawerOpen}
+                in={
+                  (openSubMenu === child.id || pathname.includes(child.path)) &&
+                  isDrawerOpen
+                }
                 timeout="auto"
                 unmountOnExit
               >
