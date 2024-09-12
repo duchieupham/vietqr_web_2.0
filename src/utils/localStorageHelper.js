@@ -1,7 +1,13 @@
+function checkWindow() {
+  return typeof window !== 'undefined';
+}
+
 export function setLocalStorage(key, value) {
   try {
     const valueToStore = JSON.stringify(value);
-    window.localStorage.setItem(key, valueToStore);
+    if (checkWindow) {
+      window.localStorage.setItem(key, valueToStore);
+    }
   } catch (error) {
     console.log(`Error setting localStorage: ${error}`);
   }
@@ -9,8 +15,11 @@ export function setLocalStorage(key, value) {
 
 export function getLocalStorage(key) {
   try {
-    const item = window.localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
+    if (checkWindow) {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : null;
+    }
+    return null;
   } catch (error) {
     console.log(`Error getting localStorage: ${error}`);
     return null;

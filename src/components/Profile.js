@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { useAuthContext } from '~/contexts/AuthContext';
 import useImage from '~/hooks/useImage';
 
@@ -7,14 +7,21 @@ export default function Profile(props) {
   const imageUrl = useImage(session?.imageId);
   const defaultImageUrl = '/images/logo.png';
   return (
-    <Avatar
-      src={session ? imageUrl : defaultImageUrl}
-      alt={session ? `${session.firstName} ${session.lastName}` : 'logo'}
-      sx={{
-        objectFit: 'cover',
-        objectPosition: 'center',
-      }}
-      {...props}
-    />
+    <>
+      {/* Full Name */}
+      <Typography>
+        {session ? `${session.firstName} ${session.lastName}` : 'Guest'}
+      </Typography>
+      {/* Avatar */}
+      <Avatar
+        src={session ? imageUrl : defaultImageUrl}
+        alt={session ? `${session.firstName} ${session.lastName}` : 'logo'}
+        sx={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
+        {...props}
+      />
+    </>
   );
 }
