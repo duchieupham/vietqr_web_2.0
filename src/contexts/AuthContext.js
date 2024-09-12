@@ -11,6 +11,7 @@ import {
 } from 'react';
 import { AUTH_COOKIE } from '~/constants';
 import decodeJwt from '~/utils/decodeJwt';
+import { getLocalStorage, setLocalStorage } from '~/utils/localStorageHelper';
 
 const initialContext = {
   loading: false,
@@ -30,7 +31,7 @@ export function AuthContextProvider({ children }) {
       const decodedData = decodeJwt(data);
       setSession(decodedData);
       setCookie(AUTH_COOKIE, data, { secure: true });
-      localStorage.setItem('session', JSON.stringify(decodedData));
+      setLocalStorage('session', JSON.stringify(decodedData));
       router.push('/dashboard');
     } catch (error) {
       console.error('Authentication failed:', error);
@@ -51,7 +52,7 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const storedSession = localStorage.getItem('session');
+    const storedSession = getLocalStorage('session');
     if (storedSession) {
       setSession(JSON.parse(storedSession));
     }
