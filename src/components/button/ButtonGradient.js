@@ -1,11 +1,6 @@
 import { Button } from '@mui/material';
 
-function ButtonGradient({
-  children,
-  gradientColors = ['#00C6FF', '#0072FF'],
-  style,
-  ...props
-}) {
+function ButtonGradient({ children, style, ...props }) {
   const defaultStyles = {
     width: '360px',
     height: '40px',

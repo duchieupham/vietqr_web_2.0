@@ -23,7 +23,14 @@ export default function AccountPopover() {
     <>
       <IconButton
         onClick={onClickOpen}
-        sx={{ p: '2px', border: '1px solid #c2c2c2' }}
+        sx={{
+          p: '2px',
+          border: 'none',
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        }}
+        disableRipple
       >
         <Profile />
       </IconButton>
