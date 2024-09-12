@@ -1,7 +1,7 @@
 'use client';
 
 import { deleteCookie, setCookie } from 'cookies-next';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   createContext,
   useCallback,
@@ -21,7 +21,6 @@ const AuthContext = createContext(initialContext);
 
 export function AuthContextProvider({ children }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [session, setSession] = useState(initialContext.session);
   const [loading, setLoading] = useState(initialContext.loading);
 
@@ -53,7 +52,7 @@ export function AuthContextProvider({ children }) {
     if (storedSession) {
       setSession(JSON.parse(storedSession));
     }
-  }, [pathname]);
+  }, []);
 
   return (
     <AuthContext.Provider
