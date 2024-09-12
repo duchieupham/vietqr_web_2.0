@@ -25,17 +25,18 @@ export function AuthContextProvider({ children }) {
   const [loading, setLoading] = useState(initialContext.loading);
 
   const authenticate = async (data) => {
-    setLoading(true);
-    const decodedData = decodeJwt(data);
-    setSession(decodedData);
-    setCookie(AUTH_COOKIE, data, {
-      secure: true,
-    });
-    localStorage.setItem('session', JSON.stringify(decodedData));
-    router.push('/dashboard');
-    setTimeout(() => {
+    try {
+      setLoading(true);
+      const decodedData = decodeJwt(data);
+      setSession(decodedData);
+      setCookie(AUTH_COOKIE, data, { secure: true });
+      localStorage.setItem('session', JSON.stringify(decodedData));
+      router.push('/dashboard');
+    } catch (error) {
+      console.error('Authentication failed:', error);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const clear = useCallback(() => {
