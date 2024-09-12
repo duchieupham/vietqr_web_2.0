@@ -18,6 +18,7 @@ export const PUBLIC_PATHS = ['/', '/login', '/register', '/notice'];
 // regex
 export const PHONE_REGEX =
   /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g;
+export const NUMBER_REGEX = /^[0-9]*$/;
 export const PHONE_LENGTH_REGEX = /^\d{10}$/;
 export const PASSWORD_LENGTH_REGEX = /^\d{6}$/;
 

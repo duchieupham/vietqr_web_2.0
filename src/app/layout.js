@@ -5,7 +5,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 import ContextProvider from '~/contexts/ContextProvider';
 import theme from '~/theme';
 import { Suspense } from 'react';
-import Loading from './loading';
+import SecondaryLoadingContainer from '~/components/feedback/SecondaryLoadingContainer';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
 import StoreProvider from './StoreProvider';
@@ -28,9 +28,11 @@ export default async function RootLayout({ children }) {
               <CssBaseline />
               <ContextProvider>
                 <StoreProvider>
-                  <Suspense fallback={<Loading />}>
-                    <DynamicLayout>{children}</DynamicLayout>
-                  </Suspense>
+                  <DynamicLayout>
+                    <Suspense fallback={<SecondaryLoadingContainer />}>
+                      {children}
+                    </Suspense>
+                  </DynamicLayout>
                 </StoreProvider>
               </ContextProvider>
             </ThemeProvider>

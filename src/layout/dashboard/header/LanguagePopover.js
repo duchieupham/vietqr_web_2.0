@@ -1,4 +1,4 @@
-import { Badge, IconButton, ListItemIcon, MenuItem } from '@mui/material';
+import { Badge, Box, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ export default function LanguagePopover() {
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -26,7 +27,6 @@ export default function LanguagePopover() {
     setCookie(LOCALE_COOKIE, locale);
     setLanguage(locale);
     router.refresh();
-    handleClose();
   };
 
   return (
@@ -35,15 +35,28 @@ export default function LanguagePopover() {
         {LANGUAGE_OPTIONS.map(
           (option) =>
             option.value === language && (
-              <Image
+              <Box
                 key={option.id}
-                src={option.flagIcon || VIETQR_IMAGE}
-                width={22}
-                height={15}
-                alt={option.label || 'VIETQR_IMAGE'}
-                priority
-                quality={100}
-              />
+                sx={{
+                  width: 30, // Control the size of the circle
+                  height: 30,
+                  borderRadius: '50%', // Circular shape
+                  overflow: 'hidden', // Ensure the image fits within the circle
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Image
+                  key={option.id}
+                  src={option.flagIcon || VIETQR_IMAGE}
+                  width={22}
+                  height={15}
+                  alt={option.label || 'VIETQR_IMAGE'}
+                  priority
+                  quality={100}
+                />
+              </Box>
             ),
         )}
       </IconButton>
@@ -56,7 +69,7 @@ export default function LanguagePopover() {
       >
         {LANGUAGE_OPTIONS.map((option) => (
           <MenuItem
-            key={option.value}
+            key={option.id}
             onClick={() => onChangeLanguage(option.value)}
           >
             <ListItemIcon>
