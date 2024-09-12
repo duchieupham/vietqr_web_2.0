@@ -56,9 +56,9 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
 
 export default function DashboardSidebar({ children }) {
   const theme = useTheme();
-  const [isOpen, setIsOpen] = useState(true);
-  const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isOpen, setIsOpen] = useState(!isMobile);
+  const router = useRouter();
 
   const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);
