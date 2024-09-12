@@ -1,4 +1,4 @@
-import { Button, colors } from '@mui/material';
+import { Button } from '@mui/material';
 
 function ButtonGradient({
   children,
