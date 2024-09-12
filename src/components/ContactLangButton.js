@@ -3,6 +3,7 @@ import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
 import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
@@ -77,7 +78,12 @@ export default function ContactLangButton({ style }) {
           );
           return selectedOption ? (
             <>
-              {selectedOption.icon}
+              <Image
+                alt={selectedOption.label}
+                src={selectedOption.circleIcon}
+                width={20}
+                height={20}
+              />
               {isMdUp && t(selectedOption.label)}
             </>
           ) : null;
@@ -124,7 +130,12 @@ export default function ContactLangButton({ style }) {
               gap: 1,
             }}
           >
-            {option.icon}
+            <Image
+              alt={option.label}
+              src={option.circleIcon}
+              width={20}
+              height={20}
+            />
             {t(option.label)}
           </MenuItem>
         ))}

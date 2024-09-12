@@ -1,11 +1,4 @@
-import {
-  Button,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Popover,
-} from '@mui/material';
+import { Button, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import Profile from '~/components/Profile';
@@ -15,10 +8,10 @@ export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { session, clear } = useAuthContext();
 
-  const handleOpen = (event) => {
+  const onClickOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const onClose = () => {
     setAnchorEl(null);
   };
 
@@ -28,14 +21,17 @@ export default function AccountPopover() {
 
   return (
     <>
-      <IconButton onClick={handleOpen} sx={{ p: 0 }}>
+      <IconButton
+        onClick={onClickOpen}
+        sx={{ p: '2px', border: '1px solid #c2c2c2' }}
+      >
         <Profile />
       </IconButton>
       {/* //TODO: MenuPopover */}
       <MenuPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={onClose}
       >
         {/* //TODO: Additional the content */}
         <MenuItem>

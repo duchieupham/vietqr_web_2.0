@@ -23,7 +23,7 @@ import useLoginSocket from '~/hooks/useLoginSocket';
 import { LoginFormSchema } from '~/utils/definitions';
 
 // components
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAuthContext } from '~/contexts/AuthContext';
 
 // styles
@@ -34,6 +34,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '~/components/button';
 import { TextGradient } from '~/components/text';
+import { useAppContext } from '~/contexts/AppContext';
 
 const inputStyle = {
   width: '360px',
@@ -145,29 +146,24 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate } = useAuthContext();
-  const [isCompleted, setIsCompleted] = useState({});
+  const { setLoading, isDisabled, setIsDisabled } = useAppContext();
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
-
-  const handleComplete = (field, value) => {
-    setIsCompleted((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
 
   const handleClearInput = () => {
     setValue('phoneNo', '');
     setValue('password', '');
-    handleComplete('phoneNo', false);
-    clearErrors('phoneNo');
-    clearErrors('password');
+    clearErrors(['phoneNo', 'password']);
   };
+
+  const isDisabledButton =
+    phoneNoValue.length !== 10 || passwordValue.length !== 6 || isDisabled;
 
   const phoneNoError =
     phoneNoValue.current?.value.length !== 0 && !!errors?.phoneNo;
 
   const onSubmit = async (formData) => {
+    setIsDisabled(true);
     if (!formData.phoneNo || !formData.password) {
       // TODO: Use yup error. No need set error manually
       if (!formData.phoneNo) {
@@ -207,11 +203,14 @@ export default function LoginForm({ containerStyle, stackStyle }) {
         type: 'manual',
         message: t('invalidPhone&Password'),
       });
+    } finally {
+      setIsDisabled(false);
     }
   };
 
   const onSubmitQR = async (data) => {
     try {
+      setLoading(true);
       await loginAPI.loginQR(data.userId).then((res) => {
         const { status, data: qrData } = res;
         if (status === 200) {
@@ -221,6 +220,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
       });
     } catch (error) {
       setError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -431,19 +432,16 @@ export default function LoginForm({ containerStyle, stackStyle }) {
           </Typography>
           <ButtonGradient
             type="submit"
+            disabled={isDisabledButton}
             style={{
               marginTop: '1rem',
               borderRadius: '100px',
               width: '360px',
               height: '50px',
-              backgroundImage:
-                phoneNoValue.length === 10 && passwordValue.length === 6
-                  ? 'linear-gradient(to right, #0072ff, #00c6ff)'
-                  : 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
-              color:
-                phoneNoValue.length === 10 && passwordValue.length === 6
-                  ? '#fff'
-                  : '#000',
+              background: !isDisabledButton
+                ? 'linear-gradient(to right, #0072ff, #00c6ff)'
+                : 'linear-gradient(to right, #F0F4FA 50%, #F0F4FA 100%)',
+              color: !isDisabledButton ? '#fff' : '#000',
             }}
           >
             {t('login')}

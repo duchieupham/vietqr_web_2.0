@@ -1,6 +1,3 @@
-import USIcon from '~/components/icon/USIcon';
-import VNIcon from '~/components/icon/VNIcon';
-
 // cookie
 export const LOCALE_COOKIE = 'LOCALE';
 export const AUTH_COOKIE = 'AUTH_TOKEN';
@@ -31,17 +28,17 @@ export const LANGUAGE_OPTIONS = [
     id: 1,
     label: 'vietnamese',
     value: 'vi',
-    icon: <VNIcon />,
-    icon2: '/images/VN.png',
+    circleIcon: '/images/vietnam_circle_flag.svg', // circle flag
+    flagIcon: '/images/VN.png', // flag
   },
   {
     id: 2,
     label: 'english',
     value: 'en',
-    icon: <USIcon />,
-    icon2: '/images/GB.png',
+    circleIcon: '/images/us_circle_flag.svg',
+    flagIcon: '/images/GB.png',
   },
 ];
 
 // image
-export const DEFAULT_IMAGE = '/images/logo.png';
+export const VIETQR_IMAGE = '/images/logo.png';
