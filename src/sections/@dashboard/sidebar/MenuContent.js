@@ -45,7 +45,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
     }
   };
 
-  const onClickOpenMenuPopover = (event, id) => {
+  const onClickOpenMenuPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
 

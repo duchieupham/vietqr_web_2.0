@@ -5,7 +5,7 @@ import {
   Drawer,
   IconButton,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   MenuItem,
   Select,
@@ -32,7 +32,7 @@ import NotificationPopover from './NotificationPopover';
 const drawerWidth = 240;
 const drawerWidthCollapsed = 0;
 
-const DrawerStyled = styled(Drawer)(() => ({
+const DrawerStyled = styled(Drawer)(({ open }) => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
     top: '60px',
@@ -51,12 +51,36 @@ const DrawerStyled = styled(Drawer)(() => ({
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     border: '1px solid rgba(255, 255, 255, 0.2)',
-    color: '#fff',
+    color: 'black',
   },
+}));
+
+const ListItemButtonStyled = styled(ListItemButton)(() => ({
+  '&.Mui-selected': {
+    background: 'linear-gradient(to right, #E1EFFF 0%, #E1EFFF 100%)',
+    color: '#0072FF',
+    fontSize: 13,
+    fontWeight: 'semiBold',
+    '& .MuiListItemIcon-root': {
+      color: '#0072FF',
+    },
+  },
+  '&:hover': {
+    background: '#DADADA',
+    opacity: 1,
+  },
+}));
+
+const ButtonStyle = styled(Button)(() => ({
+  borderRadius: '8px',
+  alignItems: 'center',
+  gap: 5,
 }));
 
 const drawerContent = (dashboardType, onChangeDashboardType) => {
   const { session } = useAuthContext();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
@@ -76,7 +100,10 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
       <Box sx={{ p: 1, display: 'flex', justifyContent: 'center' }}>
         <Profile />
         <Typography variant="h6" align="center">
-          {`${session?.firstName} ${session?.lastName}`}
+          {session?.firstName}
+        </Typography>
+        <Typography variant="h6" align="center">
+          {session?.lastName}
         </Typography>
       </Box>
       <ButtonGroup
@@ -85,21 +112,29 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
         aria-label="dashboard type button group"
       >
         {DASHBOARD_TYPE.map((type) => (
-          <Button key={type.id} value={type.id} onClick={onChangeDashboardType}>
+          <ButtonStyle
+            key={type.id}
+            value={type.id}
+            onClick={onChangeDashboardType}
+          >
             {type.label}
-          </Button>
+          </ButtonStyle>
         ))}
       </ButtonGroup>
       <Box>
         <List dense>
           {displayedType &&
             displayedType.children.map((child) => (
-              <ListItem key={child.id}>
+              <ListItemButtonStyled
+                key={child.id}
+                selected={pathname.includes(child.path)}
+                onClick={() => router.push(child.path)}
+              >
                 <ListItemText
                   primary={child.label}
-                  primaryTypographyProps={{ sx: { color: 'black' } }}
+                  primaryTypographyProps={{ sx: {} }}
                 />
-              </ListItem>
+              </ListItemButtonStyled>
             ))}
         </List>
       </Box>
@@ -113,9 +148,12 @@ export default function DashboardHeader() {
   const pathname = usePathname();
   const { dashboardType } = useAppSelector((store) => store.app);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const dispatch = useAppDispatch();
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
-  const dispatch = useAppDispatch();
+  const onClickToggleDrawerMobile = () => {
+    setIsDrawerMobileOpen(!isDrawerMobileOpen);
+  };
 
   const onChangeDashboardType = (event) => {
     const foundType = DASHBOARD_TYPE.find(
@@ -125,10 +163,6 @@ export default function DashboardHeader() {
 
     // dispatch(setDashboardType(id));
     router.push(children[0].path); // TO BE IMPROVED
-  };
-
-  const onClickToggleDrawerMobile = () => {
-    setIsDrawerMobileOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -148,51 +182,7 @@ export default function DashboardHeader() {
       justifyContent="space-between"
       spacing={{ xs: 0.5, SmartButton: 1.5 }}
     >
-      {!isMobile ? (
-        <Select
-          value={dashboardType}
-          onChange={onChangeDashboardType}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                '& .MuiMenu-list': {
-                  paddingTop: 0,
-                  paddingBottom: 0,
-                },
-              },
-            },
-          }}
-          sx={{
-            '.MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
-            '.MuiSelect-icon': {
-              color: 'inherit',
-            },
-            fontSize: {
-              xs: '12px',
-              md: '15px',
-            },
-            '.MuiSelect-select': {
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-            },
-            '& .MuiList-root-MuiMenu-list': {
-              paddingTop: 0,
-              paddingBottom: 0,
-            },
-          }}
-        >
-          {DASHBOARD_TYPE.map((type) => (
-            <MenuItem key={type.id} value={type.id}>
-              <Typography sx={{ fontWeight: 'bold' }}>
-                {t(type.label)}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Select>
-      ) : (
+      {isMobile ? (
         <>
           <IconButton
             onClick={onClickToggleDrawerMobile}
@@ -239,6 +229,50 @@ export default function DashboardHeader() {
             {drawerContent(dashboardType, onChangeDashboardType)}
           </DrawerStyled>
         </>
+      ) : (
+        <Select
+          value={dashboardType}
+          onChange={onChangeDashboardType}
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                '& .MuiMenu-list': {
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                },
+              },
+            },
+          }}
+          sx={{
+            '.MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+            '.MuiSelect-icon': {
+              color: 'inherit',
+            },
+            fontSize: {
+              xs: '12px',
+              md: '15px',
+            },
+            '.MuiSelect-select': {
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+            },
+            '& .MuiList-root-MuiMenu-list': {
+              paddingTop: 0,
+              paddingBottom: 0,
+            },
+          }}
+        >
+          {DASHBOARD_TYPE.map((type) => (
+            <MenuItem key={type.id} value={type.id}>
+              <Typography sx={{ fontWeight: 'bold' }}>
+                {t(type.label)}
+              </Typography>
+            </MenuItem>
+          ))}
+        </Select>
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
         <LanguagePopover />
