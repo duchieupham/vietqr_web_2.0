@@ -1,4 +1,4 @@
-import { Badge, IconButton, Menu } from '@mui/material';
+import { Badge, Box, IconButton, Menu } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -25,14 +25,26 @@ export default function NotificationPopover() {
   return (
     <>
       <IconButton onClick={handleOpen}>
-        <Badge badgeContent={notification} color="#FD711A">
-          <Image
-            src="/images/alert-alarm-bell.png"
-            width={18}
-            height={18}
-            alt="alert-alarm-bell"
-          />
-        </Badge>
+        <Box
+          sx={{
+            width: 30, // Control the size of the circle
+            height: 30,
+            borderRadius: '50%', // Circular shape
+            overflow: 'hidden', // Ensure the image fits within the circle
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Badge badgeContent={notification} color="#FD711A">
+            <Image
+              src="/images/alert-alarm-bell.png"
+              width={18}
+              height={18}
+              alt="alert-alarm-bell"
+            />
+          </Badge>
+        </Box>
       </IconButton>
       {/* //TODO: MenuPopover */}
       <Menu

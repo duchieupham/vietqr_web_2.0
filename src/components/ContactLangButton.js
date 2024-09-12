@@ -25,7 +25,7 @@ export default function ContactLangButton({ style }) {
         LANGUAGE_OPTIONS[0].value;
       setSelectedLanguage(defaultLanguage);
     }
-  }, [language, LANGUAGE_OPTIONS]);
+  }, [language]);
 
   const onChangeLanguage = (e) => {
     const locale = e.target.value;

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
 const initialState = {
-  dashboardType: DASHBOARD_TYPE[0],
+  dashboardType: DASHBOARD_TYPE[0].id,
 };
 
 export const appSlice = createSlice({
