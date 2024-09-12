@@ -31,7 +31,7 @@ export function AuthContextProvider({ children }) {
     setCookie(AUTH_COOKIE, data, {
       secure: true,
     });
-    localStorage.setItem('session', decodedData);
+    localStorage.setItem('session', JSON.stringify(decodedData));
     router.push('/dashboard');
     setTimeout(() => {
       setLoading(false);
