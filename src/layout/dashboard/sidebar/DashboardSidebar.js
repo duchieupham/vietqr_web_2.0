@@ -1,13 +1,13 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { AppBar, Container } from '@mui/material';
+import { AppBar, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
@@ -58,6 +58,7 @@ export default function DashboardSidebar({ children }) {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);
@@ -65,67 +66,73 @@ export default function DashboardSidebar({ children }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Drawer
-        sx={{
-          width: isOpen ? drawerWidth : drawerWidthCollapsed,
-          flexShrink: 0,
-          position: 'relative',
-          '& .MuiDrawer-paper': {
-            width: isOpen ? drawerWidth : drawerWidthCollapsed,
-            boxSizing: 'border-box',
-            overflowX: 'hidden',
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-        open={isOpen}
-      >
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          {/* LOGO */}
-          <Box
+      {!isMobile && (
+        <>
+          <Drawer
             sx={{
-              padding: '16px',
-              textAlign: 'center',
-              px: isOpen ? '16px' : '8px',
+              width: isOpen ? drawerWidth : drawerWidthCollapsed,
+              flexShrink: 0,
+              position: 'relative',
+              '& .MuiDrawer-paper': {
+                width: isOpen ? drawerWidth : drawerWidthCollapsed,
+                boxSizing: 'border-box',
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                  easing: theme.transitions.easing.sharp,
+                  duration: theme.transitions.duration.enteringScreen,
+                }),
+              },
             }}
-            onClick={() => router.push('/')}
+            variant="permanent"
+            anchor="left"
+            open={isOpen}
           >
-            <Image
-              src={
-                isOpen
-                  ? '/images/VietQRLogo.png'
-                  : '/images/ic-viet-qr-small-trans.svg'
-              }
-              width={isOpen ? 97 : 40}
-              height={isOpen ? 47 : 39}
-              alt="VietQR Logo"
-              quality={100}
-              priority
-            />
-          </Box>
-          {/* MENU LIST */}
-          <MenuContent isDrawerOpen={isOpen} />
-        </Box>
-      </Drawer>
-      {/* DRAWER CLOSE BUTTON */}
-      <CloseButton
-        onClick={clickToggleDrawer}
-        sx={{
-          left: isOpen
-            ? `${drawerWidth - 12}px`
-            : `${drawerWidthCollapsed - 12}px`,
-          transition: theme.transitions.create('left', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-        }}
-      >
-        {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-      </CloseButton>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+            >
+              {/* LOGO */}
+              <Box
+                sx={{
+                  padding: '16px',
+                  textAlign: 'center',
+                  px: isOpen ? '16px' : '8px',
+                }}
+                onClick={() => router.push('/')}
+              >
+                <Image
+                  src={
+                    isOpen
+                      ? '/images/VietQRLogo.png'
+                      : '/images/ic-viet-qr-small-trans.svg'
+                  }
+                  width={isOpen ? 97 : 40}
+                  height={isOpen ? 47 : 39}
+                  alt="VietQR Logo"
+                  quality={100}
+                  priority
+                />
+              </Box>
+              {/* MENU LIST */}
+              <MenuContent isDrawerOpen={isOpen} />
+            </Box>
+          </Drawer>
+          {/* DRAWER CLOSE BUTTON */}
+          <CloseButton
+            onClick={clickToggleDrawer}
+            sx={{
+              left: isOpen
+                ? `${drawerWidth - 12}px`
+                : `${drawerWidthCollapsed - 12}px`,
+              transition: theme.transitions.create('left', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+            }}
+          >
+            {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </CloseButton>
+        </>
+      )}
       <Main open>
         <AppBar
           open={isOpen}
@@ -135,14 +142,12 @@ export default function DashboardSidebar({ children }) {
             boxShadow: 'none',
           }}
         >
-          <Toolbar sx={{ height: toolBarHeight }}>
+          <Toolbar sx={{ height: toolBarHeight, p: 0 }}>
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        <Container>
-          <Breadcrumbs />
-          {children}
-        </Container>
+        <Breadcrumbs />
+        {children}
       </Main>
     </Box>
   );
