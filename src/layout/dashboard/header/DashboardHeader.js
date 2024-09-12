@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   ButtonGroup,
   Drawer,
   IconButton,
@@ -19,6 +18,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { ButtonGradient } from '~/components/button';
 import Profile from '~/components/Profile';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAuthContext } from '~/contexts/AuthContext';
@@ -29,13 +29,13 @@ import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
 
-const DrawerStyled = styled(Drawer)(({ open }) => ({
+const DrawerStyled = styled(Drawer)(() => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
-    top: '60px',
+    top: '0',
     boxSizing: 'border-box',
     overflowX: 'hidden',
     transition: theme.transitions.create(
@@ -71,12 +71,6 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const ButtonStyle = styled(Button)(() => ({
-  borderRadius: '8px',
-  alignItems: 'center',
-  gap: 5,
-}));
-
 const drawerContent = (dashboardType, onChangeDashboardType) => {
   const { session } = useAuthContext();
   const pathname = usePathname();
@@ -108,17 +102,17 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
       </Box>
       <ButtonGroup
         disableElevation
-        variant="contained"
+        // variant="contained"
         aria-label="dashboard type button group"
       >
         {DASHBOARD_TYPE.map((type) => (
-          <ButtonStyle
+          <ButtonGradient
             key={type.id}
             value={type.id}
             onClick={onChangeDashboardType}
           >
             {type.label}
-          </ButtonStyle>
+          </ButtonGradient>
         ))}
       </ButtonGroup>
       <Box>
@@ -151,7 +145,13 @@ export default function DashboardHeader() {
   const dispatch = useAppDispatch();
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
-  const onClickToggleDrawerMobile = () => {
+  const onClickToggleDrawerMobile = () => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
     setIsDrawerMobileOpen(!isDrawerMobileOpen);
   };
 
@@ -190,6 +190,7 @@ export default function DashboardHeader() {
               width: 'fit-content',
               height: 'fit-content',
               p: 0,
+              zIndex: 1300,
             }}
           >
             <Hamburger
