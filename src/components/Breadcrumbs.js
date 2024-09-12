@@ -1,9 +1,5 @@
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import {
-  Breadcrumbs as MUIBreadcrumbs,
-  Link as MUILink,
-  Typography,
-} from '@mui/material';
+import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -14,34 +10,34 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
 
   const pathArray = path.split('/').filter(Boolean);
 
-  const listDefault = pathArray.map((segment, index) => {
+  const listPath = pathArray.map((segment, index) => {
     const href = `/${pathArray.slice(0, index + 1).join('/')}`;
     return <LinkItem key={href} href={href} label={segment} />;
   });
 
-  const listActiveLast = pathArray.map((segment, index) => {
-    const href = `/${pathArray.slice(0, index + 1).join('/')}`;
-    return (
-      <div key={href}>
-        {index !== pathArray.length - 1 ? (
-          <LinkItem href={href} label={segment} />
-        ) : (
-          <Typography
-            variant="body2"
-            sx={{
-              maxWidth: 260,
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              color: 'text.disabled',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {segment}
-          </Typography>
-        )}
-      </div>
-    );
-  });
+  // const listActiveLast = pathArray.map((segment, index) => {
+  //   const href = `/${pathArray.slice(0, index + 1).join('/')}`;
+  //   return (
+  //     <div key={href}>
+  //       {index !== pathArray.length - 1 ? (
+  //         <LinkItem href={href} label={segment} />
+  //       ) : (
+  //         <Typography
+  //           variant="body2"
+  //           sx={{
+  //             maxWidth: 260,
+  //             overflow: 'hidden',
+  //             whiteSpace: 'nowrap',
+  //             color: 'text.disabled',
+  //             textOverflow: 'ellipsis',
+  //           }}
+  //         >
+  //           {segment}
+  //         </Typography>
+  //       )}
+  //     </div>
+  //   );
+  // });
 
   return (
     <MUIBreadcrumbs
@@ -50,7 +46,7 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
       }
       {...otherProps}
     >
-      {activeLast ? listDefault : listActiveLast}
+      {listPath}
     </MUIBreadcrumbs>
   );
 }
