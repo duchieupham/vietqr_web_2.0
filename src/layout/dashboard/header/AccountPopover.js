@@ -6,7 +6,7 @@ import { useAuthContext } from '~/contexts/AuthContext';
 
 export default function AccountPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { session, clear } = useAuthContext();
+  const { clear } = useAuthContext();
 
   const onClickOpen = (event) => {
     setAnchorEl(event.currentTarget);

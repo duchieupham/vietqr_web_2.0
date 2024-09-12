@@ -17,6 +17,7 @@ export default function LanguagePopover() {
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -26,7 +27,6 @@ export default function LanguagePopover() {
     setCookie(LOCALE_COOKIE, locale);
     setLanguage(locale);
     router.refresh();
-    handleClose();
   };
 
   return (
@@ -69,7 +69,7 @@ export default function LanguagePopover() {
       >
         {LANGUAGE_OPTIONS.map((option) => (
           <MenuItem
-            key={option.value}
+            key={option.id}
             onClick={() => onChangeLanguage(option.value)}
           >
             <ListItemIcon>
