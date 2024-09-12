@@ -10,6 +10,7 @@ function NotFound() {
     <Stack
       style={{
         height: '100%',
+        minHeight: '15rem',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
