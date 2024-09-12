@@ -124,10 +124,7 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
                 selected={pathname.includes(child.path)}
                 onClick={() => router.push(child.path)}
               >
-                <ListItemText
-                  primary={child.label}
-                  primaryTypographyProps={{ sx: {} }}
-                />
+                <ListItemText primary={child.label} />
               </ListItemButtonStyled>
             ))}
         </List>
