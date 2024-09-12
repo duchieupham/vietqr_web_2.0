@@ -21,7 +21,6 @@ import styled from 'styled-components';
 import { ButtonGradient } from '~/components/button';
 import Profile from '~/components/Profile';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAuthContext } from '~/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 import theme from '~/theme';
@@ -71,8 +70,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const drawerContent = (dashboardType, onChangeDashboardType) => {
-  const { session } = useAuthContext();
+const drawerContent = (dashboardType, onChangeDashboardType, t) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -88,18 +86,24 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
         flexDirection: 'column',
         height: '100%',
         width: 240,
+        pt: 1.3,
       }}
       spacing={2}
     >
-      <Box sx={{ p: 1, display: 'flex', justifyContent: 'center' }}>
+      <IconButton
+        sx={{
+          p: '2px',
+          pr: 2,
+          justifyContent: 'flex-end',
+          border: 'none',
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        }}
+        disableRipple
+      >
         <Profile />
-        <Typography variant="h6" align="center">
-          {session?.firstName}
-        </Typography>
-        <Typography variant="h6" align="center">
-          {session?.lastName}
-        </Typography>
-      </Box>
+      </IconButton>
       <ButtonGroup
         disableElevation
         // variant="contained"
@@ -110,13 +114,22 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
             key={type.id}
             value={type.id}
             onClick={onChangeDashboardType}
+            style={{
+              background: dashboardType.includes(type.id)
+                ? 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)'
+                : 'linear-gradient(to right, #E1EFFF, #E5F9FF)',
+              color: dashboardType.includes(type.id) ? '#FFFFFF' : '#DADADA',
+              height: 50,
+              fontSize: 13,
+              whiteSpace: 'nowrap',
+            }}
           >
-            {type.label}
+            {t(type.label)}
           </ButtonGradient>
         ))}
       </ButtonGroup>
       <Box>
-        <List dense>
+        <List dense disablePadding>
           {displayedType &&
             displayedType.children.map((child) => (
               <ListItemButtonStyled
@@ -165,13 +178,13 @@ export default function DashboardHeader() {
 
     if (foundType) {
       const { id, children } = foundType;
-      const prevDashboardType = prevDashboardTypeRef.current; // store previous dashboard type
+      const prevDashboardType = prevDashboardTypeRef.current;
+
       if (prevDashboardType !== id) {
-        setDashboardType(id);
-        // dispatch(setDashboardType(id));
-        // navigate to the first child of the selected dashboard type
+        dispatch(setDashboardType(id));
+
         if (children && children.length > 0) {
-          router.push(children[0].path); // TO BE IMPROVED
+          router.push(children[0].path); // Navigate to first child
         }
       }
     }
@@ -239,7 +252,7 @@ export default function DashboardHeader() {
               },
             }}
           >
-            {drawerContent(dashboardType, onChangeDashboardType)}
+            {drawerContent(dashboardType, onChangeDashboardType, t)}
           </DrawerStyled>
         </>
       ) : (
