@@ -14,6 +14,7 @@ export const PATH_PAGE = {
 };
 export const DEFAULT_PATH = '/dashboard';
 export const PUBLIC_PATHS = ['/', '/login', '/register', '/notice'];
+export const UNAUTH_PATHS = ['/login', '/register'];
 
 // regex
 export const PHONE_REGEX =
