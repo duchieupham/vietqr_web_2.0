@@ -16,7 +16,7 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ButtonGradient } from '~/components/button';
 import Profile from '~/components/Profile';
@@ -140,7 +140,13 @@ export default function DashboardHeader() {
   const { dashboardType } = useAppSelector((store) => store.app);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useAppDispatch();
+  const prevDashboardTypeRef = useRef();
+
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
+
+  useEffect(() => {
+    prevDashboardTypeRef.current = dashboardType;
+  }, [dashboardType]);
 
   const onClickToggleDrawerMobile = () => (event) => {
     if (
@@ -156,10 +162,19 @@ export default function DashboardHeader() {
     const foundType = DASHBOARD_TYPE.find(
       (type) => type.id === event.target.value,
     );
-    const { id, children } = foundType;
 
-    // dispatch(setDashboardType(id));
-    router.push(children[0].path); // TO BE IMPROVED
+    if (foundType) {
+      const { id, children } = foundType;
+      const prevDashboardType = prevDashboardTypeRef.current; // store previous dashboard type
+      if (prevDashboardType !== id) {
+        setDashboardType(id);
+        // dispatch(setDashboardType(id));
+        // navigate to the first child of the selected dashboard type
+        if (children && children.length > 0) {
+          router.push(children[0].path); // TO BE IMPROVED
+        }
+      }
+    }
   };
 
   useEffect(() => {
