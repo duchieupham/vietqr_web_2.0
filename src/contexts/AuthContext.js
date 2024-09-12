@@ -26,10 +26,12 @@ export function AuthContextProvider({ children }) {
 
   const authenticate = async (data) => {
     setLoading(true);
-    setSession(decodeJwt(data));
+    const decodedData = decodeJwt(data);
+    setSession(decodedData);
     setCookie(AUTH_COOKIE, data, {
       secure: true,
     });
+    localStorage.setItem('session', decodedData);
     router.push('/dashboard');
     setTimeout(() => {
       setLoading(false);
