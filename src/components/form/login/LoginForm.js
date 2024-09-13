@@ -82,6 +82,17 @@ const inputStyle = {
     mt: -1,
     whiteSpace: 'nowrap',
   },
+  '& input:-webkit-autofill': {
+    WebkitBoxShadow: '0 0 0 30px white inset !important', // white background
+    WebkitTextFillColor: 'inherit !important', // inherit text color
+    backgroundColor: 'transparent !important',
+  },
+  '& input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & input:-webkit-autofill:active':
+    {
+      WebkitBoxShadow: '0 0 0 30px white inset !important', // white background
+      WebkitTextFillColor: 'inherit !important', // inherit text color
+      backgroundColor: 'transparent !important',
+    },
 };
 
 const passwordStyle = {

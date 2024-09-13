@@ -2,6 +2,8 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import _upperFirst from 'lodash-es/upperFirst';
+import { useTranslations } from 'next-intl';
 
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
@@ -42,8 +44,11 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   return (
     <MUIBreadcrumbs
       separator={
-        <FiberManualRecordIcon sx={{ fontSize: 5, m: 0.5 }} fontSize="small" />
+        <FiberManualRecordIcon sx={{ fontSize: 5 }} fontSize="small" />
       }
+      sx={{
+        ml: 2,
+      }}
       {...otherProps}
     >
       {listPath}
@@ -51,8 +56,18 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   );
 }
 
+function convertBreadcrumbName(name) {
+  return _upperFirst(
+    name
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' '),
+  );
+}
+
 // LinkItem component for rendering individual breadcrumb links
 function LinkItem({ href, label, ...otherProps }) {
+  const t = useTranslations();
   return (
     <Link href={href} passHref style={{ textDecoration: 'none' }}>
       <MUILink
@@ -64,10 +79,11 @@ function LinkItem({ href, label, ...otherProps }) {
           alignItems: 'center',
           color: 'text.primary',
           textDecoration: 'none',
+          cursor: 'pointer',
           '& > div': { display: 'inherit' },
         }}
       >
-        {label}
+        {t(convertBreadcrumbName(label))}
       </MUILink>
     </Link>
   );

@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": ["node_modules", "build"],
+  "ignorePatterns": ["node_modules", "build", "yarn.lock"],
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",

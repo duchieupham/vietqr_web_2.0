@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
-import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
+import MenuContent from '~/sections/dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
@@ -56,9 +56,9 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
 
 export default function DashboardSidebar({ children }) {
   const theme = useTheme();
-  const [isOpen, setIsOpen] = useState(true);
-  const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isOpen, setIsOpen] = useState(!isMobile);
+  const router = useRouter();
 
   const clickToggleDrawer = () => {
     setIsOpen((prev) => !prev);

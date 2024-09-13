@@ -166,6 +166,7 @@ export default function Navbar() {
           </Button>
           {/* System Func xs screen sizes */}
           <ContactLangButton
+            type="login"
             style={{
               display: {
                 xs: 'flex',
@@ -238,7 +239,7 @@ export default function Navbar() {
                 </Button>
               </Grid>
               <Grid item xs={6} md={3} lg={4}>
-                <ContactLangButton />
+                <ContactLangButton type="login" />
               </Grid>
             </Grid>
           </Box>
