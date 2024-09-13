@@ -1,9 +1,9 @@
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { use, useMemo } from 'react';
+import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
