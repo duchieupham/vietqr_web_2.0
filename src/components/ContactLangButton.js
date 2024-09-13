@@ -18,7 +18,7 @@ const dashboardLanguageStyled = {
   justifyContent: 'center',
 };
 
-export default function ContactLangButton({ isDashboard = true, style }) {
+export default function ContactLangButton({ isDashboard, style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

@@ -14,6 +14,15 @@ const theme = createTheme({
       xxl: 2560,
     },
   },
+  palette: {
+    lily: {
+      whiteLinear: 'linear-gradient(to right, #E1EFFF 0%, #E5F9FF 100%)',
+      mintLinear: 'linear-gradient(to right, #BAFFBF 0%, #CFF4D2 100%)',
+    },
+    chardonnay: {
+      linear: 'linear-gradient(to right, #FFC889 0%, #FFDCA2 100%)',
+    },
+  },
 });
 
 export default theme;

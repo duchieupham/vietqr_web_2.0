@@ -2,7 +2,6 @@
 
 import {
   Box,
-  ButtonGroup,
   Drawer,
   IconButton,
   List,
@@ -17,7 +16,6 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ButtonGradient } from '~/components/button';
 import ContactLangButton from '~/components/ContactLangButton';
 import Profile from '~/components/Profile';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
@@ -71,7 +69,8 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const drawerContent = (dashboardType, onChangeDashboardType, t) => {
+const drawerContent = (dashboardType, onChangeDashboardType) => {
+  const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -113,7 +112,7 @@ const drawerContent = (dashboardType, onChangeDashboardType, t) => {
                 selected={pathname.includes(child.path)}
                 onClick={() => router.push(child.path)}
               >
-                <ListItemText primary={child.label} />
+                <ListItemText primary={t(child.label)} />
               </ListItemButtonStyled>
             ))}
         </List>
@@ -216,53 +215,10 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
-        // <Select
-        //   value={dashboardType}
-        //   onChange={onChangeDashboardType}
-        //   MenuProps={{
-        //     PaperProps: {
-        //       sx: {
-        //         '& .MuiMenu-list': {
-        //           paddingTop: 0,
-        //           paddingBottom: 0,
-        //         },
-        //       },
-        //     },
-        //   }}
-        //   sx={{
-        //     '.MuiOutlinedInput-notchedOutline': {
-        //       border: 'none',
-        //     },
-        //     '.MuiSelect-icon': {
-        //       color: 'inherit',
-        //     },
-        //     fontSize: {
-        //       xs: '12px',
-        //       md: '15px',
-        //     },
-        //     '.MuiSelect-select': {
-        //       display: 'flex',
-        //       alignItems: 'center',
-        //       gap: 1,
-        //     },
-        //     '& .MuiList-root-MuiMenu-list': {
-        //       paddingTop: 0,
-        //       paddingBottom: 0,
-        //     },
-        //   }}
-        // >
-        //   {DASHBOARD_TYPE.map((type) => (
-        //     <MenuItem key={type.id} value={type.id}>
-        //       <Typography sx={{ fontWeight: 'bold' }}>
-        //         {t(type.label)}
-        //       </Typography>
-        //     </MenuItem>
-        //   ))}
-        // </Select>
         <DashboardMode />
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <ContactLangButton />
+        <ContactLangButton isDashboard />
         {!isMobile && <AccountPopover />}
         <NotificationPopover />
       </Box>

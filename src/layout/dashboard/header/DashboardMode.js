@@ -1,8 +1,10 @@
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { use, useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { setDashboardType } from '~/redux/slices/appSlice';
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   borderRadius: '8px',
@@ -46,9 +48,11 @@ export default function DashboardMode() {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
 
-  const handleNavigation = (path) => {
-    router.push(path);
+  const handleNavigation = (id) => {
+    dispatch(setDashboardType(id));
+    router.push(id);
   };
 
   const displayedType = useMemo(
@@ -57,13 +61,13 @@ export default function DashboardMode() {
         <ListItemButtonStyled
           key={type.id}
           selected={pathname.includes(type.path)}
-          onClick={() => handleNavigation(type.path)}
+          onClick={() => handleNavigation(type.id)}
           disableRipple
         >
           <ListItemText primary={t(type.label)} />
         </ListItemButtonStyled>
       )),
-    [pathname, t],
+    [pathname],
   );
 
   return <Box sx={{ display: 'flex' }}>{displayedType}</Box>;

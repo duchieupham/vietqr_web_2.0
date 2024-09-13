@@ -166,6 +166,7 @@ export default function Navbar() {
           </Button>
           {/* System Func xs screen sizes */}
           <ContactLangButton
+            isDashboard={false}
             style={{
               display: {
                 xs: 'flex',

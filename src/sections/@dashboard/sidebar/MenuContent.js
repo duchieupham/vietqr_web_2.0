@@ -31,8 +31,10 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.up('md'));
   const { dashboardType } = useAppSelector((store) => store.app);
+
   const [openSubMenu, setOpenSubMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const displayedType = DASHBOARD_TYPE.find(
     (item) => item.id === dashboardType,
   );
@@ -65,7 +67,7 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense disablePadding>
-        {displayedType.children.map((child) => (
+        {displayedType?.children.map((child) => (
           <ListItem
             key={child.id}
             disablePadding
