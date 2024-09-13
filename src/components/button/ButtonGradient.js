@@ -1,15 +1,12 @@
 import { Button } from '@mui/material';
 
-function ButtonGradient({
-  children,
-  gradientColors = ['#00C6FF', '#0072FF'],
-  style,
-  ...props
-}) {
+function ButtonGradient({ children, style, ...props }) {
   const defaultStyles = {
     width: '360px',
     height: '40px',
     borderRadius: '40px',
+    color: '#FFFFFF',
+    background: 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)',
     margin: '10px 0',
     ':hover': {
       opacity: 0.8,

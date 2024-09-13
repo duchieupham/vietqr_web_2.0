@@ -209,11 +209,11 @@ export default function Footer() {
           >
             <Box>
               <ButtonGradient
-                gradientColors={['#E1EFFF', '#E5F9FF']}
                 style={{
                   width: isMdUp ? 190 : 106,
                   minHeight: 30,
                   color: '#000000',
+                  background: 'linear-gradient(to right, #E1EFFF, #E5F9FF)',
                 }}
               >
                 <Image
@@ -238,11 +238,11 @@ export default function Footer() {
             </Box>
             <Box>
               <ButtonGradient
-                gradientColors={['#E1EFFF', '#E5F9FF']}
                 style={{
                   width: isMdUp ? 106 : 84,
                   minHeight: 30,
                   color: '#000000',
+                  background: 'linear-gradient(to right, #E1EFFF, #E5F9FF)',
                 }}
               >
                 <Image
@@ -268,11 +268,11 @@ export default function Footer() {
             </Box>
             <Box>
               <ButtonGradient
-                gradientColors={['#E1EFFF', '#E5F9FF']}
                 style={{
                   width: 150,
                   minHeight: 30,
                   color: '#000000',
+                  background: 'linear-gradient(to right, #E1EFFF, #E5F9FF)',
                 }}
               >
                 <Image

@@ -4,7 +4,7 @@ import MainLayout from '~/layout/MainLayout';
 import { lazy, useMemo } from 'react';
 import _upperFirst from 'lodash-es/upperFirst';
 import _camelCase from 'lodash-es/camelCase';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, Box, CircularProgress } from '@mui/material';
 import { useAppContext } from '~/contexts/AppContext';
 import { usePathname } from 'next/navigation';
 import { useAuthContext } from '~/contexts/AuthContext';
@@ -37,12 +37,12 @@ function DynamicLayout({ children }) {
   if (authLoading) return <LoadingContainer />;
 
   return (
-    <>
+    <Box sx={{ minHeight: '100vh' }}>
       <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
         <CircularProgress />
       </Backdrop>
       <Layout>{children}</Layout>
-    </>
+    </Box>
   );
 }
 

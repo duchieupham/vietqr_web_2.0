@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import React from 'react';
 import { TextGradient } from '~/components/text';
 
 const feesApply = (currency, time) => [
@@ -67,9 +68,8 @@ export default function FeesApply() {
           spacing={1}
         >
           {feesApply('VND', 'THÁNG').map((item) => (
-            <>
+            <React.Fragment key={item.id}>
               <Box
-                key={item.id}
                 sx={{
                   marginLeft: { xs: 0, md: 25 },
                 }}
@@ -133,7 +133,7 @@ export default function FeesApply() {
                   }}
                 />
               )}
-            </>
+            </React.Fragment>
           ))}
         </Stack>
       </Box>

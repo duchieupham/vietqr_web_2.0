@@ -43,7 +43,9 @@
   "instructions-documents": "Hướng dẫn tài liệu",
   "api-service-documents": "Tài liệu API Service",
 
+  "Dashboard": "Trang chủ",
   "home-dashboard": "Trang chủ",
+  "Agent Dashboard": "Quản lý đại lý",
   "agent-dashboard": "Quản lý đại lý",
   "General": "Tổng quan",
   "Transaction Management": "Quản lý giao dịch",
@@ -79,6 +81,8 @@
   "Product List": "Danh sách mặt hàng",
   "Add New Product": "Thêm mới mặt hàng",
   "Inventory Management": "Quản lý kho",
+  "QR Community": "Cộng đồng QR",
+  "Fast Features": "Tính năng nhanh",
 
   "hotline": "HOTLINE",
   "local-phone": "1900 6234",

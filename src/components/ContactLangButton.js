@@ -10,7 +10,15 @@ import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/AppContext';
 import theme from '~/theme';
 
-export default function ContactLangButton({ style }) {
+const dashboardLanguageStyled = {
+  backgroundColor: '#DADADA',
+  borderRadius: '20px',
+  height: '40px',
+  alignContent: 'center',
+  justifyContent: 'center',
+};
+
+export default function ContactLangButton({ type, style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -40,31 +48,36 @@ export default function ContactLangButton({ style }) {
         alignContent: 'center',
         justifyContent: 'flex-end',
         display: 'flex',
+        ...(type === 'dashboard' && {
+          alignItems: 'center',
+        }),
         ...style,
       }}
     >
-      <Button
-        sx={{
-          color: 'black',
-          fontSize: {
-            xs: '10px',
-            md: '12px',
-          },
-          textTransform: 'none',
-          gap: {
-            xs: 0,
-            lg: '0.5rem',
-          },
-          '&:hover': {
-            backgroundColor: 'transparent',
-            textDecoration: 'none',
-          },
-        }}
-        disableRipple
-      >
-        <HeadphonesOutlinedIcon />
-        {isMdUp && t('contact')}
-      </Button>
+      {type === 'login' && (
+        <Button
+          sx={{
+            color: 'black',
+            fontSize: {
+              xs: '10px',
+              md: '12px',
+            },
+            textTransform: 'none',
+            gap: {
+              xs: 0,
+              lg: '0.5rem',
+            },
+            '&:hover': {
+              backgroundColor: 'transparent',
+              textDecoration: 'none',
+            },
+          }}
+          disableRipple
+        >
+          <HeadphonesOutlinedIcon />
+          {isMdUp && t('contact')}
+        </Button>
+      )}
       <Select
         value={selectedLanguage}
         onChange={(e) => {
@@ -118,6 +131,7 @@ export default function ContactLangButton({ style }) {
             paddingTop: 0,
             paddingBottom: 0,
           },
+          ...(type === 'dashboard' && dashboardLanguageStyled),
         }}
       >
         {LANGUAGE_OPTIONS.map((option) => (

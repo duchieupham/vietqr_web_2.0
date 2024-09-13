@@ -7,13 +7,8 @@ function Footer() {
   const [bankType, setBankType] = useState([]);
 
   const bankTypeList = async () => {
-    try {
-      const res = await imagesAPI.bankTypeList();
-      // console.log('API Response:', res.data); // Debugging
-      setBankType(res.data);
-    } catch (error) {
-      // console.error('Error fetching bank types:', error);
-    }
+    const res = await imagesAPI.bankTypeList();
+    setBankType(res.data);
   };
 
   useEffect(() => {

@@ -14,22 +14,35 @@ export const DASHBOARD_TYPE = [
         iconActive: '/images/dashboard-home-active.svg',
         children: [
           {
-            id: 'qrNewFeeds',
-            label: 'QR News Feed',
-            path: '/dashboard/general/qr-news-feed',
+            id: 'fastFeatures',
+            label: 'Fast Features',
+            path: '/dashboard/general/fast-features',
             children: [],
           },
           {
-            id: 'news',
-            label: 'News',
-            path: '/dashboard/general/news',
-            children: [],
-          },
-          {
-            id: 'crossSellingItems',
-            label: 'Cross-Selling Items',
-            path: '/dashboard/general/cross-selling-items',
-            children: [],
+            id: 'qrCommunity',
+            label: 'QR Community',
+            path: '/dashboard/general/qr-community',
+            children: [
+              {
+                id: 'qrNewFeeds',
+                label: 'QR News Feed',
+                path: '/dashboard/general/qr-community/qr-news-feed',
+                children: [],
+              },
+              {
+                id: 'news',
+                label: 'News',
+                path: '/dashboard/general/qr-community/news',
+                children: [],
+              },
+              {
+                id: 'crossSellingItems',
+                label: 'Cross-Selling Items',
+                path: '/dashboard/general/qr-community/cross-selling-items',
+                children: [],
+              },
+            ],
           },
         ],
       },

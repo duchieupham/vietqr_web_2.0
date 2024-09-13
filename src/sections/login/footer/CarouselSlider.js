@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 
 // import required modules
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -42,31 +42,20 @@ const responsive = {
   },
 };
 
-export default function CarouselSlider({ initialValues }) {
-  const [images, setImages] = useState([]);
+export default function CarouselSlider({ initialValues = [] }) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  function handleConvertImage(_images) {
-    const convertedImages = _images?.map((image) => {
-      const imageUrl = `${baseUrl}/images/${image.imageId}`;
-      return {
-        ...image,
-        imageId: imageUrl,
-      };
-    });
-
-    if (convertedImages) {
-      setImages(convertedImages);
-    }
-  }
-
-  useEffect(() => {
-    if (initialValues) {
-      // console.log('Initial Values:', initialValues); // Debugging
-      handleConvertImage(initialValues);
-    }
-  }, [initialValues]);
-  // console.log('images:', images); // Debugging
+  const carouselImages = useMemo(
+    () =>
+      initialValues?.map((image) => {
+        const imageUrl = `${baseUrl}/images/${image.imageId}`;
+        return {
+          ...image,
+          imageId: imageUrl,
+        };
+      }),
+    [initialValues],
+  );
 
   return (
     <Box
@@ -75,20 +64,20 @@ export default function CarouselSlider({ initialValues }) {
         width: '100%',
       }}
     >
-      <Carousel
-        rewind={false}
-        rewindWithAnimation={false}
-        responsive={responsive}
-        infinite
-        centerMode
-        autoPlay
-        customTransition="all 5s linear"
-        arrows={false}
-        transitionDuration={1000}
-        pauseOnHover={false}
-      >
-        {images.length > 0 ? (
-          images?.map((image) => (
+      {carouselImages.length > 0 && (
+        <Carousel
+          rewind={false}
+          rewindWithAnimation={false}
+          responsive={responsive}
+          infinite
+          centerMode
+          autoPlay
+          customTransition="all 5s linear"
+          arrows={false}
+          transitionDuration={1000}
+          pauseOnHover={false}
+        >
+          {carouselImages.map((image) => (
             <Box
               key={image.bankCode}
               sx={{
@@ -113,11 +102,9 @@ export default function CarouselSlider({ initialValues }) {
                 />
               )}
             </Box>
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
-      </Carousel>
+          ))}
+        </Carousel>
+      )}
     </Box>
   );
 }

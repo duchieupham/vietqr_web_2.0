@@ -1,19 +1,29 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import loggerMiddleware from './middlewares/logger';
-import appSlice from './slices/appSlice';
-import qrSlice from './slices/qrSlice';
-// ...
+import appReducer from './slices/appSlice';
+import qrReducer from './slices/qrSlice';
 
-export default function configureAppStore(preloadedState) {
-  const store = configureStore({
-    reducer: {
-      app: appSlice,
-      qr: qrSlice,
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().prepend(loggerMiddleware),
-    preloadedState,
-  });
+const persistConfig = {
+  key: 'vietqr-root',
+  storage,
+};
 
-  return store;
-}
+const reducers = combineReducers({
+  app: appReducer,
+  qr: qrReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).prepend(
+      loggerMiddleware,
+    ),
+});
+
+// Persistor for redux-persist
+export const persistor = persistStore(store);

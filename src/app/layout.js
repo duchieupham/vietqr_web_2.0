@@ -6,9 +6,10 @@ import ContextProvider from '~/contexts/ContextProvider';
 import theme from '~/theme';
 import { Suspense } from 'react';
 import SecondaryLoadingContainer from '~/components/feedback/SecondaryLoadingContainer';
+import IntlProvider from '~/contexts/IntlProvider';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../contexts/StoreProvider';
 
 export const metadata = {
   title: 'VietQR',
@@ -23,7 +24,7 @@ export default async function RootLayout({ children }) {
     <html lang={locale} suppressHydrationWarning>
       <body>
         <AppRouterCacheProvider>
-          <NextIntlClientProvider messages={messages}>
+          <IntlProvider messages={messages} locale={locale}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <ContextProvider>
@@ -36,7 +37,7 @@ export default async function RootLayout({ children }) {
                 </StoreProvider>
               </ContextProvider>
             </ThemeProvider>
-          </NextIntlClientProvider>
+          </IntlProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

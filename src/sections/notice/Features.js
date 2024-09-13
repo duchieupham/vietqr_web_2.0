@@ -37,7 +37,7 @@ export default function Features() {
     >
       {features.map((feature) => (
         <Box
-          key={feature}
+          key={feature.feat}
           sx={{
             display: 'flex',
             alignItems: 'center',
