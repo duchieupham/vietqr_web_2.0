@@ -8,10 +8,7 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  MenuItem,
-  Select,
   Stack,
-  Typography,
   useMediaQuery,
 } from '@mui/material';
 import Hamburger from 'hamburger-react';
@@ -28,8 +25,8 @@ import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 import theme from '~/theme';
 import AccountPopover from './AccountPopover';
-import NotificationPopover from './NotificationPopover';
 import DashboardMode from './DashboardMode';
+import NotificationPopover from './NotificationPopover';
 
 const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
@@ -91,6 +88,7 @@ const drawerContent = (dashboardType, onChangeDashboardType, t) => {
         height: '100%',
         width: 240,
       }}
+      spacing={1}
     >
       <IconButton
         sx={{
@@ -105,30 +103,7 @@ const drawerContent = (dashboardType, onChangeDashboardType, t) => {
       >
         <Profile />
       </IconButton>
-      <ButtonGroup
-        disableElevation
-        // variant="contained"
-        aria-label="dashboard type button group"
-      >
-        {DASHBOARD_TYPE.map((type) => (
-          <ButtonGradient
-            key={type.id}
-            value={type.id}
-            onClick={onChangeDashboardType}
-            style={{
-              background: dashboardType.includes(type.id)
-                ? 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)'
-                : 'linear-gradient(to right, #E1EFFF, #E5F9FF)',
-              color: dashboardType.includes(type.id) ? '#FFFFFF' : '#DADADA',
-              height: 50,
-              fontSize: 13,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {t(type.label)}
-          </ButtonGradient>
-        ))}
-      </ButtonGroup>
+      <DashboardMode />
       <Box>
         <List dense disablePadding>
           {displayedType &&
@@ -163,7 +138,7 @@ export default function DashboardHeader() {
     ) {
       return;
     }
-    setIsDrawerMobileOpen(!isDrawerMobileOpen);
+    setIsDrawerMobileOpen((prev) => !prev);
   };
 
   const onChangeDashboardType = (event) => {
