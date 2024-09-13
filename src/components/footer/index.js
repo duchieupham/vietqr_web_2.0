@@ -1,1 +1,1 @@
-export { default as FooterLogin } from './FooterLogin';
+export { default as FooterLogin } from './login/FooterLogin';

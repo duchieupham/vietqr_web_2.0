@@ -2,8 +2,8 @@
 
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
-import Footer from '~/components/footer/login/FooterLogin ';
-import LoginForm from '~/components/form/login/LoginForm';
+import { FooterLogin } from '~/components/footer';
+import { LoginForm } from '~/components/form';
 import Navbar from '~/components/navbar/login/NavbarLogin';
 import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';
@@ -66,7 +66,7 @@ function Login() {
           mt: 'auto',
         }}
       >
-        <Footer />
+        <FooterLogin />
       </Box>
     </Box>
   );
