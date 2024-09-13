@@ -1,7 +1,6 @@
 'use client';
 
 /* eslint-disable indent */
-/* eslint-disable react/no-array-index-key */
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Collapse,
