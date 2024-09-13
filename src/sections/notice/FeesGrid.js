@@ -1,4 +1,6 @@
 /* eslint-disable react/no-array-index-key */
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
   Box,
   Grid,
@@ -9,10 +11,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { TextGradient } from '~/components/text';
 
 const promoItems = [
@@ -25,33 +24,59 @@ const pricingData = [
   {
     category: 'Khách hàng Cá nhân',
     includesVAT: 'Đã bao gồm VAT (8%)',
-    prices: ['712,800', '1,425,600', '2,138,400'],
+    prices: [
+      { id: 1, price: '712,800' },
+      { id: 2, price: '1,425,600' },
+      { id: 3, price: '2,138,400' },
+    ],
   },
   {
     category: 'Khách hàng Doanh nghiệp',
     includesVAT: 'Đã bao gồm VAT (8%)',
-    prices: ['1,425,600', '2,851,200', '4,276,800'],
+    prices: [
+      { id: 1, price: '1,425,600' },
+      { id: 2, price: '2,851,200' },
+      { id: 3, price: '4,276,800' },
+    ],
   },
 ];
 
 const features = [
-  { feat: 'Nhận Biến động số dư', active: [true, true, true] },
-  { feat: 'Đối soát giao dịch', active: [true, true, true] },
-  { feat: 'Quản lý cửa hàng', active: [true, true, true] },
-  { feat: 'Thống kê dữ liệu', active: [true, true, true] },
+  {
+    feat: 'Nhận Biến động số dư',
+    active: [
+      { id: 1, active: true },
+      { id: 2, active: true },
+      { id: 3, active: true },
+    ],
+  },
+  {
+    feat: 'Đối soát giao dịch',
+    active: [
+      { id: 1, active: true },
+      { id: 2, active: true },
+      { id: 3, active: true },
+    ],
+  },
+  {
+    feat: 'Quản lý cửa hàng',
+    active: [
+      { id: 1, active: true },
+      { id: 2, active: true },
+      { id: 3, active: true },
+    ],
+  },
+  {
+    feat: 'Thống kê dữ liệu',
+    active: [
+      { id: 1, active: true },
+      { id: 2, active: true },
+      { id: 3, active: true },
+    ],
+  },
 ];
 
 export default function FeesGrid() {
-  const t = useTranslations();
-  const fees =
-    ('tháng',
-    'Khuyến mãi',
-    'VND',
-    'Mức phí',
-    'Tính năng',
-    'Khách hàng cá nhân',
-    'Khách hàng doanh nghiệp',
-    'Đã bao gồm VAT (8%)');
   return (
     <Box sx={{ px: { xs: 2, sm: 5, md: 10, lg: 20 } }}>
       <Grid
@@ -81,50 +106,6 @@ export default function FeesGrid() {
           />
         </Grid>
         <Grid item xs={12} md={8}>
-          {/* <Box sx={{ display: 'flex' }}>
-            {promoItems.map((item, index) => (
-              <Box
-                sx={{
-                  minWidth: 200,
-                  minHeight: 80,
-                  alignContent: 'center',
-                  display: 'flex',
-                  gap: 2,
-                  p: 2,
-                  pl: 0,
-                  ml: { xs: 0, sm: -0.5 },
-                  mr: 2,
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                <Box
-                  sx={{
-                    alignContent: 'center',
-                    mb: 3,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontWeight: 'bold',
-                      color: '#1E427E',
-                      fontSize: { xs: 15, md: 20 },
-                    }}
-                  >
-                    {item.duration}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: '#EC2232',
-                      fontSize: { xs: 12, md: 15 },
-                    }}
-                  >
-                    {item.promo}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-          </Box> */}
           <Grid container>
             <Grid item xs={3} sm="auto" />
             {promoItems.map((item) => (
@@ -213,9 +194,9 @@ export default function FeesGrid() {
                         {data.includesVAT}
                       </Typography>
                     </TableCell>
-                    {data.prices.map((price, _index) => (
+                    {data.prices.map((price) => (
                       <TableCell
-                        key={_index}
+                        key={price.id}
                         sx={{
                           border: '1px solid #DADADA',
                           width: { xs: 80, sm: 200 },
@@ -240,7 +221,7 @@ export default function FeesGrid() {
                               fontWeight: 'bold',
                             }}
                           >
-                            {price}
+                            {price.price}
                           </TextGradient>
                           <Typography
                             sx={{
@@ -277,8 +258,8 @@ export default function FeesGrid() {
           <TableContainer>
             <Table>
               <TableBody>
-                {features.map((data, index) => (
-                  <TableRow key={index}>
+                {features.map((data) => (
+                  <TableRow key={data.feat}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
@@ -297,9 +278,9 @@ export default function FeesGrid() {
                         {data.feat}
                       </Typography>
                     </TableCell>
-                    {data.active.map((isActive, __index) => (
+                    {data.active.map((isActive) => (
                       <TableCell
-                        key={__index}
+                        key={isActive.id}
                         sx={{
                           border: '1px solid #DADADA',
                           minHeight: 80,
@@ -314,7 +295,7 @@ export default function FeesGrid() {
                             gap: 0.5,
                           }}
                         >
-                          {isActive ? (
+                          {isActive.active ? (
                             <CheckCircleIcon
                               sx={{ color: '#0A7AFF', fontSize: 20 }}
                             />
