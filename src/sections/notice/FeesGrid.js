@@ -15,13 +15,14 @@ import Image from 'next/image';
 import { TextGradient } from '~/components/text';
 
 const promoItems = [
-  { duration: '12 tháng', promo: 'Khuyến mãi 01 tháng' },
-  { duration: '24 tháng', promo: 'Khuyến mãi 06 tháng' },
-  { duration: '36 tháng', promo: 'Khuyến mãi 12 tháng' },
+  { id: 1, duration: '12 tháng', promo: 'Khuyến mãi 01 tháng' },
+  { id: 2, duration: '24 tháng', promo: 'Khuyến mãi 06 tháng' },
+  { id: 3, duration: '36 tháng', promo: 'Khuyến mãi 12 tháng' },
 ];
 
 const pricingData = [
   {
+    id: 1,
     category: 'Khách hàng Cá nhân',
     includesVAT: 'Đã bao gồm VAT (8%)',
     prices: [
@@ -31,6 +32,7 @@ const pricingData = [
     ],
   },
   {
+    id: 2,
     category: 'Khách hàng Doanh nghiệp',
     includesVAT: 'Đã bao gồm VAT (8%)',
     prices: [
@@ -43,6 +45,7 @@ const pricingData = [
 
 const features = [
   {
+    id: 1,
     feat: 'Nhận Biến động số dư',
     active: [
       { id: 1, active: true },
@@ -51,6 +54,7 @@ const features = [
     ],
   },
   {
+    id: 2,
     feat: 'Đối soát giao dịch',
     active: [
       { id: 1, active: true },
@@ -59,6 +63,7 @@ const features = [
     ],
   },
   {
+    id: 3,
     feat: 'Quản lý cửa hàng',
     active: [
       { id: 1, active: true },
@@ -67,6 +72,7 @@ const features = [
     ],
   },
   {
+    id: 4,
     feat: 'Thống kê dữ liệu',
     active: [
       { id: 1, active: true },
@@ -109,7 +115,7 @@ export default function FeesGrid() {
           <Grid container>
             <Grid item xs={3} sm="auto" />
             {promoItems.map((item) => (
-              <Grid item xs={3} sm={4} key={item.duration}>
+              <Grid item xs={3} sm={4} key={item.id}>
                 <Box
                   sx={{
                     borderLeft: '1px solid #DADADA',
@@ -166,7 +172,7 @@ export default function FeesGrid() {
             <Table>
               <TableBody>
                 {pricingData.map((data) => (
-                  <TableRow key={data.category}>
+                  <TableRow key={data.id}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',
@@ -259,7 +265,7 @@ export default function FeesGrid() {
             <Table>
               <TableBody>
                 {features.map((data) => (
-                  <TableRow key={data.feat}>
+                  <TableRow key={data.id}>
                     <TableCell
                       sx={{
                         border: '1px solid #DADADA',

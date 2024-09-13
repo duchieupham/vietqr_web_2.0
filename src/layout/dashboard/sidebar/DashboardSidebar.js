@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
-import MenuContent from '~/sections/@dashboard/sidebar/MenuContent';
+import MenuContent from '~/sections/dashboard/sidebar/MenuContent';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
