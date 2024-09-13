@@ -56,6 +56,15 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   );
 }
 
+function convertBreadcrumbName(name) {
+  return _upperFirst(
+    name
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' '),
+  );
+}
+
 // LinkItem component for rendering individual breadcrumb links
 function LinkItem({ href, label, ...otherProps }) {
   const t = useTranslations();
@@ -74,14 +83,7 @@ function LinkItem({ href, label, ...otherProps }) {
           '& > div': { display: 'inherit' },
         }}
       >
-        {t(
-          _upperFirst(
-            label
-              .split('-')
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' '),
-          ),
-        )}
+        {t(convertBreadcrumbName(label))}
       </MUILink>
     </Link>
   );
