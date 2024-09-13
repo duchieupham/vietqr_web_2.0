@@ -2,12 +2,12 @@
 
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
+import Footer from '~/components/footer/login/FooterLogin';
 import LoginForm from '~/components/form/login/LoginForm';
 import Navbar from '~/components/navbar/login/NavbarLogin';
 import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';
 import CreateQR from '~/sections/login/CreateQR';
-import Footer from '~/sections/notice/Footer';
 import { generateQrValue } from '~/utils/aesConvert';
 
 function Login() {
