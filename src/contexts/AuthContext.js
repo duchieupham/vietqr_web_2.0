@@ -34,21 +34,24 @@ export function AuthContextProvider({ children }) {
       setLocalStorage('session', JSON.stringify(decodedData));
       router.push('/dashboard');
     } catch (error) {
-      console.error('Authentication failed:', error);
+      console.error('Signin failed:', error);
     } finally {
       setLoading(false);
     }
   };
 
   const clear = useCallback(() => {
+    try {
     setLoading(true);
     localStorage.setItem('session', null);
     deleteCookie(AUTH_COOKIE);
     setSession(null);
     router.push('/login');
-    setTimeout(() => {
+    } catch (error) {
+      console.error('Signout error:', error);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   }, []);
 
   useEffect(() => {
