@@ -50,9 +50,9 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
-  const handleNavigation = (id) => {
+  const handleNavigation = (id, path) => {
     dispatch(setDashboardType(id));
-    router.push(id);
+    router.push(path);
   };
 
   const displayedType = useMemo(
@@ -61,7 +61,7 @@ export default function DashboardMode() {
         <ListItemButtonStyled
           key={type.id}
           selected={pathname.includes(type.path)}
-          onClick={() => handleNavigation(type.id)}
+          onClick={() => handleNavigation(type.id, type.path)}
           disableRipple
         >
           <ListItemText primary={t(type.label)} />

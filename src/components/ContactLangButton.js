@@ -54,7 +54,7 @@ export default function ContactLangButton({ type, style }) {
         ...style,
       }}
     >
-      {!type === 'dashboard' && (
+      {type === 'login' && (
         <Button
           sx={{
             color: 'black',
