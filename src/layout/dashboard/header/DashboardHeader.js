@@ -69,7 +69,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const drawerContent = (dashboardType, onChangeDashboardType) => {
+const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
@@ -210,7 +210,7 @@ export default function DashboardHeader() {
               },
             }}
           >
-            {drawerContent(dashboardType, onChangeDashboardType)}
+            <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
         </>
       ) : (
