@@ -42,11 +42,11 @@ export function AuthContextProvider({ children }) {
 
   const clear = useCallback(() => {
     try {
-    setLoading(true);
-    localStorage.setItem('session', null);
-    deleteCookie(AUTH_COOKIE);
-    setSession(null);
-    router.push('/login');
+      setLoading(true);
+      localStorage.setItem('session', null);
+      deleteCookie(AUTH_COOKIE);
+      setSession(null);
+      router.push('/login');
     } catch (error) {
       console.error('Signout error:', error);
     } finally {

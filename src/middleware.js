@@ -21,7 +21,7 @@ export function routingMiddleware(req) {
   if (isUnAuthPath && token) {
     return NextResponse.redirect(new URL(DEFAULT_PATH, req.url));
   }
-  
+
   if (isPublicPath) {
     return NextResponse.next();
   }
