@@ -82,7 +82,7 @@ function Footer() {
         </Grid>
       </Grid>
       <Box>
-        <CarouselSlider initialValues={bankType} />
+        {bankType.length > 0 && <CarouselSlider initialValues={bankType} />}
       </Box>
     </Box>
   );
