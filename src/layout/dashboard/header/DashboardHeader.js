@@ -18,17 +18,18 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { ButtonGradient } from '~/components/button';
+import ContactLangButton from '~/components/ContactLangButton';
 import Profile from '~/components/Profile';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 import theme from '~/theme';
 import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
+import DashboardMode from './DashboardMode';
 
 const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
@@ -36,7 +37,7 @@ const drawerWidthCollapsed = 0;
 const DrawerStyled = styled(Drawer)(() => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
-    top: '0',
+    top: 50,
     boxSizing: 'border-box',
     overflowX: 'hidden',
     transition: theme.transitions.create(
@@ -62,6 +63,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
     color: '#0072FF',
     fontSize: 13,
     fontWeight: 'semiBold',
+    borderRadius: 8,
     '& .MuiListItemIcon-root': {
       color: '#0072FF',
     },
@@ -88,13 +90,10 @@ const drawerContent = (dashboardType, onChangeDashboardType, t) => {
         flexDirection: 'column',
         height: '100%',
         width: 240,
-        pt: 1.3,
       }}
-      spacing={2}
     >
       <IconButton
         sx={{
-          p: '2px',
           pr: 2,
           justifyContent: 'flex-end',
           border: 'none',
@@ -242,54 +241,55 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
-        <Select
-          value={dashboardType}
-          onChange={onChangeDashboardType}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                '& .MuiMenu-list': {
-                  paddingTop: 0,
-                  paddingBottom: 0,
-                },
-              },
-            },
-          }}
-          sx={{
-            '.MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
-            '.MuiSelect-icon': {
-              color: 'inherit',
-            },
-            fontSize: {
-              xs: '12px',
-              md: '15px',
-            },
-            '.MuiSelect-select': {
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-            },
-            '& .MuiList-root-MuiMenu-list': {
-              paddingTop: 0,
-              paddingBottom: 0,
-            },
-          }}
-        >
-          {DASHBOARD_TYPE.map((type) => (
-            <MenuItem key={type.id} value={type.id}>
-              <Typography sx={{ fontWeight: 'bold' }}>
-                {t(type.label)}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Select>
+        // <Select
+        //   value={dashboardType}
+        //   onChange={onChangeDashboardType}
+        //   MenuProps={{
+        //     PaperProps: {
+        //       sx: {
+        //         '& .MuiMenu-list': {
+        //           paddingTop: 0,
+        //           paddingBottom: 0,
+        //         },
+        //       },
+        //     },
+        //   }}
+        //   sx={{
+        //     '.MuiOutlinedInput-notchedOutline': {
+        //       border: 'none',
+        //     },
+        //     '.MuiSelect-icon': {
+        //       color: 'inherit',
+        //     },
+        //     fontSize: {
+        //       xs: '12px',
+        //       md: '15px',
+        //     },
+        //     '.MuiSelect-select': {
+        //       display: 'flex',
+        //       alignItems: 'center',
+        //       gap: 1,
+        //     },
+        //     '& .MuiList-root-MuiMenu-list': {
+        //       paddingTop: 0,
+        //       paddingBottom: 0,
+        //     },
+        //   }}
+        // >
+        //   {DASHBOARD_TYPE.map((type) => (
+        //     <MenuItem key={type.id} value={type.id}>
+        //       <Typography sx={{ fontWeight: 'bold' }}>
+        //         {t(type.label)}
+        //       </Typography>
+        //     </MenuItem>
+        //   ))}
+        // </Select>
+        <DashboardMode />
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <LanguagePopover />
-        <NotificationPopover />
+        <ContactLangButton />
         {!isMobile && <AccountPopover />}
+        <NotificationPopover />
       </Box>
     </Stack>
   );
