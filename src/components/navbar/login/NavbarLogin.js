@@ -238,7 +238,7 @@ export default function Navbar() {
                 </Button>
               </Grid>
               <Grid item xs={6} md={3} lg={4}>
-                <ContactLangButton />
+                <ContactLangButton isDashboard={false} />
               </Grid>
             </Grid>
           </Box>
