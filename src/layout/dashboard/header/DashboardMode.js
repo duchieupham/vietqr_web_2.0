@@ -55,17 +55,20 @@ export default function DashboardMode() {
     router.push(path);
   };
 
-  const displayedType = () =>
-    DASHBOARD_TYPE.map((type) => (
-      <ListItemButtonStyled
-        key={type.id}
-        selected={pathname.includes(type.path)}
-        onClick={() => handleNavigation(type.id, type.path)}
-        disableRipple
-      >
-        <ListItemText primary={t(type.label)} />
-      </ListItemButtonStyled>
-    ));
+  const displayedType = useMemo(
+    () =>
+      DASHBOARD_TYPE.map((type) => (
+        <ListItemButtonStyled
+          key={type.id}
+          selected={pathname.includes(type.path)}
+          onClick={() => handleNavigation(type.id, type.path)}
+          disableRipple
+        >
+          <ListItemText primary={t(type.label)} />
+        </ListItemButtonStyled>
+      )),
+    [pathname],
+  );
 
   return <Box sx={{ display: 'flex' }}>{displayedType}</Box>;
 }

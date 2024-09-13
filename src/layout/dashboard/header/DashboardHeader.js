@@ -122,7 +122,6 @@ const drawerContent = (dashboardType, onChangeDashboardType) => {
 };
 
 export default function DashboardHeader() {
-  const t = useTranslations();
   const router = useRouter();
   const { dashboardType } = useAppSelector((store) => store.app);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -211,7 +210,7 @@ export default function DashboardHeader() {
               },
             }}
           >
-            {drawerContent(dashboardType, onChangeDashboardType, t)}
+            {drawerContent(dashboardType, onChangeDashboardType)}
           </DrawerStyled>
         </>
       ) : (
