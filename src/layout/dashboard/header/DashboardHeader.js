@@ -218,7 +218,7 @@ export default function DashboardHeader() {
         <DashboardMode />
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <ContactLangButton isDashboard />
+        <ContactLangButton type="dashboard" />
         {!isMobile && <AccountPopover />}
         <NotificationPopover />
       </Box>

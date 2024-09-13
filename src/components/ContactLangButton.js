@@ -18,7 +18,7 @@ const dashboardLanguageStyled = {
   justifyContent: 'center',
 };
 
-export default function ContactLangButton({ isDashboard, style }) {
+export default function ContactLangButton({ type, style }) {
   const t = useTranslations();
   const router = useRouter();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -48,13 +48,13 @@ export default function ContactLangButton({ isDashboard, style }) {
         alignContent: 'center',
         justifyContent: 'flex-end',
         display: 'flex',
-        ...(isDashboard && {
+        ...(type === 'dashboard' && {
           alignItems: 'center',
         }),
         ...style,
       }}
     >
-      {!isDashboard && (
+      {!type === 'dashboard' && (
         <Button
           sx={{
             color: 'black',
@@ -131,7 +131,7 @@ export default function ContactLangButton({ isDashboard, style }) {
             paddingTop: 0,
             paddingBottom: 0,
           },
-          ...(isDashboard && dashboardLanguageStyled),
+          ...(type === 'dashboard' && dashboardLanguageStyled),
         }}
       >
         {LANGUAGE_OPTIONS.map((option) => (
