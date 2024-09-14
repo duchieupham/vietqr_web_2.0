@@ -157,7 +157,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     mode: 'onChange',
   });
   const t = useTranslations();
-  const { authenticate } = useAuthContext();
+  const { authenticate, loading } = useAuthContext();
   const { setLoading, isDisabled, setIsDisabled } = useAppContext();
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
@@ -169,7 +169,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   };
 
   const isDisabledButton =
-    phoneNoValue.length !== 10 || passwordValue.length !== 6 || isDisabled;
+    phoneNoValue.length !== 10 ||
+    passwordValue.length !== 6 ||
+    isDisabled ||
+    loading;
 
   const phoneNoError =
     phoneNoValue.current?.value.length !== 0 && !!errors?.phoneNo;
