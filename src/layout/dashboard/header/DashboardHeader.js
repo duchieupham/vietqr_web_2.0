@@ -18,6 +18,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import ContactLangButton from '~/components/ContactLangButton';
 import Profile from '~/components/Profile';
+import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
@@ -214,7 +215,10 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
-        <DashboardMode />
+        <Box display="flex">
+          <VietQRLogo />
+          <DashboardMode />
+        </Box>
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
         <ContactLangButton type="dashboard" />

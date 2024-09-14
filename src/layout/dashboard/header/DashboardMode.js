@@ -1,7 +1,6 @@
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
@@ -33,7 +32,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&.Mui-selected:after': {
     content: '""',
     position: 'absolute',
-    bottom: '5px',
+    bottom: '25px',
     left: '50%',
     width: '80%',
     height: '2px',
