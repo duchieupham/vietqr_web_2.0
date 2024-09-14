@@ -18,7 +18,6 @@ export function routingMiddleware(req) {
 
   // Get the token from the cookies
   const token = req.cookies.get(AUTH_COOKIE)?.value;
-  console.log('token', token);
 
   if (token) {
     const decodedToken = decodeJwt(token);

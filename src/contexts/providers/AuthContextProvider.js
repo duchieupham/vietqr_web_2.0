@@ -40,8 +40,12 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setSession(decodedData);
         setLocalStorage('session', JSON.stringify(decodedData));
-        router.refresh(); // for check token
-        router.push('/dashboard');
+        console.log('prefetch');
+        // for check token
+        router.prefetch('/dashboard');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 500);
       }
     } catch (error) {
       console.error(error);
@@ -52,19 +56,20 @@ function AuthContextProvider({ children }) {
 
   const clear = useCallback(async () => {
     try {
-      setLoading(true);
       const res = await axios.get(`${getHostUrl()}/api/logout`);
 
       if (res.status === 200) {
         setLocalStorage('session', null);
         setSession(null);
-        router.refresh(); // for check token
-        router.push('/login');
+        console.log('prefetch');
+        router.prefetch('/login');
+        // for check token
+        setTimeout(() => {
+          router.push('/login');
+        }, 500);
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
