@@ -18,6 +18,7 @@
   "loginFailed": "Login failed",
   "loginSuccess": "Login successful",
   "logout": "Logout",
+  "logged out": "Logged out",
   "success": "Success",
   "fail": "Failed",
 
