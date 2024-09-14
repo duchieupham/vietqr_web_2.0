@@ -1,9 +1,12 @@
-import { AppContextProvider } from './AppContext';
-import { AuthContextProvider } from './AuthContext';
+import { AppContextProvider } from './providers/AppContextProvider';
+import { AuthContextProvider } from './providers/AuthContextProvider';
+import { SnackbarContextProvider } from './providers/SnackbarContextProvider';
 
 const ContextProvider = ({ children }) => (
   <AppContextProvider>
-    <AuthContextProvider>{children}</AuthContextProvider>
+    <AuthContextProvider>
+      <SnackbarContextProvider>{children}</SnackbarContextProvider>
+    </AuthContextProvider>
   </AppContextProvider>
 );
 

@@ -1,6 +1,6 @@
 import useEncrypt from '~/utils/encrypt';
 import axios from 'axios';
-import axiosInstance from '../axios';
+import axiosInstance from '../../utils/getAxios';
 
 const userAgent = () => window?.navigator.userAgent;
 

@@ -15,6 +15,9 @@
   "login": "Đăng nhập",
   "loginFailed": "Đăng nhập thất bại",
   "loginSuccess": "Đăng nhập thành công",
+  "logout": "Đăng xuất",
+  "success": "Thành công",
+  "fail": "Thất bại",
 
   "noAccount": "Đăng kí tài khoản mới",
   "register": "Đăng kí tài khoản mới",
@@ -116,5 +119,7 @@
   "noticeFeesApply": "Mức phí áp dụng",
 
   "backToHome": "Về trang chủ",
-  "404": "Không tìm thấy trang"
+  "backToLogin": "Về trang đăng nhập",
+  "404": "Không tìm thấy trang",
+  "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!"
 }

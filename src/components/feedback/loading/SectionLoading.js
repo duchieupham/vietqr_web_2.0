@@ -1,5 +1,4 @@
 import { CircularProgress, Stack } from '@mui/material';
-import Image from 'next/image';
 
 const GradientCircularProgress = () => (
   <>
@@ -14,27 +13,26 @@ const GradientCircularProgress = () => (
     <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
   </>
 );
-function LoadingContainer() {
+function SecondaryLoadingContainer({ sx, style }) {
   return (
     <Stack
+      style={style}
       sx={{
         width: '100%',
-        height: '100vh',
+        height: {
+          xs: '100vh',
+          lg: '66vh',
+        },
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        background: '#c2c2c250',
+        ...sx,
       }}
     >
-      <Image
-        alt="logo"
-        src="/images/VietQRLogo.png"
-        width={300}
-        height={150}
-        priority
-      />
       <GradientCircularProgress />
     </Stack>
   );
 }
 
-export default LoadingContainer;
+export default SecondaryLoadingContainer;

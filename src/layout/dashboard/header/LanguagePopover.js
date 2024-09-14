@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
-import { VIETQR_IMAGE, LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
-import { useAppContext } from '~/contexts/AppContext';
+import { LANGUAGE_OPTIONS, LOCALE_COOKIE, VIETQR_IMAGE } from '~/constants';
+import { useAppContext } from '~/contexts/hooks';
 
 export default function LanguagePopover() {
   const [anchorEl, setAnchorEl] = useState(null);

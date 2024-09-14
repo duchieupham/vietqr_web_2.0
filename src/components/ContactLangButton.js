@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
-import { useAppContext } from '~/contexts/AppContext';
+import { useAppContext } from '~/contexts/hooks';
 import theme from '~/theme';
 
 const dashboardLanguageStyled = {

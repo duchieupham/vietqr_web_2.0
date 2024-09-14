@@ -5,15 +5,13 @@ import { lazy, useMemo } from 'react';
 import _upperFirst from 'lodash-es/upperFirst';
 import _camelCase from 'lodash-es/camelCase';
 import { Backdrop, Box, CircularProgress } from '@mui/material';
-import { useAppContext } from '~/contexts/AppContext';
 import { usePathname } from 'next/navigation';
-import { useAuthContext } from '~/contexts/AuthContext';
-import LoadingContainer from '~/components/feedback/LoadingContainer';
+import { useAppContext } from '~/contexts/hooks';
+import Snackbar from '~/components/feedback/Snackbar';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
-  const { loading: authLoading } = useAuthContext();
   const { loading } = useAppContext();
   const pathname = usePathname();
   const getLayout = (name) => {
@@ -34,13 +32,12 @@ function DynamicLayout({ children }) {
     return getLayout(layoutName) || MainLayout;
   }, [pathname]);
 
-  if (authLoading) return <LoadingContainer />;
-
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
         <CircularProgress />
       </Backdrop>
+      <Snackbar />
       <Layout>{children}</Layout>
     </Box>
   );

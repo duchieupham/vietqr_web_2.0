@@ -1,4 +1,4 @@
-const { default: axiosInstance } = require('../axios');
+const { default: axiosInstance } = require('../../utils/getAxios');
 
 const bankTypeList = async () => {
   const res = await axiosInstance.get('bank-type/unauthenticated');
