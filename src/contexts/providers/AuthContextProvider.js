@@ -31,22 +31,26 @@ function AuthContextProvider({ children }) {
         sameSite: 'Strict',
       });
       setLocalStorage('session', JSON.stringify(decodedData));
-
-      await router.push('/dashboard');
+      // delay for the server validating the cookie
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 500);
     } catch (error) {
-      console.error('Signin failed:', error);
+      console.error(error);
     }
   };
 
-  const clear = useCallback(async () => {
+  const clear = useCallback(() => {
     try {
-      localStorage.setItem('session', null);
+      setLocalStorage('session', null);
       deleteCookie(AUTH_COOKIE);
       setSession(null);
 
-      await router.push('/login');
+      setTimeout(() => {
+        router.push('/login');
+      }, 500);
     } catch (error) {
-      console.error('Signout error:', error);
+      console.error(error);
     }
   }, []);
 

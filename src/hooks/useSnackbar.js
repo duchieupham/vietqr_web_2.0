@@ -39,6 +39,17 @@ const useSnackbar = () => {
 
       handleSnackbar(options);
     },
+    info({ message, duration, transition, position }) {
+      const options = {
+        type: 'info',
+        transition: transition || defaultOptions.transition,
+        message: message || defaultOptions.message,
+        duration: duration || defaultOptions.duration,
+        position: position || defaultOptions.position,
+      };
+
+      handleSnackbar(options);
+    },
     error({ message, duration, transition, position }) {
       const options = {
         type: 'error',

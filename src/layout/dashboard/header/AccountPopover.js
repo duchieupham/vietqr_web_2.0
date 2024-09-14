@@ -22,7 +22,7 @@ export default function AccountPopover() {
   const logout = async () => {
     try {
       await clear();
-      snack.success({ message: t('success') });
+      snack.info({ message: t('logged out') });
     } catch (e) {
       console.log('error', e);
       snack.error({ message: t('failed') });
