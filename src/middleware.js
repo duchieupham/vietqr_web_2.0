@@ -18,6 +18,7 @@ export function routingMiddleware(req) {
 
   // Get the token from the cookies
   const token = req.cookies.get(AUTH_COOKIE)?.value;
+  console.log('token', token);
 
   if (token) {
     const decodedToken = decodeJwt(token);
@@ -26,6 +27,9 @@ export function routingMiddleware(req) {
       const res = NextResponse.redirect(new URL('/expired', req.url));
       res.cookies.set(AUTH_COOKIE, null);
       return res;
+    }
+    if (isUnAuthPath) {
+      return NextResponse.redirect(new URL(DEFAULT_PATH, req.url));
     }
   } else {
     if (isPublicPath) return NextResponse.next();
