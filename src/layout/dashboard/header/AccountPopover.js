@@ -1,10 +1,14 @@
 import { Button, IconButton, ListItemIcon, MenuItem } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import Profile from '~/components/Profile';
-import { useAuthContext } from '~/contexts/AuthContext';
+import { useAuthContext } from '~/contexts/hooks';
+import useSnackbar from '~/hooks/useSnackbar';
 
 export default function AccountPopover() {
+  const t = useTranslations();
+  const snack = useSnackbar();
   const [anchorEl, setAnchorEl] = useState(null);
   const { clear } = useAuthContext();
 
@@ -15,8 +19,14 @@ export default function AccountPopover() {
     setAnchorEl(null);
   };
 
-  const logout = () => {
-    clear();
+  const logout = async () => {
+    try {
+      await clear();
+      snack.success({ message: t('success') });
+    } catch (e) {
+      console.log('error', e);
+      snack.error({ message: t('failed') });
+    }
   };
 
   return (
@@ -39,6 +49,14 @@ export default function AccountPopover() {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={onClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
         {/* //TODO: Additional the content */}
         <MenuItem>
@@ -54,7 +72,7 @@ export default function AccountPopover() {
                 },
               }}
             >
-              Logout
+              {t('logout')}
             </Button>
           </ListItemIcon>
         </MenuItem>

@@ -7,11 +7,10 @@ import Link from 'next/link';
 
 function NotFound() {
   const t = useTranslations();
-
   return (
     <Stack
       style={{
-        height: '100%',
+        height: '100vh',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -25,14 +24,14 @@ function NotFound() {
           priority
           alt="logo"
           src="/images/logo.png"
-          width={400}
-          height={150}
+          width={500}
+          height={200}
         />
-        <h1>{`${t('404')}.`}</h1>
+        <h1>{`${t('Session Expired')}.`}</h1>
       </Box>
       <Link href="/">
         <Button variant="contained">
-          <Typography variant="button">{t('backToHome')}</Typography>
+          <Typography variant="button">{t('backToLogin')}</Typography>
         </Button>
       </Link>
     </Stack>

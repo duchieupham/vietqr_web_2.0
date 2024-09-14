@@ -1,7 +1,7 @@
 'use client';
 
 import { getCookie } from 'cookies-next';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { DEFAULT_LANG, LOCALE_COOKIE } from '~/constants';
 
 const initialContext = {
@@ -12,7 +12,7 @@ const initialContext = {
 
 const AppContext = createContext(initialContext);
 
-export function AppContextProvider({ children }) {
+function AppContextProvider({ children }) {
   const [language, setLanguage] = useState(initialContext.language);
   const [loading, setLoading] = useState(initialContext.loading);
   const [isDisabled, setIsDisabled] = useState(initialContext.isDisabled);
@@ -38,4 +38,4 @@ export function AppContextProvider({ children }) {
   );
 }
 
-export const useAppContext = () => useContext(AppContext);
+export { AppContext, AppContextProvider };

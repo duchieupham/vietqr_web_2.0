@@ -3,6 +3,20 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  typography: {
+    body1: {
+      textTransform: 'initial',
+    },
+    body2: {
+      textTransform: 'initial',
+    },
+    caption: {
+      textTransform: 'initial',
+    },
+    button: {
+      textTransform: 'initial',
+    },
+  },
   breakpoints: {
     values: {
       xs: 320,
@@ -15,6 +29,12 @@ const theme = createTheme({
     },
   },
   palette: {
+    primary: {
+      main: '#005aaa',
+    },
+    secondary: {
+      main: '#e01c1c ',
+    },
     lily: {
       white: {
         linear: 'linear-gradient(to right, #E1EFFF 0%, #E5F9FF 100%)',
