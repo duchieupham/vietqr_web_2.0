@@ -40,6 +40,7 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setSession(decodedData);
         setLocalStorage('session', JSON.stringify(decodedData));
+        router.prefetch('/dashboard', { kind: 'temporary' }); // for check token
         router.push('/dashboard');
       }
     } catch (error) {
@@ -57,6 +58,7 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setLocalStorage('session', null);
         setSession(null);
+        router.prefetch('/login', { kind: 'temporary' }); // for check token
         router.push('/login');
       }
     } catch (error) {
