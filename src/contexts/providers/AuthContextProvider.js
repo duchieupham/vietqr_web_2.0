@@ -1,10 +1,10 @@
 'use client';
 
-import { deleteCookie, setCookie } from 'cookies-next';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { AUTH_COOKIE } from '~/constants';
 import decodeJwt from '~/utils/decodeJwt';
+import { getHostUrl } from '~/utils/getHostUrl';
 import { getLocalStorage, setLocalStorage } from '~/utils/localStorageHelper';
 
 const initialContext = {
@@ -21,36 +21,48 @@ function AuthContextProvider({ children }) {
 
   const authenticate = async (data) => {
     try {
+      setLoading(true);
       const decodedData = decodeJwt(data);
-      const expires = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days
 
-      setSession(decodedData);
-      setCookie(AUTH_COOKIE, data, {
-        secure: true,
-        expire: decodedData.exp || expires,
-        sameSite: 'Strict',
-      });
-      setLocalStorage('session', JSON.stringify(decodedData));
-      // delay for the server validating the cookie
-      setTimeout(() => {
+      const res = await axios.post(
+        `${getHostUrl()}/api/auth`,
+        {
+          token: data,
+          exp: decodedData.exp,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (res.status === 200) {
+        setSession(decodedData);
+        setLocalStorage('session', JSON.stringify(decodedData));
         router.push('/dashboard');
-      }, 500);
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const clear = useCallback(() => {
+  const clear = useCallback(async () => {
     try {
-      setLocalStorage('session', null);
-      deleteCookie(AUTH_COOKIE);
-      setSession(null);
+      setLoading(true);
+      const res = await axios.get(`${getHostUrl()}/api/logout`);
 
-      setTimeout(() => {
+      if (res.status === 200) {
+        setLocalStorage('session', null);
+        setSession(null);
         router.push('/login');
-      }, 500);
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 

@@ -211,7 +211,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
               message: t('invalidPhone&Password'),
             });
             setValue('password', '');
-            snack.error({ message: t('failed') });
+            snack.error({ message: t('fail') });
           }
         });
     } catch (error) {
