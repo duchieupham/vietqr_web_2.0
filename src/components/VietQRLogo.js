@@ -7,9 +7,8 @@ export default function VietQRLogo({ style, ...props }) {
   return (
     <Box
       sx={{
-        padding: '16px',
-        textAlign: 'center',
-        px: '16px',
+        display: 'flex',
+        alignItems: 'center',
         cursor: 'pointer',
         ...style,
       }}
@@ -17,8 +16,8 @@ export default function VietQRLogo({ style, ...props }) {
     >
       <Image
         src="/images/VietQRLogo.png"
-        width={97}
-        height={47}
+        width={70}
+        height={36}
         alt="VietQR Logo"
         quality={100}
         priority

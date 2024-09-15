@@ -9,7 +9,9 @@ export default function Profile(props) {
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
       {/* Full Name */}
-      <Typography sx={{ justifyContent: 'center', alignContent: 'center' }}>
+      <Typography
+        sx={{ justifyContent: 'center', alignContent: 'center', fontSize: 12 }}
+      >
         {session
           ? `${session.firstName} ${session.middleName} ${session.lastName}`
           : 'Guest'}
