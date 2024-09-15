@@ -7,6 +7,7 @@ import { DEFAULT_LANG, LOCALE_COOKIE } from '~/constants';
 const initialContext = {
   language: DEFAULT_LANG,
   loading: false,
+  isSubmitting: false,
   isDisabled: false,
 };
 
@@ -14,6 +15,7 @@ const AppContext = createContext(initialContext);
 
 function AppContextProvider({ children }) {
   const [language, setLanguage] = useState(initialContext.language);
+  const [isSubmitting, setIsSubmitting] = useState(initialContext.isSubmitting);
   const [loading, setLoading] = useState(initialContext.loading);
   const [isDisabled, setIsDisabled] = useState(initialContext.isDisabled);
 
@@ -28,7 +30,9 @@ function AppContextProvider({ children }) {
         language,
         loading,
         isDisabled,
+        isSubmitting,
         setLanguage,
+        setIsSubmitting,
         setLoading,
         setIsDisabled,
       }}

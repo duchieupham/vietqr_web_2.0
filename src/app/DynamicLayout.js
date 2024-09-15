@@ -8,11 +8,12 @@ import { Backdrop, Box, CircularProgress } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useAppContext } from '~/contexts/hooks';
 import Snackbar from '~/components/feedback/Snackbar';
+import LoadingContainer from '~/components/feedback/LoadingContainer';
 
 const CACHE_LAYOUTS = {};
 
 function DynamicLayout({ children }) {
-  const { loading } = useAppContext();
+  const { loading, isSubmitting } = useAppContext();
   const pathname = usePathname();
   const getLayout = (name) => {
     if (!Object.hasOwn(CACHE_LAYOUTS, name)) {
@@ -32,9 +33,11 @@ function DynamicLayout({ children }) {
     return getLayout(layoutName) || MainLayout;
   }, [pathname]);
 
-  return (
+  return loading ? (
+    <LoadingContainer />
+  ) : (
     <Box sx={{ minHeight: '100vh' }}>
-      <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={loading}>
+      <Backdrop sx={{ color: '#fff', zIndex: 99 }} open={isSubmitting}>
         <CircularProgress />
       </Backdrop>
       <Snackbar />

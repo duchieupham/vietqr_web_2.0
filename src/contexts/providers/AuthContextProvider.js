@@ -40,7 +40,6 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setSession(decodedData);
         setLocalStorage('session', JSON.stringify(decodedData));
-        console.log('prefetch');
         // for check token
         router.prefetch('/dashboard');
         setTimeout(() => {
@@ -61,7 +60,6 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setLocalStorage('session', null);
         setSession(null);
-        console.log('prefetch');
         router.prefetch('/login');
         // for check token
         setTimeout(() => {

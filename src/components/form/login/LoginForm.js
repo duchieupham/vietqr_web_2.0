@@ -158,7 +158,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   });
   const t = useTranslations();
   const { authenticate, loading } = useAuthContext();
-  const { setLoading, isDisabled, setIsDisabled } = useAppContext();
+  const { setIsSubmitting, isDisabled, setIsDisabled } = useAppContext();
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
 
@@ -229,7 +229,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmitQR = async (data) => {
     try {
-      setLoading(true);
+      setIsSubmitting(true);
       await loginAPI.loginQR(data.userId).then((res) => {
         const { status, data: qrData } = res;
         if (status === 200) {
@@ -240,7 +240,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
