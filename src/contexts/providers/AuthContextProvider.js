@@ -44,12 +44,11 @@ function AuthContextProvider({ children }) {
         router.prefetch('/dashboard');
         setTimeout(() => {
           router.push('/dashboard');
+          setLoading(false);
         }, 500);
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
