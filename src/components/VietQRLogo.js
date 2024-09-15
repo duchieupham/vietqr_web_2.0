@@ -10,6 +10,7 @@ export default function VietQRLogo({ style, ...props }) {
         padding: '16px',
         textAlign: 'center',
         px: '16px',
+        cursor: 'pointer',
         ...style,
       }}
       onClick={() => router.push('/')}
