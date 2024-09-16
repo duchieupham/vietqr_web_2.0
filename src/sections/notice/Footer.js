@@ -1,9 +1,15 @@
-import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ButtonGradient } from '~/components/button';
 import QRCodeComponent from '~/components/qr-component/QRCodeComponent';
-import theme from '~/theme';
 
 const spanStyle = {
   borderLeft: '2px solid #dadada',
@@ -34,6 +40,7 @@ const buttonList = [
 ];
 
 export default function Footer() {
+  const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (

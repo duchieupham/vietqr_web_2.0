@@ -9,6 +9,7 @@ import {
   ListItemText,
   Stack,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
@@ -19,7 +20,6 @@ import Profile from '~/components/Profile';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
-import theme from '~/theme';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
@@ -29,7 +29,7 @@ import NotificationPopover from './NotificationPopover';
 const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
 
-const DrawerStyled = styled(Drawer)(() => ({
+const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
     top: 50,
@@ -123,6 +123,7 @@ const DrawerContent = ({ dashboardType }) => {
 
 export default function DashboardHeader() {
   const { dashboardType } = useAppSelector((store) => store.app);
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
