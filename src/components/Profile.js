@@ -1,13 +1,13 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import { Avatar, Box, Typography, useTheme } from '@mui/material';
 import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
-import theme from '~/theme';
 
 const DEFAULT_IMAGE_URL = '/images/logo.png';
 
 export default function Profile({ ...props }) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imgId);
+  const theme = useTheme();
 
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
@@ -16,7 +16,7 @@ export default function Profile({ ...props }) {
         sx={{ justifyContent: 'center', alignContent: 'center', fontSize: 12 }}
       >
         {session
-          ? `${session.lastName} ${session.middleName} ${session.firstName}`
+          ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
           : 'Guest'}
       </Typography>
       {/* Avatar */}
@@ -31,7 +31,7 @@ export default function Profile({ ...props }) {
           src={session ? imageUrl : DEFAULT_IMAGE_URL}
           alt={
             session
-              ? `${session.lastName} ${session.middleName} ${session.firstName}`
+              ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
               : 'Avatar'
           }
           sx={{
