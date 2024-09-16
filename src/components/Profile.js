@@ -8,6 +8,7 @@ const DEFAULT_IMAGE_URL = '/images/logo.png';
 export default function Profile({ ...props }) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imgId);
+
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
       {/* Full Name */}
