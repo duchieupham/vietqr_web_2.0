@@ -45,9 +45,9 @@ export default function Social({ style }) {
         ...style,
       }}
     >
-      {list.map((item, index) => (
+      {list.map((item) => (
         <Stack
-          key={index}
+          key={item.name}
           sx={{
             flexDirection: {
               xs: 'row',
@@ -85,8 +85,8 @@ export default function Social({ style }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {item.items.map((_item, index) => (
-              <Box key={index}>
+            {item.items.map((_item) => (
+              <Box key={_item.name}>
                 <Link
                   href="/"
                   style={{

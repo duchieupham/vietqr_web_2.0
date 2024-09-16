@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 
 // import required modules
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';

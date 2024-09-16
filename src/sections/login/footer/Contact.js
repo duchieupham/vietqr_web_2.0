@@ -8,7 +8,6 @@ import { Box, Stack, Typography } from '@mui/material';
 // others
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 const list = [
   {
@@ -73,9 +72,9 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         ...style,
       }}
     >
-      {list.map((item, index) => (
+      {list.map((item) => (
         <Stack
-          key={index}
+          key={item.name}
           spacing={2}
           useFlexGap
           sx={{
