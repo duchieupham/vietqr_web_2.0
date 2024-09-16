@@ -9,27 +9,27 @@ import {
   ListItemText,
   Stack,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import ContactLangButton from '~/components/ContactLangButton';
 import Profile from '~/components/Profile';
+import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppDispatch, useAppSelector } from '~/redux/hook';
-import { setDashboardType } from '~/redux/slices/appSlice';
-import theme from '~/theme';
+import { useAppSelector } from '~/redux/hook';
+import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
+import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
 
 const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
 
-const DrawerStyled = styled(Drawer)(() => ({
+const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
     top: 50,
@@ -69,7 +69,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
+const DrawerContent = ({ dashboardType }) => {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
@@ -122,10 +122,9 @@ const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
 };
 
 export default function DashboardHeader() {
-  const router = useRouter();
   const { dashboardType } = useAppSelector((store) => store.app);
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const dispatch = useAppDispatch();
 
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
@@ -137,24 +136,6 @@ export default function DashboardHeader() {
       return;
     }
     setIsDrawerMobileOpen((prev) => !prev);
-  };
-
-  const onChangeDashboardType = (event) => {
-    const foundType = DASHBOARD_TYPE.find(
-      (type) => type.id === event.target.value,
-    );
-
-    if (foundType) {
-      const { id, children } = foundType;
-
-      if (dashboardType !== id) {
-        dispatch(setDashboardType(id));
-
-        if (children && children.length > 0) {
-          router.push(children[0].path); // Navigate to first child
-        }
-      }
-    }
   };
 
   return (
@@ -182,23 +163,7 @@ export default function DashboardHeader() {
               size={20}
             />
           </IconButton>
-          <Box
-            onClick={() => router.push('/')}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              pl: 5,
-            }}
-          >
-            <Image
-              src="/images/VietQRLogo.png"
-              width={97}
-              height={47}
-              alt="VietQR Logo"
-              quality={100}
-              priority
-            />
-          </Box>
+          <VietQRLogo />
           <DrawerStyled
             anchor="left"
             open={isDrawerMobileOpen}
@@ -214,10 +179,14 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
-        <DashboardMode />
+        <Box display="flex" gap={1}>
+          <VietQRLogo />
+          <DashboardMode />
+          <SearchBar />
+        </Box>
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <ContactLangButton type="dashboard" />
+        <LanguagePopover />
         {!isMobile && <AccountPopover />}
         <NotificationPopover />
       </Box>

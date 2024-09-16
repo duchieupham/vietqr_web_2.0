@@ -13,7 +13,7 @@ const useImage = (imageId) => {
       // console.error('Failed to construct image URL:', error);
       setImageUri(''); // Reset the state in case of an error.
     }
-  }, []);
+  }, [imageId]);
 
   return imageUri;
 };

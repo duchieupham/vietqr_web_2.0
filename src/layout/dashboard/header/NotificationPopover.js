@@ -43,10 +43,22 @@ export default function NotificationPopover() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#DADADA',
+            backgroundColor: '#F0F4FA',
           }}
         >
-          <Badge badgeContent={notification} color="#FD711A">
+          <Badge
+            badgeContent={notifications.length}
+            sx={{
+              '& .MuiBadge-badge': {
+                backgroundColor: '#FD711A',
+                borderRadius: '50%',
+                width: 12,
+                height: 12,
+                fontSize: 8,
+                minWidth: 0,
+              },
+            }}
+          >
             <Image
               src="/images/alert-alarm-bell.svg"
               width={14}

@@ -115,5 +115,8 @@
   "backToHome": "Back to homepage",
   "backToLogin": "Back to login page",
   "404": "Page not found",
-  "Session Expired": "Your session is expired. Please sign in again!"
+  "Session Expired": "Your session is expired. Please sign in again!",
+
+  "Hello": "Hello",
+  "search": "how can I assist you?"
 }

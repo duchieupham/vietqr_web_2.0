@@ -122,5 +122,8 @@
   "backToHome": "Về trang chủ",
   "backToLogin": "Về trang đăng nhập",
   "404": "Không tìm thấy trang",
-  "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!"
+  "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
+
+  "Hello": "Xin chào",
+  "search": "bạn cần tìm gì?"
 }

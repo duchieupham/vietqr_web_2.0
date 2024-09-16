@@ -7,6 +7,7 @@ import {
   Stack,
   Typography,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -16,10 +17,10 @@ import Features from '~/sections/notice/Features';
 import FeesApply from '~/sections/notice/FeesApply';
 import FeesGrid from '~/sections/notice/FeesGrid';
 import Footer from '~/sections/notice/Footer';
-import theme from '~/theme';
 
 export default function Notice() {
   const t = useTranslations();
+  const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (

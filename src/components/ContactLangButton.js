@@ -1,6 +1,13 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -8,7 +15,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/hooks';
-import theme from '~/theme';
 
 const dashboardLanguageStyled = {
   backgroundColor: '#DADADA',
@@ -21,6 +27,7 @@ const dashboardLanguageStyled = {
 export default function ContactLangButton({ type, style }) {
   const t = useTranslations();
   const router = useRouter();
+  const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const { language, setLanguage } = useAppContext();
   const [selectedLanguage, setSelectedLanguage] = useState('');

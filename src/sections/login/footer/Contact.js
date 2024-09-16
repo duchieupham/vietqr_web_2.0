@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/no-array-index-key */
 // @mui
 import { Box, Stack, Typography } from '@mui/material';
 
@@ -8,7 +6,6 @@ import { Box, Stack, Typography } from '@mui/material';
 // others
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 const list = [
   {
@@ -58,7 +55,7 @@ const list = [
   },
 ];
 
-export default function Contact({ style, stackStyle, subStackStyle }) {
+export default function Contact({ style, stackStyle }) {
   const t = useTranslations();
 
   return (
@@ -73,9 +70,9 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
         ...style,
       }}
     >
-      {list.map((item, index) => (
+      {list.map((item) => (
         <Stack
-          key={index}
+          key={item.name}
           spacing={2}
           useFlexGap
           sx={{
@@ -85,12 +82,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           }}
         >
           <Box>{t(item.name)}</Box>
-          <Stack
-            spacing={1}
-            sx={{
-              ...subStackStyle,
-            }}
-          >
+          <Stack spacing={1}>
             {item.items.map((_item) => (
               <Box
                 key={_item.id}
