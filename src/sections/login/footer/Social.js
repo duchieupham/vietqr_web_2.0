@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-shadow */
 // @mui
 import { useTranslations } from 'next-intl';
 // @next

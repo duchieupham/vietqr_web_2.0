@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/no-array-index-key */
 // @mui
 import { Box, Stack, Typography } from '@mui/material';
 
@@ -57,7 +55,7 @@ const list = [
   },
 ];
 
-export default function Contact({ style, stackStyle, subStackStyle }) {
+export default function Contact({ style, stackStyle }) {
   const t = useTranslations();
 
   return (
@@ -84,12 +82,7 @@ export default function Contact({ style, stackStyle, subStackStyle }) {
           }}
         >
           <Box>{t(item.name)}</Box>
-          <Stack
-            spacing={1}
-            sx={{
-              ...subStackStyle,
-            }}
-          >
+          <Stack spacing={1}>
             {item.items.map((_item) => (
               <Box
                 key={_item.id}
