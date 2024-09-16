@@ -5,6 +5,7 @@
   "author": "minhdt",
   "scripts": {
     "dev": "next dev -p 8080 -H 0.0.0.0",
+    "loc": "next dev -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -43,6 +44,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
     "sass": "^1.77.8",
+    "sharp": "^0.33.5",
     "simplebar-react": "^3.2.6",
     "styled-components": "^6.1.12",
     "uuid": "^10.0.0",

@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import { useAuthContext } from '~/contexts/AuthContext';
+import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
 
 const DEFAULT_IMAGE_URL = '/images/logo.png';

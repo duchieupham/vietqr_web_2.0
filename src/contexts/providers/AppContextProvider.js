@@ -1,19 +1,21 @@
 'use client';
 
 import { getCookie } from 'cookies-next';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { DEFAULT_LANG, LOCALE_COOKIE } from '~/constants';
 
 const initialContext = {
   language: DEFAULT_LANG,
   loading: false,
+  isSubmitting: false,
   isDisabled: false,
 };
 
 const AppContext = createContext(initialContext);
 
-export function AppContextProvider({ children }) {
+function AppContextProvider({ children }) {
   const [language, setLanguage] = useState(initialContext.language);
+  const [isSubmitting, setIsSubmitting] = useState(initialContext.isSubmitting);
   const [loading, setLoading] = useState(initialContext.loading);
   const [isDisabled, setIsDisabled] = useState(initialContext.isDisabled);
 
@@ -28,7 +30,9 @@ export function AppContextProvider({ children }) {
         language,
         loading,
         isDisabled,
+        isSubmitting,
         setLanguage,
+        setIsSubmitting,
         setLoading,
         setIsDisabled,
       }}
@@ -38,4 +42,4 @@ export function AppContextProvider({ children }) {
   );
 }
 
-export const useAppContext = () => useContext(AppContext);
+export { AppContext, AppContextProvider };

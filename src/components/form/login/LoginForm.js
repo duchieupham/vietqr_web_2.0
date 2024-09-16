@@ -25,17 +25,16 @@ import { LoginFormSchema } from '~/utils/definitions';
 
 // components
 import { useEffect } from 'react';
-import { useAuthContext } from '~/contexts/AuthContext';
-
 // styles
 import styles from '~styles/Input.module.scss';
-
 // others
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { ButtonGradient, ButtonSolid } from '~/components/button';
 import { TextGradient } from '~/components/text';
-import { useAppContext } from '~/contexts/AppContext';
+
+import { useAppContext, useAuthContext } from '~/contexts/hooks';
+import useSnackbar from '~/hooks/useSnackbar';
 
 const inputStyle = {
   width: '360px',
@@ -144,6 +143,7 @@ const passwordStyle = {
 };
 
 export default function LoginForm({ containerStyle, stackStyle }) {
+  const snack = useSnackbar();
   const {
     handleSubmit,
     watch,
@@ -157,8 +157,8 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     mode: 'onChange',
   });
   const t = useTranslations();
-  const { authenticate } = useAuthContext();
-  const { setLoading, isDisabled, setIsDisabled } = useAppContext();
+  const { authenticate, loading } = useAuthContext();
+  const { setIsSubmitting, isDisabled, setIsDisabled } = useAppContext();
   const phoneNoValue = watch('phoneNo', '');
   const passwordValue = watch('password', '');
 
@@ -169,7 +169,10 @@ export default function LoginForm({ containerStyle, stackStyle }) {
   };
 
   const isDisabledButton =
-    phoneNoValue.length !== 10 || passwordValue.length !== 6 || isDisabled;
+    phoneNoValue.length !== 10 ||
+    passwordValue.length !== 6 ||
+    isDisabled ||
+    loading;
 
   const phoneNoError =
     phoneNoValue.current?.value.length !== 0 && !!errors?.phoneNo;
@@ -196,20 +199,24 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     }
     try {
       // Call API to login
-      await loginAPI.login(formData.phoneNo, formData.password).then((res) => {
-        // console.log(res);
-        const { status, data } = res;
-        if (status === 200) {
-          authenticate(data);
-        }
-        if (status === 400) {
-          setError('phoneNo', {
-            type: 'manual',
-            message: t('invalidPhone&Password'),
-          });
-          setValue('password', '');
-        }
-      });
+      await loginAPI
+        .login(formData.phoneNo, formData.password)
+        .then(async (res) => {
+          // console.log(res);
+          const { status, data } = res;
+          if (status === 200) {
+            await authenticate(data);
+            snack.success({ message: t('success') });
+          }
+          if (status === 400) {
+            setError('phoneNo', {
+              type: 'manual',
+              message: t('invalidPhone&Password'),
+            });
+            setValue('password', '');
+            snack.error({ message: t('fail') });
+          }
+        });
     } catch (error) {
       setError('phoneNo', {
         type: 'manual',
@@ -222,7 +229,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
 
   const onSubmitQR = async (data) => {
     try {
-      setLoading(true);
+      setIsSubmitting(true);
       await loginAPI.loginQR(data.userId).then((res) => {
         const { status, data: qrData } = res;
         if (status === 200) {
@@ -233,7 +240,7 @@ export default function LoginForm({ containerStyle, stackStyle }) {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 

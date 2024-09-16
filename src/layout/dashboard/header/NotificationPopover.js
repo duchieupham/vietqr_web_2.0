@@ -1,4 +1,12 @@
-import { Badge, Box, IconButton } from '@mui/material';
+import {
+  Badge,
+  Box,
+  Button,
+  IconButton,
+  ListItemIcon,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
@@ -55,6 +63,12 @@ export default function NotificationPopover() {
         onClose={handleClose}
       >
         {/* // TODO: Additional content about the notification */}
+        <MenuItem>
+          <ListItemIcon>Notification 1</ListItemIcon>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>Notification 2</ListItemIcon>
+        </MenuItem>
       </MenuPopover>
     </>
   );

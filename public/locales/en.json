@@ -2,9 +2,7 @@
   "title": "The Title",
   "welcome": "Welcome back!",
   "phoneNumber": "Phone number*",
-  "loginForm": "Login",
   "password": "",
-  "login": "Login",
 
   "passwordRequired": "Password cannot be empty",
   "passwordInvalid": "Invalid password",
@@ -15,8 +13,14 @@
   "passwordRegex": "Password must be 6 characters long, including uppercase, lowercase letters, and numbers",
   "forgotPassword": "Forgot your login password?",
 
+  "login": "Login",
+  "loginForm": "Login",
   "loginFailed": "Login failed",
   "loginSuccess": "Login successful",
+  "logout": "Logout",
+  "logged out": "Logged out",
+  "success": "Success",
+  "fail": "Failed",
 
   "noAccount": "Register a new account",
   "register": "Register a new account",
@@ -108,6 +112,8 @@
   "notice": "Notice",
   "noticeUpdateServiceFee": "NOTICE OF VIETQR SOFTWARE SERVICE FEE UPDATE",
 
-  "backToHome": "Back to home",
-  "404": "Page not found"
+  "backToHome": "Back to homepage",
+  "backToLogin": "Back to login page",
+  "404": "Page not found",
+  "Session Expired": "Your session is expired. Please sign in again!"
 }
