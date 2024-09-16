@@ -109,6 +109,7 @@ export default function FeesGrid() {
             width={240}
             height={150}
             alt="image 498"
+            loading="lazy"
           />
         </Grid>
         <Grid item xs={12} md={8}>

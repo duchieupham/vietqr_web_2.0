@@ -63,7 +63,7 @@ export default function Navbar() {
               {imageUri && (
                 <Image
                   quality={100}
-                  priority
+                  loading="lazy"
                   alt="VietQR logo"
                   src={imageUri}
                   height={60}
@@ -152,7 +152,7 @@ export default function Navbar() {
               {imageUri && (
                 <Image
                   quality={100}
-                  priority
+                  loading="lazy"
                   alt="VietQR logo"
                   src={imageUri}
                   height={80}
@@ -229,7 +229,7 @@ export default function Navbar() {
                   <Link href="/">
                     <Image
                       quality={100}
-                      priority
+                      loading="lazy"
                       alt="VietQR logo"
                       src="/images/Logo_min.png"
                       height={32}

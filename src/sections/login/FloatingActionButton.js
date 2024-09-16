@@ -35,7 +35,7 @@ export default function FloatingActionButton() {
       <Link href="/notice" target="_blank">
         <Image
           quality={100}
-          priority
+          loading="lazy"
           src="/images/update_fee_icon.png"
           width={isSm ? 80 : 150}
           height={isSm ? 80 : 150}

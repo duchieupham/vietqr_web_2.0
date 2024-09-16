@@ -98,7 +98,7 @@ export default function Social({ style }) {
                     width={40}
                     height={40}
                     quality={100}
-                    priority
+                    loading="lazy"
                   />
                 </Link>
               </Box>

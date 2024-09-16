@@ -96,6 +96,7 @@ export default function ContactLangButton({ type, style }) {
                 src={selectedOption.circleIcon}
                 width={20}
                 height={20}
+                loading="lazy"
               />
               {isMdUp && t(selectedOption.label)}
             </>
@@ -149,6 +150,7 @@ export default function ContactLangButton({ type, style }) {
               src={option.circleIcon}
               width={20}
               height={20}
+              loading="lazy"
             />
             {t(option.label)}
           </MenuItem>

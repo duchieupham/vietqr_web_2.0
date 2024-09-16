@@ -44,7 +44,13 @@ export default function Features() {
             justifyContent: 'flex-start',
           }}
         >
-          <Image src={feature.icon} alt="image" width={50} height={50} />
+          <Image
+            src={feature.icon}
+            alt="image"
+            width={50}
+            height={50}
+            loading="lazy"
+          />
           <Typography
             sx={{
               fontSize: { xs: 13, md: 15 },

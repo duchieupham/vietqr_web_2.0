@@ -184,23 +184,7 @@ export default function DashboardHeader() {
               size={20}
             />
           </IconButton>
-          <Box
-            onClick={() => router.push('/')}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              pl: 5,
-            }}
-          >
-            <Image
-              src="/images/VietQRLogo.png"
-              width={97}
-              height={47}
-              alt="VietQR Logo"
-              quality={100}
-              priority
-            />
-          </Box>
+          <VietQRLogo />
           <DrawerStyled
             anchor="left"
             open={isDrawerMobileOpen}

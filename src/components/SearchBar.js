@@ -23,6 +23,7 @@ export default function SearchBar() {
                   margin: '0 0 0 10px',
                   color: theme.palette.aiTextColor,
                 }}
+                loading="lazy"
               />
             </InputAdornment>
           ),
