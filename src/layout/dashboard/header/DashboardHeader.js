@@ -26,6 +26,8 @@ import theme from '~/theme';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
+import SearchBar from '../../../components/SearchBar';
+import LanguagePopover from './LanguagePopover';
 
 const drawerWidth = 250;
 const drawerWidthCollapsed = 0;
@@ -215,13 +217,14 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
-        <Box display="flex">
+        <Box display="flex" gap={1}>
           <VietQRLogo />
           <DashboardMode />
+          <SearchBar />
         </Box>
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <ContactLangButton type="dashboard" />
+        <LanguagePopover />
         {!isMobile && <AccountPopover />}
         <NotificationPopover />
       </Box>

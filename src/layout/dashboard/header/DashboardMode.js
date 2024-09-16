@@ -5,12 +5,13 @@ import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
-const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
+const ListItemButtonStyled = styled(ListItemButton)(() => ({
   borderRadius: '8px',
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
   color: '#000000',
   display: 'flex',
   justifyContent: 'center',
+  whiteSpace: 'nowrap',
   '&.Mui-selected': {
     alignItems: 'center',
     color: '#00c6ff',
@@ -32,14 +33,17 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&.Mui-selected:after': {
     content: '""',
     position: 'absolute',
-    bottom: '25px',
+    bottom: '5px',
     left: '50%',
-    width: '80%',
+    width: '75%',
     height: '2px',
     background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
     zIndex: 1,
     transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
     transform: 'translateX(-50%)',
+  },
+  '& .MuiTypography-root': {
+    fontSize: '12px',
   },
 }));
 
