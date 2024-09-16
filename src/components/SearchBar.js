@@ -1,6 +1,6 @@
 import { Box, InputAdornment, TextField } from '@mui/material';
 import Image from 'next/image';
-import { useAuthContext } from '~/contexts/AuthContext';
+import { useAuthContext } from '~/contexts/hooks';
 import theme from '~/theme';
 
 export default function SearchBar() {
@@ -9,7 +9,7 @@ export default function SearchBar() {
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         variant="outlined"
-        placeholder={`Xin chào ${session.firstName}, bạn cần gì?`}
+        placeholder={`Xin chào ${session?.firstName}, bạn cần gì?`}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

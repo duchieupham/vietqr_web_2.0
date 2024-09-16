@@ -1,7 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import imagesAPI from '~/api/images/imagesService';
-import { CarouselSlider, Contact, Social } from '~/sections/login/footer';
+import Contact from './Contact';
+import Social from './Social';
+import CarouselSlider from './CarouselSlider';
 
 function Footer() {
   const [bankType, setBankType] = useState([]);
