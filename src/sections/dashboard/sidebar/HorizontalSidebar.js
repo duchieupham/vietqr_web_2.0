@@ -14,7 +14,7 @@ export default function HorizontalSidebar() {
   const { dashboardType } = useAppSelector((state) => state.app);
   const t = useTranslations();
 
-  const displayedType = DASHBOARD_TYPE.find(
+  const displayedTypes = DASHBOARD_TYPE.find(
     (type) => type.value === dashboardType,
   );
 
@@ -22,7 +22,7 @@ export default function HorizontalSidebar() {
     <PageWrapper>
       {/* dashboard */}
       <Stack>
-        {displayedType.map((type) => (
+        {displayedTypes.map((type) => (
           <Box key={type.id}>
             <Typography>{t(type.label)}</Typography>
           </Box>
