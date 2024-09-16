@@ -113,7 +113,6 @@ export default function Footer() {
                       alt="image"
                       width={165.14}
                       height={40}
-                      loading="lazy"
                     />
                   </Link>
                 </Button>
@@ -146,7 +145,6 @@ export default function Footer() {
                   width={30}
                   height={30}
                   alt="phone"
-                  loading="lazy"
                 />
                 <Typography>1900 6234</Typography>
               </Box>
@@ -156,7 +154,6 @@ export default function Footer() {
                   width={30}
                   height={30}
                   alt="mail"
-                  loading="lazy"
                 />
                 <Typography>sales@vietqr.vn</Typography>
               </Box>
@@ -187,7 +184,6 @@ export default function Footer() {
                   width={30}
                   height={30}
                   alt="image 487"
-                  loading="lazy"
                 />
                 <Typography>0922 333 636</Typography>
               </Box>
@@ -197,7 +193,6 @@ export default function Footer() {
                   width={30}
                   height={30}
                   alt="image 487"
-                  loading="lazy"
                 />
                 <Typography>itsupport@vietqr.vn</Typography>
               </Box>
@@ -226,7 +221,6 @@ export default function Footer() {
                   alt="image 491"
                   width={20}
                   height={20}
-                  loading="lazy"
                 />
                 <Typography
                   sx={{
@@ -256,7 +250,6 @@ export default function Footer() {
                   alt="image 491"
                   width={20}
                   height={20}
-                  loading="lazy"
                 />
                 <Typography
                   sx={{
@@ -288,7 +281,6 @@ export default function Footer() {
                   alt="image 488"
                   width={30}
                   height={30}
-                  loading="lazy"
                 />
                 <Typography
                   sx={{

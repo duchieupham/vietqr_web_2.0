@@ -1,15 +1,18 @@
-import { Box, InputAdornment, TextField } from '@mui/material';
+import { Box, InputAdornment, TextField, useTheme } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
-import theme from '~/theme';
 
 export default function SearchBar() {
   const { session } = useAuthContext();
+  const t = useTranslations();
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         variant="outlined"
-        placeholder={`Xin chào ${session?.firstName}, bạn cần gì?`}
+        placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -23,7 +26,6 @@ export default function SearchBar() {
                   margin: '0 0 0 10px',
                   color: theme.palette.aiTextColor,
                 }}
-                loading="lazy"
               />
             </InputAdornment>
           ),

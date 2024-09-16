@@ -64,7 +64,6 @@ export default function NotificationPopover() {
               width={14}
               height={15}
               alt="alert-alarm-bell"
-              loading="lazy"
             />
           </Badge>
         </Box>

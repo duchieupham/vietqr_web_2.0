@@ -89,7 +89,6 @@ export default function CarouselSlider({ initialValues = [] }) {
               {image && (
                 <Image
                   quality={100}
-                  loading="lazy"
                   alt={image.bankShortName}
                   src={image.imageId}
                   height={70}

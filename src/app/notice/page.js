@@ -114,7 +114,6 @@ export default function Notice() {
               width={138}
               height={92}
               alt="image 498"
-              loading="lazy"
             />
           </Box>
           <Stack
@@ -171,7 +170,6 @@ export default function Notice() {
               src="/images/CustomMeta.png"
               width={150}
               height={150}
-              loading="lazy"
             />
           </Box>
           <Box>

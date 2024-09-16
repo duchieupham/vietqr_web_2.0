@@ -41,13 +41,7 @@ export default function FeesApply() {
       }}
     >
       <Box>
-        <Image
-          src="/images/clap.png"
-          width={150}
-          height={97}
-          alt="image 499"
-          loading="lazy"
-        />
+        <Image src="/images/clap.png" width={150} height={97} alt="image 499" />
       </Box>
       <Box>
         <Typography
