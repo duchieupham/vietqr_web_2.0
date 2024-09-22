@@ -22,9 +22,14 @@ export default function Profile({ ...props }) {
       {/* Avatar */}
       <Box
         sx={{
-          backgroundImage: theme.palette.bright.blue.linear,
+          border: `2px solid ${theme.palette.bright.blue.linear}`,
           borderRadius: '50%',
-          p: 0.2,
+          width: 40,
+          height: 40,
+          zIndex: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <Avatar
@@ -35,8 +40,9 @@ export default function Profile({ ...props }) {
               : 'Avatar'
           }
           sx={{
-            objectFit: 'cover',
-            objectPosition: 'center',
+            objectFit: 'contain',
+            border: `4px solid ${theme.palette.bright.blue.linear}`,
+            borderRadius: '50%',
           }}
           {...props}
         />

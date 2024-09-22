@@ -6,7 +6,6 @@ import { useAuthContext } from '~/contexts/hooks';
 export default function SearchBar() {
   const { session } = useAuthContext();
   const t = useTranslations();
-  const theme = useTheme();
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -17,20 +16,18 @@ export default function SearchBar() {
           startAdornment: (
             <InputAdornment position="start">
               <Image
-                src="/images/search-icon.svg"
+                src="/icons/search-icon-solid.svg"
                 width={30}
                 height={30}
                 alt="search-icon"
                 style={{
                   cursor: 'pointer',
                   margin: '0 0 0 10px',
-                  color: theme.palette.aiTextColor,
                 }}
               />
             </InputAdornment>
           ),
           sx: {
-            borderRadius: 25,
             backgroundColor: 'white',
             padding: 0,
             '& fieldset': {
@@ -39,18 +36,17 @@ export default function SearchBar() {
           },
         }}
         sx={{
+          paddingRight: 2,
           '& .MuiOutlinedInput-root': {
-            borderRadius: 25,
             padding: 0,
             zIndex: 1,
             border: '1px solid transparent',
-            backgroundImage: `linear-gradient(white, white), ${theme.palette.aiTextColor}`,
-            backgroundOrigin: 'border-box',
-            backgroundClip: 'content-box, border-box',
+            backgroundColor: '#F0F4FA',
           },
           '& .MuiInputBase-root': {
             width: 250,
             height: 40,
+            borderRadius: '8px',
           },
           '& .MuiInputBase-input': {
             fontSize: 12,

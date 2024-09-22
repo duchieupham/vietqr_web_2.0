@@ -165,6 +165,7 @@ export default function DashboardHeader() {
           </IconButton>
           <VietQRLogo />
           <DrawerStyled
+            theme={theme}
             anchor="left"
             open={isDrawerMobileOpen}
             onClose={onClickToggleDrawerMobile}
@@ -182,13 +183,13 @@ export default function DashboardHeader() {
         <Box display="flex" gap={1}>
           <VietQRLogo />
           <DashboardMode />
-          <SearchBar />
         </Box>
       )}
-      <Box sx={{ display: 'flex', gap: 1 }}>
-        <LanguagePopover />
+      <Box sx={{ display: 'flex', gap: 0.2 }}>
+        <SearchBar />
         {!isMobile && <AccountPopover />}
         <NotificationPopover />
+        <LanguagePopover />
       </Box>
     </Stack>
   );

@@ -1,9 +1,10 @@
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import _upperFirst from 'lodash-es/upperFirst';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
@@ -17,37 +18,35 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
     return <LinkItem key={href} href={href} label={segment} />;
   });
 
-  // const listActiveLast = pathArray.map((segment, index) => {
-  //   const href = `/${pathArray.slice(0, index + 1).join('/')}`;
-  //   return (
-  //     <div key={href}>
-  //       {index !== pathArray.length - 1 ? (
-  //         <LinkItem href={href} label={segment} />
-  //       ) : (
-  //         <Typography
-  //           variant="body2"
-  //           sx={{
-  //             maxWidth: 260,
-  //             overflow: 'hidden',
-  //             whiteSpace: 'nowrap',
-  //             color: 'text.disabled',
-  //             textOverflow: 'ellipsis',
-  //           }}
-  //         >
-  //           {segment}
-  //         </Typography>
-  //       )}
-  //     </div>
-  //   );
-  // });
+  const nextImage = (
+    <Image
+      src="/icons/next-icon.svg"
+      width={20}
+      height={20}
+      alt="next icon"
+      style={{
+        cursor: 'pointer',
+        margin: '4px 0 0 0',
+      }}
+    />
+  );
 
   return (
     <MUIBreadcrumbs
-      separator={
-        <FiberManualRecordIcon sx={{ fontSize: 5 }} fontSize="small" />
-      }
+      separator={nextImage}
+      aria-label="breadcrumb"
       sx={{
-        ml: 2,
+        margin: '0 1.5rem',
+        backgroundColor: '#F0F4FA',
+        borderRadius: '8px',
+        height: 30,
+        width: 'fit-content',
+        px: 1.5,
+        alignItems: 'center',
+        '& .MuiBreadcrumbs-ol': {
+          justifyContent: 'center',
+          pt: 0.2,
+        },
       }}
       {...otherProps}
     >
@@ -74,16 +73,37 @@ function LinkItem({ href, label, ...otherProps }) {
         component="span"
         variant="body2"
         sx={{
-          lineHeight: 2,
-          display: 'flex',
-          alignItems: 'center',
-          color: 'text.primary',
           textDecoration: 'none',
           cursor: 'pointer',
+          fontSize: {
+            xs: 10,
+            md: 12,
+          },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          pt: 0.6,
+          color: '#666A72',
           '& > div': { display: 'inherit' },
         }}
       >
-        {t(convertBreadcrumbName(label))}
+        {DASHBOARD_TYPE.map((item) => {
+          if (item.path === href) {
+            return (
+              <Image
+                src={item.icon}
+                width={20}
+                height={20}
+                alt={item.label}
+                key={item.path}
+              />
+            );
+          }
+          return null; // Ensure a return value for every iteration
+        })}
+        <span style={{ paddingTop: 0.5 }}>
+          {t(convertBreadcrumbName(label))}
+        </span>
       </MUILink>
     </Link>
   );
