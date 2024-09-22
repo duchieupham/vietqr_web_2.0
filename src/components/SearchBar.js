@@ -36,7 +36,6 @@ export default function SearchBar() {
           },
         }}
         sx={{
-          paddingRight: 2,
           '& .MuiOutlinedInput-root': {
             padding: 0,
             zIndex: 1,
@@ -50,6 +49,11 @@ export default function SearchBar() {
           },
           '& .MuiInputBase-input': {
             fontSize: 12,
+            padding: 0,
+            marginLeft: '-4px',
+            ':focus': {
+              background: 'transparent',
+            },
           },
         }}
       />
