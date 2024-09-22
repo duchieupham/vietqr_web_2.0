@@ -17,11 +17,19 @@ import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/hooks';
 
 const dashboardLanguageStyled = {
-  backgroundColor: '#DADADA',
-  borderRadius: '20px',
-  height: '40px',
+  borderRadius: '50%',
+  height: 40,
+  width: 40,
   alignContent: 'center',
   justifyContent: 'center',
+  overflow: 'hidden',
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: '#F0F4FA',
+  '& .MuiSelect-select': {
+    py: 0,
+    px: 0.65,
+  },
 };
 
 export default function ContactLangButton({ type, style }) {
@@ -52,7 +60,6 @@ export default function ContactLangButton({ type, style }) {
   return (
     <Box
       sx={{
-        alignContent: 'center',
         justifyContent: 'flex-end',
         display: 'flex',
         ...(type === 'dashboard' && {
@@ -91,7 +98,7 @@ export default function ContactLangButton({ type, style }) {
           setSelectedLanguage(e.target.value);
           onChangeLanguage(e);
         }}
-        IconComponent={ExpandMoreIcon}
+        IconComponent={type === 'dashboard' ? null : ExpandMoreIcon}
         renderValue={(selected) => {
           const selectedOption = LANGUAGE_OPTIONS.find(
             (option) => option.value === selected,
@@ -101,10 +108,10 @@ export default function ContactLangButton({ type, style }) {
               <Image
                 alt={selectedOption.label}
                 src={selectedOption.circleIcon}
-                width={20}
-                height={20}
+                width={30}
+                height={30}
               />
-              {isMdUp && t(selectedOption.label)}
+              {isMdUp && type !== 'dashboard' && t(selectedOption.label)}
             </>
           ) : null;
         }}
@@ -133,10 +140,6 @@ export default function ContactLangButton({ type, style }) {
             display: 'flex',
             alignItems: 'center',
             gap: 1,
-          },
-          '& .MuiList-root-MuiMenu-list': {
-            paddingTop: 0,
-            paddingBottom: 0,
           },
           ...(type === 'dashboard' && dashboardLanguageStyled),
         }}

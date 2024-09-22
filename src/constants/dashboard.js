@@ -4,6 +4,7 @@ export const DASHBOARD_TYPE = [
     id: 'home',
     label: 'home-dashboard',
     path: '/dashboard',
+    icon: 'icons/dashboard-home.svg',
     children: [
       {
         id: 'general',

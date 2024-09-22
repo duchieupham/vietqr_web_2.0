@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  IconButton,
-  ListItemIcon,
-  MenuItem,
-  Typography,
-} from '@mui/material';
+import { Badge, Box, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
