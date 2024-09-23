@@ -1,22 +1,56 @@
+/* eslint-disable no-restricted-syntax */
 import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
 import _upperFirst from 'lodash-es/upperFirst';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
 
-  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const flattenRoutes = (routes, parentPath = '') => {
+    let flattenedRoutes = [];
 
-  const pathArray = path.split('/').filter(Boolean);
+    for (const route of routes) {
+      const fullPath = `${parentPath}${route.path}`;
 
-  const listPath = pathArray.map((segment, index) => {
-    const href = `/${pathArray.slice(0, index + 1).join('/')}`;
-    return <LinkItem key={href} href={href} label={segment} />;
-  });
+      flattenedRoutes.push({
+        id: route.id,
+        label: route.label,
+        path: fullPath,
+        icon: route.icon,
+        iconActive: route.iconActive,
+        shortLabel: route.shortLabel,
+      });
+
+      if (route.children && route.children.length > 0) {
+        flattenedRoutes = flattenedRoutes.concat(
+          flattenRoutes(route.children, fullPath),
+        );
+      }
+    }
+
+    return flattenedRoutes;
+  };
+
+  const convertedBreadcrumbs = useMemo(() => {
+    const breadcrumbs = [];
+    const pathArray = pathname.split('/').filter(Boolean);
+
+    const flattenedRoutes = flattenRoutes(DASHBOARD_TYPE);
+    for (const path of pathArray) {
+      const foundRoute = flattenedRoutes.find((route) => route.id === path);
+      if (foundRoute) breadcrumbs.push(foundRoute);
+    }
+
+    return {
+      current: pathArray[pathArray.length - 1],
+      items: breadcrumbs,
+    };
+  }, [pathname]);
 
   const nextImage = (
     <Image
@@ -50,22 +84,22 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
       }}
       {...otherProps}
     >
-      {listPath}
+      {convertedBreadcrumbs.items.map((breadcrumb) => (
+        <LinkItem
+          key={breadcrumb.id}
+          id={breadcrumb.id}
+          href={breadcrumb.path}
+          label={breadcrumb.label}
+          icon={breadcrumb.icon}
+          current={convertedBreadcrumbs.current}
+        />
+      ))}
     </MUIBreadcrumbs>
   );
 }
 
-function convertBreadcrumbName(name) {
-  return _upperFirst(
-    name
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' '),
-  );
-}
-
 // LinkItem component for rendering individual breadcrumb links
-function LinkItem({ href, label, ...otherProps }) {
+function LinkItem({ id, href, label, icon, current, ...otherProps }) {
   const t = useTranslations();
   return (
     <Link href={href} passHref style={{ textDecoration: 'none' }}>
@@ -86,24 +120,10 @@ function LinkItem({ href, label, ...otherProps }) {
           color: '#666A72',
           '& > div': { display: 'inherit' },
         }}
+        {...otherProps}
       >
-        {DASHBOARD_TYPE.map((item) => {
-          if (item.path === href) {
-            return (
-              <Image
-                src={item.icon}
-                width={20}
-                height={20}
-                alt={item.label}
-                key={item.path}
-              />
-            );
-          }
-          return null; // Ensure a return value for every iteration
-        })}
-        <span style={{ paddingTop: 0.5 }}>
-          {t(convertBreadcrumbName(label))}
-        </span>
+        <Image src={icon} width={20} height={20} alt={label} />
+        <span style={{ paddingTop: 0.5 }}>{t(label)}</span>
       </MUILink>
     </Link>
   );

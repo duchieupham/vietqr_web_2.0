@@ -1,10 +1,10 @@
 // dashboard
 export const DASHBOARD_TYPE = [
   {
-    id: 'home',
-    label: 'home-dashboard',
+    id: 'dashboard',
+    label: 'Dashboard',
     path: '/dashboard',
-    icon: 'icons/dashboard-home.svg',
+    icon: '/icons/dashboard-home.svg',
     children: [
       {
         id: 'general',
@@ -85,7 +85,7 @@ export const DASHBOARD_TYPE = [
   },
   {
     id: 'agent',
-    label: 'agent-dashboard',
+    label: 'Agent Dashboard',
     path: '/agent-dashboard',
     children: [
       {
