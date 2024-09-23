@@ -1,12 +1,17 @@
 import { Avatar, Box, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Typography, useTheme } from '@mui/material';
 import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
 
 const DEFAULT_IMAGE_URL = '/images/logo.png';
 
 export default function Profile({ ...props }) {
+
+export default function Profile({ ...props }) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imgId);
+  const theme = useTheme();
+
   const theme = useTheme();
 
   return (
@@ -15,7 +20,11 @@ export default function Profile({ ...props }) {
       <Typography
         sx={{ justifyContent: 'center', alignContent: 'center', fontSize: 12 }}
       >
+      <Typography
+        sx={{ justifyContent: 'center', alignContent: 'center', fontSize: 12 }}
+      >
         {session
+          ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
           ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
           : 'Guest'}
       </Typography>

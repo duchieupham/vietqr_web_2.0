@@ -1,49 +1,51 @@
-import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
+import {
+  Box,
+  ListItemButton,
+  ListItemText,
+  styled,
+  useTheme,
+} from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
-const ListItemButtonStyled = styled(ListItemButton)(() => ({
+const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   borderRadius: '8px',
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-  color: '#000000',
   display: 'flex',
   justifyContent: 'center',
   whiteSpace: 'nowrap',
   '&.Mui-selected': {
     alignItems: 'center',
-    color: '#00c6ff',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    borderRadius: '20px',
+    color: 'transparent',
     position: 'relative',
     display: 'flex',
-    transition: 'color 0.3s ease, background 0.3s ease',
+    transition: 'background 0.3s ease',
+    background: 'linear-gradient(to right, #E1EFFF 0%, #E5F9FF 100%)',
+    '& .MuiTypography-root': {
+      background: 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)',
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+    },
   },
   '&:hover': {
-    background:
-      'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255,1.0))',
-    textDecoration: 'none',
-    backgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  '&.Mui-selected:after': {
-    content: '""',
-    position: 'absolute',
-    bottom: '5px',
-    left: '50%',
-    width: '75%',
-    height: '2px',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    zIndex: 1,
-    transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-    transform: 'translateX(-50%)',
+    transform: 'scale(1.05)',
+    background: 'transparent',
+    borderRadius: '20px',
   },
   '& .MuiTypography-root': {
     fontSize: '12px',
+  },
+}));
+
+const ListItemTextStyled = styled(ListItemText)(({ theme }) => ({
+  '& .MuiTypography-root': {
+    color: '#000000',
   },
 }));
 
@@ -52,6 +54,7 @@ export default function DashboardMode() {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const handleNavigation = (id, path) => {
     dispatch(setDashboardType(id));
@@ -66,8 +69,13 @@ export default function DashboardMode() {
           selected={pathname.includes(type.path)}
           onClick={() => handleNavigation(type.id, type.path)}
           disableRipple
+          theme={theme}
         >
-          <ListItemText primary={t(type.label)} />
+          <ListItemTextStyled
+            theme={theme}
+            disableRipple
+            primary={t(type.label)}
+          />
         </ListItemButtonStyled>
       ))}
     </Box>
