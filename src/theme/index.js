@@ -131,7 +131,7 @@ const theme = createTheme({
     orangeChampain: 'linear-gradient(to right, #F8DBB0 0%, #B4774B 100%)',
     aiColor: 'linear-gradient(to right, #D8ECF8 0%, #FFEAD9 50%, #F5C9D1 100%)',
     aiTextColor:
-      'linear-gradient(to right, #458BF8 0%, #FF8021 53%, #FF3751 71%, #C958DB 100%)',
+      'linear-gradient(90deg, #458BF8 0%, #FF8021 53%, #FF3751 71%, #C958DB 100%)',
     futureGreen: 'linear-gradient(to right, #9CD740 0%, #2BACE6 100%)',
   },
 });

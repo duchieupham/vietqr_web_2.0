@@ -12,7 +12,6 @@ import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
-  borderRadius: '8px',
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
   display: 'flex',
   justifyContent: 'center',
@@ -36,7 +35,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&:hover': {
     transform: 'scale(1.05)',
     background: 'transparent',
-    borderRadius: '20px',
   },
   '& .MuiTypography-root': {
     fontSize: '12px',
@@ -44,6 +42,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
 }));
 
 const ListItemTextStyled = styled(ListItemText)(({ theme }) => ({
+  margin: '0 auto',
   '& .MuiTypography-root': {
     color: '#000000',
   },
@@ -71,11 +70,7 @@ export default function DashboardMode() {
           disableRipple
           theme={theme}
         >
-          <ListItemTextStyled
-            theme={theme}
-            disableRipple
-            primary={t(type.label)}
-          />
+          <ListItemTextStyled disableRipple primary={t(type.label)} />
         </ListItemButtonStyled>
       ))}
     </Box>

@@ -1,62 +1,63 @@
-import { Box, InputAdornment, TextField } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
+import ExpandSearchBar from '~/sections/dashboard/searchbar/ExpandSearchBar';
 
 export default function SearchBar() {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+      <ExpandSearchBar />
+    </Box>
+  );
+}
+function ExpandSearchBoxButton() {
   const { session } = useAuthContext();
   const t = useTranslations();
-
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <TextField
-        variant="outlined"
-        placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Image
-                src="/icons/search-icon-solid.svg"
-                width={30}
-                height={30}
-                alt="search-icon"
-                style={{
-                  cursor: 'pointer',
-                  margin: '0 0 0 10px',
-                }}
-              />
-            </InputAdornment>
-          ),
-          sx: {
-            backgroundColor: 'white',
-            padding: 0,
-            '& fieldset': {
-              border: 'none',
-            },
-          },
-        }}
+    <Button
+      sx={{
+        borderRadius: '8px',
+        display: 'flex',
+        background: '#F0F4FA',
+        cursor: 'pointer',
+        width: 250,
+      }}
+      disableRipple
+    >
+      {/* Icon */}
+      <Box
         sx={{
-          '& .MuiOutlinedInput-root': {
-            padding: 0,
-            zIndex: 1,
-            border: '1px solid transparent',
-            backgroundColor: '#F0F4FA',
-          },
-          '& .MuiInputBase-root': {
-            width: 250,
-            height: 40,
-            borderRadius: '8px',
-          },
-          '& .MuiInputBase-input': {
-            fontSize: 12,
-            padding: 0,
-            marginLeft: '-4px',
-            ':focus': {
-              background: 'transparent',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Image
+          src="/icons/search-icon-solid.svg"
+          width={30}
+          height={30}
+          alt="search-icon"
+        />
+      </Box>
+      {/* TextField  */}
+      <Box
+        sx={{
+          '& .MuiTypography-root': {
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: '#666A72',
+            fontStyle: 'italic',
+            fontSize: {
+              xs: '8px',
+              sm: '12px',
             },
           },
         }}
-      />
-    </Box>
+      >
+        <Typography>
+          {`${t('Hello')} ${session?.firstName}, ${t('search')}`}
+        </Typography>
+      </Box>
+    </Button>
   );
 }
