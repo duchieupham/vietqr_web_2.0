@@ -1,4 +1,4 @@
-import { Box, InputAdornment, TextField, useTheme } from '@mui/material';
+import { Box, InputAdornment, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
