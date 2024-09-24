@@ -123,5 +123,15 @@
   "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
 
   "Hello": "Xin chào",
-  "search": "bạn cần tìm gì?"
+  "search": "bạn cần tìm gì?",
+  "feat": "Tính năng",
+  "feature": "Tính năng",
+  "account-list": "Danh sách TK",
+  "add-link-account": "Thêm/Liên kết TK",
+
+  "guidance": "Hướng dẫn",
+  "more-description": "Hướng dẫn thêm/liên kết tài khoản ngân hàng",
+
+  "others": "Khác",
+  "create-account-bidv": "Mở tài khoản ngân hàng BIDV"
 }

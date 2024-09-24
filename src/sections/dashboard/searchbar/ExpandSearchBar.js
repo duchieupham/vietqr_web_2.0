@@ -116,7 +116,7 @@ const items = [
             alt="add-bank-solid"
           />
         ),
-        label: 'add-link',
+        label: 'add-link-account',
         children: [],
       },
     ],
@@ -268,7 +268,7 @@ export default function ExpandSearchBar({ ...props }) {
           {suggestions.map((item) => (
             <ListItem key={item.label}>
               <Box>{item.icon}</Box>
-              <Box>{item.label}</Box>
+              <Box>{t(item.label)}</Box>
             </ListItem>
           ))}
         </ListContainer>
@@ -283,14 +283,14 @@ export default function ExpandSearchBar({ ...props }) {
               }}
             >
               <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
-                {item.label}
+                {t(item.label)}
               </Box>
               <Box>
                 {item.children.map((child) => (
                   <ListContainer key={child.label} sx={{ pt: 1 }}>
                     <ListItem sx={{ gap: 1.5 }}>
                       <Box>{child.icon}</Box>
-                      <Box>{child.label}</Box>
+                      <Box>{t(child.label)}</Box>
                     </ListItem>
                   </ListContainer>
                 ))}
