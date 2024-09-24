@@ -49,7 +49,6 @@ export default function DashboardMode() {
   const dispatch = useAppDispatch();
 
   const handleNavigation = (id, path) => {
-    console.log('id', id);
     dispatch(setDashboardType(id));
     router.push(path);
   };
