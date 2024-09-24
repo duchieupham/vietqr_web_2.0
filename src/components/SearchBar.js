@@ -1,6 +1,5 @@
 import { Box, styled } from '@mui/material';
 import { useState } from 'react';
-import { CollapseSearchBar } from '~/sections/dashboard/searchbar';
 import ExpandSearchBar from '~/sections/dashboard/searchbar/ExpandSearchBar';
 
 export default function SearchBar() {
@@ -13,26 +12,19 @@ export default function SearchBar() {
 
   const isEmpty = !contexts || contexts.length === 0;
 
-  const onClickExpandedSearchBar = () => {
-    setIsExpanded((prev) => !prev);
+  const expandSearch = () => {
+    setIsExpanded(true);
+  };
+  const collapseSearch = () => {
+    setIsExpanded(false);
   };
 
   return (
     // SearchBarContainer
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-      }}
-    >
-      {isExpanded ? (
-        // Expanded searchbar
-        <ExpandSearchBar isExpanded onClick={onClickExpandedSearchBar} />
-      ) : (
-        // Default searchbar
-        <CollapseSearchBar />
-      )}
-    </Box>
+    <ExpandSearchBar
+      isExpanded={isExpanded}
+      expandSearch={expandSearch}
+      collapseSearch={collapseSearch}
+    />
   );
 }

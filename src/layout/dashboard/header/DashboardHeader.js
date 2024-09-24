@@ -186,7 +186,7 @@ export default function DashboardHeader() {
         </Box>
       )}
       <Box sx={{ display: 'flex', gap: 2 }}>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ width: '38rem', position: 'relative' }}>
           <SearchBar />
         </Box>
         <Box sx={{ display: 'flex', gap: 0.2 }}>

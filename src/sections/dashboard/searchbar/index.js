@@ -1,1 +1,1 @@
-export { default as CollapseSearchBar } from './CollapseSearchBar';
+export { default as CollapseSearchInput } from './CollapseSearchInput';

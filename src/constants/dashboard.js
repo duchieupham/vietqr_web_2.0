@@ -84,7 +84,7 @@ export const DASHBOARD_TYPE = [
     ],
   },
   {
-    id: 'agent',
+    id: 'agent-dashboard',
     label: 'Agent Dashboard',
     path: '/agent-dashboard',
     children: [
