@@ -49,6 +49,7 @@ export default function DashboardMode() {
   const dispatch = useAppDispatch();
 
   const handleNavigation = (id, path) => {
+    console.log('id', id);
     dispatch(setDashboardType(id));
     router.push(path);
   };
@@ -60,9 +61,8 @@ export default function DashboardMode() {
           key={type.id}
           selected={pathname.includes(type.path)}
           onClick={() => handleNavigation(type.id, type.path)}
-          disableRipple
         >
-          <ListItemTextStyled disableRipple primary={t(type.label)} />
+          <ListItemTextStyled primary={t(type.label)} />
         </ListItemButtonStyled>
       ))}
     </Box>

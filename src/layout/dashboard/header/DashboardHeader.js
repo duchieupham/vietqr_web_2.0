@@ -98,7 +98,6 @@ const DrawerContent = ({ dashboardType }) => {
             backgroundColor: 'transparent',
           },
         }}
-        disableRipple
       >
         <Profile />
       </IconButton>
@@ -165,7 +164,6 @@ export default function DashboardHeader() {
           </IconButton>
           <VietQRLogo />
           <DrawerStyled
-            theme={theme}
             anchor="left"
             open={isDrawerMobileOpen}
             onClose={onClickToggleDrawerMobile}
