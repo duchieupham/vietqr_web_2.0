@@ -49,16 +49,6 @@ const SearchContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const InputContainer = styled(Box)(({ theme }) => ({}));
-
-const ShowSearchContainer = styled(Box)(({ theme }) => ({
-  padding: '0 20px',
-}));
-
-const ListContainer = styled(Box)(({ theme }) => ({
-  paddingTop: '12px',
-}));
-
 const ListItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -72,84 +62,67 @@ const ListItem = styled(Box)(({ theme }) => ({
   },
 }));
 
-const suggestions = [
+const SUGGESTIONS = [
   {
+    id: 0,
     icon: '',
     label: 'Tính năng',
   },
   {
+    id: 1,
     icon: '',
     label: 'Giao dịch',
   },
   {
+    id: 2,
     icon: '',
     label: 'Hướng dẫn',
   },
   {
+    id: 3,
     icon: '',
     label: 'Khác',
   },
 ];
 
-const items = [
+const ITEMS = [
   {
+    id: 0,
     label: 'feat',
     children: [
       {
-        icon: (
-          <Image
-            src="/icons/bank-account-solid.svg"
-            width={30}
-            height={30}
-            alt="bank-account-solid"
-          />
-        ),
+        id: 0,
+        icon: '/icons/bank-account-solid.svg',
         label: 'account-list',
         children: [],
       },
       {
-        icon: (
-          <Image
-            src="/icons/add-bank-solid.svg"
-            width={30}
-            height={30}
-            alt="add-bank-solid"
-          />
-        ),
+        id: 1,
+        icon: '/icons/add-bank-solid.svg',
         label: 'add-link-account',
         children: [],
       },
     ],
   },
   {
+    id: 1,
     label: 'guidance', // Hướng dẫn
     children: [
       {
-        icon: (
-          <Image
-            src="/icons/document-solid.svg"
-            width={30}
-            height={30}
-            alt="document-solid"
-          />
-        ),
+        id: 0,
+        icon: '/icons/document-solid.svg',
         label: 'more-description',
         children: [],
       },
     ],
   },
   {
+    id: 2,
     label: 'others',
     children: [
       {
-        icon: (
-          <Image
-            src="/icons/link-solid.svg"
-            width={30}
-            height={30}
-            alt="link-solid"
-          />
-        ),
+        id: 0,
+        icon: '/icons/link-solid.svg',
         label: 'create-account-bidv',
         children: [],
       },
@@ -165,7 +138,7 @@ export default function ExpandSearchBar({ ...props }) {
 
   return (
     <SearchContainer>
-      <InputContainer>
+      <Box>
         <TextField
           variant="outlined"
           placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
@@ -204,7 +177,7 @@ export default function ExpandSearchBar({ ...props }) {
             '& .MuiOutlinedInput-root': {
               padding: 0,
               zIndex: 1,
-              border: '1px solid transparent',
+              border: 'none',
               backgroundColor: 'transparent',
             },
             '& .MuiInputBase-root': {
@@ -222,14 +195,19 @@ export default function ExpandSearchBar({ ...props }) {
             },
           }}
         />
-      </InputContainer>
+      </Box>
       <Divider />
-      {/* Search Contents */}
-      <ShowSearchContainer>
-        <ListContainer
+      {/* Show Search Contents */}
+      <Box
+        sx={{
+          padding: '0 20px',
+        }}
+      >
+        <Box
           sx={{
             display: 'flex',
             gap: '20px',
+            paddingTop: '12px',
           }}
         >
           <ButtonGradient
@@ -262,18 +240,21 @@ export default function ExpandSearchBar({ ...props }) {
                 color: 'transparent',
               }}
             >
-              Gợi ý
+              {t('suggest')}
             </Typography>
           </ButtonGradient>
-          {suggestions.map((item) => (
+          {SUGGESTIONS.map((item) => (
             <ListItem key={item.label}>
-              <Box>{item.icon}</Box>
               <Box>{t(item.label)}</Box>
             </ListItem>
           ))}
-        </ListContainer>
-        <ListContainer>
-          {items.map((item) => (
+        </Box>
+        <Box
+          sx={{
+            paddingTop: '12px',
+          }}
+        >
+          {ITEMS.map((item) => (
             <ListItem
               key={item.label}
               sx={{
@@ -287,18 +268,23 @@ export default function ExpandSearchBar({ ...props }) {
               </Box>
               <Box>
                 {item.children.map((child) => (
-                  <ListContainer key={child.label} sx={{ pt: 1 }}>
+                  <Box key={child.label} sx={{ pt: '12px' }}>
                     <ListItem sx={{ gap: 1.5 }}>
-                      <Box>{child.icon}</Box>
+                      <Image
+                        src={child.icon}
+                        width={30}
+                        height={30}
+                        alt="icon"
+                      />
                       <Box>{t(child.label)}</Box>
                     </ListItem>
-                  </ListContainer>
+                  </Box>
                 ))}
               </Box>
             </ListItem>
           ))}
-        </ListContainer>
-      </ShowSearchContainer>
+        </Box>
+      </Box>
     </SearchContainer>
   );
 }
