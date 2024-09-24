@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
 import { useAppDispatch } from '~/redux/hook';
-import { setIsExpanded } from '~/redux/slices/searchSlice';
 
 export default function CollapseSearchBar({ ...props }) {
   const { session } = useAuthContext();
@@ -22,7 +21,6 @@ export default function CollapseSearchBar({ ...props }) {
         justifyContent: 'flex-start',
       }}
       disableRipple
-      onClick={() => dispatch(setIsExpanded(true))}
       {...props}
     >
       {/* Icon */}

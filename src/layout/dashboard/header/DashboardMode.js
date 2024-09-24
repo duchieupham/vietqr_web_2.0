@@ -62,7 +62,7 @@ export default function DashboardMode() {
           onClick={() => handleNavigation(type.id, type.path)}
           disableRipple
         >
-          <ListItemTextStyled disableRipple primary={t(type.label)} />
+          <ListItemTextStyled primary={t(type.label)} />
         </ListItemButtonStyled>
       ))}
     </Box>

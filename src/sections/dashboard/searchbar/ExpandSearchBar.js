@@ -13,7 +13,6 @@ import Image from 'next/image';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 import { useAppDispatch } from '~/redux/hook';
-import { setIsExpanded } from '~/redux/slices/searchSlice';
 
 const SearchContainer = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
@@ -159,11 +158,7 @@ export default function ExpandSearchBar({ ...props }) {
             ),
             endAdornment: (
               <InputAdornment position="end">
-                <CloseIcon
-                  fontSize="small"
-                  cursor="pointer"
-                  onClick={() => dispatch(setIsExpanded(false))}
-                />
+                <CloseIcon fontSize="small" cursor="pointer" />
               </InputAdornment>
             ),
             sx: {
