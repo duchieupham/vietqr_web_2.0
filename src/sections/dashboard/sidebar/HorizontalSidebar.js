@@ -1,7 +1,16 @@
-import { Box, ListItemButton, Stack, styled, Typography } from '@mui/material';
+import {
+  Box,
+  Fade,
+  ListItemButton,
+  Popper,
+  Stack,
+  styled,
+  Typography,
+} from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 
@@ -50,6 +59,8 @@ export default function HorizontalSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const displayedTypes = DASHBOARD_TYPE.find(
     (type) => type.id === dashboardType,
   );
@@ -58,11 +69,17 @@ export default function HorizontalSidebar() {
     router.push(path);
   };
 
+  const onClickOpenPopper = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
     <PageWrapper>
       {/* dashboard */}
       <Stack sx={{ flexDirection: 'row', gap: 1 }}>
-        {displayedTypes.children.map((type, index) => (
+        {displayedTypes.children.map((type) => (
           <ListItemButtonStyled
             key={type.id}
             disableRipple
@@ -70,7 +87,21 @@ export default function HorizontalSidebar() {
             onClick={() => handleNavigation(type.path)}
           >
             <Image src={type.icon} width={20} height={20} alt="icon" />
-            <Typography>{t(type.label)}</Typography>
+            <Typography onClick={onClickOpenPopper}>{t(type.label)}</Typography>
+            <Popper open={open} anchorEl={anchorEl}>
+              <Box>
+                {type.children.map((child) => (
+                  <ListItemButtonStyled
+                    key={child.id}
+                    disableRipple
+                    selected={pathname.includes(child.path)}
+                    onClick={() => handleNavigation(child.path)}
+                  >
+                    <Typography>{t(child.label)}</Typography>
+                  </ListItemButtonStyled>
+                ))}
+              </Box>
+            </Popper>
           </ListItemButtonStyled>
         ))}
       </Stack>
