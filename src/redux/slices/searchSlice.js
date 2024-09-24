@@ -5,6 +5,7 @@ const initialState = {
   isExpanded: false,
   searchQuery: '',
   contexts: [],
+  isSearch: false,
   isNoContext: false,
 };
 

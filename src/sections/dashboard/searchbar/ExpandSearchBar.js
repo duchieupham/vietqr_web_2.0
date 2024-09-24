@@ -5,15 +5,11 @@ import {
   InputAdornment,
   styled,
   TextField,
-  Typography,
   useTheme,
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
-import { useAppDispatch } from '~/redux/hook';
-import { setIsExpanded } from '~/redux/slices/searchSlice';
 
 const SearchContainer = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
@@ -21,9 +17,8 @@ const SearchContainer = styled(Box)(({ theme }) => ({
   width: '600px',
   height: '380px',
   position: 'relative',
-  top: '170px',
   zIndex: 1,
-  overflow: 'hidden',
+  // Border box with gradient & masking
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -40,12 +35,6 @@ const SearchContainer = styled(Box)(({ theme }) => ({
     mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
     WebkitMaskComposite: 'xor',
     maskComposite: 'exclude',
-    // animation: 'borderColorChange 3s infinite',
-  },
-  '@keyframes borderColorChange': {
-    '0%': { background: theme.palette.primary.main },
-    '50%': { background: theme.palette.secondary.main },
-    '100%': { background: theme.palette.primary.main },
   },
 }));
 
@@ -130,14 +119,18 @@ const ITEMS = [
   },
 ];
 
-export default function ExpandSearchBar({ ...props }) {
+export default function ExpandSearchBar({
+  isLoading,
+  isExpanded,
+  onClick,
+  ...props
+}) {
   const { session } = useAuthContext();
   const t = useTranslations();
   const theme = useTheme();
-  const dispatch = useAppDispatch();
 
   return (
-    <SearchContainer>
+    <SearchContainer className="expanded">
       <Box>
         <TextField
           variant="outlined"
@@ -162,7 +155,7 @@ export default function ExpandSearchBar({ ...props }) {
                 <CloseIcon
                   fontSize="small"
                   cursor="pointer"
-                  onClick={() => dispatch(setIsExpanded(false))}
+                  onClick={onClick}
                 />
               </InputAdornment>
             ),
@@ -198,9 +191,19 @@ export default function ExpandSearchBar({ ...props }) {
       </Box>
       <Divider />
       {/* Show Search Contents */}
-      <Box
+
+      {/* Loading */}
+      {/* {isLoading && <SecondaryLoadingContainer sx={{}} />} */}
+      {/* Start typing to Search */}
+      {/*  !isLoading && isEmpty && !noContexts */}
+      {/* No contexts have been found */}
+      {/* !isLoading && noContexts */}
+      {/* Has contexts */}
+      {/* !isLoading && !isEmpty */}
+      {/* <Box
         sx={{
           padding: '0 20px',
+          overflowY: 'auto',
         }}
       >
         <Box
@@ -284,7 +287,7 @@ export default function ExpandSearchBar({ ...props }) {
             </ListItem>
           ))}
         </Box>
-      </Box>
+      </Box> */}
     </SearchContainer>
   );
 }

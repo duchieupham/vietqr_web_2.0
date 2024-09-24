@@ -2,13 +2,10 @@ import { Box, Button, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
-import { useAppDispatch } from '~/redux/hook';
-import { setIsExpanded } from '~/redux/slices/searchSlice';
 
-export default function CollapseSearchBar({ ...props }) {
+export default function CollapseSearchBar({ onClick, ...props }) {
   const { session } = useAuthContext();
   const t = useTranslations();
-  const dispatch = useAppDispatch();
 
   return (
     <Button
@@ -20,9 +17,15 @@ export default function CollapseSearchBar({ ...props }) {
         width: 250,
         height: 40,
         justifyContent: 'flex-start',
+        gap: 1,
+        transition: 'transform 0.4s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.05)',
+          boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+        },
       }}
       disableRipple
-      onClick={() => dispatch(setIsExpanded(true))}
+      onClick={onClick}
       {...props}
     >
       {/* Icon */}
