@@ -1,10 +1,4 @@
-import {
-  Box,
-  ListItemButton,
-  ListItemText,
-  styled,
-  useTheme,
-} from '@mui/material';
+import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
@@ -53,7 +47,6 @@ export default function DashboardMode() {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
-  const theme = useTheme();
 
   const handleNavigation = (id, path) => {
     dispatch(setDashboardType(id));
@@ -68,7 +61,6 @@ export default function DashboardMode() {
           selected={pathname.includes(type.path)}
           onClick={() => handleNavigation(type.id, type.path)}
           disableRipple
-          theme={theme}
         >
           <ListItemTextStyled disableRipple primary={t(type.label)} />
         </ListItemButtonStyled>
