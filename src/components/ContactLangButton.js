@@ -133,8 +133,8 @@ export default function ContactLangButton({ type, style }) {
             color: 'inherit',
           },
           fontSize: {
-            xs: '12px',
-            md: '15px',
+            xs: '10px',
+            md: '12px',
           },
           '.MuiSelect-select': {
             display: 'flex',

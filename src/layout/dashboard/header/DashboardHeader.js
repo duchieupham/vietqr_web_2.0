@@ -185,11 +185,15 @@ export default function DashboardHeader() {
           <DashboardMode />
         </Box>
       )}
-      <Box sx={{ display: 'flex', gap: 0.2 }}>
-        <SearchBar />
-        {!isMobile && <AccountPopover />}
-        <NotificationPopover />
-        <LanguagePopover />
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{ display: 'flex' }}>
+          <SearchBar />
+        </Box>
+        <Box sx={{ display: 'flex', gap: 0.2 }}>
+          {!isMobile && <AccountPopover />}
+          <NotificationPopover />
+          <LanguagePopover />
+        </Box>
       </Box>
     </Stack>
   );

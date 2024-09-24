@@ -5,45 +5,40 @@ import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
-const ListItemButtonStyled = styled(ListItemButton)(() => ({
-  borderRadius: '8px',
+const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-  color: '#000000',
   display: 'flex',
   justifyContent: 'center',
   whiteSpace: 'nowrap',
   '&.Mui-selected': {
     alignItems: 'center',
-    color: '#00c6ff',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    borderRadius: '20px',
+    color: 'transparent',
     position: 'relative',
     display: 'flex',
-    transition: 'color 0.3s ease, background 0.3s ease',
+    transition: 'background 0.3s ease',
+    background: 'linear-gradient(to right, #E1EFFF 0%, #E5F9FF 100%)',
+    '& .MuiTypography-root': {
+      background: 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)',
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+    },
   },
   '&:hover': {
-    background:
-      'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255,1.0))',
-    textDecoration: 'none',
-    backgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  '&.Mui-selected:after': {
-    content: '""',
-    position: 'absolute',
-    bottom: '5px',
-    left: '50%',
-    width: '75%',
-    height: '2px',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    zIndex: 1,
-    transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-    transform: 'translateX(-50%)',
+    transform: 'scale(1.05)',
+    background: 'transparent',
   },
   '& .MuiTypography-root': {
     fontSize: '12px',
+  },
+}));
+
+const ListItemTextStyled = styled(ListItemText)(({ theme }) => ({
+  margin: '0 auto',
+  '& .MuiTypography-root': {
+    color: '#000000',
   },
 }));
 
@@ -67,7 +62,7 @@ export default function DashboardMode() {
           onClick={() => handleNavigation(type.id, type.path)}
           disableRipple
         >
-          <ListItemText primary={t(type.label)} />
+          <ListItemTextStyled disableRipple primary={t(type.label)} />
         </ListItemButtonStyled>
       ))}
     </Box>
