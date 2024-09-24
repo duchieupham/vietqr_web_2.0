@@ -18,12 +18,14 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
     left: '10rem',
     width: '30rem',
     height: '40px',
+    transition: 'left 0.5s ease, width 0.2s ease, height 0.8s ease',
   };
   const expandStyle = {
     left: 0,
     width: '38rem',
     height: '380px',
     background: theme.palette.aiColor,
+    transition: 'left 0.5s ease, width 0.5s ease, height 0.8s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -53,7 +55,6 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
     zIndex: 1,
     overflow: 'hidden',
     borderRadius: '8px',
-    transition: 'left 0.5s ease, width 0.3s ease, height 1s ease',
     ...(props.isExpanded ? expandStyle : collapseStyle),
   };
 });
