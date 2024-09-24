@@ -4,7 +4,6 @@ import storage from 'redux-persist/lib/storage';
 import loggerMiddleware from './middlewares/logger';
 import appReducer from './slices/appSlice';
 import qrReducer from './slices/qrSlice';
-import searchSlice from './slices/searchSlice';
 
 const persistConfig = {
   key: 'vietqr-root',
@@ -14,7 +13,6 @@ const persistConfig = {
 const reducers = combineReducers({
   app: appReducer,
   qr: qrReducer,
-  search: searchSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
