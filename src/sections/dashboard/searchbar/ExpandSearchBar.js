@@ -15,7 +15,7 @@ import { useAuthContext } from '~/contexts/hooks';
 
 const SearchContainer = styled(Box)(({ theme, ...props }) => {
   const collapseStyle = {
-    left: '10rem',
+    left: '21rem',
     width: '30rem',
     height: '40px',
     transition: 'left 0.5s ease, width 0.2s ease, height 0.8s ease',
@@ -194,6 +194,12 @@ export default function ExpandSearchBar({
           },
         }}
         sx={{
+          borderRadius: '8px',
+          display: 'flex',
+          background: isExpanded ? 'transparent' : '#F0F4FA',
+          cursor: 'pointer',
+          width: 250,
+          height: 40,
           '& .MuiOutlinedInput-root': {
             padding: 0,
             zIndex: 1,
@@ -203,12 +209,10 @@ export default function ExpandSearchBar({
           '& .MuiInputBase-root': {
             width: '580px',
             height: 40,
-            borderRadius: '8px',
           },
           '& .MuiInputBase-input': {
             fontSize: 12,
             padding: 0,
-            marginLeft: '-4px',
             ':focus': {
               background: 'transparent',
             },

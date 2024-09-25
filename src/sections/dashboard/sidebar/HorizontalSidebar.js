@@ -1,16 +1,16 @@
 import {
   Box,
-  Fade,
   ListItemButton,
-  Popper,
   Stack,
   styled,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 
@@ -54,23 +54,76 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-const ContentPopper = styled(Box)(({ theme }) => ({
-  background: theme.palette.lily.white.linear,
-  color: '#000000',
-  top: '2px',
-  width: '200px',
-  borderRadius: '0px 0px 8px 8px',
-  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.05)',
-  marginTop: '2%',
-  marginLeft: '8.5%',
-}));
+function ShowMenuContents({ isSelected = false }) {
+  return isSelected ? (
+    <Image src="/icons/arrows-up.svg" width={20} height={20} alt="icon" />
+  ) : (
+    <Image src="/icons/arrows-down.svg" width={20} height={20} alt="icon" />
+  );
+}
 
+function TabsMenuPopper({
+  open,
+  anchorEl,
+  onClose,
+  type,
+  handleNavigation,
+  handleToggledMenu,
+}) {
+  const t = useTranslations();
+  const pathname = usePathname();
+  const theme = useTheme();
+
+  return (
+    <MenuPopover
+      open={open}
+      anchorEl={anchorEl}
+      onClose={onClose}
+      PaperProps={{
+        sx: {
+          background: theme.palette.lily.white.linear,
+          minWidth: 0,
+          minHeight: 0,
+          marginTop: '-10px',
+          marginLeft: '17.5px',
+          boxShadow: 'none',
+          borderRadius: '0 0 8px 8px',
+          width: '200px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignContents: 'center',
+        },
+      }}
+    >
+      {type.children.map((child) => (
+        <ListItemButtonStyled
+          key={child.id}
+          disableRipple
+          selected={pathname.includes(child.path)}
+          onClick={() => {
+            handleNavigation(child.path);
+            handleToggledMenu(child.id);
+          }}
+          sx={{
+            width: '100%',
+          }}
+        >
+          {/* ICON */}
+          {/* LABEL */}
+          <Typography>{t(child.label)}</Typography>
+        </ListItemButtonStyled>
+      ))}
+    </MenuPopover>
+  );
+}
 export default function HorizontalSidebar() {
   const { dashboardType } = useAppSelector((state) => state.app);
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
 
+  const [selected, setSelected] = useState({});
+  const [activeParentTab, setActiveParentTab] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const displayedTypes = DASHBOARD_TYPE.find(
@@ -81,8 +134,20 @@ export default function HorizontalSidebar() {
     router.push(path);
   };
 
-  const onClickOpenPopper = (event) => {
+  const handleToggledMenu = (id) => {
+    setSelected((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  const onClickOpenPopper = (event, id) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setActiveParentTab(id);
+  };
+
+  const onClose = () => {
+    setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
@@ -96,32 +161,29 @@ export default function HorizontalSidebar() {
             key={type.id}
             disableRipple
             selected={pathname.includes(type.path)}
-            onClick={() => handleNavigation(type.path)}
+            onClick={(event) => {
+              handleNavigation(type.path);
+              handleToggledMenu(type.id);
+              onClickOpenPopper(event, type.id);
+            }}
           >
             <Image src={type.icon} width={20} height={20} alt="icon" />
-            <Typography onClick={onClickOpenPopper}>{t(type.label)}</Typography>
+            <Typography>{t(type.label)}</Typography>
+            {/* ARROWS ICON */}
             {type.children && type.children.length > 0 && (
-              <Image
-                src="/icons/arrows-down.svg"
-                width={20}
-                height={20}
-                alt="arrows down"
+              <ShowMenuContents isSelected={selected[type.id]} />
+            )}
+            {/* Tabs Menu */}
+            {type.children && activeParentTab === type.id && (
+              <TabsMenuPopper
+                anchorEl={anchorEl}
+                handleNavigation={handleNavigation}
+                handleToggledMenu={handleToggledMenu}
+                onClose={onClose}
+                open={open}
+                type={type}
               />
             )}
-            <Popper open={open} anchorEl={anchorEl}>
-              <ContentPopper>
-                {type.children.map((child) => (
-                  <ListItemButtonStyled
-                    key={child.id}
-                    disableRipple
-                    selected={pathname.includes(child.path)}
-                    onClick={() => handleNavigation(child.path)}
-                  >
-                    <Typography>{t(child.label)}</Typography>
-                  </ListItemButtonStyled>
-                ))}
-              </ContentPopper>
-            </Popper>
           </ListItemButtonStyled>
         ))}
       </Stack>
