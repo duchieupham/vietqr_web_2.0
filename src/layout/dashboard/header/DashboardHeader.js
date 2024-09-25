@@ -173,6 +173,7 @@ export default function DashboardHeader() {
                 width: isDrawerMobileOpen ? drawerWidth : drawerWidthCollapsed,
               },
             }}
+            theme={theme} // theme read properties transitions.create
           >
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>

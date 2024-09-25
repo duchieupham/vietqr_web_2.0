@@ -41,16 +41,28 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     '&::after': {
+      zIndex: 1,
       content: '""',
       position: 'absolute',
       bottom: 10,
       left: '50%',
       transform: 'translateX(-50%)',
-      width: '80%',
+      width: '85%',
       height: 2,
       background: theme.palette.bright.blue.linear,
     },
   },
+}));
+
+const ContentPopper = styled(Box)(({ theme }) => ({
+  background: theme.palette.lily.white.linear,
+  color: '#000000',
+  top: '2px',
+  width: '200px',
+  borderRadius: '0px 0px 8px 8px',
+  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.05)',
+  marginTop: '2%',
+  marginLeft: '8.5%',
 }));
 
 export default function HorizontalSidebar() {
@@ -88,8 +100,16 @@ export default function HorizontalSidebar() {
           >
             <Image src={type.icon} width={20} height={20} alt="icon" />
             <Typography onClick={onClickOpenPopper}>{t(type.label)}</Typography>
+            {type.children && type.children.length > 0 && (
+              <Image
+                src="/icons/arrows-down.svg"
+                width={20}
+                height={20}
+                alt="arrows down"
+              />
+            )}
             <Popper open={open} anchorEl={anchorEl}>
-              <Box>
+              <ContentPopper>
                 {type.children.map((child) => (
                   <ListItemButtonStyled
                     key={child.id}
@@ -100,7 +120,7 @@ export default function HorizontalSidebar() {
                     <Typography>{t(child.label)}</Typography>
                   </ListItemButtonStyled>
                 ))}
-              </Box>
+              </ContentPopper>
             </Popper>
           </ListItemButtonStyled>
         ))}
