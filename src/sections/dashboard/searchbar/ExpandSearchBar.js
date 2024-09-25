@@ -23,7 +23,7 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
   const expandStyle = {
     left: 0,
     width: '38rem',
-    height: '380px',
+    height: !props.isNoContexts ? '380px' : 'auto',
     background: theme.palette.aiColor,
     transition: 'left 0.5s ease, width 0.5s ease, height 0.8s ease',
     '&::before': {
@@ -144,17 +144,23 @@ export default function ExpandSearchBar({
   isExpanded,
   expandSearch,
   collapseSearch,
+  handleSearch,
+  searchQuery,
 }) {
   const { session } = useAuthContext();
   const t = useTranslations();
   const theme = useTheme();
 
+  const isNoContexts = searchQuery.length === 0 && searchQuery.trim() === '';
+
   return (
-    <SearchContainer isExpanded={isExpanded}>
+    <SearchContainer isExpanded={isExpanded} isNoContexts={isNoContexts}>
       <TextField
         onFocus={expandSearch}
         variant="outlined"
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
+        onChange={handleSearch}
+        value={searchQuery}
         InputProps={{
           startAdornment: (
             <InputAdornment
@@ -221,7 +227,7 @@ export default function ExpandSearchBar({
       />
 
       {/* Show Search Contents */}
-      {isExpanded && (
+      {isExpanded && !isNoContexts && (
         <>
           <Divider />
           <Box
