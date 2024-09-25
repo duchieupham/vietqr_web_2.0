@@ -20,10 +20,10 @@ import Profile from '~/components/Profile';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
+import ContactLangButton from '~/components/ContactLangButton';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
-import LanguagePopover from './LanguagePopover';
 import NotificationPopover from './NotificationPopover';
 
 const drawerWidth = 250;
@@ -186,13 +186,32 @@ export default function DashboardHeader() {
         </Box>
       )}
       <Box sx={{ display: 'flex', gap: 2 }}>
-        <Box sx={{ width: '38rem', position: 'relative' }}>
+        <Box
+          sx={{
+            width: {
+              xs: '100%',
+              md: '38rem',
+            },
+            position: 'relative',
+          }}
+        >
           <SearchBar />
         </Box>
         <Box sx={{ display: 'flex', gap: 0.2 }}>
           {!isMobile && <AccountPopover />}
           <NotificationPopover />
-          <LanguagePopover />
+          <ContactLangButton
+            type="dashboard"
+            style={{
+              '& .MuiSelect-select': {
+                fontSize: 10,
+                py: 0,
+              },
+              '& .MuiInputBase-root': {
+                background: '#F0F4FA',
+              },
+            }}
+          />
         </Box>
       </Box>
     </Stack>
