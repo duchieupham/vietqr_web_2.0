@@ -16,7 +16,7 @@ import { useAuthContext } from '~/contexts/hooks';
 const SearchContainer = styled(Box)(({ theme, ...props }) => {
   const collapseStyle = {
     left: '21rem',
-    width: '30rem',
+    width: '16rem',
     height: '40px',
     transition: 'left 0.5s ease, width 0.2s ease, height 0.8s ease',
   };
@@ -25,7 +25,7 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
     width: '38rem',
     height: !props.isNoContexts ? '380px' : 'auto',
     background: theme.palette.aiColor,
-    transition: 'left 0.5s ease, width 0.5s ease, height 0.8s ease',
+    transition: 'left 0.5s ease, width 0.7s ease, height 0.8s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
