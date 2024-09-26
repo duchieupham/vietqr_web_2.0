@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
-const getSearchContainerStyles = (isExpanded, isNoContexts) => {
+const getSearchContainerStyles = (isExpanded) => {
   const theme = useTheme();
   const collapseStyle = {
     left: '21rem',
