@@ -14,7 +14,8 @@ import { useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
-const getSearchContainerStyles = (theme, isExpanded, isNoContexts) => {
+const getSearchContainerStyles = (isExpanded, isNoContexts) => {
+  const theme = useTheme();
   const collapseStyle = {
     left: '21rem',
     width: '16rem',
@@ -53,14 +54,20 @@ const getSearchContainerStyles = (theme, isExpanded, isNoContexts) => {
   return isExpanded ? expandStyle : collapseStyle;
 };
 
-const SearchContainer = styled(Box)(({ theme, isExpanded, isNoContexts }) => ({
-  top: '8px',
-  position: 'absolute',
-  zIndex: 1,
-  overflow: 'hidden',
-  borderRadius: '8px',
-  ...getSearchContainerStyles(theme, isExpanded, isNoContexts),
-}));
+const SearchContainer = ({ isExpanded, isNoContexts, children, ...props }) => (
+  <Box
+    sx={{
+      top: '8px',
+      position: 'absolute',
+      zIndex: 1,
+      overflow: 'hidden',
+      borderRadius: '8px',
+      ...getSearchContainerStyles(isExpanded, isNoContexts),
+    }}
+  >
+    {children}
+  </Box>
+);
 
 const ListItem = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -181,6 +188,8 @@ function ShowTheSearchResult({ label, searchResult }) {
     </Box>
   );
 }
+
+// function Show
 
 export default function ExpandSearchBar({
   isExpanded,
