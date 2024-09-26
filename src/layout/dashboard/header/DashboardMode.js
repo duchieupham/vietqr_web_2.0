@@ -60,7 +60,6 @@ export default function DashboardMode() {
           key={type.id}
           selected={pathname.includes(type.path)}
           onClick={() => handleNavigation(type.id, type.path)}
-          disableRipple
         >
           <ListItemTextStyled primary={t(type.label)} />
         </ListItemButtonStyled>

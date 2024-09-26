@@ -1,8 +1,10 @@
-import { Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 
 function TextGradient({ children, style }) {
+  const theme = useTheme();
+
   const styled = {
-    backgroundImage: 'linear-gradient(to right, #00C6FF 0%, #0072FF 50%)',
+    backgroundImage: theme.palette.bright.blue.linear,
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     color: 'white',

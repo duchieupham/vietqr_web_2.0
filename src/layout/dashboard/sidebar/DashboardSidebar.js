@@ -4,6 +4,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
+import HorizontalSidebar from '~/sections/dashboard/sidebar/HorizontalSidebar';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
@@ -52,6 +53,7 @@ export default function DashboardSidebar({ children }) {
             <DashboardHeader />
           </Toolbar>
         </AppBar>
+        <HorizontalSidebar />
         <Breadcrumbs />
         {children}
       </Main>

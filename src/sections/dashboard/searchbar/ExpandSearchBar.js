@@ -10,22 +10,29 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
-const SearchContainer = styled(Box)(({ theme, ...props }) => {
+const SearchContainer = ({
+  theme,
+  isExpanded,
+  isNoContexts,
+  children,
+  ...props
+}) => {
   const collapseStyle = {
-    left: '10rem',
-    width: '30rem',
+    left: '21rem',
+    width: '16rem',
     height: '40px',
-    transition: 'left 0.5s ease, width 0.2s ease, height 0.8s ease',
+    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
     width: '38rem',
-    height: '380px',
+    height: 'fit-content',
     background: theme.palette.aiColor,
-    transition: 'left 0.5s ease, width 0.5s ease, height 0.8s ease',
+    transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -49,15 +56,21 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
       '100%': { background: theme.palette.primary.main },
     },
   };
-  return {
-    top: '8px',
-    position: 'absolute',
-    zIndex: 1,
-    overflow: 'hidden',
-    borderRadius: '8px',
-    ...(props.isExpanded ? expandStyle : collapseStyle),
-  };
-});
+  return (
+    <Box
+      sx={{
+        top: '8px',
+        position: 'absolute',
+        zIndex: 1,
+        overflow: 'hidden',
+        borderRadius: '8px',
+        ...(isExpanded ? expandStyle : collapseStyle),
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
 
 const ListItem = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -76,22 +89,22 @@ const SUGGESTIONS = [
   {
     id: 0,
     icon: '',
-    label: 'Tính năng',
+    label: 'feat',
   },
   {
     id: 1,
     icon: '',
-    label: 'Giao dịch',
+    label: 'transaction',
   },
   {
     id: 2,
     icon: '',
-    label: 'Hướng dẫn',
+    label: 'guidance',
   },
   {
     id: 3,
     icon: '',
-    label: 'Khác',
+    label: 'others',
   },
 ];
 
@@ -116,45 +129,119 @@ const ITEMS = [
   },
   {
     id: 1,
-    label: 'guidance', // Hướng dẫn
-    children: [
-      {
-        id: 0,
-        icon: '/icons/document-solid.svg',
-        label: 'more-description',
-        children: [],
-      },
-    ],
+    label: 'transaction', // Giao dịch
+    children: [],
   },
   {
     id: 2,
+    label: 'guidance', // Hướng dẫn
+    children: [],
+  },
+  {
+    id: 3,
     label: 'others',
-    children: [
-      {
-        id: 0,
-        icon: '/icons/link-solid.svg',
-        label: 'create-account-bidv',
-        children: [],
-      },
-    ],
+    children: [],
   },
 ];
+
+function searchByLabel(query, t) {
+  const searchResult = {
+    feat: [],
+    transaction: [],
+    guidance: [],
+    others: [],
+  };
+  // Search in ITEMS
+  ITEMS.forEach((item) => {
+    // Search in children of each item
+    // If the label of the child includes the query, add it to the search result
+    if (item.children.length > 0) {
+      item.children.forEach((child) => {
+        const labelConverted = t(child.label);
+        if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
+          searchResult[item.label].push(child);
+        }
+      });
+    }
+  });
+  return searchResult;
+}
+
+function ShowTheSearchResult({ label, searchResult }) {
+  const t = useTranslations();
+  return (
+    <Box>
+      {Object.keys(searchResult).map((key) => {
+        if (searchResult[key].length === 0) {
+          return null;
+        }
+        return (
+          <Box key={key}>
+            {label === key &&
+              searchResult[key].length > 0 &&
+              searchResult[key]?.map((item) => (
+                <ListItem key={item.label}>
+                  <Image src={item.icon} width={30} height={30} alt="icon" />
+                  <Box>{t(item.label)}</Box>
+                </ListItem>
+              ))}
+          </Box>
+        );
+      })}
+    </Box>
+  );
+}
+
+// function Show
 
 export default function ExpandSearchBar({
   isExpanded,
   expandSearch,
   collapseSearch,
+  handleSearch,
+  searchQuery,
 }) {
   const { session } = useAuthContext();
   const t = useTranslations();
   const theme = useTheme();
 
+  const [searchResult, setSearchResult] = useState({
+    feat: [],
+    transaction: [],
+    guidance: [],
+    others: [],
+  });
+
+  const isNoContexts = searchQuery.length === 0 && searchQuery.trim() === '';
+
+  const onSearchChange = (e) => {
+    handleSearch(e);
+    const query = e.target.value;
+    if (query) {
+      const result = searchByLabel(query, t);
+      setSearchResult(result);
+    } else {
+      setSearchResult({
+        feat: [],
+        transaction: [],
+        guidance: [],
+        others: [],
+      });
+    }
+  };
+
   return (
-    <SearchContainer isExpanded={isExpanded}>
+    <SearchContainer
+      isExpanded={isExpanded}
+      isNoContexts={isNoContexts}
+      theme={theme}
+    >
       <TextField
         onFocus={expandSearch}
         variant="outlined"
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
+        onChange={onSearchChange}
+        value={searchQuery}
         InputProps={{
           startAdornment: (
             <InputAdornment
@@ -194,6 +281,12 @@ export default function ExpandSearchBar({
           },
         }}
         sx={{
+          borderRadius: '8px',
+          display: 'flex',
+          background: isExpanded ? 'transparent' : '#F0F4FA',
+          cursor: 'pointer',
+          width: 'fit-content',
+          height: 40,
           '& .MuiOutlinedInput-root': {
             padding: 0,
             zIndex: 1,
@@ -203,12 +296,10 @@ export default function ExpandSearchBar({
           '& .MuiInputBase-root': {
             width: '580px',
             height: 40,
-            borderRadius: '8px',
           },
           '& .MuiInputBase-input': {
             fontSize: 12,
             padding: 0,
-            marginLeft: '-4px',
             ':focus': {
               background: 'transparent',
             },
@@ -217,7 +308,7 @@ export default function ExpandSearchBar({
       />
 
       {/* Show Search Contents */}
-      {isExpanded && (
+      {isExpanded && !isNoContexts && (
         <>
           <Divider />
           <Box
@@ -225,6 +316,7 @@ export default function ExpandSearchBar({
               padding: '0 20px',
             }}
           >
+            {/* Default suggestions */}
             <Box
               sx={{
                 display: 'flex',
@@ -234,7 +326,7 @@ export default function ExpandSearchBar({
             >
               <ButtonGradient
                 sx={{
-                  width: '80px',
+                  width: 'fit-content',
                   height: '30px',
                   borderRadius: '30px',
                   p: 0,
@@ -271,9 +363,16 @@ export default function ExpandSearchBar({
                 </ListItem>
               ))}
             </Box>
+            {/* Search result content */}
             <Box
               sx={{
                 paddingTop: '12px',
+                paddingBottom: '10px',
+                overflowY: 'auto',
+                maxHeight: '300px',
+                '&::-webkit-scrollbar': {
+                  width: '0px',
+                },
               }}
             >
               {ITEMS.map((item) => (
@@ -285,24 +384,17 @@ export default function ExpandSearchBar({
                     pt: 0.5,
                   }}
                 >
+                  {/* No has context */}
+
+                  {/* Category */}
                   <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
                     {t(item.label)}
                   </Box>
-                  <Box>
-                    {item.children.map((child) => (
-                      <Box key={child.label} sx={{ pt: '12px' }}>
-                        <ListItem sx={{ gap: 1.5 }}>
-                          <Image
-                            src={child.icon}
-                            width={30}
-                            height={30}
-                            alt="icon"
-                          />
-                          <Box>{t(child.label)}</Box>
-                        </ListItem>
-                      </Box>
-                    ))}
-                  </Box>
+                  {/* Search result */}
+                  <ShowTheSearchResult
+                    searchResult={searchResult}
+                    label={item.label}
+                  />
                 </ListItem>
               ))}
             </Box>
