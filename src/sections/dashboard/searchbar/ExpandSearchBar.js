@@ -25,7 +25,7 @@ const getSearchContainerStyles = (isExpanded, isNoContexts) => {
   const expandStyle = {
     left: 0,
     width: '38rem',
-    height: isNoContexts ? 'fit-content' : '380px',
+    height: 'fit-content',
     background: theme.palette.aiColor,
     transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
     '&::before': {
