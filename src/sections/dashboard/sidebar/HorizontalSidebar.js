@@ -62,17 +62,11 @@ function ShowMenuContents({ isSelected = false }) {
   );
 }
 
-function TabsMenuPopper({
-  open,
-  anchorEl,
-  onClose,
-  type,
-  handleNavigation,
-  handleToggledMenu,
-}) {
+function TabsMenuPopper({ open, anchorEl, onClose, type, handleToggledMenu }) {
   const t = useTranslations();
   const pathname = usePathname();
   const theme = useTheme();
+  const router = useRouter();
 
   return (
     <MenuPopover
@@ -101,7 +95,7 @@ function TabsMenuPopper({
           disableRipple
           selected={pathname.includes(child.path)}
           onClick={() => {
-            handleNavigation(child.path);
+            router.push(child.path);
             handleToggledMenu(child.id);
           }}
           sx={{
@@ -129,10 +123,6 @@ export default function HorizontalSidebar() {
   const displayedTypes = DASHBOARD_TYPE.find(
     (type) => type.id === dashboardType,
   );
-
-  const handleNavigation = (path) => {
-    router.push(path);
-  };
 
   const handleToggledMenu = (id) => {
     setSelected((prev) => ({
@@ -162,7 +152,7 @@ export default function HorizontalSidebar() {
             disableRipple
             selected={pathname.includes(type.path)}
             onClick={(event) => {
-              handleNavigation(type.path);
+              router.push(type.path);
               handleToggledMenu(type.id);
               onClickOpenPopper(event, type.id);
             }}
@@ -177,7 +167,6 @@ export default function HorizontalSidebar() {
             {type.children && activeParentTab === type.id && (
               <TabsMenuPopper
                 anchorEl={anchorEl}
-                handleNavigation={handleNavigation}
                 handleToggledMenu={handleToggledMenu}
                 onClose={onClose}
                 open={open}

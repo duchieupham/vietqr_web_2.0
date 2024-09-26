@@ -18,7 +18,7 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
     left: '21rem',
     width: '16rem',
     height: '40px',
-    transition: 'left 0.5s ease, width 0.2s ease, height 0.8s ease',
+    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
@@ -99,44 +99,17 @@ const ITEMS = [
   {
     id: 0,
     label: 'feat',
-    children: [
-      {
-        id: 0,
-        icon: '/icons/bank-account-solid.svg',
-        label: 'account-list',
-        children: [],
-      },
-      {
-        id: 1,
-        icon: '/icons/add-bank-solid.svg',
-        label: 'add-link-account',
-        children: [],
-      },
-    ],
+    children: [],
   },
   {
     id: 1,
     label: 'guidance', // Hướng dẫn
-    children: [
-      {
-        id: 0,
-        icon: '/icons/document-solid.svg',
-        label: 'more-description',
-        children: [],
-      },
-    ],
+    children: [],
   },
   {
     id: 2,
     label: 'others',
-    children: [
-      {
-        id: 0,
-        icon: '/icons/link-solid.svg',
-        label: 'create-account-bidv',
-        children: [],
-      },
-    ],
+    children: [],
   },
 ];
 
