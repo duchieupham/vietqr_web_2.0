@@ -35,13 +35,8 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
     top: 50,
     boxSizing: 'border-box',
     overflowX: 'hidden',
-    transition: theme.transitions.create(
-      ['width', 'background', 'backdrop-filter'],
-      {
-        easing: theme.transitions.easing.easeInOut,
-        duration: theme.transitions.duration.standard,
-      },
-    ),
+    transition:
+      'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
@@ -173,7 +168,6 @@ export default function DashboardHeader() {
                 width: isDrawerMobileOpen ? drawerWidth : drawerWidthCollapsed,
               },
             }}
-            theme={theme} // theme read properties transitions.create
           >
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
