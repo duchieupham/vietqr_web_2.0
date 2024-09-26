@@ -89,22 +89,22 @@ const SUGGESTIONS = [
   {
     id: 0,
     icon: '',
-    label: 'Tính năng',
+    label: 'feat',
   },
   {
     id: 1,
     icon: '',
-    label: 'Giao dịch',
+    label: 'transaction',
   },
   {
     id: 2,
     icon: '',
-    label: 'Hướng dẫn',
+    label: 'guidance',
   },
   {
     id: 3,
     icon: '',
-    label: 'Khác',
+    label: 'others',
   },
 ];
 
@@ -326,7 +326,7 @@ export default function ExpandSearchBar({
             >
               <ButtonGradient
                 sx={{
-                  width: '80px',
+                  width: 'fit-content',
                   height: '30px',
                   borderRadius: '30px',
                   p: 0,
