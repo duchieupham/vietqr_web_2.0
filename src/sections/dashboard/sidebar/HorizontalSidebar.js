@@ -136,10 +136,6 @@ export default function HorizontalSidebar() {
     setActiveParentTab(id);
   };
 
-  const onClose = () => {
-    setAnchorEl(null);
-  };
-
   const open = Boolean(anchorEl);
 
   return (
@@ -168,7 +164,6 @@ export default function HorizontalSidebar() {
               <TabsMenuPopper
                 anchorEl={anchorEl}
                 handleToggledMenu={handleToggledMenu}
-                onClose={onClose}
                 open={open}
                 type={type}
               />
