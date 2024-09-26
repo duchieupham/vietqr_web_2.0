@@ -14,8 +14,13 @@ import { useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
-const getSearchContainerStyles = (isExpanded) => {
-  const theme = useTheme();
+const SearchContainer = ({
+  theme,
+  isExpanded,
+  isNoContexts,
+  children,
+  ...props
+}) => {
   const collapseStyle = {
     left: '21rem',
     width: '16rem',
@@ -51,23 +56,21 @@ const getSearchContainerStyles = (isExpanded) => {
       '100%': { background: theme.palette.primary.main },
     },
   };
-  return isExpanded ? expandStyle : collapseStyle;
+  return (
+    <Box
+      sx={{
+        top: '8px',
+        position: 'absolute',
+        zIndex: 1,
+        overflow: 'hidden',
+        borderRadius: '8px',
+        ...(isExpanded ? expandStyle : collapseStyle),
+      }}
+    >
+      {children}
+    </Box>
+  );
 };
-
-const SearchContainer = ({ isExpanded, isNoContexts, children, ...props }) => (
-  <Box
-    sx={{
-      top: '8px',
-      position: 'absolute',
-      zIndex: 1,
-      overflow: 'hidden',
-      borderRadius: '8px',
-      ...getSearchContainerStyles(isExpanded, isNoContexts),
-    }}
-  >
-    {children}
-  </Box>
-);
 
 const ListItem = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -228,7 +231,11 @@ export default function ExpandSearchBar({
   };
 
   return (
-    <SearchContainer isExpanded={isExpanded} isNoContexts={isNoContexts}>
+    <SearchContainer
+      isExpanded={isExpanded}
+      isNoContexts={isNoContexts}
+      theme={theme}
+    >
       <TextField
         onFocus={expandSearch}
         variant="outlined"
@@ -377,6 +384,8 @@ export default function ExpandSearchBar({
                     pt: 0.5,
                   }}
                 >
+                  {/* No has context */}
+
                   {/* Category */}
                   <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
                     {t(item.label)}
