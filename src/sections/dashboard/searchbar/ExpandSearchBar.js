@@ -23,9 +23,9 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
   const expandStyle = {
     left: 0,
     width: '38rem',
-    height: !props.isNoContexts ? '380px' : 'auto',
+    height: props.isNoContexts ? 'fit-content' : '380px',
     background: theme.palette.aiColor,
-    transition: 'left 0.5s ease, width 0.7s ease, height 0.8s ease',
+    transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
     '&::before': {
       content: '""',
       position: 'absolute',

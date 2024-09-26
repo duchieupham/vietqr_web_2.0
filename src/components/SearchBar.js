@@ -17,7 +17,7 @@ export default function SearchBar() {
   const handleSearch = (e) => {
     e.preventDefault();
     const { value } = e.target;
-    setSearchQuery(value.trim());
+    setSearchQuery(value); //
   };
 
   return (
