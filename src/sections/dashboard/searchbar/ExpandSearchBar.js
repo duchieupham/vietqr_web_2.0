@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
-const SearchContainer = styled(Box)(({ theme, ...props }) => {
+const getSearchContainerStyles = (theme, isExpanded, isNoContexts) => {
   const collapseStyle = {
     left: '21rem',
     width: '16rem',
@@ -24,7 +24,7 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
   const expandStyle = {
     left: 0,
     width: '38rem',
-    height: props.isNoContexts ? 'fit-content' : '380px',
+    height: isNoContexts ? 'fit-content' : '380px',
     background: theme.palette.aiColor,
     transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
     '&::before': {
@@ -50,15 +50,17 @@ const SearchContainer = styled(Box)(({ theme, ...props }) => {
       '100%': { background: theme.palette.primary.main },
     },
   };
-  return {
-    top: '8px',
-    position: 'absolute',
-    zIndex: 1,
-    overflow: 'hidden',
-    borderRadius: '8px',
-    ...(props.isExpanded ? expandStyle : collapseStyle),
-  };
-});
+  return isExpanded ? expandStyle : collapseStyle;
+};
+
+const SearchContainer = styled(Box)(({ theme, isExpanded, isNoContexts }) => ({
+  top: '8px',
+  position: 'absolute',
+  zIndex: 1,
+  overflow: 'hidden',
+  borderRadius: '8px',
+  ...getSearchContainerStyles(theme, isExpanded, isNoContexts),
+}));
 
 const ListItem = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -143,12 +145,14 @@ function searchByLabel(query, t) {
   ITEMS.forEach((item) => {
     // Search in children of each item
     // If the label of the child includes the query, add it to the search result
-    item.children.forEach((child) => {
-      const labelConverted = t(child.label);
-      if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
-        searchResult[item.label].push(child);
-      }
-    });
+    if (item.children.length > 0) {
+      item.children.forEach((child) => {
+        const labelConverted = t(child.label);
+        if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
+          searchResult[item.label].push(child);
+        }
+      });
+    }
   });
   return searchResult;
 }
@@ -158,7 +162,6 @@ function ShowTheSearchResult({ label, searchResult }) {
   return (
     <Box>
       {Object.keys(searchResult).map((key) => {
-        console.log(`searchResult[${key}]`, searchResult[key]);
         if (searchResult[key].length === 0) {
           return null;
         }
