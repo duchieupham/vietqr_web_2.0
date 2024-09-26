@@ -25,7 +25,7 @@ const SearchContainer = ({
     left: '21rem',
     width: '16rem',
     height: '40px',
-    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
+    transition: 'left 0.5s ease, width 0.4s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
