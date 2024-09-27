@@ -50,24 +50,23 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
-  const findFirstChildPath = (children) => {
-    for (const child of children) {
-      if (child.path) {
-        return child.path;
-      }
-      if (child.children && child.children.length > 0) {
-        const result = findFirstChildPath(child.children);
-        if (result) {
-          return result;
-        }
-      }
-    }
-    return null;
-  };
-
   // TODO: Navigate to the first child of the selected dashboard type
   const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
+    const findFirstChildPath = (children) => {
+      for (const child of children) {
+        if (child.path) {
+          return child.path;
+        }
+        if (child.children && child.children.length > 0) {
+          const result = findFirstChildPath(child.children);
+          if (result) {
+            return result;
+          }
+        }
+      }
+      return null;
+    };
     if (children.length > 0) {
       const firstChildPath = findFirstChildPath(children);
       if (firstChildPath) router.push(firstChildPath);
