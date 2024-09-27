@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
@@ -49,13 +50,31 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
+  const findFirstChildPath = (children) => {
+    for (const child of children) {
+      if (child.path) {
+        return child.path;
+      }
+      if (child.children && child.children.length > 0) {
+        const result = findFirstChildPath(child.children);
+        if (result) {
+          return result;
+        }
+      }
+    }
+    return null;
+  };
+
   // TODO: Navigate to the first child of the selected dashboard type
   const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
-    router.push(children[0].path);
+    if (children.length > 0) {
+      const firstChildPath = findFirstChildPath(children);
+      if (firstChildPath) router.push(firstChildPath);
+    }
   };
 
-  // TODO: Check the path to determine the dashboard type
+  // Check the path to determine the dashboard type
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
       pathname.includes(type.path),
