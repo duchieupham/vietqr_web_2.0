@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
+const DEFAULT_ICON = '/icons/dashboard-home.svg';
+
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
 
@@ -41,7 +43,6 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
       const foundRoute = flattenedRoutes.find((route) => route.id === path);
       if (foundRoute) breadcrumbs.push(foundRoute);
     }
-    console.log('breadcrumbs', breadcrumbs);
 
     return {
       current: pathArray[pathArray.length - 1],
@@ -119,7 +120,7 @@ function LinkItem({ id, href, label, icon, current, ...otherProps }) {
         }}
         {...otherProps}
       >
-        <Image src={icon} width={20} height={20} alt={label} />
+        <Image src={icon || DEFAULT_ICON} width={20} height={20} alt={label} />
         <span style={{ paddingTop: 0.5 }}>{t(label)}</span>
       </MUILink>
     </Link>

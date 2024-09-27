@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
@@ -10,7 +11,7 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
@@ -25,7 +26,7 @@ const SearchContainer = ({
     left: '21rem',
     width: '16rem',
     height: '40px',
-    transition: 'left 0.5s ease, width 0.4s ease, height 0.3s ease',
+    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
@@ -191,8 +192,6 @@ function ShowTheSearchResult({ label, searchResult }) {
     </Box>
   );
 }
-
-// function Show
 
 export default function ExpandSearchBar({
   isExpanded,
@@ -375,28 +374,35 @@ export default function ExpandSearchBar({
                 },
               }}
             >
-              {ITEMS.map((item) => (
-                <ListItem
-                  key={item.label}
-                  sx={{
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    pt: 0.5,
-                  }}
-                >
-                  {/* No has context */}
-
-                  {/* Category */}
-                  <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
-                    {t(item.label)}
-                  </Box>
-                  {/* Search result */}
-                  <ShowTheSearchResult
-                    searchResult={searchResult}
-                    label={item.label}
-                  />
-                </ListItem>
-              ))}
+              {Object.values(searchResult).every(
+                (_searchResult) => _searchResult.length === 0,
+              ) ? (
+                <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
+                  {t('noResult')}
+                </Box>
+              ) : (
+                ITEMS.map((item) => (
+                  <ListItem
+                    key={item.label}
+                    sx={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      pt: 0.5,
+                    }}
+                  >
+                    {/* No has context */}
+                    {/* Category */}
+                    <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
+                      {t(item.label)}
+                    </Box>
+                    {/* Search result */}
+                    <ShowTheSearchResult
+                      searchResult={searchResult}
+                      label={item.label}
+                    />
+                  </ListItem>
+                ))
+              )}
             </Box>
           </Box>
         </>

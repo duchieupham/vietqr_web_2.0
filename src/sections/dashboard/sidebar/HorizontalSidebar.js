@@ -9,18 +9,17 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppSelector } from '~/redux/hook';
+import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { setDashboardType } from '~/redux/slices/appSlice';
 
 const PageWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexGrow: 1,
   height: 50,
-  margin: '0 1.5rem',
-  px: 1.5,
-  backgroundColor: theme.palette.lily.white.linear,
+  margin: '0.5rem 1.5rem',
 }));
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
@@ -44,7 +43,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
       zIndex: 1,
       content: '""',
       position: 'absolute',
-      bottom: 10,
+      bottom: 8,
       left: '50%',
       transform: 'translateX(-50%)',
       width: '85%',
@@ -115,6 +114,7 @@ export default function HorizontalSidebar() {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState({});
   const [activeParentTab, setActiveParentTab] = useState(null);
@@ -138,6 +138,15 @@ export default function HorizontalSidebar() {
 
   const open = Boolean(anchorEl);
 
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      dispatch(setDashboardType(foundType?.id));
+    }
+  }, [pathname]);
+
   return (
     <PageWrapper>
       {/* dashboard */}
@@ -148,9 +157,12 @@ export default function HorizontalSidebar() {
             disableRipple
             selected={pathname.includes(type.path)}
             onClick={(event) => {
-              router.push(type.path);
-              handleToggledMenu(type.id);
-              onClickOpenPopper(event, type.id);
+              if (type.children && type.children.length > 0) {
+                handleToggledMenu(type.id);
+                onClickOpenPopper(event, type.id);
+              } else {
+                router.push(type.path);
+              }
             }}
           >
             <Image src={type.icon} width={20} height={20} alt="icon" />

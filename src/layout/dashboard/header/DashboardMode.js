@@ -1,6 +1,8 @@
+/* eslint-disable no-restricted-syntax */
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
@@ -48,10 +50,38 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
-  const handleNavigation = (id, path) => {
+  // TODO: Navigate to the first child of the selected dashboard type
+  const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
-    router.push(path);
+    const findFirstChildPath = (childList) => {
+      for (const child of childList) {
+        if (child.path) {
+          return child.path;
+        }
+        if (child.children && child.children.length > 0) {
+          const result = findFirstChildPath(child.children);
+          if (result) {
+            return result;
+          }
+        }
+      }
+      return null;
+    };
+    if (children.length > 0) {
+      const firstChildPath = findFirstChildPath(children);
+      if (firstChildPath) router.push(firstChildPath);
+    }
   };
+
+  // Check the path to determine the dashboard type
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      dispatch(setDashboardType(foundType?.id));
+    }
+  }, [pathname]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -59,7 +89,7 @@ export default function DashboardMode() {
         <ListItemButtonStyled
           key={type.id}
           selected={pathname.includes(type.path)}
-          onClick={() => handleNavigation(type.id, type.path)}
+          onClick={() => handleNavigation(type.id, type.children)}
         >
           <ListItemTextStyled primary={t(type.label)} />
         </ListItemButtonStyled>
