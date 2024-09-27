@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
-const ICON_DEFAULT = '/icons/dashboard-home.svg';
+const DEFAULT_ICON = '/icons/dashboard-home.svg';
 
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
