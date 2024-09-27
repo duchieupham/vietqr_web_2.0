@@ -12,7 +12,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppSelector } from '~/redux/hook';
+import { useAppDispatch, useAppSelector } from '~/redux/hook';
+import { setDashboardType } from '~/redux/slices/appSlice';
 
 const PageWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -113,6 +114,7 @@ export default function HorizontalSidebar() {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState({});
   const [activeParentTab, setActiveParentTab] = useState(null);
@@ -141,7 +143,7 @@ export default function HorizontalSidebar() {
       pathname.includes(type.path),
     );
     if (foundType) {
-      setActiveParentTab(foundType.id);
+      dispatch(setDashboardType(foundType?.id));
     }
   }, [pathname]);
 
@@ -155,7 +157,6 @@ export default function HorizontalSidebar() {
             disableRipple
             selected={pathname.includes(type.path)}
             onClick={(event) => {
-              // Check if the type has children
               if (type.children && type.children.length > 0) {
                 handleToggledMenu(type.id);
                 onClickOpenPopper(event, type.id);
