@@ -41,7 +41,6 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
       const foundRoute = flattenedRoutes.find((route) => route.id === path);
       if (foundRoute) breadcrumbs.push(foundRoute);
     }
-    console.log('breadcrumbs', breadcrumbs);
 
     return {
       current: pathArray[pathArray.length - 1],
@@ -83,11 +82,11 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
     >
       {convertedBreadcrumbs.items.map((breadcrumb) => (
         <LinkItem
-          key={breadcrumb.id}
-          id={breadcrumb.id}
-          href={breadcrumb.path}
-          label={breadcrumb.label}
-          icon={breadcrumb.icon}
+          key={breadcrumb?.id}
+          id={breadcrumb?.id}
+          href={breadcrumb?.path}
+          label={breadcrumb?.label}
+          icon={breadcrumb?.icon}
           current={convertedBreadcrumbs.current}
         />
       ))}
