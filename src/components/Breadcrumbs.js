@@ -120,7 +120,7 @@ function LinkItem({ id, href, label, icon, current, ...otherProps }) {
         }}
         {...otherProps}
       >
-        <Image src={icon || ICON_DEFAULT} width={20} height={20} alt={label} />
+        <Image src={icon || DEFAULT_ICON} width={20} height={20} alt={label} />
         <span style={{ paddingTop: 0.5 }}>{t(label)}</span>
       </MUILink>
     </Link>
