@@ -18,9 +18,7 @@ const PageWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexGrow: 1,
   height: 50,
-  margin: '0 1.5rem',
-  px: 1.5,
-  backgroundColor: theme.palette.lily.white.linear,
+  margin: '0.5rem 1.5rem',
 }));
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
@@ -44,7 +42,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
       zIndex: 1,
       content: '""',
       position: 'absolute',
-      bottom: 10,
+      bottom: 8,
       left: '50%',
       transform: 'translateX(-50%)',
       width: '85%',
