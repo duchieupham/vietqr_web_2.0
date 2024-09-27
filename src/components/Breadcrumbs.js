@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 
+const ICON_DEFAULT = '/icons/dashboard-home.svg';
+
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
 
@@ -82,11 +84,11 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
     >
       {convertedBreadcrumbs.items.map((breadcrumb) => (
         <LinkItem
-          key={breadcrumb?.id}
-          id={breadcrumb?.id}
-          href={breadcrumb?.path}
-          label={breadcrumb?.label}
-          icon={breadcrumb?.icon}
+          key={breadcrumb.id}
+          id={breadcrumb.id}
+          href={breadcrumb.path}
+          label={breadcrumb.label}
+          icon={breadcrumb.icon}
           current={convertedBreadcrumbs.current}
         />
       ))}
@@ -118,7 +120,7 @@ function LinkItem({ id, href, label, icon, current, ...otherProps }) {
         }}
         {...otherProps}
       >
-        <Image src={icon} width={20} height={20} alt={label} />
+        <Image src={icon || ICON_DEFAULT} width={20} height={20} alt={label} />
         <span style={{ paddingTop: 0.5 }}>{t(label)}</span>
       </MUILink>
     </Link>

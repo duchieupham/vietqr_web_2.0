@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
@@ -375,14 +376,11 @@ export default function ExpandSearchBar({
             >
               {Object.values(searchResult).every(
                 (_searchResult) => _searchResult.length === 0,
-              ) && (
+              ) ? (
                 <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
                   {t('noResult')}
                 </Box>
-              )}
-              {!Object.values(searchResult).every(
-                (_searchResult) => _searchResult.length === 0,
-              ) &&
+              ) : (
                 ITEMS.map((item) => (
                   <ListItem
                     key={item.label}
@@ -403,7 +401,8 @@ export default function ExpandSearchBar({
                       label={item.label}
                     />
                   </ListItem>
-                ))}
+                ))
+              )}
             </Box>
           </Box>
         </>
