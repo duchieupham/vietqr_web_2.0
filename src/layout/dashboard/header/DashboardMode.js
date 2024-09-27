@@ -49,11 +49,13 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
+  // TODO: Navigate to the first child of the selected dashboard type
   const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
     router.push(children[0].path);
   };
 
+  // TODO: Check the path to determine the dashboard type
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
       pathname.includes(type.path),
