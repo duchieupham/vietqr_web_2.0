@@ -1,6 +1,7 @@
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
@@ -48,10 +49,19 @@ export default function DashboardMode() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
-  const handleNavigation = (id, path) => {
+  const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
-    router.push(path);
+    router.push(children[0].path);
   };
+
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      dispatch(setDashboardType(foundType?.id));
+    }
+  }, [pathname]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -59,7 +69,7 @@ export default function DashboardMode() {
         <ListItemButtonStyled
           key={type.id}
           selected={pathname.includes(type.path)}
-          onClick={() => handleNavigation(type.id, type.path)}
+          onClick={() => handleNavigation(type.id, type.children)}
         >
           <ListItemTextStyled primary={t(type.label)} />
         </ListItemButtonStyled>
