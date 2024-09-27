@@ -141,6 +141,7 @@ export default function DashboardHeader() {
       spacing={{ xs: 0.5, SmartButton: 1.5 }}
     >
       {isMobile ? (
+        // Mobile
         <>
           <IconButton
             onClick={onClickToggleDrawerMobile}
@@ -173,6 +174,7 @@ export default function DashboardHeader() {
           </DrawerStyled>
         </>
       ) : (
+        // Desktop
         <Box display="flex" gap={1}>
           <VietQRLogo />
           <DashboardMode />
