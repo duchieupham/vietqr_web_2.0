@@ -9,7 +9,7 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
@@ -136,6 +136,15 @@ export default function HorizontalSidebar() {
 
   const open = Boolean(anchorEl);
 
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      setActiveParentTab(foundType.id);
+    }
+  }, [pathname]);
+
   return (
     <PageWrapper>
       {/* dashboard */}
@@ -146,9 +155,13 @@ export default function HorizontalSidebar() {
             disableRipple
             selected={pathname.includes(type.path)}
             onClick={(event) => {
-              router.push(type.path);
-              handleToggledMenu(type.id);
-              onClickOpenPopper(event, type.id);
+              // Check if the type has children
+              if (type.children && type.children.length > 0) {
+                handleToggledMenu(type.id);
+                onClickOpenPopper(event, type.id);
+              } else {
+                router.push(type.path);
+              }
             }}
           >
             <Image src={type.icon} width={20} height={20} alt="icon" />
