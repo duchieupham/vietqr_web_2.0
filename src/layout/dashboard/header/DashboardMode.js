@@ -53,8 +53,8 @@ export default function DashboardMode() {
   // TODO: Navigate to the first child of the selected dashboard type
   const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
-    const findFirstChildPath = (children) => {
-      for (const child of children) {
+    const findFirstChildPath = (childList) => {
+      for (const child of childList) {
         if (child.path) {
           return child.path;
         }
