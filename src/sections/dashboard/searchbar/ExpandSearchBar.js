@@ -373,34 +373,37 @@ export default function ExpandSearchBar({
                 },
               }}
             >
-              {Object.keys(searchResult).every(
+              {Object.values(searchResult).every(
                 (_searchResult) => _searchResult.length === 0,
               ) && (
                 <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
                   {t('noResult')}
                 </Box>
               )}
-              {ITEMS.map((item) => (
-                <ListItem
-                  key={item.label}
-                  sx={{
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    pt: 0.5,
-                  }}
-                >
-                  {/* No has context */}
-                  {/* Category */}
-                  <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
-                    {t(item.label)}
-                  </Box>
-                  {/* Search result */}
-                  <ShowTheSearchResult
-                    searchResult={searchResult}
-                    label={item.label}
-                  />
-                </ListItem>
-              ))}
+              {!Object.values(searchResult).every(
+                (_searchResult) => _searchResult.length === 0,
+              ) &&
+                ITEMS.map((item) => (
+                  <ListItem
+                    key={item.label}
+                    sx={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      pt: 0.5,
+                    }}
+                  >
+                    {/* No has context */}
+                    {/* Category */}
+                    <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
+                      {t(item.label)}
+                    </Box>
+                    {/* Search result */}
+                    <ShowTheSearchResult
+                      searchResult={searchResult}
+                      label={item.label}
+                    />
+                  </ListItem>
+                ))}
             </Box>
           </Box>
         </>
