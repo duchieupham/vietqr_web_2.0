@@ -11,25 +11,21 @@ import { DASHBOARD_TYPE } from '~/constants/dashboard';
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
 
-  const flattenRoutes = (routes, parentPath = '') => {
+  const flattenRoutes = (routes) => {
     let flattenedRoutes = [];
 
     for (const route of routes) {
-      const fullPath = `${parentPath}${route.path}`;
-
       flattenedRoutes.push({
         id: route.id,
         label: route.label,
-        path: fullPath,
+        path: route.path,
         icon: route.icon,
         iconActive: route.iconActive,
         shortLabel: route.shortLabel,
       });
 
       if (route.children && route.children.length > 0) {
-        flattenedRoutes = flattenedRoutes.concat(
-          flattenRoutes(route.children, fullPath),
-        );
+        flattenedRoutes = flattenedRoutes.concat(flattenRoutes(route.children));
       }
     }
 
@@ -45,6 +41,7 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
       const foundRoute = flattenedRoutes.find((route) => route.id === path);
       if (foundRoute) breadcrumbs.push(foundRoute);
     }
+    console.log('breadcrumbs', breadcrumbs);
 
     return {
       current: pathArray[pathArray.length - 1],
