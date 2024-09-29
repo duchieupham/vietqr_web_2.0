@@ -1,0 +1,118 @@
+export const MENU = [
+  {
+    id: 'general',
+    category: 'general',
+    label: 'General',
+    icon: '',
+    children: [],
+  },
+  {
+    id: 'transaction',
+    category: 'transaction',
+    label: 'Transaction Management',
+    icon: '',
+    children: [
+      {
+        id: 'payment',
+        category: 'transaction',
+        label: 'Payment Transaction',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'pendingConfirmation',
+        category: 'transaction',
+        label: 'Pending Confirmation Transaction',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'cashback',
+        category: 'transaction',
+        label: 'Cashback History',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 'bankAccount',
+    category: 'bankAccount',
+    label: 'Bank Account',
+    icon: '',
+    children: [
+      {
+        id: 'bankAccountList',
+        category: 'bankAccount',
+        label: 'Bank Account List',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'addLinkAccount',
+        category: 'bankAccount',
+        label: 'Add/link Account',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'shareBalanceFluctuations',
+        category: 'bankAccount',
+        label: 'Share Balance Fluctuations',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'registerRenewService',
+        category: 'bankAccount',
+        label: 'Register/Renew Service',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 'QRExtension',
+    category: 'QRExtension',
+    label: 'QR Extension',
+    icon: '',
+    children: [
+      {
+        id: 'createQrCode',
+        category: 'QRExtension',
+        label: 'Create QR Code',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'qrWallet',
+        category: 'QRExtension',
+        label: 'QR Code History',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 'billManagement',
+    category: 'billManagement',
+    label: 'Bill Management',
+    icon: '',
+    children: [
+      {
+        id: 'billList',
+        category: 'billManagement',
+        label: 'Bill List',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 'serviceCharge',
+        category: 'billManagement',
+        label: 'Service Charge',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+];
