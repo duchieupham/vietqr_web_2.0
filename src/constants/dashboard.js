@@ -95,6 +95,7 @@ export const DASHBOARD_TYPE = [
     id: 'agent-dashboard',
     label: 'Agent Dashboard',
     path: '/agent-dashboard',
+    icon: '/icons/store-management.svg',
     children: [
       {
         id: 'businessInformation',
