@@ -4,7 +4,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
-import HorizontalSidebar from '~/sections/dashboard/sidebar/HorizontalSidebar';
+import { VerticalSidebar } from '~/sections/dashboard/sidebar';
 import DashboardHeader from '../header/DashboardHeader';
 
 const drawerWidth = 240;
@@ -40,6 +40,7 @@ export default function DashboardSidebar({ children }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <VerticalSidebar />
       <Main open>
         <AppBar
           open={isOpen}
@@ -53,7 +54,6 @@ export default function DashboardSidebar({ children }) {
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        <HorizontalSidebar />
         <Breadcrumbs />
         {children}
       </Main>
