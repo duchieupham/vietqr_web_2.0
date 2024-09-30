@@ -107,7 +107,7 @@ export default function VerticalSidebar() {
                             },
                             color: theme.palette.slateGray,
                             alignItems: 'end',
-                            paddingLeft: '16px',
+                            padding: '0 0 12px 16px',
                           }}
                         >
                           {t(item.label)}
