@@ -15,7 +15,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
   whiteSpace: 'nowrap',
   '&.Mui-selected': {
     alignItems: 'center',
-    borderRadius: mode === 'horizontal' ? '20px' : '50%',
+    borderRadius: '20px',
     color: 'transparent',
     position: 'relative',
     display: 'flex',
