@@ -8,6 +8,11 @@ import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
+export const DASHBOARD_MODE = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
+};
+
 const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
   display: 'flex',
@@ -21,12 +26,9 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
     display: 'flex',
     transition: 'background 0.3s ease',
     background: theme.palette.lily.white.linear,
-    ...(mode === 'vertical' && {
+    ...(mode === DASHBOARD_MODE.VERTICAL && {
       width: '40px',
       height: '40px',
-    }),
-    ...(mode === 'drawer' && {
-      marginLeft: '16px',
     }),
     '& .MuiTypography-root': {
       background: theme.palette.bright.blue.linear,
@@ -52,7 +54,7 @@ const ListItemTextStyled = styled(ListItemText)(({ theme }) => ({
   },
 }));
 
-export default function DashboardMode({ mode = 'horizontal' }) {
+export default function DashboardMode({ mode = DASHBOARD_MODE.HORIZONTAL }) {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
@@ -100,7 +102,7 @@ export default function DashboardMode({ mode = 'horizontal' }) {
           onClick={() => handleNavigation(type.id, type.children)}
           mode={mode}
         >
-          {mode === 'horizontal' ? (
+          {mode === DASHBOARD_MODE.HORIZONTAL ? (
             <ListItemTextStyled primary={t(type.label)} />
           ) : (
             <Image src={type.icon} width={30} height={30} alt="icon" />

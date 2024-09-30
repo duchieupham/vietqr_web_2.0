@@ -13,7 +13,9 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import DashboardMode from '~/layout/dashboard/header/DashboardMode';
+import DashboardMode, {
+  DASHBOARD_MODE,
+} from '~/layout/dashboard/header/DashboardMode';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
@@ -33,10 +35,12 @@ export default function VerticalSidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
   const otherItems = useMemo(
-    displayedType.children.filter((item) => item.label !== 'Setting'),
+    () => displayedType.children.filter((item) => item.label !== 'Setting'),
+    [displayedType],
   );
   const settingsItem = useMemo(
-    displayedType.children.find((item) => item.label === 'Setting'),
+    () => displayedType.children.find((item) => item.label === 'Setting'),
+    [displayedType],
   );
 
   useEffect(() => {
@@ -53,7 +57,6 @@ export default function VerticalSidebar() {
       <DrawerStyled variant="permanent" anchor="left" open={isOpen}>
         <Stack
           sx={{
-            p: 1,
             justifyContent: 'space-between',
             flexGrow: 1,
           }}
@@ -82,7 +85,7 @@ export default function VerticalSidebar() {
               alt="VietQR Logo"
               onClick={() => router.push('/')}
             />
-            {isOpen && <DashboardMode mode="vertical" />}
+            {isOpen && <DashboardMode mode={DASHBOARD_MODE.VERTICAL} />}
           </Box>
           <Box sx={{ flexGrow: 1 }}>
             <List dense disablePadding>
@@ -180,45 +183,47 @@ export default function VerticalSidebar() {
             </List>
           </Box>
         </Stack>
-        {settingsItem && (
-          <Box>
-            <ListItem disablePadding sx={{ paddingBottom: '8px' }}>
-              <ListItemButtonStyled
-                selected={pathname.includes(settingsItem.path)}
-                disableRipple
-                onClick={() => router.push(settingsItem.path)}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                  }}
+        <Box>
+          <List dense disablePadding>
+            {settingsItem && (
+              <ListItem disablePadding>
+                <ListItemButtonStyled
+                  selected={pathname.includes(settingsItem.path)}
+                  disableRipple
+                  onClick={() => router.push(settingsItem.path)}
                 >
-                  <Image
-                    src={settingsItem.icon}
-                    width={30}
-                    height={30}
-                    alt="icon"
-                  />
-                  {isOpen && (
-                    <Typography
-                      sx={{
-                        fontSize: {
-                          xs: '10px',
-                          md: '12px',
-                        },
-                        color: '#666A72',
-                        alignItems: 'center',
-                        paddingBottom: '4px',
-                      }}
-                    >
-                      {t(settingsItem.label)}
-                    </Typography>
-                  )}
-                </Box>
-              </ListItemButtonStyled>
-            </ListItem>
-          </Box>
-        )}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                    }}
+                  >
+                    <Image
+                      src={settingsItem.icon}
+                      width={30}
+                      height={30}
+                      alt="icon"
+                    />
+                    {isOpen && (
+                      <Typography
+                        sx={{
+                          fontSize: {
+                            xs: '10px',
+                            md: '12px',
+                          },
+                          color: '#666A72',
+                          alignItems: 'center',
+                          paddingBottom: '4px',
+                        }}
+                      >
+                        {t(settingsItem.label)}
+                      </Typography>
+                    )}
+                  </Box>
+                </ListItemButtonStyled>
+              </ListItem>
+            )}
+          </List>
+        </Box>
       </DrawerStyled>
       {/* Close button */}
       <Box

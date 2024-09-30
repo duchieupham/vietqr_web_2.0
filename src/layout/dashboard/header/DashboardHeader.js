@@ -22,7 +22,7 @@ import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode from './DashboardMode';
+import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
 const DRAWER_WIDTH = 250;
@@ -90,7 +90,7 @@ const DrawerContent = ({ dashboardType }) => {
       >
         <AccountPopover />
       </Box>
-      <DashboardMode mode="drawer" />
+      <DashboardMode mode={DASHBOARD_MODE.VERTICAL} />
       <Box>
         <List dense disablePadding>
           {displayedType &&
