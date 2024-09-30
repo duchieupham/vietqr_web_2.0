@@ -51,7 +51,13 @@ export default function VerticalSidebar() {
   return (
     <Box sx={{ position: 'relative' }}>
       <DrawerStyled variant="permanent" anchor="left" open={isOpen}>
-        <StackStyled>
+        <Stack
+          sx={{
+            p: 1,
+            justifyContent: 'space-between',
+            flexGrow: 1,
+          }}
+        >
           <Box
             sx={{
               height: '50px',
@@ -173,7 +179,7 @@ export default function VerticalSidebar() {
               ))}
             </List>
           </Box>
-        </StackStyled>
+        </Stack>
         {settingsItem && (
           <Box>
             <ListItem disablePadding sx={{ paddingBottom: '8px' }}>
@@ -258,12 +264,6 @@ const DrawerStyled = styled(Drawer)(({ theme, open }) => ({
       width: '1px',
     },
   },
-}));
-
-const StackStyled = styled(Stack)(({ theme }) => ({
-  p: 1,
-  justifyContent: 'space-between',
-  flexGrow: 1,
 }));
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
