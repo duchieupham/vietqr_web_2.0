@@ -84,18 +84,7 @@ const DrawerContent = ({ dashboardType }) => {
       }}
       spacing={1}
     >
-      <IconButton
-        sx={{
-          pr: 2,
-          justifyContent: 'flex-end',
-          border: 'none',
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
-        }}
-      >
-        <Profile />
-      </IconButton>
+      <AccountPopover />
       <DashboardMode mode="drawer" />
       <Box>
         <List dense disablePadding>
