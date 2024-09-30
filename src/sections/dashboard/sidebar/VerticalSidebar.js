@@ -11,7 +11,7 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import DashboardMode from '~/layout/dashboard/header/DashboardMode';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
@@ -32,11 +32,11 @@ export default function VerticalSidebar() {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const otherItems = displayedType.children.filter(
-    (item) => item.label !== 'Setting',
+  const otherItems = useMemo(
+    displayedType.children.filter((item) => item.label !== 'Setting'),
   );
-  const settingsItem = displayedType.children.find(
-    (item) => item.label === 'Setting',
+  const settingsItem = useMemo(
+    displayedType.children.find((item) => item.label === 'Setting'),
   );
 
   useEffect(() => {

@@ -16,11 +16,10 @@ import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Profile from '~/components/Profile';
+import ContactLangButton from '~/components/ContactLangButton';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
-import ContactLangButton from '~/components/ContactLangButton';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
@@ -32,7 +31,7 @@ const DRAWER_WIDTH_COLLAPSED = 0;
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: DRAWER_WIDTH,
-    top: 50,
+    top: 40,
     boxSizing: 'border-box',
     overflowX: 'hidden',
     transition:
