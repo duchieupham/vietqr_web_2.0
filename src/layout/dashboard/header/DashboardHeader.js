@@ -26,12 +26,12 @@ import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
-const drawerWidth = 250;
-const drawerWidthCollapsed = 0;
+const DRAWER_WIDTH = 250;
+const DRAWER_WIDTH_COLLAPSED = 0;
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     top: 50,
     boxSizing: 'border-box',
     overflowX: 'hidden',
@@ -96,7 +96,7 @@ const DrawerContent = ({ dashboardType }) => {
       >
         <Profile />
       </IconButton>
-      <DashboardMode />
+      <DashboardMode mode="drawer" />
       <Box>
         <List dense disablePadding>
           {displayedType &&
@@ -166,7 +166,9 @@ export default function DashboardHeader() {
             variant="persistent"
             sx={{
               '& .MuiDrawer-paper': {
-                width: isDrawerMobileOpen ? drawerWidth : drawerWidthCollapsed,
+                width: isDrawerMobileOpen
+                  ? DRAWER_WIDTH
+                  : DRAWER_WIDTH_COLLAPSED,
               },
             }}
           >

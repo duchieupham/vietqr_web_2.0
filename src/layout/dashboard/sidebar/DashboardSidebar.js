@@ -40,7 +40,8 @@ export default function DashboardSidebar({ children }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <VerticalSidebar />
+      {/* desktop */}
+      {!isMobile && <VerticalSidebar />}
       <Main open>
         <AppBar
           open={isOpen}

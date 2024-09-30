@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react';
 import {
   Box,
   Drawer,
@@ -8,7 +7,6 @@ import {
   Stack,
   styled,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -30,8 +28,6 @@ export default function VerticalSidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(true);
