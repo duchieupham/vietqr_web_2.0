@@ -37,10 +37,10 @@ export default function VerticalSidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
   const otherItems = displayedType.children.filter(
-    (item) => t(item.label) !== 'Cài đặt',
+    (item) => item.label !== 'Setting',
   );
   const settingsItem = displayedType.children.find(
-    (item) => t(item.label) === 'Cài đặt',
+    (item) => item.label === 'Setting',
   );
 
   useEffect(() => {
