@@ -31,16 +31,16 @@ const DRAWER_WIDTH_COLLAPSED = 0;
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: DRAWER_WIDTH,
-    top: 40,
+    top: 44,
     boxSizing: 'border-box',
-    overflowX: 'hidden',
+    overflow: 'hidden',
     transition:
       'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(166px)',
+    backdropFilter: 'blur(90px)',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
     color: 'black',
   },
 }));
@@ -86,6 +86,7 @@ const DrawerContent = ({ dashboardType }) => {
         sx={{
           display: 'flex',
           justifyContent: 'center',
+          pt: 1,
         }}
       >
         <AccountPopover />

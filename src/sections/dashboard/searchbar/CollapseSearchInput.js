@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useTheme } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useAuthContext } from '~/contexts/hooks';
@@ -6,6 +6,7 @@ import { useAuthContext } from '~/contexts/hooks';
 export default function CollapseSearchInput({ onToggleSearch }) {
   const { session } = useAuthContext();
   const t = useTranslations();
+  const theme = useTheme();
 
   return (
     <Button
@@ -41,7 +42,7 @@ export default function CollapseSearchInput({ onToggleSearch }) {
           '& .MuiTypography-root': {
             justifyContent: 'center',
             alignItems: 'center',
-            color: '#666A72',
+            color: theme.palette.slateGray,
             fontStyle: 'italic',
             fontSize: {
               xs: '8px',

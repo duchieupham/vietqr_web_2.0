@@ -377,7 +377,7 @@ export default function ExpandSearchBar({
               {Object.values(searchResult).every(
                 (_searchResult) => _searchResult.length === 0,
               ) ? (
-                <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
+                <Box sx={{ fontSize: '12px', color: theme.palette.slateGray, mt: 0.5 }}>
                   {t('noResult')}
                 </Box>
               ) : (
@@ -392,7 +392,7 @@ export default function ExpandSearchBar({
                   >
                     {/* No has context */}
                     {/* Category */}
-                    <Box sx={{ fontSize: '12px', color: '#666A72', mt: 0.5 }}>
+                    <Box sx={{ fontSize: '12px', color: theme.palette.slateGray, mt: 0.5 }}>
                       {t(item.label)}
                     </Box>
                     {/* Search result */}

@@ -7,6 +7,7 @@ import {
   Stack,
   styled,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -31,6 +32,7 @@ export default function VerticalSidebar() {
   const pathname = usePathname();
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const [isOpen, setIsOpen] = useState(true);
 
@@ -105,7 +107,7 @@ export default function VerticalSidebar() {
                               xs: '10px',
                               md: '12px',
                             },
-                            color: '#666A72',
+                            color: theme.palette.slateGray,
                             alignItems: 'end',
                             paddingLeft: '16px',
                           }}
@@ -163,7 +165,7 @@ export default function VerticalSidebar() {
                               xs: '10px',
                               md: '12px',
                             },
-                            color: '#666A72',
+                            color: theme.palette.slateGray,
                           }}
                         >
                           {t(item.label)}
@@ -210,7 +212,7 @@ export default function VerticalSidebar() {
                             xs: '10px',
                             md: '12px',
                           },
-                          color: '#666A72',
+                          color: theme.palette.slateGray,
                           alignItems: 'center',
                           paddingBottom: '4px',
                         }}
