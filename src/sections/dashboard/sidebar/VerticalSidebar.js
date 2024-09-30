@@ -68,9 +68,7 @@ export default function VerticalSidebar() {
               height: '50px',
               display: 'flex',
               alignItems: 'center',
-              marginBottom: '40px',
-              paddingX: '16px',
-              paddingTop: '16px',
+              padding: '32px 16px 56px',
               justifyContent: 'space-between',
             }}
           >
