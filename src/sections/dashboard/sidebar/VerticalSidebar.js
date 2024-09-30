@@ -161,8 +161,8 @@ export default function VerticalSidebar() {
                         </Typography>
                       ) : (
                         <Image
-                          width={30}
-                          height={30}
+                          width={20}
+                          height={20}
                           alt="icon"
                           src={item.icon}
                         />
