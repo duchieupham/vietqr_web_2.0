@@ -38,8 +38,8 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
     transition:
       'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
+    backdropFilter: 'blur(100px)',
+    WebkitBackdropFilter: 'blur(100px)',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -134,15 +134,17 @@ export default function DashboardHeader() {
 
   return (
     <Stack
-      width="100%"
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      spacing={{ xs: 0.5, SmartButton: 1.5 }}
+      spacing={{ SmartButton: 1.5 }}
+      sx={{
+        width: '100%',
+      }}
     >
       {isMobile ? (
         // Mobile
-        <>
+        <Box sx={{ display: 'flex' }}>
           <IconButton
             onClick={onClickToggleDrawerMobile}
             sx={{
@@ -174,7 +176,7 @@ export default function DashboardHeader() {
           >
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
-        </>
+        </Box>
       ) : (
         // Desktop
         <Box display="flex" gap={1}>
@@ -182,18 +184,20 @@ export default function DashboardHeader() {
           <DashboardMode />
         </Box>
       )}
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        <Box
-          sx={{
-            width: {
-              xs: '100%',
-              md: '38rem',
-            },
-            position: 'relative',
-          }}
-        >
-          <SearchBar />
-        </Box>
+      <Box sx={{ display: 'flex', gap: 1 }}>
+        {!isMobile && (
+          <Box
+            sx={{
+              width: {
+                xs: '100%',
+                md: '38rem',
+              },
+              position: 'relative',
+            }}
+          >
+            <SearchBar />
+          </Box>
+        )}
         <Box sx={{ display: 'flex', gap: 0.2 }}>
           {!isMobile && <AccountPopover />}
           <NotificationPopover />

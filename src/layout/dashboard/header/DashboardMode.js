@@ -20,13 +20,16 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
     position: 'relative',
     display: 'flex',
     transition: 'background 0.3s ease',
-    background: 'linear-gradient(to right, #E1EFFF 0%, #E5F9FF 100%)',
+    background: theme.palette.lily.white.linear,
     ...(mode === 'vertical' && {
       width: '40px',
       height: '40px',
     }),
+    ...(mode === 'drawer' && {
+      marginLeft: '16px',
+    }),
     '& .MuiTypography-root': {
-      background: 'linear-gradient(to right, #00C6FF 0%, #0072FF 100%)',
+      background: theme.palette.bright.blue.linear,
       backgroundClip: 'text',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
