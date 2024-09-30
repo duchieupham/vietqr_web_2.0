@@ -132,7 +132,7 @@ export default function DashboardHeader() {
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      spacing={{ SmartButton: 1.5 }}
+      spacing={{ xs: 0.5, SmartButton: 1.5 }}
       sx={{
         width: '100%',
       }}
