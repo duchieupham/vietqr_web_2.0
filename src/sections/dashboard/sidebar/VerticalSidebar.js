@@ -70,6 +70,7 @@ export default function VerticalSidebar() {
               alignItems: 'center',
               padding: '32px 16px 56px',
               justifyContent: 'space-between',
+              cursor: 'pointer',
             }}
           >
             <Image
@@ -77,7 +78,7 @@ export default function VerticalSidebar() {
                 isOpen
                   ? '/images/Logo_min.png'
                   : '/images/ic-viet-qr-small-trans.svg'
-              }
+              } 
               width={58}
               height={24}
               priority
