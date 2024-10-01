@@ -1,12 +1,14 @@
 import { Badge, Box, IconButton, ListItemIcon, MenuItem } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
 
+// API call to get notifications has not been implemented yet
 export default function NotificationPopover() {
+  const t = useTranslations();
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [notification, setNotification] = useState(0);
-  const [notifications, setNotifications] = useState([]);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,13 +17,6 @@ export default function NotificationPopover() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // TODO: Fetch notifications and set number of notifications
-  useEffect(() => {
-    if (notifications) {
-      setNotification(notifications.length);
-    }
-  }, [notifications]);
 
   return (
     <>
@@ -39,7 +34,6 @@ export default function NotificationPopover() {
           }}
         >
           <Badge
-            badgeContent={notifications.length}
             sx={{
               '& .MuiBadge-badge': {
                 backgroundColor: '#FD711A',
@@ -68,10 +62,7 @@ export default function NotificationPopover() {
       >
         {/* // TODO: Additional content about the notification */}
         <MenuItem>
-          <ListItemIcon>Notification 1</ListItemIcon>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>Notification 2</ListItemIcon>
+          <ListItemIcon>{t('noNotification')}</ListItemIcon>
         </MenuItem>
       </MenuPopover>
     </>
