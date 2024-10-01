@@ -101,6 +101,7 @@ export default function DashboardMode({ mode = DASHBOARD_MODE.HORIZONTAL }) {
           selected={pathname.includes(type.path)}
           onClick={() => handleNavigation(type.id, type.children)}
           mode={mode}
+          disableRipple
         >
           {mode === DASHBOARD_MODE.HORIZONTAL ? (
             <ListItemTextStyled primary={t(type.label)} />
