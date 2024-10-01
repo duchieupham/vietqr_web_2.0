@@ -44,7 +44,7 @@ export default function Profile({ ...props }) {
           }
           sx={{
             objectFit: 'contain',
-            border: `1.5px solid #00f`,
+            border: '1.5px solid #00f',
             borderRadius: '50%',
           }}
           {...props}
