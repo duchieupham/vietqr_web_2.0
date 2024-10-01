@@ -2,8 +2,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { getLocale, getMessages } from 'next-intl/server';
 import ContextProvider from '~/contexts/ContextProvider';
-import theme from '~/theme';
 import { IntlProvider, ReduxStoreProvider } from '~/providers';
+import theme from '~/theme';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
 

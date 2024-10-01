@@ -9,45 +9,38 @@ import {
   ListItemText,
   Stack,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
 import ContactLangButton from '~/components/ContactLangButton';
-import Profile from '~/components/Profile';
+import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { useAppDispatch, useAppSelector } from '~/redux/hook';
-import { setDashboardType } from '~/redux/slices/appSlice';
-import theme from '~/theme';
+import { useAppSelector } from '~/redux/hook';
+import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode from './DashboardMode';
+import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
-const drawerWidth = 250;
-const drawerWidthCollapsed = 0;
+const DRAWER_WIDTH = 250;
+const DRAWER_WIDTH_COLLAPSED = 0;
 
-const DrawerStyled = styled(Drawer)(() => ({
+const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    width: drawerWidth,
-    top: 50,
+    width: DRAWER_WIDTH,
+    top: 44,
     boxSizing: 'border-box',
-    overflowX: 'hidden',
-    transition: theme.transitions.create(
-      ['width', 'background', 'backdrop-filter'],
-      {
-        easing: theme.transitions.easing.easeInOut,
-        duration: theme.transitions.duration.standard,
-      },
-    ),
+    overflow: 'hidden',
+    transition:
+      'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
+    backdropFilter: 'blur(90px)',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
     color: 'black',
   },
 }));
@@ -69,7 +62,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
   },
 }));
 
-const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
+const DrawerContent = ({ dashboardType }) => {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
@@ -89,20 +82,16 @@ const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
       }}
       spacing={1}
     >
-      <IconButton
+      <Box
         sx={{
-          pr: 2,
-          justifyContent: 'flex-end',
-          border: 'none',
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
+          display: 'flex',
+          justifyContent: 'center',
+          pt: 1,
         }}
-        disableRipple
       >
-        <Profile />
-      </IconButton>
-      <DashboardMode />
+        <AccountPopover />
+      </Box>
+      <DashboardMode mode={DASHBOARD_MODE.VERTICAL} />
       <Box>
         <List dense disablePadding>
           {displayedType &&
@@ -122,10 +111,9 @@ const DrawerContent = ({ dashboardType, onChangeDashboardType }) => {
 };
 
 export default function DashboardHeader() {
-  const router = useRouter();
   const { dashboardType } = useAppSelector((store) => store.app);
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const dispatch = useAppDispatch();
 
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
@@ -139,34 +127,17 @@ export default function DashboardHeader() {
     setIsDrawerMobileOpen((prev) => !prev);
   };
 
-  const onChangeDashboardType = (event) => {
-    const foundType = DASHBOARD_TYPE.find(
-      (type) => type.id === event.target.value,
-    );
-
-    if (foundType) {
-      const { id, children } = foundType;
-
-      if (dashboardType !== id) {
-        dispatch(setDashboardType(id));
-
-        if (children && children.length > 0) {
-          router.push(children[0].path); // Navigate to first child
-        }
-      }
-    }
-  };
-
   return (
     <Stack
       width="100%"
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      spacing={{ xs: 0.5, SmartButton: 1.5 }}
+      spacing={{ xs: 0.5 }}
     >
       {isMobile ? (
-        <>
+        // Mobile
+        <Box sx={{ display: 'flex' }}>
           <IconButton
             onClick={onClickToggleDrawerMobile}
             sx={{
@@ -182,23 +153,7 @@ export default function DashboardHeader() {
               size={20}
             />
           </IconButton>
-          <Box
-            onClick={() => router.push('/')}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              pl: 5,
-            }}
-          >
-            <Image
-              src="/images/VietQRLogo.png"
-              width={97}
-              height={47}
-              alt="VietQR Logo"
-              quality={100}
-              priority
-            />
-          </Box>
+          <VietQRLogo />
           <DrawerStyled
             anchor="left"
             open={isDrawerMobileOpen}
@@ -206,20 +161,52 @@ export default function DashboardHeader() {
             variant="persistent"
             sx={{
               '& .MuiDrawer-paper': {
-                width: isDrawerMobileOpen ? drawerWidth : drawerWidthCollapsed,
+                width: isDrawerMobileOpen
+                  ? DRAWER_WIDTH
+                  : DRAWER_WIDTH_COLLAPSED,
               },
             }}
           >
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
-        </>
+        </Box>
       ) : (
-        <DashboardMode />
+        // Desktop
+        <Box display="flex" gap={1}>
+          <VietQRLogo />
+          <DashboardMode />
+        </Box>
       )}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        <ContactLangButton type="dashboard" />
-        {!isMobile && <AccountPopover />}
-        <NotificationPopover />
+        {!isMobile && (
+          <Box
+            sx={{
+              width: {
+                xs: '100%',
+                md: '38rem',
+              },
+              position: 'relative',
+            }}
+          >
+            <SearchBar />
+          </Box>
+        )}
+        <Box sx={{ display: 'flex', gap: 0.2 }}>
+          {!isMobile && <AccountPopover />}
+          <NotificationPopover />
+          <ContactLangButton
+            type="dashboard"
+            style={{
+              '& .MuiSelect-select': {
+                fontSize: 10,
+                py: 0,
+              },
+              '& .MuiInputBase-root': {
+                background: '#F0F4FA',
+              },
+            }}
+          />
+        </Box>
       </Box>
     </Stack>
   );

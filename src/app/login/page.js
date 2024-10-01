@@ -2,11 +2,9 @@
 
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
-import { FooterLogin } from '~/components/footer';
-import { LoginForm } from '~/components/form';
-import Navbar from '~/components/navbar/login/NavbarLogin';
 import { useAppDispatch } from '~/redux/hook';
 import { setQr } from '~/redux/slices/qrSlice';
+import { FooterLogin, FormLogin, Navbar } from '~/sections/login';
 import CreateQR from '~/sections/login/CreateQR';
 import { generateQrValue } from '~/utils/aesConvert';
 
@@ -56,8 +54,7 @@ function Login() {
         }}
       >
         <CreateQR />
-        <LoginForm />
-        {/* <FloatingActionButton /> */}
+        <FormLogin />
       </Stack>
       <Box
         component="footer"

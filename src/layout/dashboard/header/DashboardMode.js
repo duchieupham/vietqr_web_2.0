@@ -1,59 +1,97 @@
+/* eslint-disable no-restricted-syntax */
 import { Box, ListItemButton, ListItemText, styled } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 
-const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
-  borderRadius: '8px',
+export const DASHBOARD_MODE = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
+};
+
+const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-  color: '#000000',
   display: 'flex',
   justifyContent: 'center',
+  whiteSpace: 'nowrap',
   '&.Mui-selected': {
     alignItems: 'center',
-    color: '#00c6ff',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    borderRadius: '20px',
+    color: 'transparent',
     position: 'relative',
     display: 'flex',
-    transition: 'color 0.3s ease, background 0.3s ease',
+    transition: 'background 0.3s ease',
+    background: theme.palette.lily.white.linear,
+    ...(mode === DASHBOARD_MODE.VERTICAL && {
+      width: '40px',
+      height: '40px',
+    }),
+    '& .MuiTypography-root': {
+      background: theme.palette.bright.blue.linear,
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+    },
   },
   '&:hover': {
-    background:
-      'linear-gradient(90deg, rgba(0,198,255,0.7), rgba(0,114,255,1.0))',
-    textDecoration: 'none',
-    backgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    transform: 'scale(1.05)',
+    background: 'transparent',
   },
-  '&.Mui-selected:after': {
-    content: '""',
-    position: 'absolute',
-    bottom: '5px',
-    left: '50%',
-    width: '80%',
-    height: '2px',
-    background: 'linear-gradient(90deg, #00c6ff, #0072ff)',
-    zIndex: 1,
-    transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',
-    transform: 'translateX(-50%)',
+  '& .MuiTypography-root': {
+    fontSize: '12px',
   },
 }));
 
-export default function DashboardMode() {
+const ListItemTextStyled = styled(ListItemText)(({ theme }) => ({
+  margin: '0 auto',
+  '& .MuiTypography-root': {
+    color: '#000000',
+  },
+}));
+
+export default function DashboardMode({ mode = DASHBOARD_MODE.HORIZONTAL }) {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
-  const handleNavigation = (id, path) => {
+  // TODO: Navigate to the first child of the selected dashboard type
+  const handleNavigation = (id, children) => {
     dispatch(setDashboardType(id));
-    router.push(path);
+    const findFirstChildPath = (childList) => {
+      for (const child of childList) {
+        if (child.children && child.children.length > 0) {
+          const result = findFirstChildPath(child.children);
+          if (result) {
+            return result;
+          }
+        }
+        if (child.path) {
+          return child.path;
+        }
+      }
+      return null;
+    };
+    if (children.length > 0) {
+      const firstChildPath = findFirstChildPath(children);
+      if (firstChildPath) router.push(firstChildPath);
+    }
   };
+
+  // Check the path to determine the dashboard type
+  useEffect(() => {
+    const foundType = DASHBOARD_TYPE.find((type) =>
+      pathname.includes(type.path),
+    );
+    if (foundType) {
+      dispatch(setDashboardType(foundType?.id));
+    }
+  }, [pathname]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -61,10 +99,14 @@ export default function DashboardMode() {
         <ListItemButtonStyled
           key={type.id}
           selected={pathname.includes(type.path)}
-          onClick={() => handleNavigation(type.id, type.path)}
-          disableRipple
+          onClick={() => handleNavigation(type.id, type.children)}
+          mode={mode}
         >
-          <ListItemText primary={t(type.label)} />
+          {mode === DASHBOARD_MODE.HORIZONTAL ? (
+            <ListItemTextStyled primary={t(type.label)} />
+          ) : (
+            <Image src={type.icon} width={30} height={30} alt="icon" />
+          )}
         </ListItemButtonStyled>
       ))}
     </Box>

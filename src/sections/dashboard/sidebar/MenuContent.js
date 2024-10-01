@@ -118,7 +118,6 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                   width={20}
                   height={20}
                   quality={100}
-                  priority
                 />
                 {!isDrawerOpen && child.children?.length > 0 && (
                   <Image
@@ -131,7 +130,6 @@ export default function MenuContent({ isDrawerOpen, ...props }) {
                     width={12}
                     height={12}
                     quality={100}
-                    priority
                   />
                 )}
               </ListItemIcon>

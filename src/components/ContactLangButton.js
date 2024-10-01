@@ -1,6 +1,13 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HeadphonesOutlinedIcon from '@mui/icons-material/HeadphonesOutlined';
-import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -8,19 +15,27 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LANGUAGE_OPTIONS, LOCALE_COOKIE } from '~/constants';
 import { useAppContext } from '~/contexts/hooks';
-import theme from '~/theme';
 
 const dashboardLanguageStyled = {
-  backgroundColor: '#DADADA',
-  borderRadius: '20px',
-  height: '40px',
+  borderRadius: '50%',
+  height: 40,
+  width: 40,
   alignContent: 'center',
   justifyContent: 'center',
+  overflow: 'hidden',
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: '#F0F4FA',
+  '& .MuiSelect-select': {
+    py: 0,
+    px: 0.65,
+  },
 };
 
 export default function ContactLangButton({ type, style }) {
   const t = useTranslations();
   const router = useRouter();
+  const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const { language, setLanguage } = useAppContext();
   const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -45,7 +60,6 @@ export default function ContactLangButton({ type, style }) {
   return (
     <Box
       sx={{
-        alignContent: 'center',
         justifyContent: 'flex-end',
         display: 'flex',
         ...(type === 'dashboard' && {
@@ -84,7 +98,7 @@ export default function ContactLangButton({ type, style }) {
           setSelectedLanguage(e.target.value);
           onChangeLanguage(e);
         }}
-        IconComponent={ExpandMoreIcon}
+        IconComponent={type === 'dashboard' ? null : ExpandMoreIcon}
         renderValue={(selected) => {
           const selectedOption = LANGUAGE_OPTIONS.find(
             (option) => option.value === selected,
@@ -94,10 +108,10 @@ export default function ContactLangButton({ type, style }) {
               <Image
                 alt={selectedOption.label}
                 src={selectedOption.circleIcon}
-                width={20}
-                height={20}
+                width={30}
+                height={30}
               />
-              {isMdUp && t(selectedOption.label)}
+              {isMdUp && type !== 'dashboard' && t(selectedOption.label)}
             </>
           ) : null;
         }}
@@ -119,17 +133,13 @@ export default function ContactLangButton({ type, style }) {
             color: 'inherit',
           },
           fontSize: {
-            xs: '12px',
-            md: '15px',
+            xs: '10px',
+            md: '12px',
           },
           '.MuiSelect-select': {
             display: 'flex',
             alignItems: 'center',
             gap: 1,
-          },
-          '& .MuiList-root-MuiMenu-list': {
-            paddingTop: 0,
-            paddingBottom: 0,
           },
           ...(type === 'dashboard' && dashboardLanguageStyled),
         }}

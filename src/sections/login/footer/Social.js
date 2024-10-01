@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-shadow */
 // @mui
 import { useTranslations } from 'next-intl';
 // @next
@@ -45,9 +43,9 @@ export default function Social({ style }) {
         ...style,
       }}
     >
-      {list.map((item, index) => (
+      {list.map((item) => (
         <Stack
-          key={index}
+          key={item.name}
           sx={{
             flexDirection: {
               xs: 'row',
@@ -85,8 +83,8 @@ export default function Social({ style }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {item.items.map((_item, index) => (
-              <Box key={index}>
+            {item.items.map((_item) => (
+              <Box key={_item.name}>
                 <Link
                   href="/"
                   style={{
@@ -100,7 +98,6 @@ export default function Social({ style }) {
                     width={40}
                     height={40}
                     quality={100}
-                    priority
                   />
                 </Link>
               </Box>

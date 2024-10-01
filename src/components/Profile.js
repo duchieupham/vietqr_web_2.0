@@ -1,33 +1,55 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import { Avatar, Box, Typography, useTheme } from '@mui/material';
 import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
 
 const DEFAULT_IMAGE_URL = '/images/logo.png';
-export default function Profile(props) {
+
+export default function Profile({ ...props }) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imgId);
+
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
       {/* Full Name */}
-      <Typography sx={{ justifyContent: 'center', alignContent: 'center' }}>
+      <Typography
+        sx={{
+          justifyContent: 'center',
+          alignContent: 'center',
+          fontSize: { xs: 10, md: 12 },
+          whiteSpace: 'nowrap',
+        }}
+      >
         {session
-          ? `${session.firstName} ${session.middleName} ${session.lastName}`
+          ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
           : 'Guest'}
       </Typography>
       {/* Avatar */}
-      <Avatar
-        src={session ? imageUrl : DEFAULT_IMAGE_URL}
-        alt={
-          session
-            ? `${session.firstName} ${session.middleName} ${session.lastName}`
-            : 'Avatar'
-        }
+      <Box
         sx={{
-          objectFit: 'cover',
-          objectPosition: 'center',
+          borderRadius: '50%',
+          width: 40,
+          height: 40,
+          zIndex: 10,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        {...props}
-      />
+      >
+        <Avatar
+          src={session ? imageUrl : DEFAULT_IMAGE_URL}
+          alt={
+            session
+              ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
+              : 'Avatar'
+          }
+          sx={{
+            objectFit: 'contain',
+            border: `1.5px solid #00f`,
+            borderRadius: '50%',
+          }}
+          {...props}
+        />
+      </Box>
     </Box>
   );
 }

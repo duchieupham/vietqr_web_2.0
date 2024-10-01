@@ -48,13 +48,12 @@
   "api-service-documents": "Tài liệu API Service",
 
   "Dashboard": "Trang chủ",
-  "home-dashboard": "Trang chủ",
   "Agent Dashboard": "Quản lý đại lý",
-  "agent-dashboard": "Quản lý đại lý",
   "General": "Tổng quan",
   "Transaction Management": "Quản lý giao dịch",
   "Bank Account": "Tài khoản ngân hàng",
   "Extensions": "Tiện ích QR",
+  "Bill Management": "Quản lý hóa đơn",
   "Setting": "Cài đặt",
   "Business Information": "Thông tin kinh doanh",
   "Sales": "Bán hàng",
@@ -87,6 +86,7 @@
   "Inventory Management": "Quản lý kho",
   "QR Community": "Cộng đồng QR",
   "Fast Features": "Tính năng nhanh",
+  "transaction": "Giao dịch",
 
   "hotline": "HOTLINE",
   "local-phone": "1900 6234",
@@ -122,5 +122,20 @@
   "backToHome": "Về trang chủ",
   "backToLogin": "Về trang đăng nhập",
   "404": "Không tìm thấy trang",
-  "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!"
+  "Session Expired": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
+
+  "Hello": "Xin chào",
+  "search": "bạn cần tìm gì?",
+  "feat": "Tính năng",
+  "feature": "Tính năng",
+  "account-list": "Danh sách TK",
+  "add-link-account": "Thêm/Liên kết TK",
+
+  "guidance": "Hướng dẫn",
+  "more-description": "Hướng dẫn thêm/liên kết tài khoản ngân hàng",
+
+  "others": "Khác",
+  "create-account-bidv": "Mở tài khoản ngân hàng BIDV",
+  "suggest": "Gợi ý",
+  "noResult": "Không tìm thấy kết quả phù hợp"
 }

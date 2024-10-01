@@ -1,17 +1,18 @@
 // dashboard
 export const DASHBOARD_TYPE = [
   {
-    id: 'home',
-    label: 'home-dashboard',
+    id: 'dashboard',
+    label: 'Dashboard',
     path: '/dashboard',
+    icon: '/icons/dashboard-home.svg',
     children: [
       {
         id: 'general',
         label: 'General',
         shortLabel: 'General',
         path: '/dashboard/general',
-        icon: '/images/dashboard-home.svg',
-        iconActive: '/images/dashboard-home-active.svg',
+        icon: '/icons/general-solid.svg',
+        iconActive: '/icons/general-solid.svg',
         children: [
           {
             id: 'fastFeatures',
@@ -51,8 +52,8 @@ export const DASHBOARD_TYPE = [
         label: 'Transaction Management',
         shortLabel: 'Transaction',
         path: '/dashboard/transaction',
-        icon: '/images/clipboard-list.svg',
-        iconActive: '/images/clipboard-list-active.svg',
+        icon: '/icons/transaction-solid.svg',
+        iconActive: '/icons/transaction-gradient.svg',
         children: [],
       },
       {
@@ -60,32 +61,41 @@ export const DASHBOARD_TYPE = [
         label: 'Bank Account',
         shortLabel: 'Account',
         path: '/dashboard/bank-account',
-        icon: '/images/money-bank.svg',
-        iconActive: '/images/money-bank-active.svg',
+        icon: '/icons/money-bank-solid.svg',
+        iconActive: '/icons/money-bank-gradient.svg',
         children: [],
       },
       {
         id: 'extensions',
         label: 'Extensions',
         path: '/dashboard/extensions',
-        icon: '/images/codes-tags-code-qr.svg',
-        iconActive: '/images/codes-tags-code-qr-active.svg',
+        icon: '/icons/codes-tags-code-qr-solid.svg',
+        iconActive: '/icons/codes-tags-code-qr-gradient.svg',
+        children: [],
+      },
+      {
+        id: 'billManagement',
+        label: 'Bill Management',
+        path: '/dashboard/bill-management',
+        icon: '/icons/clip-board-solid.svg',
+        iconActive: '/icons/clip-board-gradient.svg',
         children: [],
       },
       {
         id: 'setting',
         label: 'Setting',
         path: '/dashboard/setting',
-        icon: '/images/settings-machine.svg',
-        iconActive: '/images/settings-machine-active.svg',
+        icon: '/icons/gear-solid.svg',
+        iconActive: '/icons/gear-gradient.svg',
         children: [],
       },
     ],
   },
   {
-    id: 'agent',
-    label: 'agent-dashboard',
+    id: 'agent-dashboard',
+    label: 'Agent Dashboard',
     path: '/agent-dashboard',
+    icon: '/icons/store-management.svg',
     children: [
       {
         id: 'businessInformation',

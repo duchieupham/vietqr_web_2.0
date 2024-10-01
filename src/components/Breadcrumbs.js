@@ -1,89 +1,132 @@
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+/* eslint-disable no-restricted-syntax */
+import {
+  Breadcrumbs as MUIBreadcrumbs,
+  Link as MUILink,
+  useTheme,
+} from '@mui/material';
 import _upperFirst from 'lodash-es/upperFirst';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
+import { DASHBOARD_TYPE } from '~/constants/dashboard';
+
+const DEFAULT_ICON = '/icons/dashboard-home.svg';
 
 export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
   const pathname = usePathname();
 
-  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const flattenRoutes = (routes) => {
+    let flattenedRoutes = [];
 
-  const pathArray = path.split('/').filter(Boolean);
+    for (const route of routes) {
+      flattenedRoutes.push({
+        id: route.id,
+        label: route.label,
+        path: route.path,
+        icon: route.icon,
+        iconActive: route.iconActive,
+        shortLabel: route.shortLabel,
+      });
 
-  const listPath = pathArray.map((segment, index) => {
-    const href = `/${pathArray.slice(0, index + 1).join('/')}`;
-    return <LinkItem key={href} href={href} label={segment} />;
-  });
+      if (route.children && route.children.length > 0) {
+        flattenedRoutes = flattenedRoutes.concat(flattenRoutes(route.children));
+      }
+    }
 
-  // const listActiveLast = pathArray.map((segment, index) => {
-  //   const href = `/${pathArray.slice(0, index + 1).join('/')}`;
-  //   return (
-  //     <div key={href}>
-  //       {index !== pathArray.length - 1 ? (
-  //         <LinkItem href={href} label={segment} />
-  //       ) : (
-  //         <Typography
-  //           variant="body2"
-  //           sx={{
-  //             maxWidth: 260,
-  //             overflow: 'hidden',
-  //             whiteSpace: 'nowrap',
-  //             color: 'text.disabled',
-  //             textOverflow: 'ellipsis',
-  //           }}
-  //         >
-  //           {segment}
-  //         </Typography>
-  //       )}
-  //     </div>
-  //   );
-  // });
+    return flattenedRoutes;
+  };
+
+  const convertedBreadcrumbs = useMemo(() => {
+    const breadcrumbs = [];
+    const pathArray = pathname.split('/').filter(Boolean);
+
+    const flattenedRoutes = flattenRoutes(DASHBOARD_TYPE);
+    for (const path of pathArray) {
+      const foundRoute = flattenedRoutes.find((route) => route.id === path);
+      if (foundRoute) breadcrumbs.push(foundRoute);
+    }
+
+    return {
+      current: pathArray[pathArray.length - 1],
+      items: breadcrumbs,
+    };
+  }, [pathname]);
+
+  const nextImage = (
+    <Image
+      src="/icons/next-icon.svg"
+      width={20}
+      height={20}
+      alt="next icon"
+      style={{
+        cursor: 'pointer',
+        margin: '4px 0 0 0',
+      }}
+    />
+  );
 
   return (
     <MUIBreadcrumbs
-      separator={
-        <FiberManualRecordIcon sx={{ fontSize: 5 }} fontSize="small" />
-      }
+      separator={nextImage}
+      aria-label="breadcrumb"
       sx={{
-        ml: 2,
+        margin: '0 1.5rem',
+        backgroundColor: '#F0F4FA',
+        borderRadius: '8px',
+        height: 30,
+        width: 'fit-content',
+        px: 1.5,
+        alignItems: 'center',
+        '& .MuiBreadcrumbs-ol': {
+          justifyContent: 'center',
+          pt: 0.2,
+        },
       }}
       {...otherProps}
     >
-      {listPath}
+      {convertedBreadcrumbs.items.map((breadcrumb) => (
+        <LinkItem
+          key={breadcrumb.id}
+          id={breadcrumb.id}
+          href={breadcrumb.path}
+          label={breadcrumb.label}
+          icon={breadcrumb.icon}
+          current={convertedBreadcrumbs.current}
+        />
+      ))}
     </MUIBreadcrumbs>
   );
 }
 
-function convertBreadcrumbName(name) {
-  return _upperFirst(
-    name
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' '),
-  );
-}
-
 // LinkItem component for rendering individual breadcrumb links
-function LinkItem({ href, label, ...otherProps }) {
+function LinkItem({ id, href, label, icon, current, ...otherProps }) {
   const t = useTranslations();
+  const theme = useTheme();
   return (
     <Link href={href} passHref style={{ textDecoration: 'none' }}>
       <MUILink
         component="span"
         variant="body2"
         sx={{
-          lineHeight: 2,
-          display: 'flex',
-          alignItems: 'center',
-          color: 'text.primary',
           textDecoration: 'none',
           cursor: 'pointer',
+          fontSize: {
+            xs: 10,
+            md: 12,
+          },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          pt: 0.6,
+          color: theme.palette.slateGray,
           '& > div': { display: 'inherit' },
         }}
+        {...otherProps}
       >
-        {t(convertBreadcrumbName(label))}
+        <Image src={icon || DEFAULT_ICON} width={20} height={20} alt={label} />
+        <span style={{ paddingTop: 0.5 }}>{t(label)}</span>
       </MUILink>
     </Link>
   );
