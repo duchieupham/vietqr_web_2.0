@@ -16,33 +16,31 @@ import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Profile from '~/components/Profile';
+import ContactLangButton from '~/components/ContactLangButton';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
-import ContactLangButton from '~/components/ContactLangButton';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode from './DashboardMode';
+import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
-const drawerWidth = 250;
-const drawerWidthCollapsed = 0;
+const DRAWER_WIDTH = 250;
+const DRAWER_WIDTH_COLLAPSED = 0;
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    width: drawerWidth,
-    top: 50,
+    width: DRAWER_WIDTH,
+    top: 44,
     boxSizing: 'border-box',
-    overflowX: 'hidden',
+    overflow: 'hidden',
     transition:
       'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
+    backdropFilter: 'blur(90px)',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
     color: 'black',
   },
 }));
@@ -84,19 +82,16 @@ const DrawerContent = ({ dashboardType }) => {
       }}
       spacing={1}
     >
-      <IconButton
+      <Box
         sx={{
-          pr: 2,
-          justifyContent: 'flex-end',
-          border: 'none',
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
+          display: 'flex',
+          justifyContent: 'center',
+          pt: 1,
         }}
       >
-        <Profile />
-      </IconButton>
-      <DashboardMode />
+        <AccountPopover />
+      </Box>
+      <DashboardMode mode={DASHBOARD_MODE.VERTICAL} />
       <Box>
         <List dense disablePadding>
           {displayedType &&
@@ -138,11 +133,11 @@ export default function DashboardHeader() {
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      spacing={{ xs: 0.5, SmartButton: 1.5 }}
+      spacing={{ xs: 0.5 }}
     >
       {isMobile ? (
         // Mobile
-        <>
+        <Box sx={{ display: 'flex' }}>
           <IconButton
             onClick={onClickToggleDrawerMobile}
             sx={{
@@ -166,13 +161,15 @@ export default function DashboardHeader() {
             variant="persistent"
             sx={{
               '& .MuiDrawer-paper': {
-                width: isDrawerMobileOpen ? drawerWidth : drawerWidthCollapsed,
+                width: isDrawerMobileOpen
+                  ? DRAWER_WIDTH
+                  : DRAWER_WIDTH_COLLAPSED,
               },
             }}
           >
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
-        </>
+        </Box>
       ) : (
         // Desktop
         <Box display="flex" gap={1}>
@@ -180,18 +177,20 @@ export default function DashboardHeader() {
           <DashboardMode />
         </Box>
       )}
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        <Box
-          sx={{
-            width: {
-              xs: '100%',
-              md: '38rem',
-            },
-            position: 'relative',
-          }}
-        >
-          <SearchBar />
-        </Box>
+      <Box sx={{ display: 'flex', gap: 1 }}>
+        {!isMobile && (
+          <Box
+            sx={{
+              width: {
+                xs: '100%',
+                md: '38rem',
+              },
+              position: 'relative',
+            }}
+          >
+            <SearchBar />
+          </Box>
+        )}
         <Box sx={{ display: 'flex', gap: 0.2 }}>
           {!isMobile && <AccountPopover />}
           <NotificationPopover />

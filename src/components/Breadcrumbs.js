@@ -1,5 +1,9 @@
 /* eslint-disable no-restricted-syntax */
-import { Breadcrumbs as MUIBreadcrumbs, Link as MUILink } from '@mui/material';
+import {
+  Breadcrumbs as MUIBreadcrumbs,
+  Link as MUILink,
+  useTheme,
+} from '@mui/material';
 import _upperFirst from 'lodash-es/upperFirst';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -99,6 +103,7 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
 // LinkItem component for rendering individual breadcrumb links
 function LinkItem({ id, href, label, icon, current, ...otherProps }) {
   const t = useTranslations();
+  const theme = useTheme();
   return (
     <Link href={href} passHref style={{ textDecoration: 'none' }}>
       <MUILink
@@ -115,7 +120,7 @@ function LinkItem({ id, href, label, icon, current, ...otherProps }) {
           justifyContent: 'center',
           alignItems: 'center',
           pt: 0.6,
-          color: '#666A72',
+          color: theme.palette.slateGray,
           '& > div': { display: 'inherit' },
         }}
         {...otherProps}

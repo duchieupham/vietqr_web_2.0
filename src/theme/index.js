@@ -133,6 +133,7 @@ const theme = createTheme({
     aiTextColor:
       'linear-gradient(90deg, #458BF8 0%, #FF8021 53%, #FF3751 71%, #C958DB 100%)',
     futureGreen: 'linear-gradient(to right, #9CD740 0%, #2BACE6 100%)',
+    slateGray: '#666A72',
   },
 });
 

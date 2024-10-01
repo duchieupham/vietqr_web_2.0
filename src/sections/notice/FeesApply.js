@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
@@ -24,6 +24,7 @@ const feesApply = (currency, time) => [
 
 export default function FeesApply() {
   const t = useTranslations();
+  const theme = useTheme();
   return (
     <Stack
       sx={{
@@ -101,7 +102,7 @@ export default function FeesApply() {
                         xs: 12,
                         md: 15,
                       },
-                      color: '#666A72',
+                      color: theme.palette.slateGray,
                       display: 'flex',
                       alignItems: 'flex-end',
                       marginBottom: 0.4,

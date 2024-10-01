@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableRow,
   Typography,
+  useTheme,
 } from '@mui/material';
 import Image from 'next/image';
 import { TextGradient } from '~/components/text';
@@ -83,6 +84,7 @@ const features = [
 ];
 
 export default function FeesGrid() {
+  const theme = useTheme();
   return (
     <Box sx={{ px: { xs: 2, sm: 5, md: 10, lg: 20 } }}>
       <Grid
@@ -233,7 +235,7 @@ export default function FeesGrid() {
                             sx={{
                               alignSelf: 'flex-end',
                               mb: 0.2,
-                              color: '#666A72',
+                              color: theme.palette.slateGray,
                               fontSize: 12,
                             }}
                           >
