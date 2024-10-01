@@ -129,13 +129,11 @@ export default function DashboardHeader() {
 
   return (
     <Stack
+      width="100%"
       direction="row"
       alignItems="center"
       justifyContent="space-between"
       spacing={{ xs: 0.5 }}
-      sx={{
-        width: '100%',
-      }}
     >
       {isMobile ? (
         // Mobile
