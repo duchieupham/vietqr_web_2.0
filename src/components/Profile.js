@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Typography } from '@mui/material';
 import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
 
@@ -44,7 +44,7 @@ export default function Profile({ ...props }) {
           }
           sx={{
             objectFit: 'contain',
-            border: `1.5px solid #00f`,
+            border: '1.5px solid #00f',
             borderRadius: '50%',
           }}
           {...props}
