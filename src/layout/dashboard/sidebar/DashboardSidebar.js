@@ -4,11 +4,11 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
-import HorizontalSidebar from '~/sections/dashboard/sidebar/HorizontalSidebar';
+import { VerticalSidebar } from '~/sections/dashboard/sidebar';
 import DashboardHeader from '../header/DashboardHeader';
 
-const drawerWidth = 240;
-const toolBarHeight = '64px';
+const DRAWER_WIDTH = 240;
+const TOOLBAR_HEIGHT = '64px';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
@@ -17,7 +17,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    marginLeft: `-${DRAWER_WIDTH}px`,
     variants: [
       {
         props: ({ open }) => open,
@@ -40,7 +40,9 @@ export default function DashboardSidebar({ children }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Main open>
+      {/* desktop */}
+      {!isMobile && <VerticalSidebar />}
+      <Main open sx={{ width: '100%' }}>
         <AppBar
           open={isOpen}
           sx={{
@@ -49,11 +51,15 @@ export default function DashboardSidebar({ children }) {
             boxShadow: 'none',
           }}
         >
-          <Toolbar sx={{ height: toolBarHeight, p: 0 }}>
+          <Toolbar
+            sx={{
+              height: TOOLBAR_HEIGHT,
+              p: 0,
+            }}
+          >
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        <HorizontalSidebar />
         <Breadcrumbs />
         {children}
       </Main>

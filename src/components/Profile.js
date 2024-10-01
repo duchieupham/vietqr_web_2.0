@@ -7,13 +7,17 @@ const DEFAULT_IMAGE_URL = '/images/logo.png';
 export default function Profile({ ...props }) {
   const { session } = useAuthContext();
   const imageUrl = useImage(session?.imgId);
-  const theme = useTheme();
 
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
       {/* Full Name */}
       <Typography
-        sx={{ justifyContent: 'center', alignContent: 'center', fontSize: 12 }}
+        sx={{
+          justifyContent: 'center',
+          alignContent: 'center',
+          fontSize: { xs: 10, md: 12 },
+          whiteSpace: 'nowrap',
+        }}
       >
         {session
           ? `${session?.lastName} ${session?.middleName} ${session?.firstName}`
@@ -22,11 +26,10 @@ export default function Profile({ ...props }) {
       {/* Avatar */}
       <Box
         sx={{
-          border: `2px solid ${theme.palette.bright.blue.linear}`,
           borderRadius: '50%',
           width: 40,
           height: 40,
-          zIndex: 2,
+          zIndex: 10,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -41,7 +44,7 @@ export default function Profile({ ...props }) {
           }
           sx={{
             objectFit: 'contain',
-            border: `4px solid ${theme.palette.bright.blue.linear}`,
+            border: `1.5px solid #00f`,
             borderRadius: '50%',
           }}
           {...props}

@@ -1,4 +1,4 @@
-import { Button, IconButton, ListItemIcon, MenuItem } from '@mui/material';
+import { Box, Button, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import MenuPopover from '~/components/MenuPopover';
@@ -30,7 +30,7 @@ export default function AccountPopover() {
   };
 
   return (
-    <>
+    <Box>
       <IconButton
         onClick={onClickOpen}
         sx={{
@@ -77,6 +77,6 @@ export default function AccountPopover() {
           </ListItemIcon>
         </MenuItem>
       </MenuPopover>
-    </>
+    </Box>
   );
 }
