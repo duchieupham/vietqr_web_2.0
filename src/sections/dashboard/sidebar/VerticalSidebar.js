@@ -47,8 +47,6 @@ export default function VerticalSidebar() {
     return [filteredItems || [], foundSettingsItem || null];
   }, [displayedType]);
 
-  console.log(settingsItem);
-
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
       pathname.includes(type.path),
