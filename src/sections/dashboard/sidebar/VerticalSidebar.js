@@ -163,27 +163,37 @@ export default function VerticalSidebar() {
                       selected={pathname.includes(item.path)}
                       disableRipple
                       onClick={() => router.push(item.path)}
+                      sx={{
+                        ...(!isOpen && {
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          paddingTop: '8px',
+                        }),
+                      }}
                     >
-                      {isOpen ? (
-                        <Typography
-                          sx={{
-                            fontSize: {
-                              xs: '10px',
-                              md: '12px',
-                            },
-                            color: theme.palette.slateGray,
-                          }}
-                        >
-                          {t(item.label)}
-                        </Typography>
-                      ) : (
-                        <Image
-                          width={20}
-                          height={20}
-                          alt="icon"
-                          src={item.icon}
-                        />
-                      )}
+                      <Box>
+                        {isOpen ? (
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                xs: '10px',
+                                md: '12px',
+                              },
+                              color: theme.palette.slateGray,
+                            }}
+                          >
+                            {t(item.label)}
+                          </Typography>
+                        ) : (
+                          <Image
+                            width={20}
+                            height={20}
+                            alt="icon"
+                            src={item.icon}
+                          />
+                        )}
+                      </Box>
                     </ListItemButtonStyled>
                   )}
                 </ListItem>
