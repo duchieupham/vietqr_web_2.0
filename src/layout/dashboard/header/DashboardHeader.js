@@ -37,9 +37,10 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
     transition:
       'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(166px)',
+    backdropFilter: 'blur(20px)', // Increased blur for a more pronounced effect
+    WebkitBackdropFilter: 'blur(20px)',
     borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
     border: '1px solid rgba(255, 255, 255, 0.2)',
     color: 'black',
   },
