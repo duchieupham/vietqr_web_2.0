@@ -30,15 +30,16 @@ export default function AccountPopover() {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <IconButton
         onClick={onClickOpen}
         sx={{
-          p: '2px',
-          border: 'none',
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
+          padding: '2px',
         }}
         disableRipple
       >
