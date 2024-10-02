@@ -39,14 +39,15 @@ export default function VerticalSidebar() {
   const [otherItems, settingsItem] = useMemo(() => {
     let foundSettingsItem;
     const filteredItems = displayedType?.children?.filter((item) => {
-      if (item.label === 'Settings') {
+      if (item.label === 'Setting') {
         foundSettingsItem = item;
-        return foundSettingsItem;
       }
-      return item;
+      return item.label !== 'Setting';
     });
     return [filteredItems || [], foundSettingsItem || null];
   }, [displayedType]);
+
+  console.log(settingsItem);
 
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
