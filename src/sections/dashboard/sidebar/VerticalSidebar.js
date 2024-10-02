@@ -38,17 +38,14 @@ export default function VerticalSidebar() {
 
   const [otherItems, settingsItem] = useMemo(() => {
     let foundSettingsItem;
-    if (displayedType && displayedType.children) {
-      const filteredItems = displayedType.children.filter((item) => {
-        if (item.label === 'Settings') {
-          foundSettingsItem = item;
-          return false;
-        }
-        return true;
-      });
-      return [filteredItems, foundSettingsItem];
-    }
-    return [[], null];
+    const filteredItems = displayedType?.children?.filter((item) => {
+      if (item.label === 'Settings') {
+        foundSettingsItem = item;
+        return foundSettingsItem;
+      }
+      return item;
+    });
+    return [filteredItems || [], foundSettingsItem || null];
   }, [displayedType]);
 
   useEffect(() => {
