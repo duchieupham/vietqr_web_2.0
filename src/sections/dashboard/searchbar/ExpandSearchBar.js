@@ -262,6 +262,7 @@ export default function ExpandSearchBar({
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
         onChange={onSearchChange}
         value={searchQuery}
+        autoComplete="off"
         InputProps={{
           startAdornment: (
             <InputAdornment
@@ -297,21 +298,6 @@ export default function ExpandSearchBar({
             padding: 0,
             '& fieldset': {
               border: 'none',
-            },
-            'input:-webkit-autofill': {
-              backgroundColor: 'transparent !important',
-              boxShadow: '0 0 0px 1000px transparent inset !important',
-              WebkitBoxShadow: '0 0 0px 1000px transparent inset !important',
-              WebkitTextFillColor: '#000 !important',
-            },
-            'input:-webkit-autofill:hover': {
-              backgroundColor: 'transparent !important',
-            },
-            'input:-webkit-autofill:focus': {
-              backgroundColor: 'transparent !important',
-            },
-            'input:-webkit-autofill:active': {
-              backgroundColor: 'transparent !important',
             },
           },
         }}
