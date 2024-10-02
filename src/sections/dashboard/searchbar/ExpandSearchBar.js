@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ButtonGradient } from '~/components/button';
 import { useAuthContext } from '~/contexts/hooks';
 
@@ -26,14 +26,14 @@ const SearchContainer = ({
     left: '21rem',
     width: '16rem',
     height: '40px',
-    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
+    transition: 'left 0.3s ease, width 0.3s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
     width: '38rem',
     height: 'fit-content',
     background: theme.palette.aiColor,
-    transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
+    transition: 'left 0.3s ease, width 0.3s ease, height 0.43s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -67,6 +67,7 @@ const SearchContainer = ({
         borderRadius: '8px',
         ...(isExpanded ? expandStyle : collapseStyle),
       }}
+      {...props}
     >
       {children}
     </Box>
@@ -229,8 +230,28 @@ export default function ExpandSearchBar({
     }
   };
 
+  // Handle click outside the search bar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const searchContainer = document.getElementById('search-container');
+      if (
+        searchContainer &&
+        !searchContainer.contains(event.target) &&
+        searchQuery.trim() === ''
+      ) {
+        collapseSearch();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [collapseSearch]);
+
   return (
     <SearchContainer
+      id="search-container"
       isExpanded={isExpanded}
       isNoContexts={isNoContexts}
       theme={theme}
@@ -277,6 +298,21 @@ export default function ExpandSearchBar({
             '& fieldset': {
               border: 'none',
             },
+            'input:-webkit-autofill': {
+              backgroundColor: 'transparent !important',
+              boxShadow: '0 0 0px 1000px transparent inset !important',
+              WebkitBoxShadow: '0 0 0px 1000px transparent inset !important',
+              WebkitTextFillColor: '#000 !important',
+            },
+            'input:-webkit-autofill:hover': {
+              backgroundColor: 'transparent !important',
+            },
+            'input:-webkit-autofill:focus': {
+              backgroundColor: 'transparent !important',
+            },
+            'input:-webkit-autofill:active': {
+              backgroundColor: 'transparent !important',
+            },
           },
         }}
         sx={{
@@ -305,7 +341,6 @@ export default function ExpandSearchBar({
           },
         }}
       />
-
       {/* Show Search Contents */}
       {isExpanded && !isNoContexts && (
         <>

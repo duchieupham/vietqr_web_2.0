@@ -196,6 +196,7 @@ export default function VerticalSidebar() {
                   <Box
                     sx={{
                       display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
                     <Image
@@ -213,7 +214,7 @@ export default function VerticalSidebar() {
                           },
                           color: theme.palette.slateGray,
                           alignItems: 'center',
-                          paddingBottom: '4px',
+                          paddingTop: '2px',
                         }}
                       >
                         {t(settingsItem.label)}
@@ -308,6 +309,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
     },
   },
   '&:hover': {
-    background: 'none',
+    background: theme.palette.lily.white.linear,
   },
 }));
