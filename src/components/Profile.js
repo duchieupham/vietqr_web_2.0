@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Typography } from '@mui/material';
 import { useAuthContext } from '~/contexts/hooks';
 import useImage from '~/hooks/useImage';
 

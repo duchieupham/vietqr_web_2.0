@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemText,
   Stack,
+  styled,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -15,7 +16,6 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styled from 'styled-components';
 import ContactLangButton from '~/components/ContactLangButton';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
@@ -30,6 +30,7 @@ const DRAWER_WIDTH_COLLAPSED = 0;
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
+    paddingLeft: '4px',
     width: DRAWER_WIDTH,
     top: 44,
     boxSizing: 'border-box',
@@ -37,15 +38,16 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
     transition:
       'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
     background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(90px)',
+    backdropFilter: 'blur(20px)', // Increased blur for a more pronounced effect
+    WebkitBackdropFilter: 'blur(20px)',
     borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
     color: 'black',
   },
 }));
 
-const ListItemButtonStyled = styled(ListItemButton)(() => ({
+const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&.Mui-selected': {
     background: 'linear-gradient(to right, #E1EFFF 0%, #E1EFFF 100%)',
     color: '#0072FF',
@@ -57,8 +59,7 @@ const ListItemButtonStyled = styled(ListItemButton)(() => ({
     },
   },
   '&:hover': {
-    background: '#DADADA',
-    opacity: 1,
+    background: theme.palette.lily.white.linear,
   },
 }));
 

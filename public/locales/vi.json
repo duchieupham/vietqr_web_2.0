@@ -137,5 +137,6 @@
   "others": "Khác",
   "create-account-bidv": "Mở tài khoản ngân hàng BIDV",
   "suggest": "Gợi ý",
-  "noResult": "Không tìm thấy kết quả phù hợp"
+  "noResult": "Không tìm thấy kết quả phù hợp",
+  "noNotification": "Hiện bạn không có thông báo nào!"
 }

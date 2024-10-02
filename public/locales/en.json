@@ -137,5 +137,6 @@
   "others": "Others",
   "create-account-bidv": "Open BIDV bank account",
   "suggest": "Suggestions",
-  "noResult": "No matching results found"
+  "noResult": "No matching results found",
+  "noNotification": "No notifications"
 }
