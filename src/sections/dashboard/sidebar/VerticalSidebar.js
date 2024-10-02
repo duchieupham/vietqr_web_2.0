@@ -36,14 +36,16 @@ export default function VerticalSidebar() {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const otherItems = useMemo(
-    () => displayedType.children.filter((item) => item.label !== 'Setting'),
-    [displayedType],
-  );
-  const settingsItem = useMemo(
-    () => displayedType.children.find((item) => item.label === 'Setting'),
-    [displayedType],
-  );
+  const [otherItems, settingsItem] = useMemo(() => {
+    let foundSettingsItem;
+    const filteredItems = displayedType?.children?.filter((item) => {
+      if (item.label === 'Setting') {
+        foundSettingsItem = item;
+      }
+      return item.label !== 'Setting';
+    });
+    return [filteredItems || [], foundSettingsItem || null];
+  }, [displayedType]);
 
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
@@ -156,27 +158,37 @@ export default function VerticalSidebar() {
                       selected={pathname.includes(item.path)}
                       disableRipple
                       onClick={() => router.push(item.path)}
+                      sx={{
+                        ...(!isOpen && {
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          paddingTop: '8px',
+                        }),
+                      }}
                     >
-                      {isOpen ? (
-                        <Typography
-                          sx={{
-                            fontSize: {
-                              xs: '10px',
-                              md: '12px',
-                            },
-                            color: theme.palette.slateGray,
-                          }}
-                        >
-                          {t(item.label)}
-                        </Typography>
-                      ) : (
-                        <Image
-                          width={20}
-                          height={20}
-                          alt="icon"
-                          src={item.icon}
-                        />
-                      )}
+                      <Box>
+                        {isOpen ? (
+                          <Typography
+                            sx={{
+                              fontSize: {
+                                xs: '10px',
+                                md: '12px',
+                              },
+                              color: theme.palette.slateGray,
+                            }}
+                          >
+                            {t(item.label)}
+                          </Typography>
+                        ) : (
+                          <Image
+                            width={20}
+                            height={20}
+                            alt="icon"
+                            src={item.icon}
+                          />
+                        )}
+                      </Box>
                     </ListItemButtonStyled>
                   )}
                 </ListItem>
@@ -196,6 +208,7 @@ export default function VerticalSidebar() {
                   <Box
                     sx={{
                       display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
                     <Image
@@ -213,7 +226,7 @@ export default function VerticalSidebar() {
                           },
                           color: theme.palette.slateGray,
                           alignItems: 'center',
-                          paddingBottom: '4px',
+                          paddingTop: '2px',
                         }}
                       >
                         {t(settingsItem.label)}
@@ -308,6 +321,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
     },
   },
   '&:hover': {
-    background: 'none',
+    background: theme.palette.lily.white.linear,
   },
 }));

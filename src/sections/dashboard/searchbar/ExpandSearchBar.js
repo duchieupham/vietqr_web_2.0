@@ -11,8 +11,9 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ButtonGradient } from '~/components/button';
+import SearchBar from '~/components/SearchBar';
 import { useAuthContext } from '~/contexts/hooks';
 
 const SearchContainer = ({
@@ -26,14 +27,14 @@ const SearchContainer = ({
     left: '21rem',
     width: '16rem',
     height: '40px',
-    transition: 'left 0.3s ease, width 0.5s ease, height 0.3s ease',
+    transition: 'left 0.3s ease, width 0.3s ease, height 0.3s ease',
   };
   const expandStyle = {
     left: 0,
     width: '38rem',
     height: 'fit-content',
     background: theme.palette.aiColor,
-    transition: 'left 0.4s ease, width 0.5s ease, height 0.4s ease',
+    transition: 'left 0.3s ease, width 0.3s ease, height 0.43s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -67,6 +68,7 @@ const SearchContainer = ({
         borderRadius: '8px',
         ...(isExpanded ? expandStyle : collapseStyle),
       }}
+      {...props}
     >
       {children}
     </Box>
@@ -241,6 +243,8 @@ export default function ExpandSearchBar({
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
         onChange={onSearchChange}
         value={searchQuery}
+        autoComplete="off"
+        onBlur={collapseSearch}
         InputProps={{
           startAdornment: (
             <InputAdornment
@@ -305,7 +309,6 @@ export default function ExpandSearchBar({
           },
         }}
       />
-
       {/* Show Search Contents */}
       {isExpanded && !isNoContexts && (
         <>
