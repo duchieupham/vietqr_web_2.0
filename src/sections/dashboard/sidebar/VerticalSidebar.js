@@ -36,20 +36,17 @@ export default function VerticalSidebar() {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const otherItems = useMemo(() => {
+  const [otherItems, settingsItem] = useMemo(() => {
     if (displayedType && displayedType.children) {
-      return displayedType.children.filter((item) => item.label !== 'Setting');
-    }
-    return [];
-  }, [displayedType]);
-
-  const settingsItem = useMemo(() => {
-    if (displayedType && displayedType.children) {
-      return (
-        displayedType.children.find((item) => item.label === 'Setting') || null
+      const filteredItems = displayedType.children.filter(
+        (item) => item.label !== 'Setting',
       );
+      const foundSettingsItem = displayedType.children.find(
+        (item) => item.label === 'Setting',
+      );
+      return [filteredItems, foundSettingsItem];
     }
-    return null;
+    return [[], null];
   }, [displayedType]);
 
   useEffect(() => {
