@@ -9,6 +9,7 @@ export default function NotificationPopover() {
   const t = useTranslations();
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +35,7 @@ export default function NotificationPopover() {
           }}
         >
           <Badge
+            badgeContent={notifications.length || null}
             sx={{
               '& .MuiBadge-badge': {
                 backgroundColor: '#FD711A',
@@ -61,9 +63,17 @@ export default function NotificationPopover() {
         onClose={handleClose}
       >
         {/* // TODO: Additional content about the notification */}
-        <MenuItem>
-          <ListItemIcon>{t('noNotification')}</ListItemIcon>
-        </MenuItem>
+        {notifications.length > 0 ? (
+          notifications.map((notification) => (
+            <MenuItem key={notification.id}>
+              <ListItemIcon>{notification}</ListItemIcon>
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem>
+            <ListItemIcon>{t('noNotification')}</ListItemIcon>
+          </MenuItem>
+        )}
       </MenuPopover>
     </>
   );

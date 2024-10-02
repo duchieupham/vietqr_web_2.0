@@ -11,8 +11,9 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ButtonGradient } from '~/components/button';
+import SearchBar from '~/components/SearchBar';
 import { useAuthContext } from '~/contexts/hooks';
 
 const SearchContainer = ({
@@ -230,28 +231,8 @@ export default function ExpandSearchBar({
     }
   };
 
-  // Handle click outside the search bar
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const searchContainer = document.getElementById('search-container');
-      if (
-        searchContainer &&
-        !searchContainer.contains(event.target) &&
-        searchQuery.trim() === ''
-      ) {
-        collapseSearch();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [collapseSearch]);
-
   return (
     <SearchContainer
-      id="search-container"
       isExpanded={isExpanded}
       isNoContexts={isNoContexts}
       theme={theme}
@@ -263,6 +244,7 @@ export default function ExpandSearchBar({
         onChange={onSearchChange}
         value={searchQuery}
         autoComplete="off"
+        onBlur={collapseSearch}
         InputProps={{
           startAdornment: (
             <InputAdornment
