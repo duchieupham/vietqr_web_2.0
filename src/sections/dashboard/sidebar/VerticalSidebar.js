@@ -36,14 +36,21 @@ export default function VerticalSidebar() {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const otherItems = useMemo(
-    () => displayedType.children.filter((item) => item.label !== 'Setting'),
-    [displayedType],
-  );
-  const settingsItem = useMemo(
-    () => displayedType.children.find((item) => item.label === 'Setting'),
-    [displayedType],
-  );
+  const otherItems = useMemo(() => {
+    if (displayedType && displayedType.children) {
+      return displayedType.children.filter((item) => item.label !== 'Setting');
+    }
+    return [];
+  }, [displayedType]);
+
+  const settingsItem = useMemo(() => {
+    if (displayedType && displayedType.children) {
+      return (
+        displayedType.children.find((item) => item.label === 'Setting') || null
+      );
+    }
+    return null;
+  }, [displayedType]);
 
   useEffect(() => {
     const foundType = DASHBOARD_TYPE.find((type) =>
