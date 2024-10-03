@@ -201,6 +201,7 @@ export default function ExpandSearchBar({
   collapseSearch,
   handleSearch,
   searchQuery,
+  setSearchQuery,
 }) {
   const { session } = useAuthContext();
   const t = useTranslations();
@@ -229,6 +230,12 @@ export default function ExpandSearchBar({
         others: [],
       });
     }
+  };
+
+  const handleClearSearch = (e) => {
+    e.stopPropagation();
+    setSearchQuery('');
+    setSearchResult({ feat: [], transaction: [], guidance: [], others: [] });
   };
 
   return (
@@ -271,8 +278,8 @@ export default function ExpandSearchBar({
               )}
             </InputAdornment>
           ),
-          endAdornment: (
-            <InputAdornment position="end" onClick={collapseSearch}>
+          endAdornment: !isNoContexts && (
+            <InputAdornment position="end" onClick={handleClearSearch}>
               <CloseIcon fontSize="small" cursor="pointer" />
             </InputAdornment>
           ),

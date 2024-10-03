@@ -5,11 +5,13 @@ export default function SearchBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const expandSearch = () => {
+  const expandSearch = (e) => {
+    e.preventDefault();
     setIsExpanded(true);
   };
 
-  const collapseSearch = () => {
+  const collapseSearch = (e) => {
+    e.preventDefault();
     setIsExpanded(false);
     setSearchQuery('');
   };
@@ -28,6 +30,7 @@ export default function SearchBar() {
       expandSearch={expandSearch}
       collapseSearch={collapseSearch}
       handleSearch={handleSearch}
+      setSearchQuery={setSearchQuery}
     />
   );
 }
