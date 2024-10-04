@@ -179,7 +179,7 @@ export default function VerticalSidebar() {
                         isOpen && {
                           display: 'flex',
                           justifyContent: 'center',
-                          alignItems: 'center',
+                          alignItems: 'flex-start',
                         }
                       }
                     >
