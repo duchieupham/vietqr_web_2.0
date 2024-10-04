@@ -218,17 +218,15 @@ export default function SearchBar() {
     others: [],
   });
 
-  const isEmptySearch = searchQuery.length === 0 && searchQuery.trim() === '';
+  const isEmptySearch = searchQuery.trim() === '';
 
   const onSearchChange = (e) => {
     const query = e.target.value;
-
+    setSearchQuery(query);
     if (query) {
       const result = searchByLabel(query, t);
       setSearchResult(result);
-      setSearchQuery(query);
     } else {
-      setSearchQuery('');
       setSearchResult({
         feat: [],
         transaction: [],

@@ -176,13 +176,11 @@ export default function VerticalSidebar() {
                       disableRipple
                       onClick={() => router.push(item.path)}
                       sx={
-                        isOpen
-                          ? {}
-                          : {
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }
+                        isOpen && {
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }
                       }
                     >
                       <Box>
