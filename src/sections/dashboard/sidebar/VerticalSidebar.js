@@ -139,11 +139,11 @@ export default function VerticalSidebar() {
                               onClick={() => router.push(child.path)}
                             >
                               <Box
-                                sx={{
-                                  ...(isOpen && {
+                                sx={
+                                  isOpen && {
                                     display: 'flex',
-                                  }),
-                                }}
+                                  }
+                                }
                               >
                                 <Image
                                   src={child.icon || '/icons/star-gradient.svg'}
