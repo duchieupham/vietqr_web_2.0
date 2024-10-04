@@ -125,9 +125,7 @@ export default function VerticalSidebar() {
                           <ListItem
                             key={child.id}
                             disablePadding
-                            sx={{
-                              ...(isOpen ? {} : { padding: '8px 0' }),
-                            }}
+                            sx={isOpen ? {} : { padding: '8px 0' }}
                           >
                             <ListItemButtonStyled
                               selected={pathname.includes(child.path)}
@@ -177,15 +175,15 @@ export default function VerticalSidebar() {
                       selected={pathname.includes(item.path)}
                       disableRipple
                       onClick={() => router.push(item.path)}
-                      sx={{
-                        ...(isOpen
+                      sx={
+                        isOpen
                           ? {}
                           : {
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                            }),
-                      }}
+                            }
+                      }
                     >
                       <Box>
                         {isOpen ? (
