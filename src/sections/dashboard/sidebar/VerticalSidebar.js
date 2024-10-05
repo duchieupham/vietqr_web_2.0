@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { Z_INDEX } from '~/constants/styles';
 import DashboardMode, {
   DASHBOARD_MODE,
 } from '~/layout/dashboard/header/DashboardMode';
@@ -260,7 +261,7 @@ export default function VerticalSidebar() {
       <Box
         sx={{
           position: 'absolute',
-          zIndex: 1300,
+          zIndex: Z_INDEX.DRAWER + 1,
           border: '1px solid #DADADA',
           borderRadius: '50%',
           background: 'white',

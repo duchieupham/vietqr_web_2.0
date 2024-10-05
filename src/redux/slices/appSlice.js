@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { DASHBOARD_MODE } from '~/layout/dashboard/header/DashboardMode';
 
 const initialState = {
   dashboardType: DASHBOARD_TYPE[0].id, // home-dashboard
+  dashboardMode: DASHBOARD_MODE.VERTICAL,
 };
 
 export const appSlice = createSlice({
@@ -11,6 +13,9 @@ export const appSlice = createSlice({
   reducers: {
     setDashboardType: (state, action) => {
       state.dashboardType = action.payload;
+    },
+    setDashboardMode: (state, action) => {
+      state.dashboardMode = action.payload;
     },
   },
 });

@@ -277,7 +277,13 @@ export default function SearchBar() {
             </InputAdornment>
           ),
           endAdornment: !isEmptySearch && (
-            <InputAdornment position="end" onClick={onSearchChange}>
+            <InputAdornment
+              position="end"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                setSearchQuery('');
+              }} // just clear the search query don't collapse the search bar
+            >
               <CloseIcon fontSize="small" cursor="pointer" />
             </InputAdornment>
           ),

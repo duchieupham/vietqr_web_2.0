@@ -1,5 +1,5 @@
-'use client';
-
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 import {
   Box,
   Drawer,
@@ -16,14 +16,15 @@ import Hamburger from 'hamburger-react';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
+import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 
 const DRAWER_WIDTH = 250;
 const DRAWER_WIDTH_COLLAPSED = 0;
@@ -32,17 +33,14 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     paddingLeft: '4px',
     width: DRAWER_WIDTH,
-    top: 44,
+    top: 0,
     boxSizing: 'border-box',
-    overflow: 'hidden',
-    transition:
-      'width 300ms ease-in-out, background 300ms ease-in-out, backdrop-filter 300ms ease-in-out',
-    background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(20px)', // Increased blur for a more pronounced effect
-    WebkitBackdropFilter: 'blur(20px)',
+    overflow: 'auto',
+    transition: 'width 300ms ease-in-out, background 300ms ease-in-out',
+    background: '#ffffff',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
     color: 'black',
   },
 }));
@@ -112,19 +110,13 @@ const DrawerContent = ({ dashboardType }) => {
 };
 
 export default function DashboardHeader() {
-  const { dashboardType } = useAppSelector((store) => store.app);
+  const { dashboardType, dashboardMode } = useAppSelector((store) => store.app);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
-  const onClickToggleDrawerMobile = () => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
+  const onClickToggleDrawerMobile = () => {
     setIsDrawerMobileOpen((prev) => !prev);
   };
 
@@ -136,11 +128,11 @@ export default function DashboardHeader() {
       justifyContent="space-between"
       spacing={{ xs: 0.5 }}
     >
+      {/* Left section */}
       {isMobile ? (
         // Mobile
         <Box sx={{ display: 'flex' }}>
           <IconButton
-            onClick={onClickToggleDrawerMobile}
             sx={{
               width: 'fit-content',
               height: 'fit-content',
@@ -159,7 +151,6 @@ export default function DashboardHeader() {
             anchor="left"
             open={isDrawerMobileOpen}
             onClose={onClickToggleDrawerMobile}
-            variant="persistent"
             sx={{
               '& .MuiDrawer-paper': {
                 width: isDrawerMobileOpen
@@ -171,14 +162,18 @@ export default function DashboardHeader() {
             <DrawerContent dashboardType={dashboardType} />
           </DrawerStyled>
         </Box>
-      ) : (
-        // Desktop
+      ) : // Desktop
+      dashboardMode === DASHBOARD_MODE.HORIZONTAL ? (
         <Box display="flex" gap={1}>
           <VietQRLogo />
           <DashboardMode />
         </Box>
+      ) : (
+        <Breadcrumbs />
       )}
+      {/* Right section */}
       <Box sx={{ display: 'flex', gap: 1 }}>
+        {/* Search bar only on DESKTOP */}
         {!isMobile && (
           <Box
             sx={{
@@ -192,6 +187,7 @@ export default function DashboardHeader() {
             <SearchBar />
           </Box>
         )}
+        {/* Common actions for both MOBILE and DESKTOP */}
         <Box sx={{ display: 'flex', gap: 0.2 }}>
           {!isMobile && <AccountPopover />}
           <NotificationPopover />

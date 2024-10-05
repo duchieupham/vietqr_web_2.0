@@ -4,8 +4,10 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import Breadcrumbs from '~/components/Breadcrumbs';
+import { useAppSelector } from '~/redux/hook';
 import { VerticalSidebar } from '~/sections/dashboard/sidebar';
 import DashboardHeader from '../header/DashboardHeader';
+import { DASHBOARD_MODE } from '../header/DashboardMode';
 
 const DRAWER_WIDTH = 240;
 const TOOLBAR_HEIGHT = '64px';
@@ -36,6 +38,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 export default function DashboardSidebar({ children }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { dashboardMode } = useAppSelector((store) => store.app);
+
   const [isOpen, setIsOpen] = useState(!isMobile);
 
   return (
@@ -60,7 +64,7 @@ export default function DashboardSidebar({ children }) {
             <DashboardHeader />
           </Toolbar>
         </AppBar>
-        <Breadcrumbs />
+        {dashboardMode === DASHBOARD_MODE.HORIZONTAL && <Breadcrumbs />}
         {children}
       </Main>
     </Box>
