@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -227,6 +228,7 @@ export default function SearchBar() {
       const result = searchByLabel(query, t);
       setSearchResult(result);
     } else {
+      setSearchQuery('');
       setSearchResult({
         feat: [],
         transaction: [],
@@ -234,6 +236,16 @@ export default function SearchBar() {
         others: [],
       });
     }
+  };
+
+  const handleClearQuery = () => {
+    setSearchQuery('');
+    setSearchResult({
+      feat: [],
+      transaction: [],
+      guidance: [],
+      others: [],
+    });
   };
 
   return (
@@ -279,10 +291,7 @@ export default function SearchBar() {
           endAdornment: !isEmptySearch && (
             <InputAdornment
               position="end"
-              onMouseDown={(e) => {
-                e.preventDefault();
-                setSearchQuery('');
-              }} // just clear the search query don't collapse the search bar
+              onMouseDown={handleClearQuery} // just clear the search query don't collapse the search bar
             >
               <CloseIcon fontSize="small" cursor="pointer" />
             </InputAdornment>
