@@ -61,7 +61,7 @@ export default function DashboardSidebar({ children }) {
               p: 0,
             }}
           >
-            <DashboardHeader />
+            <DashboardHeader isOpen={isOpen} setIsOpen={setIsOpen} />
           </Toolbar>
         </AppBar>
         {dashboardMode === DASHBOARD_MODE.HORIZONTAL && <Breadcrumbs />}
