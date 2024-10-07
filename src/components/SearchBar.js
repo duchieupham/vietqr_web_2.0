@@ -147,6 +147,13 @@ const ITEMS = [
   },
 ];
 
+const DEFAULT_SEARCH_RESULT = {
+  feat: [],
+  transaction: [],
+  guidance: [],
+  others: [],
+};
+
 function searchByLabel(query, t) {
   const searchResult = {
     feat: [],
@@ -212,12 +219,7 @@ export default function SearchBar() {
     setSearchQuery('');
   };
 
-  const [searchResult, setSearchResult] = useState({
-    feat: [],
-    transaction: [],
-    guidance: [],
-    others: [],
-  });
+  const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
 
   const isEmptySearch = searchQuery.trim() === '';
 
@@ -229,24 +231,16 @@ export default function SearchBar() {
       setSearchResult(result);
     } else {
       setSearchQuery('');
-      setSearchResult({
-        feat: [],
-        transaction: [],
-        guidance: [],
-        others: [],
-      });
+      setSearchResult(DEFAULT_SEARCH_RESULT);
     }
   };
 
   const handleClearQuery = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     setSearchQuery('');
-    setSearchResult({
-      feat: [],
-      transaction: [],
-      guidance: [],
-      others: [],
-    });
+    setSearchResult(DEFAULT_SEARCH_RESULT);
   };
 
   return (

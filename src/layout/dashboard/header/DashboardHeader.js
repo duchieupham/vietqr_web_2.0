@@ -116,7 +116,7 @@ export default function DashboardHeader() {
 
   const [isDrawerMobileOpen, setIsDrawerMobileOpen] = useState(false);
 
-  const onClickToggleDrawerMobile = () => {
+  const onClickDrawerMobile = () => {
     setIsDrawerMobileOpen((prev) => !prev);
   };
 
@@ -150,7 +150,7 @@ export default function DashboardHeader() {
           <DrawerStyled
             anchor="left"
             open={isDrawerMobileOpen}
-            onClose={onClickToggleDrawerMobile}
+            onClose={onClickDrawerMobile}
             sx={{
               '& .MuiDrawer-paper': {
                 width: isDrawerMobileOpen
