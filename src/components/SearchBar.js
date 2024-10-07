@@ -238,7 +238,8 @@ export default function SearchBar() {
     }
   };
 
-  const handleClearQuery = () => {
+  const handleClearQuery = (e) => {
+    e.preventDefault();
     setSearchQuery('');
     setSearchResult({
       feat: [],
