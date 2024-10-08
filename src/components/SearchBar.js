@@ -155,12 +155,7 @@ const DEFAULT_SEARCH_RESULT = {
 };
 
 function searchByLabel(query, t) {
-  const searchResult = {
-    feat: [],
-    transaction: [],
-    guidance: [],
-    others: [],
-  };
+  const searchResult = DEFAULT_SEARCH_RESULT;
   // Search in ITEMS
   ITEMS.forEach((item) => {
     // Search in children of each item
