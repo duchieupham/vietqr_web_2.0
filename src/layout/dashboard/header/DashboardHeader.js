@@ -12,14 +12,10 @@ import AccountPopover from './AccountPopover';
 import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
-export default function DashboardHeader({ isOpen, setIsOpen }) {
+export default function DashboardHeader({ isOpen, onClick }) {
   const { dashboardMode } = useAppSelector((store) => store.app);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const onClickDrawerMobile = () => {
-    setIsOpen((prev) => !prev);
-  };
 
   return (
     <Stack
@@ -41,10 +37,10 @@ export default function DashboardHeader({ isOpen, setIsOpen }) {
               zIndex: 1300,
             }}
           >
-            <Hamburger toggled={isOpen} toggle={setIsOpen} size={20} />
+            <Hamburger toggled={isOpen} toggle={onClick} size={20} />
           </IconButton>
           <VietQRLogo />
-          <DrawerMobile isOpen={isOpen} setIsOpen={onClickDrawerMobile} />
+          <DrawerMobile isOpen={isOpen} onClose={onClick} />
         </Box>
       ) : // Desktop
       dashboardMode === DASHBOARD_MODE.HORIZONTAL ? (

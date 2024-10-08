@@ -42,6 +42,10 @@ export default function DashboardSidebar({ children }) {
 
   const [isOpen, setIsOpen] = useState(!isMobile);
 
+  const onClickDrawerMobile = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       {/* desktop */}
@@ -61,7 +65,7 @@ export default function DashboardSidebar({ children }) {
               p: 0,
             }}
           >
-            <DashboardHeader isOpen={isOpen} setIsOpen={setIsOpen} />
+            <DashboardHeader isOpen={isOpen} onClick={onClickDrawerMobile} />
           </Toolbar>
         </AppBar>
         {dashboardMode === DASHBOARD_MODE.HORIZONTAL && <Breadcrumbs />}

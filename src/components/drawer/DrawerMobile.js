@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import AccountPopover from '~/layout/dashboard/header/AccountPopover';
 import DashboardMode, {
@@ -98,14 +99,14 @@ const DrawerContent = ({ dashboardType }) => {
     </Stack>
   );
 };
-export default function DrawerMobile({ isOpen, setIsOpen }) {
+export default function DrawerMobile({ isOpen, onClose }) {
   const { dashboardType } = useAppSelector((store) => store.app);
 
   return (
     <DrawerStyled
       anchor="left"
       open={isOpen}
-      onClose={setIsOpen}
+      onClose={onClose}
       sx={{
         '& .MuiDrawer-paper': {
           width: isOpen ? DRAWER_WIDTH : DRAWER_WIDTH_COLLAPSED,
