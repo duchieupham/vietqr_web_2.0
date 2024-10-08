@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -146,13 +147,15 @@ const ITEMS = [
   },
 ];
 
+const DEFAULT_SEARCH_RESULT = {
+  feat: [],
+  transaction: [],
+  guidance: [],
+  others: [],
+};
+
 function searchByLabel(query, t) {
-  const searchResult = {
-    feat: [],
-    transaction: [],
-    guidance: [],
-    others: [],
-  };
+  const searchResult = DEFAULT_SEARCH_RESULT;
   // Search in ITEMS
   ITEMS.forEach((item) => {
     // Search in children of each item
@@ -211,12 +214,7 @@ export default function SearchBar() {
     setSearchQuery('');
   };
 
-  const [searchResult, setSearchResult] = useState({
-    feat: [],
-    transaction: [],
-    guidance: [],
-    others: [],
-  });
+  const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
 
   const isEmptySearch = searchQuery.trim() === '';
 
@@ -227,13 +225,17 @@ export default function SearchBar() {
       const result = searchByLabel(query, t);
       setSearchResult(result);
     } else {
-      setSearchResult({
-        feat: [],
-        transaction: [],
-        guidance: [],
-        others: [],
-      });
+      setSearchQuery('');
+      setSearchResult(DEFAULT_SEARCH_RESULT);
     }
+  };
+
+  const handleClearQuery = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    setSearchQuery('');
+    setSearchResult(DEFAULT_SEARCH_RESULT);
   };
 
   return (
@@ -277,7 +279,10 @@ export default function SearchBar() {
             </InputAdornment>
           ),
           endAdornment: !isEmptySearch && (
-            <InputAdornment position="end" onClick={onSearchChange}>
+            <InputAdornment
+              position="end"
+              onMouseDown={handleClearQuery} // just clear the search query don't collapse the search bar
+            >
               <CloseIcon fontSize="small" cursor="pointer" />
             </InputAdornment>
           ),
