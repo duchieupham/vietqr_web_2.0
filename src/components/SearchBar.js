@@ -13,6 +13,7 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
+import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { useAuthContext } from '~/contexts/hooks';
 import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient } from './button';
@@ -27,13 +28,13 @@ const SearchContainer = ({
   const { dashboardMode } = useAppSelector((store) => store.app);
 
   const collapseStyle = {
-    left: '21rem',
+    left: dashboardMode === DASHBOARD_MODE.VERTICAL ? '17rem' : '21rem',
     width: '16rem',
     height: '40px',
     transition: 'left 0.3s ease, width 0.3s ease, height 0.3s ease',
   };
   const expandStyle = {
-    left: 0,
+    left: dashboardMode === DASHBOARD_MODE.VERTICAL ? -80 : 0,
     width: '38rem',
     height: 'fit-content',
     background: theme.palette.aiColor,
