@@ -7,4 +7,5 @@ export const Z_INDEX = {
   MODAL: 1060,
   POPOVER: 1070,
   TOOLTIP: 1080,
+  DRAWER: 1200,
 };
