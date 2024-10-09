@@ -92,7 +92,7 @@ export const DASHBOARD_TYPE = [
     ],
   },
   {
-    id: 'agent-dashboard',
+    id: 'agentDashboard',
     label: 'Agent Dashboard',
     path: '/agent-dashboard',
     icon: '/icons/store-management.svg',
