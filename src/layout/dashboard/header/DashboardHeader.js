@@ -18,8 +18,6 @@ export default function DashboardHeader({ isOpen, onClick }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  console.log('dashboardMode', dashboardMode);
-
   return (
     <Stack
       width="100%"
