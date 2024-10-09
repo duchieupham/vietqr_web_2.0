@@ -52,14 +52,14 @@ export default function DashboardHeader({ isOpen, onClick }) {
         <Breadcrumbs />
       )}
       {/* Right section */}
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box sx={{ display: 'flex' }}>
         {/* Search bar only on DESKTOP */}
         {!isMobile && (
           <Box
             sx={{
               width: {
                 xs: '100%',
-                md: '38rem',
+                md: '34rem',
               },
               position: 'relative',
             }}

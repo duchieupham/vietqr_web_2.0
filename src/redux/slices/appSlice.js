@@ -20,6 +20,6 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setDashboardType } = appSlice.actions;
+export const { setDashboardType, setDashboardMode } = appSlice.actions;
 
 export default appSlice.reducer;
