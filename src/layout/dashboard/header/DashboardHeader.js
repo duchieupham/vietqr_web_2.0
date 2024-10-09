@@ -6,16 +6,19 @@ import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
 import DrawerMobile from '~/components/drawer/DrawerMobile';
 import VietQRLogo from '~/components/VietQRLogo';
+import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
+import DashboardMode from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
 export default function DashboardHeader({ isOpen, onClick }) {
   const { dashboardMode } = useAppSelector((store) => store.app);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  console.log('dashboardMode', dashboardMode);
 
   return (
     <Stack

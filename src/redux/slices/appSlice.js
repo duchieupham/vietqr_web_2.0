@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DASHBOARD_TYPE } from '~/constants/dashboard';
-import { DASHBOARD_MODE } from '~/layout/dashboard/header/DashboardMode';
+import { DASHBOARD_MODE, DASHBOARD_TYPE } from '~/constants/dashboard';
 
 const initialState = {
   dashboardType: DASHBOARD_TYPE[0].id, // home-dashboard

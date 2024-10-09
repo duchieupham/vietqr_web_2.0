@@ -14,11 +14,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { DASHBOARD_MODE, DASHBOARD_TYPE } from '~/constants/dashboard';
 import { Z_INDEX } from '~/constants/styles';
-import DashboardMode, {
-  DASHBOARD_MODE,
-} from '~/layout/dashboard/header/DashboardMode';
+import DashboardMode from '~/layout/dashboard/header/DashboardMode';
 import { useAppDispatch, useAppSelector } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
 

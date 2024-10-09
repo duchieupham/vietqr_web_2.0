@@ -4,14 +4,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { DASHBOARD_MODE, DASHBOARD_TYPE } from '~/constants/dashboard';
 import { useAppDispatch } from '~/redux/hook';
 import { setDashboardType } from '~/redux/slices/appSlice';
-
-export const DASHBOARD_MODE = {
-  HORIZONTAL: 'horizontal',
-  VERTICAL: 'vertical',
-};
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme, mode }) => ({
   transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease',

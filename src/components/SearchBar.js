@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useAuthContext } from '~/contexts/hooks';
+import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient } from './button';
 
 const SearchContainer = ({
@@ -23,6 +24,8 @@ const SearchContainer = ({
   children,
   ...props
 }) => {
+  const { dashboardMode } = useAppSelector((store) => store.app);
+
   const collapseStyle = {
     left: '21rem',
     width: '16rem',
