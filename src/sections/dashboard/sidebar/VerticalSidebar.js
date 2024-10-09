@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import {
   Box,
   Drawer,
@@ -14,6 +15,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { DASHBOARD_TYPE } from '~/constants/dashboard';
+import { Z_INDEX } from '~/constants/styles';
 import DashboardMode, {
   DASHBOARD_MODE,
 } from '~/layout/dashboard/header/DashboardMode';
@@ -96,7 +98,9 @@ export default function VerticalSidebar() {
                 <ListItem
                   key={item.id}
                   disablePadding
-                  sx={{ paddingBottom: '8px' }}
+                  sx={{
+                    paddingBottom: '8px',
+                  }}
                 >
                   {item.children.length > 0 ? (
                     <Box>
@@ -119,21 +123,35 @@ export default function VerticalSidebar() {
                       {/* Nested Children List */}
                       <List disablePadding>
                         {item.children.map((child) => (
-                          <ListItem key={child.id} disablePadding>
+                          <ListItem
+                            key={child.id}
+                            disablePadding
+                            sx={isOpen ? {} : { padding: '8px 0' }}
+                          >
                             <ListItemButtonStyled
                               selected={pathname.includes(child.path)}
                               disableRipple
                               sx={{
-                                paddingLeft: '18px',
+                                padding: '0 16px 0 18px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'flex-start',
                               }}
                               onClick={() => router.push(child.path)}
                             >
-                              <Box sx={{ display: 'flex' }}>
+                              <Box
+                                sx={
+                                  isOpen && {
+                                    display: 'flex',
+                                  }
+                                }
+                              >
                                 <Image
                                   src={child.icon || '/icons/star-gradient.svg'}
                                   width={30}
                                   height={30}
                                   alt="icon"
+                                  style={{ marginTop: '4px' }}
                                 />
                                 {isOpen && (
                                   <Typography
@@ -158,14 +176,13 @@ export default function VerticalSidebar() {
                       selected={pathname.includes(item.path)}
                       disableRipple
                       onClick={() => router.push(item.path)}
-                      sx={{
-                        ...(!isOpen && {
+                      sx={
+                        isOpen && {
                           display: 'flex',
                           justifyContent: 'center',
-                          alignItems: 'center',
-                          paddingTop: '8px',
-                        }),
-                      }}
+                          alignItems: 'flex-start',
+                        }
+                      }
                     >
                       <Box>
                         {isOpen ? (
@@ -182,10 +199,11 @@ export default function VerticalSidebar() {
                           </Typography>
                         ) : (
                           <Image
-                            width={20}
-                            height={20}
+                            width={30}
+                            height={30}
                             alt="icon"
-                            src={item.icon}
+                            src={item.icon} // The size is dependent on the resource of the icon
+                            style={{ marginTop: '4px' }}
                           />
                         )}
                       </Box>
@@ -243,7 +261,7 @@ export default function VerticalSidebar() {
       <Box
         sx={{
           position: 'absolute',
-          zIndex: 1300,
+          zIndex: Z_INDEX.DRAWER + 1,
           border: '1px solid #DADADA',
           borderRadius: '50%',
           background: 'white',
