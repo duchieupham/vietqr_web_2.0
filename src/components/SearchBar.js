@@ -13,9 +13,7 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
-import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { useAuthContext } from '~/contexts/hooks';
-import { useAppSelector } from '~/redux/hook';
 import { ButtonGradient } from './button';
 
 const SearchContainer = ({
@@ -25,17 +23,14 @@ const SearchContainer = ({
   children,
   ...props
 }) => {
-  const { dashboardMode } = useAppSelector((store) => store.app);
-
   const collapseStyle = {
     width: '70%',
     maxWidth: '16rem',
-    height: '100%',
+    background: '#F0F4FA',
   };
   const expandStyle = {
     width: '100%',
     maxWidth: '40vw',
-    height: 'fit-content',
     background: theme.palette.aiColor,
     '&::before': {
       content: '""',
@@ -66,6 +61,7 @@ const SearchContainer = ({
         position: 'absolute',
         borderRadius: '8px',
         transition: 'all 0.3s ease',
+        height: 'fit-content',
         ...(isExpanded ? expandStyle : collapseStyle),
       }}
       {...props}
@@ -299,7 +295,6 @@ export default function SearchBar() {
         sx={{
           borderRadius: '8px',
           display: 'flex',
-
           cursor: 'pointer',
           width: '100%',
           height: 40,
