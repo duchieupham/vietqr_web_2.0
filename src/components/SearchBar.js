@@ -323,7 +323,7 @@ export default function SearchBar() {
       />
       {/* Show Search Contents */}
       {isExpanded && !isEmptySearch && (
-        <Box>
+        <>
           <Divider />
           <Box
             sx={{
@@ -431,7 +431,7 @@ export default function SearchBar() {
               )}
             </Box>
           </Box>
-        </Box>
+        </>
       )}
     </SearchContainer>
   );
