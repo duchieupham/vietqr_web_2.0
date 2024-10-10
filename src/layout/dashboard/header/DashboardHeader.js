@@ -54,17 +54,21 @@ export default function DashboardHeader({ isOpen, onClick }) {
         <Breadcrumbs />
       )}
       {/* Right section */}
-      <Box sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         {/* Search bar only on DESKTOP */}
         {!isMobile && (
           <Box
             sx={{
-              width: {
-                xs: '100%',
-                md:
-                  dashboardMode === DASHBOARD_MODE.VERTICAL ? '25rem' : '34rem',
-              },
-              position: 'relative',
+              display: 'flex',
+              width: 'inherit',
+              height: '40px',
+              justifyContent: 'flex-end',
             }}
           >
             <SearchBar />
