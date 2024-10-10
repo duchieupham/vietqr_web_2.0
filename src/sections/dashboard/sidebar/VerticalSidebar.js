@@ -10,6 +10,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import zIndex from '@mui/material/styles/zIndex';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -136,6 +137,7 @@ export default function VerticalSidebar() {
                                 alignItems: 'flex-start',
                               }}
                               onClick={() => router.push(child.path)}
+                              open={isOpen}
                             >
                               <Box
                                 sx={
@@ -174,6 +176,7 @@ export default function VerticalSidebar() {
                       selected={pathname.includes(item.path)}
                       disableRipple
                       onClick={() => router.push(item.path)}
+                      open={isOpen}
                       sx={
                         isOpen && {
                           display: 'flex',
@@ -220,6 +223,7 @@ export default function VerticalSidebar() {
                   selected={pathname.includes(settingsItem.path)}
                   disableRipple
                   onClick={() => router.push(settingsItem.path)}
+                  open={isOpen}
                 >
                   <Box
                     sx={{
@@ -301,7 +305,7 @@ const DrawerStyled = styled(Drawer)(({ theme, open }) => ({
   },
 }));
 
-const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
+const ListItemButtonStyled = styled(ListItemButton)(({ theme, open }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
@@ -333,7 +337,8 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
       width: '3px',
       height: '100%',
       background: theme.palette.bright.blue.linear,
-      right: 0,
+      right: open ? 0 : '180px',
+      zIndex: 1,
     },
   },
   '&:hover': {
