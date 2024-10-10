@@ -4,12 +4,14 @@ import { Box, IconButton, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
-import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
 import VietQRLogo from '~/components/VietQRLogo';
+import { DASHBOARD_MODE } from '~/constants/dashboard';
+import { Z_INDEX } from '~/constants/styles';
 import { useAppSelector } from '~/redux/hook';
+import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
-import DashboardMode, { DASHBOARD_MODE } from './DashboardMode';
+import DashboardMode from './DashboardMode';
 import NotificationPopover from './NotificationPopover';
 
 export default function DashboardHeader({ isOpen, onClick }) {
@@ -34,7 +36,7 @@ export default function DashboardHeader({ isOpen, onClick }) {
               width: 'fit-content',
               height: 'fit-content',
               p: 0,
-              zIndex: 1300,
+              zIndex: Z_INDEX.DRAWER + 1,
             }}
           >
             <Hamburger toggled={isOpen} toggle={onClick} size={20} />
@@ -52,16 +54,21 @@ export default function DashboardHeader({ isOpen, onClick }) {
         <Breadcrumbs />
       )}
       {/* Right section */}
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         {/* Search bar only on DESKTOP */}
         {!isMobile && (
           <Box
             sx={{
-              width: {
-                xs: '100%',
-                md: '38rem',
-              },
-              position: 'relative',
+              display: 'flex',
+              width: 'inherit',
+              height: '40px',
+              justifyContent: 'flex-end',
             }}
           >
             <SearchBar />
