@@ -9,10 +9,11 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { DASHBOARD_MODE, DASHBOARD_TYPE } from '~/constants/dashboard';
+import { DASHBOARD_TYPE } from '~/constants/dashboard';
 import AccountPopover from '~/layout/dashboard/header/AccountPopover';
-import DashboardMode from '~/layout/dashboard/header/DashboardMode';
-
+import DashboardMode, {
+  DASHBOARD_MODE,
+} from '~/layout/dashboard/header/DashboardMode';
 import { useAppSelector } from '~/redux/hook';
 
 const DRAWER_WIDTH = 250;

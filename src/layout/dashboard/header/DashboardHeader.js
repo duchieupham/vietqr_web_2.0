@@ -4,7 +4,7 @@ import { Box, IconButton, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
-import DrawerMobile from '~/components/drawer/DrawerMobile';
+import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
