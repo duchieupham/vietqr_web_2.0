@@ -44,7 +44,9 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
 
     const flattenedRoutes = flattenRoutes(DASHBOARD_TYPE);
     for (const path of pathArray) {
-      const foundRoute = flattenedRoutes.find((route) => route.id === path);
+      const foundRoute = flattenedRoutes.find((route) =>
+        route.path.includes(path),
+      );
       if (foundRoute) breadcrumbs.push(foundRoute);
     }
 
