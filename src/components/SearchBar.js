@@ -28,17 +28,15 @@ const SearchContainer = ({
   const { dashboardMode } = useAppSelector((store) => store.app);
 
   const collapseStyle = {
-    left: dashboardMode === DASHBOARD_MODE.VERTICAL ? '17rem' : '21rem',
-    width: '16rem',
-    height: '40px',
-    transition: 'left 0.3s ease, width 0.3s ease, height 0.3s ease',
+    width: '70%',
+    maxWidth: '16rem',
+    height: '100%',
   };
   const expandStyle = {
-    left: dashboardMode === DASHBOARD_MODE.VERTICAL ? -80 : 0,
-    width: '38rem',
+    width: '100%',
+    maxWidth: '40vw',
     height: 'fit-content',
     background: theme.palette.aiColor,
-    transition: 'left 0.3s ease, width 0.3s ease, height 0.43s ease',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -46,7 +44,7 @@ const SearchContainer = ({
       left: 0,
       right: 0,
       bottom: 0,
-      zIndex: -1,
+      zIndex: 1,
       borderRadius: '8px',
       padding: '1px',
       background: theme.palette.aiTextColor,
@@ -65,11 +63,9 @@ const SearchContainer = ({
   return (
     <Box
       sx={{
-        top: '8px',
         position: 'absolute',
-        zIndex: 1,
-        overflow: 'hidden',
         borderRadius: '8px',
+        transition: 'all 0.3s ease',
         ...(isExpanded ? expandStyle : collapseStyle),
       }}
       {...props}
@@ -85,7 +81,9 @@ const ListItem = styled(Box)(({ theme }) => ({
   fontSize: '12px',
   color: '#4A4A4A',
   cursor: 'pointer',
+  overflow: 'hidden',
   transition: 'background 0.2s ease',
+  zIndex: 1,
   '& svg': {
     marginRight: '12px',
     color: theme.palette.text.primary,
@@ -250,12 +248,12 @@ export default function SearchBar() {
     >
       <TextField
         onFocus={expandSearch}
+        onBlur={collapseSearch}
+        onChange={onSearchChange}
         variant="outlined"
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
-        onChange={onSearchChange}
         value={searchQuery}
         autoComplete="off"
-        onBlur={collapseSearch}
         InputProps={{
           startAdornment: (
             <InputAdornment
@@ -285,6 +283,7 @@ export default function SearchBar() {
           endAdornment: !isEmptySearch && (
             <InputAdornment
               position="end"
+              sx={{ paddingRight: 1 }}
               onMouseDown={handleClearQuery} // just clear the search query don't collapse the search bar
             >
               <CloseIcon fontSize="small" cursor="pointer" />
@@ -300,9 +299,9 @@ export default function SearchBar() {
         sx={{
           borderRadius: '8px',
           display: 'flex',
-          background: isExpanded ? 'transparent' : '#F0F4FA',
+
           cursor: 'pointer',
-          width: 'fit-content',
+          width: '100%',
           height: 40,
           '& .MuiOutlinedInput-root': {
             padding: 0,
@@ -311,8 +310,7 @@ export default function SearchBar() {
             backgroundColor: 'transparent',
           },
           '& .MuiInputBase-root': {
-            width: '580px',
-            height: 40,
+            height: '100%',
           },
           '& .MuiInputBase-input': {
             fontSize: 12,
@@ -325,7 +323,7 @@ export default function SearchBar() {
       />
       {/* Show Search Contents */}
       {isExpanded && !isEmptySearch && (
-        <>
+        <Box>
           <Divider />
           <Box
             sx={{
@@ -433,7 +431,7 @@ export default function SearchBar() {
               )}
             </Box>
           </Box>
-        </>
+        </Box>
       )}
     </SearchContainer>
   );
