@@ -4,10 +4,11 @@ import { Box, IconButton, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
-import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_MODE } from '~/constants/dashboard';
+import { Z_INDEX } from '~/constants/styles';
 import { useAppSelector } from '~/redux/hook';
+import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
 import SearchBar from '../../../components/SearchBar';
 import AccountPopover from './AccountPopover';
 import DashboardMode from './DashboardMode';
@@ -35,7 +36,7 @@ export default function DashboardHeader({ isOpen, onClick }) {
               width: 'fit-content',
               height: 'fit-content',
               p: 0,
-              zIndex: 1300,
+              zIndex: Z_INDEX.DRAWER + 1,
             }}
           >
             <Hamburger toggled={isOpen} toggle={onClick} size={20} />
@@ -60,7 +61,8 @@ export default function DashboardHeader({ isOpen, onClick }) {
             sx={{
               width: {
                 xs: '100%',
-                md: '34rem',
+                md:
+                  dashboardMode === DASHBOARD_MODE.VERTICAL ? '25rem' : '34rem',
               },
               position: 'relative',
             }}
