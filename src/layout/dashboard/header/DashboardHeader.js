@@ -69,6 +69,7 @@ export default function DashboardHeader({ isOpen, onClick }) {
               width: 'inherit',
               height: '40px',
               justifyContent: 'flex-end',
+              paddingRight: 2,
             }}
           >
             <SearchBar />

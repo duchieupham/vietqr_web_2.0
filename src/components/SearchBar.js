@@ -10,9 +10,11 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { debounce } from 'lodash-es';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { searchAPI } from '~/api/search/searchService';
 import { useAuthContext } from '~/contexts/hooks';
 import { ButtonGradient } from './button';
 
@@ -153,30 +155,38 @@ const DEFAULT_SEARCH_RESULT = {
 };
 
 function searchByLabel(query, t) {
-  const searchResult = DEFAULT_SEARCH_RESULT;
+  const newSearchResult = { ...DEFAULT_SEARCH_RESULT };
   // Search in ITEMS
   ITEMS.forEach((item) => {
     // Search in children of each item
-    // If the label of the child includes the query, add it to the search result
+    // If the label of the child includes the query, add it to the new search result
     if (item.children.length > 0) {
       item.children.forEach((child) => {
-        const labelConverted = t(child.label);
+        const labelConverted = t(child.label); // Convert label to text for searching in translation
         if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
-          searchResult[item.label].push(child);
+          // check duplicate search result
+          if (
+            !newSearchResult[item.label].some(
+              (existing) => existing.label === child.label,
+            )
+          ) {
+            newSearchResult[item.label].push(child);
+          }
         }
       });
     }
   });
-  return searchResult;
+  return newSearchResult;
 }
 
 function ShowTheSearchResult({ label, searchResult }) {
   const t = useTranslations();
-  return (
-    <Box>
-      {Object.keys(searchResult).map((key) => {
+
+  const renderedResults = useMemo(
+    () =>
+      Object.keys(searchResult).map((key) => {
         if (searchResult[key].length === 0) {
-          return null;
+          return null; // Skip empty results
         }
         return (
           <Box key={key}>
@@ -190,9 +200,11 @@ function ShowTheSearchResult({ label, searchResult }) {
               ))}
           </Box>
         );
-      })}
-    </Box>
+      }),
+    [label, searchResult, t],
   );
+
+  return <Box>{renderedResults}</Box>;
 }
 
 export default function SearchBar() {
@@ -202,6 +214,12 @@ export default function SearchBar() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState({
+    feat: [],
+    transaction: [],
+    guidance: [],
+    others: [],
+  });
 
   const expandSearch = () => {
     setIsExpanded(true);
@@ -210,22 +228,70 @@ export default function SearchBar() {
   const collapseSearch = () => {
     setIsExpanded(false);
     setSearchQuery('');
+    setSearchResult(DEFAULT_SEARCH_RESULT);
   };
-
-  const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
 
   const isEmptySearch = searchQuery.trim() === '';
 
-  const onSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
+  const onSearchChange = async (query) => {
     if (query) {
       const result = searchByLabel(query, t);
-      setSearchResult(result);
+
+      // check if all categories are empty
+      if (Object.values(result).every((category) => category.length === 0)) {
+        setSearchResult(DEFAULT_SEARCH_RESULT);
+      } else {
+        // set search result
+        setSearchResult(result);
+      }
+
+      // search transaction
+      const transactionResult = await searchAPI.searchTransaction({
+        searchQuery: query,
+        userID: session?.userID, // required
+        // userID: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
+      });
+
+      if (transactionResult?.data?.transactions?.length) {
+        setSearchResult((prevState) => ({
+          ...prevState,
+          transaction: transactionResult.data.transactions.map((txn) => ({
+            label: txn.description,
+            icon: '/icons/transaction-icon.svg',
+          })),
+        }));
+      } else {
+        // clear transaction search result if no result
+        setSearchResult((prevState) => ({
+          ...prevState,
+          transaction: [],
+        }));
+      }
     } else {
+      // clear search result if query is empty
       setSearchQuery('');
       setSearchResult(DEFAULT_SEARCH_RESULT);
     }
+  };
+
+  // Debounce search change
+  const debouncedSearchChange = useMemo(
+    () => debounce(onSearchChange, 300),
+    [],
+  );
+
+  // Clear debounce on unmount
+  useEffect(
+    () => () => {
+      debouncedSearchChange.cancel();
+    },
+    [debouncedSearchChange],
+  );
+
+  const onInputChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearchChange(query);
   };
 
   const handleClearQuery = (e) => {
@@ -245,7 +311,7 @@ export default function SearchBar() {
       <TextField
         onFocus={expandSearch}
         onBlur={collapseSearch}
-        onChange={onSearchChange}
+        onChange={onInputChange}
         variant="outlined"
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
         value={searchQuery}
