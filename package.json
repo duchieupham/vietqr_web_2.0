@@ -24,7 +24,7 @@
     "axios": "^1.7.3",
     "cookies-next": "^4.2.1",
     "crypto-js": "^4.2.0",
-    "dayjs": "^1.11.12",
+    "dayjs": "^1.11.13",
     "hamburger-react": "^2.5.1",
     "i18next": "^23.12.2",
     "install": "^0.13.0",
