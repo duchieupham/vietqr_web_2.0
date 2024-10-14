@@ -215,12 +215,7 @@ export default function SearchBar() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResult, setSearchResult] = useState({
-    feat: [],
-    transaction: [],
-    guidance: [],
-    others: [],
-  });
+  const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
 
   const expandSearch = () => {
     setIsExpanded(true);
