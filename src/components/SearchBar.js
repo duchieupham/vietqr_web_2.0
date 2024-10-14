@@ -163,6 +163,7 @@ function searchByLabel(query, t) {
     if (item.children.length > 0) {
       item.children.forEach((child) => {
         const labelConverted = t(child.label); // Convert label to text for searching in translation
+        if (labelConverted.trim() === '') return;
         if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
           // check duplicate search result
           if (
