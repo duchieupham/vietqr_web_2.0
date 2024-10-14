@@ -248,7 +248,7 @@ export default function SearchBar() {
       // search transaction
       const transactionResult = await searchAPI.searchTransaction({
         searchQuery: query,
-        userID: session?.userID, // required
+        userID: session?.userId, // required
         // userID: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
       });
 
