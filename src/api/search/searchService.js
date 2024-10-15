@@ -17,7 +17,7 @@ const searchTransaction = async ({ searchQuery, userId }) => {
     useAuth: true,
     params: params,
   });
-  return res;
+  return res?.data || null;
 };
 
 export const searchAPI = { searchTransaction };

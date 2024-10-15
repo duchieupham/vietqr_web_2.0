@@ -161,7 +161,6 @@ function searchByLabel(query, t) {
 
   // Search in ITEMS
   ITEMS.forEach((item) => {
-    // if the label of the item includes the query, add it to the new search result
     if (newSearchResult[item.label]) {
       newSearchResult[item.label] = [];
     }
@@ -261,8 +260,8 @@ export default function SearchBar() {
         // userId: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
       });
 
-      if (transactionResult?.data) {
-        result.transaction = transactionResult.data.transactions.map((txn) => ({
+      if (transactionResult) {
+        result.transaction = transactionResult?.transactions.map((txn) => ({
           label: txn.description,
           icon: '/icons/transaction-icon.svg',
         }));
