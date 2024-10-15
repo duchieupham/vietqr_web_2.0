@@ -240,21 +240,21 @@ export default function SearchBar() {
 
   const handleSearch = async (query) => {
     setIsLoading(true);
-    const lowerCaseQuery = query.trim().toLowerCase();
+    const parsedQuery = query.trim().toLowerCase();
 
     // if the query is empty, reset the search results and return early
-    if (!lowerCaseQuery) {
+    if (!parsedQuery) {
       handleClearQuery();
       setIsLoading(false);
       return;
     }
 
-    const result = searchByLabel(lowerCaseQuery, t);
+    const result = searchByLabel(parsedQuery, t);
 
     // search transaction if query length >= 10 characters
-    if (lowerCaseQuery.length >= 10) {
+    if (parsedQuery.length >= 10) {
       const transactionResult = await searchAPI.searchTransaction({
-        searchQuery: lowerCaseQuery,
+        searchQuery: parsedQuery,
         userId: session?.userId, // required
         // userId: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
       });
