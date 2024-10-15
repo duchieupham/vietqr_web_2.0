@@ -47,3 +47,6 @@ export const VIETQR_IMAGE = '/images/logo.png';
 
 // date
 export const DATE_REGEX = 'YYYY-MM-DD HH:mm:ss';
+
+// API
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;

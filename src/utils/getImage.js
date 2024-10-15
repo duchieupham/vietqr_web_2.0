@@ -1,21 +1,9 @@
-import { useState, useEffect } from 'react';
+import { BASE_URL } from '~/constants';
 
 const getImage = (imageId) => {
-  const [imageUri, setImageUri] = useState('');
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  useEffect(() => {
-    if (!imageId) return; // Return early if imageId is not provided.
-    try {
-      const stringUrl = `${baseUrl}/images/${imageId}`;
-      if (stringUrl) setImageUri(stringUrl);
-    } catch (error) {
-      // console.error('Failed to construct image URL:', error);
-      setImageUri(''); // Reset the state in case of an error.
-    }
-  }, [imageId]);
-
-  return imageUri;
+  if (!imageId) return null; // Return early if imageId is not provided.
+  const stringUrl = `${BASE_URL}/images/${imageId}`;
+  return stringUrl;
 };
 
 export default getImage;
