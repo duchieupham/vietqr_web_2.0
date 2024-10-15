@@ -155,22 +155,34 @@ const DEFAULT_SEARCH_RESULT = {
 };
 
 function searchByLabel(query, t) {
+  if (!query) return { ...DEFAULT_SEARCH_RESULT };
+
   const newSearchResult = { ...DEFAULT_SEARCH_RESULT };
+
   // Search in ITEMS
   ITEMS.forEach((item) => {
+    // if the label of the item includes the query, add it to the new search result
+    if (newSearchResult[item.label]) {
+      newSearchResult[item.label] = [];
+    }
     // Search in children of each item
     // If the label of the child includes the query, add it to the new search result
     if (item.children.length > 0) {
       item.children.forEach((child) => {
-        const labelConverted = t(child.label); // Convert label to text for searching in translation
-        if (labelConverted.trim() === '') return;
-        if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
+        const labelConverted = t(child.label).trim().toLowerCase(); // Convert label to text for searching in translation
+        if (!labelConverted.includes(query)) {
+          return;
+        }
+        if (
+          labelConverted &&
+          labelConverted.includes(query) &&
+          labelConverted.trim() !== ''
+        ) {
+          const isDuplicate = newSearchResult[item.label].some(
+            (existing) => existing.label === child.label,
+          );
           // check duplicate search result
-          if (
-            !newSearchResult[item.label].some(
-              (existing) => existing.label === child.label,
-            )
-          ) {
+          if (!isDuplicate) {
             newSearchResult[item.label].push(child);
           }
         }
@@ -217,64 +229,58 @@ export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
 
+  const handleClearQuery = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    setSearchQuery('');
+    setSearchResult(DEFAULT_SEARCH_RESULT);
+  };
+
   const expandSearch = () => {
     setIsExpanded(true);
   };
 
   const collapseSearch = () => {
     setIsExpanded(false);
-    setSearchQuery('');
-    setSearchResult(DEFAULT_SEARCH_RESULT);
+    handleClearQuery();
   };
 
   const isEmptySearch = searchQuery.trim() === '';
 
-  const onSearchChange = async (query) => {
-    if (query) {
-      const result = searchByLabel(query, t);
+  const handleSearch = async (query) => {
+    const lowerCaseQuery = query.trim().toLowerCase();
 
-      // check if all categories are empty
-      if (Object.values(result).every((category) => category.length === 0)) {
-        setSearchResult(DEFAULT_SEARCH_RESULT);
-      } else {
-        // set search result
-        setSearchResult(result);
-      }
+    // if the query is empty, reset the search results and return early
+    if (!lowerCaseQuery) {
+      handleClearQuery();
+      return;
+    }
 
-      // search transaction
+    const result = searchByLabel(lowerCaseQuery, t);
+
+    // search transaction if query length >= 10 characters
+    if (lowerCaseQuery.length >= 10) {
       const transactionResult = await searchAPI.searchTransaction({
-        searchQuery: query,
-        userID: session?.userId, // required
-        // userID: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
+        searchQuery: lowerCaseQuery,
+        userId: session?.userId, // required
+        // userId: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
       });
 
       if (transactionResult?.data?.transactions?.length) {
-        setSearchResult((prevState) => ({
-          ...prevState,
-          transaction: transactionResult.data.transactions.map((txn) => ({
-            label: txn.description,
-            icon: '/icons/transaction-icon.svg',
-          })),
-        }));
-      } else {
-        // clear transaction search result if no result
-        setSearchResult((prevState) => ({
-          ...prevState,
-          transaction: [],
+        result.transaction = transactionResult.data.transactions.map((txn) => ({
+          label: txn.description,
+          icon: '/icons/transaction-icon.svg',
         }));
       }
-    } else {
-      // clear search result if query is empty
-      setSearchQuery('');
-      setSearchResult(DEFAULT_SEARCH_RESULT);
     }
+
+    // set the new search result
+    setSearchResult(result);
   };
 
   // Debounce search change
-  const debouncedSearchChange = useMemo(
-    () => debounce(onSearchChange, 300),
-    [],
-  );
+  const debouncedSearchChange = useMemo(() => debounce(handleSearch, 300), []);
 
   // Clear debounce on unmount
   useEffect(
@@ -288,14 +294,6 @@ export default function SearchBar() {
     const query = e.target.value;
     setSearchQuery(query);
     debouncedSearchChange(query);
-  };
-
-  const handleClearQuery = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    setSearchQuery('');
-    setSearchResult(DEFAULT_SEARCH_RESULT);
   };
 
   return (
