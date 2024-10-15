@@ -1,4 +1,4 @@
-import { BASE_URL } from '~/constants';
+import { BASE_URL } from '~/constants/config';
 
 const getImage = (imageId) => {
   if (!imageId) return null; // Return early if imageId is not provided.
