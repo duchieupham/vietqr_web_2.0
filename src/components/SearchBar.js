@@ -295,8 +295,6 @@ export default function SearchBar() {
     [searchResult],
   );
 
-  console.log('searchResult', searchResult);
-
   return (
     <SearchContainer
       isExpanded={isExpanded}
