@@ -1,9 +1,8 @@
 import { BASE_URL } from '~/constants/config';
 
 const getImage = (imageId) => {
-  if (!imageId) return null; // Return early if imageId is not provided.
   const stringUrl = `${BASE_URL}/images/${imageId}`;
-  return stringUrl;
+  return imageId ? stringUrl : null;
 };
 
 export default getImage;
