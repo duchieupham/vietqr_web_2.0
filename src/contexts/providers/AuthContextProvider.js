@@ -1,8 +1,9 @@
 'use client';
 
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createContext, useCallback, useEffect, useState } from 'react';
+import { DEFAULT_PATH, PAGE_PATHS } from '~/constants';
 import decodeJwt from '~/utils/decodeJwt';
 import { getHostUrl } from '~/utils/getHostUrl';
 import { getLocalStorage, setLocalStorage } from '~/utils/localStorageHelper';
@@ -16,6 +17,7 @@ const AuthContext = createContext(initialContext);
 
 function AuthContextProvider({ children }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [session, setSession] = useState(initialContext.session);
   const [loading, setLoading] = useState(initialContext.loading);
 
@@ -41,9 +43,10 @@ function AuthContextProvider({ children }) {
         setSession(decodedData);
         setLocalStorage('session', JSON.stringify(decodedData));
         // for check token
-        router.prefetch('/dashboard');
+        const url = searchParams.get('redirectUrl') || DEFAULT_PATH;
+        router.prefetch(url);
+        router.push(url);
         setTimeout(() => {
-          router.push('/dashboard');
           setLoading(false);
         }, 500);
       }
@@ -59,7 +62,7 @@ function AuthContextProvider({ children }) {
       if (res.status === 200) {
         setLocalStorage('session', null);
         setSession(null);
-        router.prefetch('/login');
+        router.prefetch(PAGE_PATHS.LOGIN);
         // for check token
         setTimeout(() => {
           router.push('/login');
