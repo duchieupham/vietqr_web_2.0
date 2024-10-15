@@ -9,7 +9,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'VietQR',
-  description: '',
+  description: 'VietQR Admin Pro',
 };
 
 export default async function RootLayout({ children }) {
