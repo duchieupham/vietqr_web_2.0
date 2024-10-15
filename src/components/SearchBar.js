@@ -17,6 +17,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { searchAPI } from '~/api/search/searchService';
 import { useAuthContext } from '~/contexts/hooks';
 import { ButtonGradient } from './button';
+import LoadingContainer from './feedback/LoadingContainer';
 
 const SearchContainer = ({
   theme,
@@ -185,28 +186,21 @@ function searchByLabel(query, t) {
   return newSearchResult;
 }
 
-function ShowTheSearchResult({ label, searchResult }) {
+function ShowTheSearchResult({ label, searchResult, isLoading }) {
   const t = useTranslations();
+  const result = searchResult[label];
+
+  if (isLoading) return <LoadingContainer />;
+  if (result.length === 0) return null;
 
   const renderedResults = useMemo(
     () =>
-      Object.keys(searchResult).map((key) => {
-        if (searchResult[key].length === 0) {
-          return null; // Skip empty results
-        }
-        return (
-          <Box key={key}>
-            {label === key &&
-              searchResult[key].length > 0 &&
-              searchResult[key]?.map((item) => (
-                <ListItem key={item.label}>
-                  <Image src={item.icon} width={30} height={30} alt="icon" />
-                  <Box>{t(item.label)}</Box>
-                </ListItem>
-              ))}
-          </Box>
-        );
-      }),
+      result?.map((item) => (
+        <ListItem key={item.label}>
+          <Image src={item.icon} width={30} height={30} alt="icon" />
+          <Box>{t(item.label)}</Box>
+        </ListItem>
+      )),
     [label, searchResult, t],
   );
 
@@ -221,6 +215,7 @@ export default function SearchBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClearQuery = (e) => {
     if (e) {
@@ -250,6 +245,8 @@ export default function SearchBar() {
       return;
     }
 
+    setIsLoading(true);
+
     const result = searchByLabel(lowerCaseQuery, t);
 
     // search transaction if query length >= 10 characters
@@ -261,15 +258,17 @@ export default function SearchBar() {
       });
 
       if (transactionResult) {
-        result.transaction = transactionResult?.transactions.map((txn) => ({
-          label: txn.description,
-          icon: '/icons/transaction-icon.svg',
+        result.transaction = transactionResult.map((txn) => ({
+          // id: txn.transactionId,
+          amount: txn.amount,
+          content: txn.content,
         }));
       }
     }
 
     // set the new search result
     setSearchResult(result);
+    setIsLoading(false);
   };
 
   // Debounce search change
@@ -473,6 +472,7 @@ export default function SearchBar() {
                     <ShowTheSearchResult
                       searchResult={searchResult}
                       label={item.label}
+                      isLoading={isLoading}
                     />
                   </ListItem>
                 ))
