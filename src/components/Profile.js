@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
+import { useMemo } from 'react';
 import { useAuthContext } from '~/contexts/hooks';
 import getImage from '~/utils/getImage';
 
@@ -6,7 +7,7 @@ const DEFAULT_IMAGE_URL = '/images/logo.png';
 
 export default function Profile({ ...props }) {
   const { session } = useAuthContext();
-  const imageUrl = getImage(session?.imgId);
+  const imageUrl = useMemo(() => getImage(session?.imgId), [session]);
 
   return (
     <Box sx={{ display: 'flex', gap: 1 }}>
