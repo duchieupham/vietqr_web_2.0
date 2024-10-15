@@ -2564,22 +2564,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.6":
-  version: 4.17.12
-  resolution: "@types/lodash-es@npm:4.17.12"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 10c0/5d12d2cede07f07ab067541371ed1b838a33edb3c35cb81b73284e93c6fd0c4bbeaefee984e69294bffb53f62d7272c5d679fdba8e595ff71e11d00f2601dde0
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.17.7
-  resolution: "@types/lodash@npm:4.17.7"
-  checksum: 10c0/40c965b5ffdcf7ff5c9105307ee08b782da228c01b5c0529122c554c64f6b7168fc8f11dc79aa7bae4e67e17efafaba685dc3a47e294dbf52a65ed2b67100561
-  languageName: node
-  linkType: hard
-
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.2
   resolution: "@types/parse-json@npm:4.0.2"
@@ -3608,7 +3592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.12":
+"dayjs@npm:^1.11.13":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: 10c0/a3caf6ac8363c7dade9d1ee797848ddcf25c1ace68d9fe8678ecf8ba0675825430de5d793672ec87b24a69bf04a1544b176547b2539982275d5542a7955f35b7
@@ -5574,13 +5558,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
-  languageName: node
-  linkType: hard
-
 "loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -6901,28 +6878,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simplebar-core@npm:^1.2.6":
-  version: 1.2.6
-  resolution: "simplebar-core@npm:1.2.6"
-  dependencies:
-    "@types/lodash-es": "npm:^4.17.6"
-    lodash: "npm:^4.17.21"
-    lodash-es: "npm:^4.17.21"
-  checksum: 10c0/df6ab12755f32eb2388036d4cd30614d446ccb73f3ae594c7c2e579f8a6d6e5f07d64d85fceee3e943719ee9222f2ff5fe04549abf7cad534c82901eafa64703
-  languageName: node
-  linkType: hard
-
-"simplebar-react@npm:^3.2.6":
-  version: 3.2.6
-  resolution: "simplebar-react@npm:3.2.6"
-  dependencies:
-    simplebar-core: "npm:^1.2.6"
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: 10c0/c107cd9c50d42851c9ebb725261d7bb0c60f4a9c1f871580eafe105b4b9318e6b95af4b4d8b3be4fa54a35342785d3c29678ab32064994a403fcec78693089c7
-  languageName: node
-  linkType: hard
-
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -7550,7 +7505,7 @@ __metadata:
     axios: "npm:^1.7.3"
     cookies-next: "npm:^4.2.1"
     crypto-js: "npm:^4.2.0"
-    dayjs: "npm:^1.11.12"
+    dayjs: "npm:^1.11.13"
     eslint: "npm:^8.40.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-config-next: "npm:^14.0.0"
@@ -7582,7 +7537,6 @@ __metadata:
     redux-thunk: "npm:^3.1.0"
     sass: "npm:^1.77.8"
     sharp: "npm:^0.33.5"
-    simplebar-react: "npm:^3.2.6"
     styled-components: "npm:^6.1.12"
     uuid: "npm:^10.0.0"
     yup: "npm:^1.4.0"

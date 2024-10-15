@@ -5,7 +5,7 @@ import { Box, Button, Drawer, Grid, IconButton, Stack } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
 // contexts
 // react
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 // next
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,15 +13,15 @@ import Link from 'next/link';
 import drawerStyles from '~styles/Drawer.module.scss';
 import styles from '~styles/Header.module.scss';
 // hooks
-import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
 import ContactLangButton from '~/components/ContactLangButton';
 import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
+import getImage from '~/utils/getImage';
 
 export default function Navbar() {
-  const imageUri = useImage(AppImages.logoVietQr);
+  const imageUri = useMemo(() => getImage(AppImages?.logoVietQr), []);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
