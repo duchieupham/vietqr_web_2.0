@@ -21,10 +21,7 @@ import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
 import getImage from '~/utils/getImage';
 
 export default function Navbar() {
-  const imageUri = useMemo(
-    () => getImage(AppImages?.logoVietQr),
-    [AppImages?.logoVietQr],
-  );
+  const imageUri = useMemo(() => getImage(AppImages?.logoVietQr), []);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
