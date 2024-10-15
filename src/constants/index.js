@@ -44,3 +44,6 @@ export const LANGUAGE_OPTIONS = [
 
 // image
 export const VIETQR_IMAGE = '/images/logo.png';
+
+// date
+export const DATE_REGEX = 'YYYY-MM-DD HH:mm:ss';

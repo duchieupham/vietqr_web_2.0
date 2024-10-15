@@ -1,8 +1,7 @@
 /* eslint-disable object-shorthand */
 import dayjs from 'dayjs';
+import { DATE_REGEX } from '~/constants';
 import axiosInstance from '~/utils/getAxios';
-
-export const DATE_REGEX = 'YYYY-MM-DD HH:mm:ss';
 
 const searchTransaction = async ({ searchQuery, userId }) => {
   const currentDate = dayjs();
