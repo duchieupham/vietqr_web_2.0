@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 /* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,7 +18,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { searchAPI } from '~/api/search/searchService';
 import { useAuthContext } from '~/contexts/hooks';
 import { ButtonGradient } from './button';
-import LoadingContainer from './feedback/LoadingContainer';
+import { GradientCircularProgress } from './feedback/loading/LoadingWithLogo';
 
 const SearchContainer = ({
   theme,
@@ -186,11 +187,10 @@ function searchByLabel(query, t) {
   return newSearchResult;
 }
 
-function ShowTheSearchResult({ label, searchResult, isLoading }) {
+function ShowTheSearchResult({ label, searchResult }) {
   const t = useTranslations();
   const result = searchResult[label];
 
-  if (isLoading) return <LoadingContainer />;
   if (result.length === 0) return null;
 
   const renderedResults = useMemo(
@@ -438,7 +438,11 @@ export default function SearchBar() {
                 },
               }}
             >
-              {ITEMS.some((item) => searchResult[item.label].length > 0) ? (
+              {isLoading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <GradientCircularProgress />
+                </Box>
+              ) : ITEMS.some((item) => searchResult[item.label].length > 0) ? (
                 ITEMS.map((item) => {
                   const result = searchResult[item.label];
                   return (
@@ -465,7 +469,6 @@ export default function SearchBar() {
                         <ShowTheSearchResult
                           searchResult={searchResult}
                           label={item.label}
-                          isLoading={isLoading}
                         />
                       </ListItem>
                     )

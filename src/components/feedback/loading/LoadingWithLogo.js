@@ -1,7 +1,7 @@
 import { CircularProgress, Stack } from '@mui/material';
 import Image from 'next/image';
 
-const GradientCircularProgress = () => (
+export const GradientCircularProgress = () => (
   <>
     <svg width={0} height={0}>
       <defs>
