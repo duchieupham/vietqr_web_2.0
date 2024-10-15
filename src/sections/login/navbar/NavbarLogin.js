@@ -5,7 +5,7 @@ import { Box, Button, Drawer, Grid, IconButton, Stack } from '@mui/material';
 import AppImages from '~/constants/ImagesConstant';
 // contexts
 // react
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 // next
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +21,10 @@ import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
 import getImage from '~/utils/getImage';
 
 export default function Navbar() {
-  const imageUri = getImage(AppImages.logoVietQr);
+  const imageUri = useMemo(
+    () => getImage(AppImages?.logoVietQr),
+    [AppImages?.logoVietQr],
+  );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
