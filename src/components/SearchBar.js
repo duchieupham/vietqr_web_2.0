@@ -170,21 +170,15 @@ function searchByLabel(query, t) {
     if (item.children.length > 0) {
       item.children.forEach((child) => {
         const labelConverted = t(child.label).trim().toLowerCase(); // Convert label to text for searching in translation
-        if (!labelConverted.includes(query)) {
+        if (!labelConverted?.includes(query)) {
           return;
         }
-        if (
-          labelConverted &&
-          labelConverted.includes(query) &&
-          labelConverted.trim() !== ''
-        ) {
-          const isDuplicate = newSearchResult[item.label].some(
-            (existing) => existing.label === child.label,
-          );
-          // check duplicate search result
-          if (!isDuplicate) {
-            newSearchResult[item.label].push(child);
-          }
+        const isDuplicate = newSearchResult[item.label].some(
+          (existing) => existing.label === child.label,
+        );
+        // check duplicate search result
+        if (!isDuplicate) {
+          newSearchResult[item.label].push(child);
         }
       });
     }
