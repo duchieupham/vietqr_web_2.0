@@ -201,7 +201,7 @@ function ShowTheSearchResult({ label, searchResult, isLoading }) {
           <Box>{t(item.label)}</Box>
         </ListItem>
       )),
-    [label, searchResult, t],
+    [result, t],
   );
 
   return <Box>{renderedResults}</Box>;
@@ -230,22 +230,24 @@ export default function SearchBar() {
   };
 
   const collapseSearch = () => {
-    setIsExpanded(false);
-    handleClearQuery();
+    if (searchQuery.trim() === '') {
+      setIsExpanded(false);
+      handleClearQuery();
+    }
   };
 
   const isEmptySearch = searchQuery.trim() === '';
 
   const handleSearch = async (query) => {
+    setIsLoading(true);
     const lowerCaseQuery = query.trim().toLowerCase();
 
     // if the query is empty, reset the search results and return early
     if (!lowerCaseQuery) {
       handleClearQuery();
+      setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
 
     const result = searchByLabel(lowerCaseQuery, t);
 
@@ -436,9 +438,40 @@ export default function SearchBar() {
                 },
               }}
             >
-              {Object.values(searchResult).every(
-                (_searchResult) => _searchResult.length === 0,
-              ) ? (
+              {ITEMS.some((item) => searchResult[item.label].length > 0) ? (
+                ITEMS.map((item) => {
+                  const result = searchResult[item.label];
+                  return (
+                    result.length > 0 && (
+                      <ListItem
+                        key={item.label}
+                        sx={{
+                          flexDirection: 'column',
+                          alignItems: 'flex-start',
+                          pt: 0.5,
+                        }}
+                      >
+                        {/* Category */}
+                        <Box
+                          sx={{
+                            fontSize: '12px',
+                            color: theme.palette.slateGray,
+                            mt: 0.5,
+                          }}
+                        >
+                          {t(item.label)}
+                        </Box>
+                        {/* Search result */}
+                        <ShowTheSearchResult
+                          searchResult={searchResult}
+                          label={item.label}
+                          isLoading={isLoading}
+                        />
+                      </ListItem>
+                    )
+                  );
+                })
+              ) : (
                 <Box
                   sx={{
                     fontSize: '12px',
@@ -448,34 +481,6 @@ export default function SearchBar() {
                 >
                   {t('noResult')}
                 </Box>
-              ) : (
-                ITEMS.map((item) => (
-                  <ListItem
-                    key={item.label}
-                    sx={{
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                      pt: 0.5,
-                    }}
-                  >
-                    {/* Category */}
-                    <Box
-                      sx={{
-                        fontSize: '12px',
-                        color: theme.palette.slateGray,
-                        mt: 0.5,
-                      }}
-                    >
-                      {t(item.label)}
-                    </Box>
-                    {/* Search result */}
-                    <ShowTheSearchResult
-                      searchResult={searchResult}
-                      label={item.label}
-                      isLoading={isLoading}
-                    />
-                  </ListItem>
-                ))
               )}
             </Box>
           </Box>
