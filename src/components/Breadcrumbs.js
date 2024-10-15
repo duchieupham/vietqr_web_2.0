@@ -84,6 +84,8 @@ export default function Breadcrumbs({ activeLast = false, ...otherProps }) {
         '& .MuiBreadcrumbs-ol': {
           justifyContent: 'center',
           pt: 0.2,
+          display: 'flex',
+          flexWrap: 'nowrap',
         },
       }}
       {...otherProps}
@@ -124,6 +126,7 @@ function LinkItem({ id, href, label, icon, current, ...otherProps }) {
           pt: 0.6,
           color: theme.palette.slateGray,
           '& > div': { display: 'inherit' },
+          whiteSpace: 'nowrap',
         }}
         {...otherProps}
       >

@@ -8,6 +8,7 @@ import {
 import decodeJwt from './utils/decodeJwt';
 
 export function routingMiddleware(req) {
+  let params;
   const path = req.nextUrl.pathname;
 
   if (path === '/') {
@@ -33,7 +34,10 @@ export function routingMiddleware(req) {
   } else {
     if (isPublicPath) return NextResponse.next();
 
-    return NextResponse.redirect(new URL('/login', req.url));
+    params = new URLSearchParams({
+      redirectUrl: path,
+    }).toString();
+    return NextResponse.redirect(new URL(`/login?${params}`, req.url));
   }
 
   return NextResponse.next();

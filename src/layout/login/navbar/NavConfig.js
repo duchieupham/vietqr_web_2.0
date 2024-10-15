@@ -1,4 +1,4 @@
-import { PATH_PAGE } from '~/constants';
+import { PAGE_PATHS } from '~/constants';
 
 export const NAVBAR_CONFIG = {
   login: {
@@ -8,27 +8,27 @@ export const NAVBAR_CONFIG = {
       {
         id: 1,
         name: 'headerHome',
-        path: PATH_PAGE.login.home,
+        path: PAGE_PATHS.HOME,
       },
       {
         id: 2,
         name: 'headerQR',
-        path: PATH_PAGE.login.createQr,
+        path: PAGE_PATHS.CREATEQR,
       },
       {
         id: 3,
         name: 'headerServiceConnect',
-        path: PATH_PAGE.login.serviceConnect,
+        path: PAGE_PATHS.SERVICE_CONNECT,
       },
       {
         id: 4,
         name: 'headerLogin',
-        path: PATH_PAGE.login.login,
+        path: PAGE_PATHS.LOGIN,
       },
       {
         id: 5,
         name: 'headerRegister',
-        path: PATH_PAGE.login.register,
+        path: PAGE_PATHS.REGISTER,
       },
     ],
   },

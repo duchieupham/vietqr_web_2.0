@@ -287,3 +287,8 @@ export const DASHBOARD_TYPE = [
     ],
   },
 ];
+
+export const DASHBOARD_MODE = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
+};
