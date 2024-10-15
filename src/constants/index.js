@@ -3,14 +3,12 @@ export const LOCALE_COOKIE = 'LOCALE';
 export const AUTH_COOKIE = 'AUTH_TOKEN';
 
 // path
-export const PATH_PAGE = {
-  login: {
-    home: '/',
-    createQr: '/create',
-    serviceConnect: '/dashboard',
-    login: '/login',
-    register: '/register',
-  },
+export const PAGE_PATHS = {
+  HOME: '/',
+  CREATEQR: '/create',
+  SERVICE_CONNECT: '/dashboard',
+  LOGIN: '/login',
+  REGISTER: '/register',
 };
 export const DEFAULT_PATH = '/dashboard';
 export const PUBLIC_PATHS = ['/', '/login', '/register', '/notice', '/expired'];
