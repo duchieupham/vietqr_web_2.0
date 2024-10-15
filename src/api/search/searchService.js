@@ -1,17 +1,23 @@
+/* eslint-disable object-shorthand */
+import dayjs from 'dayjs';
+import { DATE_REGEX } from '~/constants';
 import axiosInstance from '~/utils/getAxios';
 
-const searchTransaction = async ({ searchQuery, userID }) => {
-  const currentDate = new Date();
-  const numOfPastDays = currentDate.getDate() - 30; // 30 days ago
-  const param = {
+const searchTransaction = async ({ searchQuery, userId }) => {
+  const currentDate = dayjs();
+  const numOfPastDays = currentDate.subtract(30, 'day');
+  const params = {
     value: searchQuery,
-    userId: userID,
-    fromDate: numOfPastDays,
-    toDate: currentDate,
+    userId: userId,
+    fromDate: numOfPastDays.format(DATE_REGEX),
+    toDate: currentDate.format(DATE_REGEX),
     offset: 1,
   };
-  const res = await axiosInstance.get('apitransactions/list/web-v2', param);
-  return res;
+  const res = await axiosInstance.get('transactions/list/web-v2', {
+    useAuth: true,
+    params: params,
+  });
+  return res?.data || null;
 };
 
 export const searchAPI = { searchTransaction };

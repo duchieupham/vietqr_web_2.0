@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 /* eslint-disable indent */
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,11 +11,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { debounce } from 'lodash-es';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { searchAPI } from '~/api/search/searchService';
 import { useAuthContext } from '~/contexts/hooks';
 import { ButtonGradient } from './button';
+import { GradientCircularProgress } from './feedback/loading';
 
 const SearchContainer = ({
   theme,
@@ -153,46 +157,54 @@ const DEFAULT_SEARCH_RESULT = {
 };
 
 function searchByLabel(query, t) {
-  const searchResult = DEFAULT_SEARCH_RESULT;
+  if (!query) return { ...DEFAULT_SEARCH_RESULT };
+
+  const newSearchResult = { ...DEFAULT_SEARCH_RESULT };
+
   // Search in ITEMS
   ITEMS.forEach((item) => {
+    if (newSearchResult[item.label]) {
+      newSearchResult[item.label] = [];
+    }
     // Search in children of each item
-    // If the label of the child includes the query, add it to the search result
+    // If the label of the child includes the query, add it to the new search result
     if (item.children.length > 0) {
       item.children.forEach((child) => {
-        const labelConverted = t(child.label);
-        if (labelConverted.toLowerCase().includes(query.toLowerCase())) {
-          searchResult[item.label].push(child);
+        const labelConverted = t(child.label).trim().toLowerCase(); // Convert label to text for searching in translation
+        if (!labelConverted?.includes(query)) {
+          return;
+        }
+        const isDuplicate = newSearchResult[item.label].some(
+          (existing) => existing.label === child.label,
+        );
+        // check duplicate search result
+        if (!isDuplicate) {
+          newSearchResult[item.label].push(child);
         }
       });
     }
   });
-  return searchResult;
+  return newSearchResult;
 }
 
 function ShowTheSearchResult({ label, searchResult }) {
   const t = useTranslations();
-  return (
-    <Box>
-      {Object.keys(searchResult).map((key) => {
-        if (searchResult[key].length === 0) {
-          return null;
-        }
-        return (
-          <Box key={key}>
-            {label === key &&
-              searchResult[key].length > 0 &&
-              searchResult[key]?.map((item) => (
-                <ListItem key={item.label}>
-                  <Image src={item.icon} width={30} height={30} alt="icon" />
-                  <Box>{t(item.label)}</Box>
-                </ListItem>
-              ))}
-          </Box>
-        );
-      })}
-    </Box>
+  const result = searchResult[label];
+
+  if (result.length === 0) return null;
+
+  const renderedResults = useMemo(
+    () =>
+      result?.map((item) => (
+        <ListItem key={item.label}>
+          <Image src={item.icon} width={30} height={30} alt="icon" />
+          <Box>{t(item.label)}</Box>
+        </ListItem>
+      )),
+    [result],
   );
+
+  return <Box>{renderedResults}</Box>;
 }
 
 export default function SearchBar() {
@@ -202,31 +214,8 @@ export default function SearchBar() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  const expandSearch = () => {
-    setIsExpanded(true);
-  };
-
-  const collapseSearch = () => {
-    setIsExpanded(false);
-    setSearchQuery('');
-  };
-
   const [searchResult, setSearchResult] = useState(DEFAULT_SEARCH_RESULT);
-
-  const isEmptySearch = searchQuery.trim() === '';
-
-  const onSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    if (query) {
-      const result = searchByLabel(query, t);
-      setSearchResult(result);
-    } else {
-      setSearchQuery('');
-      setSearchResult(DEFAULT_SEARCH_RESULT);
-    }
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClearQuery = (e) => {
     if (e) {
@@ -235,6 +224,76 @@ export default function SearchBar() {
     setSearchQuery('');
     setSearchResult(DEFAULT_SEARCH_RESULT);
   };
+
+  const expandSearch = () => {
+    setIsExpanded(true);
+  };
+
+  const collapseSearch = () => {
+    if (searchQuery.trim() === '') {
+      setIsExpanded(false);
+      handleClearQuery();
+    }
+  };
+
+  const isEmptySearch = searchQuery.trim() === '';
+
+  const handleSearch = async (query) => {
+    setIsLoading(true);
+    const parsedQuery = query.trim().toLowerCase();
+
+    // if the query is empty, reset the search results and return early
+    if (!parsedQuery) {
+      handleClearQuery();
+      setIsLoading(false);
+      return;
+    }
+
+    const result = searchByLabel(parsedQuery, t);
+
+    // search transaction if query length >= 10 characters
+    if (parsedQuery.length >= 10) {
+      const transactionResult = await searchAPI.searchTransaction({
+        searchQuery: parsedQuery,
+        userId: session?.userId, // required
+        // userId: '648dca06-4f72-4df8-b98f-429f4777fbda', // test
+      });
+
+      if (transactionResult) {
+        result.transaction = transactionResult.map((txn) => ({
+          // id: txn.transactionId,
+          amount: txn.amount,
+          content: txn.content,
+        }));
+      }
+    }
+
+    // set the new search result
+    setSearchResult(result);
+    setIsLoading(false);
+  };
+
+  // Debounce search change
+  const debouncedSearchChange = useMemo(() => debounce(handleSearch, 300), []);
+
+  // Clear debounce on unmount
+  useEffect(
+    () => () => {
+      debouncedSearchChange.cancel();
+    },
+    [debouncedSearchChange],
+  );
+
+  const onInputChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearchChange(query);
+  };
+
+  const searchResultIsEmpty = useMemo(
+    () => Object.values(searchResult).every((result) => result.length === 0),
+    [searchResult],
+  );
 
   return (
     <SearchContainer
@@ -245,7 +304,7 @@ export default function SearchBar() {
       <TextField
         onFocus={expandSearch}
         onBlur={collapseSearch}
-        onChange={onSearchChange}
+        onChange={onInputChange}
         variant="outlined"
         placeholder={`${t('Hello')} ${session?.firstName}, ${t('search')}`}
         value={searchQuery}
@@ -384,9 +443,11 @@ export default function SearchBar() {
                 },
               }}
             >
-              {Object.values(searchResult).every(
-                (_searchResult) => _searchResult.length === 0,
-              ) ? (
+              {isLoading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <GradientCircularProgress />
+                </Box>
+              ) : searchResultIsEmpty ? (
                 <Box
                   sx={{
                     fontSize: '12px',

@@ -37,7 +37,12 @@
           ["~hooks", "./src/hooks"],
           ["~styles", "./src/styles"],
           ["~api", "./src/api"],
-          ["~contexts", "./src/contexts"]
+          ["~contexts", "./src/contexts"],
+          ["~constants", "./src/constants"],
+          ["~layout", "./src/layout"],
+          ["~sections", "./src/sections"],
+          ["~routes", "./src/routes"],
+          ["~public", "./public"]
         ]
       }
     }
@@ -49,9 +54,7 @@
         "endOfLine": "auto"
       }
     ],
-   "operator-linebreak": [
-      "off"
-    ],
+    "operator-linebreak": ["off"],
     "import/extensions": [
       "error",
       "never",
