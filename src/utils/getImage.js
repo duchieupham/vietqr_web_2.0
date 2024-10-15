@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useImage = (imageId) => {
+const getImage = (imageId) => {
   const [imageUri, setImageUri] = useState('');
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,4 +18,4 @@ const useImage = (imageId) => {
   return imageUri;
 };
 
-export default useImage;
+export default getImage;

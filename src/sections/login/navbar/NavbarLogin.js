@@ -13,15 +13,15 @@ import Link from 'next/link';
 import drawerStyles from '~styles/Drawer.module.scss';
 import styles from '~styles/Header.module.scss';
 // hooks
-import useImage from '~/hooks/useImage';
 import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
 import ContactLangButton from '~/components/ContactLangButton';
 import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
+import getImage from '~/utils/getImage';
 
 export default function Navbar() {
-  const imageUri = useImage(AppImages.logoVietQr);
+  const imageUri = getImage(AppImages.logoVietQr);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');

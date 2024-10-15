@@ -18,7 +18,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { searchAPI } from '~/api/search/searchService';
 import { useAuthContext } from '~/contexts/hooks';
 import { ButtonGradient } from './button';
-import { GradientCircularProgress } from './feedback/loading/LoadingWithLogo';
+import { GradientCircularProgress } from './feedback/loading';
 
 const SearchContainer = ({
   theme,
@@ -201,7 +201,7 @@ function ShowTheSearchResult({ label, searchResult }) {
           <Box>{t(item.label)}</Box>
         </ListItem>
       )),
-    [result, t],
+    [result],
   );
 
   return <Box>{renderedResults}</Box>;
@@ -289,6 +289,13 @@ export default function SearchBar() {
     setSearchQuery(query);
     debouncedSearchChange(query);
   };
+
+  const searchResultIsEmpty = useMemo(
+    () => Object.values(searchResult).every((result) => result.length === 0),
+    [searchResult],
+  );
+
+  console.log('searchResult', searchResult);
 
   return (
     <SearchContainer
@@ -442,39 +449,7 @@ export default function SearchBar() {
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                   <GradientCircularProgress />
                 </Box>
-              ) : ITEMS.some((item) => searchResult[item.label].length > 0) ? (
-                ITEMS.map((item) => {
-                  const result = searchResult[item.label];
-                  return (
-                    result.length > 0 && (
-                      <ListItem
-                        key={item.label}
-                        sx={{
-                          flexDirection: 'column',
-                          alignItems: 'flex-start',
-                          pt: 0.5,
-                        }}
-                      >
-                        {/* Category */}
-                        <Box
-                          sx={{
-                            fontSize: '12px',
-                            color: theme.palette.slateGray,
-                            mt: 0.5,
-                          }}
-                        >
-                          {t(item.label)}
-                        </Box>
-                        {/* Search result */}
-                        <ShowTheSearchResult
-                          searchResult={searchResult}
-                          label={item.label}
-                        />
-                      </ListItem>
-                    )
-                  );
-                })
-              ) : (
+              ) : searchResultIsEmpty ? (
                 <Box
                   sx={{
                     fontSize: '12px',
@@ -484,6 +459,33 @@ export default function SearchBar() {
                 >
                   {t('noResult')}
                 </Box>
+              ) : (
+                ITEMS.map((item) => (
+                  <ListItem
+                    key={item.label}
+                    sx={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      pt: 0.5,
+                    }}
+                  >
+                    {/* Category */}
+                    <Box
+                      sx={{
+                        fontSize: '12px',
+                        color: theme.palette.slateGray,
+                        mt: 0.5,
+                      }}
+                    >
+                      {t(item.label)}
+                    </Box>
+                    {/* Search result */}
+                    <ShowTheSearchResult
+                      searchResult={searchResult}
+                      label={item.label}
+                    />
+                  </ListItem>
+                ))
               )}
             </Box>
           </Box>
