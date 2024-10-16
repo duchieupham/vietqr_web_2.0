@@ -1,6 +1,13 @@
 import { SNACKBAR_TRANSITIONS } from '~/components/feedback/Snackbar';
 import { useSnackbarContext } from '~/contexts/hooks';
 
+export const SNACKBAR_TYPES = {
+  DEFAULT: 'default',
+  SUCCESS: 'success',
+  INFO: 'info',
+  ERROR: 'error',
+};
+
 const useSnackbar = () => {
   const defaultOptions = {
     transition: SNACKBAR_TRANSITIONS.FADE,
@@ -12,54 +19,24 @@ const useSnackbar = () => {
     },
   };
   const { setSnackbar, setOpen } = useSnackbarContext();
-  const handleSnackbar = (options) => {
+
+  const showSnackbar = (options) => {
     setOpen(true);
     setSnackbar((prev) => ({ ...prev, ...options }));
   };
 
   return {
-    show({ message, duration, transition, position }) {
-      const options = {
-        type: 'default',
-        transition: transition || defaultOptions.transition,
-        message: message || defaultOptions.message,
-        duration: duration || defaultOptions.duration,
-        position: position || defaultOptions.position,
-      };
-      handleSnackbar(options);
+    show(options = { ...defaultOptions }) {
+      showSnackbar({ type: SNACKBAR_TYPES.DEFAULT, ...options });
     },
-    success({ message, duration, transition, position }) {
-      const options = {
-        type: 'success',
-        transition: transition || defaultOptions.transition,
-        message: message || defaultOptions.message,
-        duration: duration || defaultOptions.duration,
-        position: position || defaultOptions.position,
-      };
-
-      handleSnackbar(options);
+    success(options = { ...defaultOptions }) {
+      showSnackbar({ type: SNACKBAR_TYPES.SUCCESS, ...options });
     },
-    info({ message, duration, transition, position }) {
-      const options = {
-        type: 'info',
-        transition: transition || defaultOptions.transition,
-        message: message || defaultOptions.message,
-        duration: duration || defaultOptions.duration,
-        position: position || defaultOptions.position,
-      };
-
-      handleSnackbar(options);
+    info(options = { ...defaultOptions }) {
+      showSnackbar({ type: SNACKBAR_TYPES.INFO, ...options });
     },
-    error({ message, duration, transition, position }) {
-      const options = {
-        type: 'error',
-        transition: transition || defaultOptions.transition,
-        message: message || defaultOptions.message,
-        duration: duration || defaultOptions.duration,
-        position: position || defaultOptions.position,
-      };
-
-      handleSnackbar(options);
+    error(options = { ...defaultOptions }) {
+      showSnackbar({ type: SNACKBAR_TYPES.ERROR, ...options });
     },
     hide() {
       setOpen(false);
