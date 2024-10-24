@@ -1,0 +1,47 @@
+// cookie
+export const LOCALE_COOKIE = 'LOCALE';
+export const AUTH_COOKIE = 'AUTH_TOKEN';
+
+// path
+export const PAGE_PATHS = {
+  HOME: '/',
+  CREATEQR: '/create',
+  SERVICE_CONNECT: '/dashboard',
+  LOGIN: '/login',
+  REGISTER: '/register',
+};
+export const DEFAULT_PATH = '/dashboard';
+export const PUBLIC_PATHS = ['/', '/login', '/register', '/notice', '/expired'];
+export const UNAUTHORIZED_PUBLIC_PATHS = ['/login', '/register'];
+
+// regex
+export const PHONE_REGEX =
+  /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/g;
+export const NUMBER_REGEX = /^[0-9]*$/;
+export const PHONE_LENGTH_REGEX = /^\d{10}$/;
+export const PASSWORD_LENGTH_REGEX = /^\d{6}$/;
+
+// lang
+export const DEFAULT_LANG = 'vi';
+export const LANGUAGE_OPTIONS = [
+  {
+    id: 1,
+    label: 'vietnamese',
+    value: 'vi',
+    circleIcon: '/images/vietnam_circle_flag.svg', // circle flag
+    flagIcon: '/images/VN.png', // flag
+  },
+  {
+    id: 2,
+    label: 'english',
+    value: 'en',
+    circleIcon: '/images/us_circle_flag.svg',
+    flagIcon: '/images/GB.png',
+  },
+];
+
+// image
+export const VIETQR_IMAGE = '/images/logo.png';
+
+// date
+export const DATE_REGEX = 'YYYY-MM-DD HH:mm:ss';

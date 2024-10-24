@@ -1,0 +1,11 @@
+.footer__left {
+  &_col {
+    span {
+      border-left: 1.75px solid #dadada;
+      height: 16px;
+      align-items: center;
+      display: flex;
+      margin-bottom: 10px;
+    }
+  }
+}

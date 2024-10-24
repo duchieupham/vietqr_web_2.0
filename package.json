@@ -1,0 +1,94 @@
+{
+  "name": "vietqr-react",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "minhdt",
+  "scripts": {
+    "dev": "next dev -p 8080 -H 0.0.0.0",
+    "loc": "next dev -p 3000 -H 0.0.0.0",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@hookform/resolvers": "^3.9.0",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/material-nextjs": "^5.16.6",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@reduxjs/toolkit": "^2.2.7",
+    "@svgr/webpack": "^8.1.0",
+    "axios": "^1.7.3",
+    "cookies-next": "^4.2.1",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.13",
+    "hamburger-react": "^2.5.1",
+    "i18next": "^23.12.2",
+    "install": "^0.13.0",
+    "js-crypto-hmac": "^1.0.7",
+    "jwt-decode": "^4.0.0",
+    "lodash-es": "^4.17.21",
+    "next": "14.2.5",
+    "next-intl": "^3.17.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.2",
+    "react-multi-carousel": "^2.8.5",
+    "react-qr-code": "^2.0.15",
+    "react-redux": "^9.1.2",
+    "react-use-websocket": "3.0.0",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^3.1.0",
+    "sass": "^1.77.8",
+    "sharp": "^0.33.5",
+    "styled-components": "^6.1.12",
+    "uuid": "^10.0.0",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "^14.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.0"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ],
+          "moduleDirectory": [
+            "node_modules",
+            "src/"
+          ]
+        }
+      }
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80
+  }
+}
