@@ -12,6 +12,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+---
 
 ## Project structure: how to create a page
 ### Page layout sample:
@@ -35,6 +36,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         |-- sidebar folder (same as above)
         |-- section.js (StatisticBoard)
         ...
+    |-- section.js (LanguageSelect - used in many pages)
 |-- components
     |-- page folder
         |-- header folder (contains components in section of header's sections)
@@ -42,5 +44,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         |-- sidebar folder (same as above)
         |-- component.js (BarChart)
         ...
+    |-- element folder
+        |-- Button.js
+        ...
+    |-- component.js (Logo - used in many sections)
 Do not need to create the folder if empty!
 ```
