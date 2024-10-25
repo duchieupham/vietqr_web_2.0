@@ -4,15 +4,14 @@ import { Box, IconButton, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Hamburger from 'hamburger-react';
 import Breadcrumbs from '~/components/Breadcrumbs';
 import ContactLangButton from '~/components/ContactLangButton';
+import SearchBar from '~/components/SearchBar';
 import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { Z_INDEX } from '~/constants/styles';
 import { useAppSelector } from '~/redux/hook';
-import DrawerMobile from '~/sections/dashboard/sidebar/DrawerMobile';
-import SearchBar from '../../../components/SearchBar';
-import AccountPopover from './AccountPopover';
-import DashboardMode from './DashboardMode';
-import NotificationPopover from './NotificationPopover';
+import AccountPopover from '../../sections/dashboard/header/AccountPopover';
+import DashboardMode from '../../sections/dashboard/header/DashboardMode';
+import NotificationPopover from '../../sections/dashboard/header/NotificationPopover';
 
 export default function DashboardHeader({ isOpen, onClick }) {
   const { dashboardMode } = useAppSelector((store) => store.app);
@@ -42,7 +41,6 @@ export default function DashboardHeader({ isOpen, onClick }) {
             <Hamburger toggled={isOpen} toggle={onClick} size={20} />
           </IconButton>
           <VietQRLogo />
-          <DrawerMobile isOpen={isOpen} onClose={onClick} />
         </Box>
       ) : // Desktop
       dashboardMode === DASHBOARD_MODE.HORIZONTAL ? (

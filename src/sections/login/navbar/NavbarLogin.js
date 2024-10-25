@@ -17,7 +17,7 @@ import useResponsive from '~/hooks/useResponsive';
 // others
 import Hamburger from 'hamburger-react';
 import ContactLangButton from '~/components/ContactLangButton';
-import LoginHeaderBar from '~/layout/login/header/LoginHeaderBar';
+import LoginHeaderBar from '~/layout/login/Header';
 import getImage from '~/utils/getImage';
 
 export default function Navbar() {
