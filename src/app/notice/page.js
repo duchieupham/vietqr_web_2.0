@@ -13,10 +13,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { TextGradient } from '~/components/text';
-import Features from '~/sections/notice/Features';
-import FeesApply from '~/sections/notice/FeesApply';
-import FeesGrid from '~/sections/notice/FeesGrid';
-import Footer from '~/sections/notice/Footer';
+import { Features, FeesApply, FeesGrid, Footer } from '~/sections/notice';
 
 export default function Notice() {
   const t = useTranslations();

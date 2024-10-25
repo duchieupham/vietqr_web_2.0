@@ -9,9 +9,11 @@ import VietQRLogo from '~/components/VietQRLogo';
 import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { Z_INDEX } from '~/constants/styles';
 import { useAppSelector } from '~/redux/hook';
-import AccountPopover from '../../sections/dashboard/header/AccountPopover';
-import DashboardMode from '../../sections/dashboard/header/DashboardMode';
-import NotificationPopover from '../../sections/dashboard/header/NotificationPopover';
+import {
+  AccountPopover,
+  DashboardMode,
+  NotificationPopover,
+} from '~/sections/dashboard/header';
 
 export default function DashboardHeader({ isOpen, onClick }) {
   const { dashboardMode } = useAppSelector((store) => store.app);
