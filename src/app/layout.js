@@ -4,13 +4,11 @@ import { getLocale, getMessages } from 'next-intl/server';
 import ContextProvider from '~/contexts/ContextProvider';
 import { IntlProvider, ReduxStoreProvider } from '~/providers';
 import theme from '~/theme';
+import { METADATA } from '~/constants/config';
 import DynamicLayout from './DynamicLayout';
 import './globals.css';
 
-export const metadata = {
-  title: 'VietQR',
-  description: 'VietQR Admin Pro',
-};
+export const metadata = METADATA;
 
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
