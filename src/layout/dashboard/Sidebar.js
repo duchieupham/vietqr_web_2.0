@@ -7,7 +7,8 @@ import Breadcrumbs from '~/components/Breadcrumbs';
 import { DASHBOARD_MODE } from '~/constants/dashboard';
 import { useAppSelector } from '~/redux/hook';
 import { VerticalSidebar } from '~/sections/dashboard/sidebar';
-import DashboardHeader from '../header/DashboardHeader';
+import MobileDrawer from '~/sections/dashboard/sidebar/DrawerMobile';
+import DashboardHeader from './Header';
 
 const DRAWER_WIDTH = 240;
 const TOOLBAR_HEIGHT = '64px';
@@ -66,6 +67,9 @@ export default function DashboardSidebar({ children }) {
             }}
           >
             <DashboardHeader isOpen={isOpen} onClick={onClickDrawerMobile} />
+            {isMobile && (
+              <MobileDrawer isOpen={isOpen} onClose={onClickDrawerMobile} />
+            )}
           </Toolbar>
         </AppBar>
         {dashboardMode === DASHBOARD_MODE.HORIZONTAL && <Breadcrumbs />}

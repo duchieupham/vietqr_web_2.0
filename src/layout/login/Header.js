@@ -1,5 +1,5 @@
 import CustomList from '~/components/list/CustomList';
-import { NAVBAR_CONFIG } from '~/layout/login/navbar/NavConfig';
+import { NAVBAR_CONFIG } from '~/sections/login/navbar/NavConfig';
 
 function LoginHeaderBar({ style, styles }) {
   const navList = NAVBAR_CONFIG.login.items;
